@@ -1,1 +1,7 @@
 si te piden cuuantos bits necesitas para tener equis numeros y no tienes los bits exactos pillas uno de mas; logN en exceso
+
+signo-magnitud: el primer bit se usa solo para el signo pero entonces se pierde un numero, problema que tienes dos formas de representar el cero, una positivo y el otro negativo. Dificil de sumar etc. rango 2^(n-1) pero con dos ceros.
+
+complemento a 2: mitad para los positivos y la otra mitad para los negativos, el cero se mete en los positivos. los positivos se hacen igual pero los negativos se hacen restando hasta q te de 999 y dsps le sumas uno. 147->852+1. Si te pasas de esa mitad tienes q darle la vuelta 243+853(-147)==096
+
+con binario es cambiar todos los 0 por 1 y sumarle 1 y lo mismo al reves.
