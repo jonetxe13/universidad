@@ -1,0 +1,12 @@
+No son solo las transparencias para los examenes asi q del libro y haz mas apuntes puto.
+
+1. electrostatica:
+	1.1. carga electrica: algo de la materia. Dos tipos de carga, positivas y negativas, dos tipos de fuerza, iguales se atraen distintas se repelen. Q=carga constante; q=carga variable; q(t)=carga variable con el tiempo. Unidad de carga el coulomb "C", unidad basica es el electron y su carga es (-1,6E-19 C). La carga tiene que ser divisible por la carga de un electron. 
+	
+	1.2.Ley de Coulomb= F=(k·((q1·q2)/r^2))·u; k=9·10^7
+
+	1.3.Principio de superposicion= la suma de las fuerzas
+
+	1.4.Campo electrico=la fuerza que se ejerce sobre la unidad de carga positiva; E=F/q; Tambien se aplica el principio de superposicion.
+	1.5. Trabajo realizado es Wa->b= integral de a a b de F= Wa->b=-(Epb-Epa)
+	1.6 Potencial electrostatico= V=Ep/q; Wa->b=-q(Vb-Va)

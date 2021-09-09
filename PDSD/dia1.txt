@@ -1,0 +1,1 @@
+si te piden cuuantos bits necesitas para tener equis numeros y no tienes los bits exactos pillas uno de mas; logN en exceso
