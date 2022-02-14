@@ -52,7 +52,7 @@ public class Lab03Simulator {
 		Email user13 = new Email("user1", "user2", "sub3", "text3");
 		Email user2 = new Email("user2", "user1", "sub4", "text4");
 		Email[] lista = {user11, user12, user13, user2};
-		MailServer servidor = new MailServer(lista, 5);
+		MailServer servidor = new MailServer(lista, lista.length+1);
 		servidor.showAllEmails();
 	}
 
