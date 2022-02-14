@@ -34,12 +34,9 @@ public class MailServer {
 					emailList[i] = pMail;
 					numEmails += 1;
 				}
+				if(emailList[i+2] == null & i <= MAXIMUM_CAPACITY-2) break;
 			}
 	}
-	
-	/**
-	 * Method to show all emails stored in the server
-	 */
 	public void showAllEmails() {
 		for (int i = 0; i < MAXIMUM_CAPACITY; i++){
 			if (numEmails-1 <= i) break;
