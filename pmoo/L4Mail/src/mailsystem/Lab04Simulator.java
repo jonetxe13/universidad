@@ -1,11 +1,13 @@
 package mailsystem;
 
+import java.util.ArrayList;
+
 /**
  * Class for simulating MailServer activity
  * @author PMOO teachers
  *
  */
-public class Lab03Simulator {
+public class Lab04Simulator {
 
 	/**
 	 * Main method
@@ -51,9 +53,17 @@ public class Lab03Simulator {
 		Email user12 = new Email("user1", "user2", "sub2", "text2");
 		Email user13 = new Email("user1", "user2", "sub3", "text3");
 		Email user2 = new Email("user2", "user1", "sub4", "text4");
-		Email[] lista = {user11, user12, user13, user2};
-		MailServer servidor = new MailServer(lista, lista.length+1);
+		//create an arraylist instance and add the emails to the list
+		ArrayList<Email> lista = new ArrayList<Email>();
+		lista.add(user11);
+		lista.add(user12);
+		lista.add(user13);
+		lista.add(user2);
+		//create a server instance and test the showAllEmails showSentEmails and showInbox methods
+		MailServer servidor = new MailServer(lista, lista.size());
+		/* 	servidor.showSentEmails("user1");
+			servidor.showInbox("user2");
+	 */		servidor.removeEmail(user11);
 		servidor.showAllEmails();
 	}
-
 }
