@@ -16,6 +16,7 @@ public class Lab04Simulator {
 	public static void main(String[] args) {
 		testEmail();
 		testMailServer();
+		testMailClient();
 	}
 
 	/**
@@ -65,5 +66,16 @@ public class Lab04Simulator {
 			servidor.showInbox("user2");
 	 */		servidor.removeEmail(user11);
 		servidor.showAllEmails();
+	}
+	public static void testMailClient() {
+		MailServer servidor = new MailServer(new ArrayList<Email>(), 0);
+		MailClient mailClient1 = new MailClient(servidor, "user1");
+		MailClient mailClient2 = new MailClient(servidor, "user2");
+		mailClient1.sendEmail("user1", "sub1", "text1");
+		mailClient1.sendEmail("user1", "sub2", "text2");
+		mailClient1.sendEmail("user1", "sub3", "text3");
+		mailClient2.sendEmail("user2", "sub4", "text4");
+		mailClient1.showMyInbox();
+		mailClient1.showMySent();
 	}
 }

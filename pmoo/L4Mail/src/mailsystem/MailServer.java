@@ -29,13 +29,10 @@ public class MailServer {
 	 * @param pMail Email to be stored
 	 */
 	public void storeEmail(Email pMail) {
-			for(int i = 0; i < MAXIMUM_CAPACITY; i++){
-				if(emailList.get(i) == null) {
-					emailList.set(i, pMail);
-					numEmails += 1;
-				}
-				if(emailList.get(i+2) == null & i <= MAXIMUM_CAPACITY-2) break;
-			}
+		if (numEmails < MAXIMUM_CAPACITY) {
+			emailList.add(pMail);
+			numEmails++;
+		}
 	}
 	public void showAllEmails() {
 		if (emailList.size() == 0) {
@@ -64,7 +61,9 @@ public class MailServer {
 	}
 	public void removeEmail(Email email){
 		for (int i = 0; i < emailList.size(); i++){
-			if (emailList.get(i) == email) emailList.remove(i);
+			if (emailList.get(i).equals(email)){
+				emailList.remove(i);
+			}
 		}
 	}
 
