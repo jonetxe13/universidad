@@ -44,7 +44,7 @@ public class Drink {
                 "brandName='" + brandName + '\'' +
                 ", calories='" + calories + '\'';
         for (int i = 0; i < pairings.length; i++) {
-            result += " " + pairings[i].getName() + " ";
+            if(pairings[i] != null) result += " " + pairings[i].getName() + " ";
         }
         result += '}';
         return result;
@@ -59,7 +59,7 @@ public class Drink {
 
     }
     public void removeFood(Food food){
-        for(int i = 0; i < pairings.length; i++){
+        for(int i = 0; i < pairings.length-1; i++){
             if(pairings[i].equals(food)){
                 pairings[i] = pairings[pairings.length - 1];
                 pairings[pairings.length - 1] = null;
@@ -67,7 +67,13 @@ public class Drink {
         }
     }
     public void removeFirstFood(){
-        pairings[0] = pairings[pairings.length - 1];
+        // pairings[0] = pairings[pairings.length - 1];
+        // pairings[pairings.length - 1] = null;
+        Food[] newPairings = new Food[pairings.length-1];
+        for(int i = 0; i < pairings.length-1; i++){
+            newPairings[i] = pairings[i+1];
+        }
+        setPairings(newPairings);
     }
     public int howManyPairing(){
         int count = 0;
