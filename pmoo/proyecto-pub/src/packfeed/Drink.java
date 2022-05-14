@@ -56,7 +56,6 @@ public class Drink {
         }
         newPairings[newPairings.length-1] = food;
         setPairings(newPairings);
-
     }
     public void removeFood(Food food){
         for(int i = 0; i < pairings.length-1; i++){

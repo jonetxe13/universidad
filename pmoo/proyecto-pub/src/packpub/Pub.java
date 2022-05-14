@@ -1,5 +1,6 @@
 package packpub;
 import java.util.ArrayList;
+import java.util.Map;
 
 import packfeed.Drink;
 import packfeed.Food;
@@ -43,13 +44,11 @@ public class Pub {
         }
     }
     public Drink obtainDrink(String name){
-        Drink drink = null;
         for (int i = 0; i < drinks.size(); i++) {
-            if (drinks.get(i).getBrandName() == name) {
-                drink = drinks.get(i);
+            if (drinks.get(i).getBrandName().equals(name)) {
+                return drinks.get(i);
             }
         }
-        return drink;
+        return null;
     }
-    
 }

@@ -28,10 +28,7 @@ public class Food {
         return description;
     }
     public Boolean equals(Food food1) {
-        if (this.getName()==food1.getName()) {
-            return true;
-        }
-        return false;
+        return this.getName()==food1.getName();
     }
     public String toString() {
         return "Food{" +
@@ -39,6 +36,4 @@ public class Food {
                 ", calories='" + calories + '\'' +
                 '}';
     }
-
-
 }
