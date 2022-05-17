@@ -1,17 +1,20 @@
 package packpub;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 
-import packfeed.Drink;
 import packfeed.Food;
+import packfeed.packDrink.Drink;
 
 public class Pub {
-    private ArrayList<Drink> drinks = new ArrayList<Drink>();
-    private ArrayList<Food> foods = new ArrayList<Food>();
+    private ArrayList<Drink> drinks;
+    private ArrayList<Food> foods;
 
     public Pub(){
-        drinks = null;
-        foods = null;
+        drinks = new ArrayList<Drink>();
+        foods = new ArrayList<Food>();
     }
     public void addDrink(Drink drink){
         drinks.add(drink);
@@ -19,15 +22,12 @@ public class Pub {
     public void removeDrink(Drink drink){
         drinks.remove(drink);
     }
-    public ArrayList<String> removeDrinksByCalories(int calories){
-        ArrayList<String> list = new ArrayList<String>();
+    public void removeDrinksByCalories(int calories){
         for (int i = 0; i < drinks.size(); i++) {
-            if (drinks.get(i).getCalories() > calories) {
+            if (drinks.get(i).getCalories() >= calories) {
                 drinks.remove(i);
-                list.add(drinks.get(i).getBrandName());
             }
         }
-        return list;
     }
     public Drink mostCaloricDrink(){
         Drink drink = drinks.get(0);
@@ -51,4 +51,22 @@ public class Pub {
         }
         return null;
     }
+    //sort the drink list by name
+    public void softDrinks(){
+        Collections.sort(drinks, new Comparator<Drink>() {
+            @Override
+            public int compare(Drink o1, Drink o2) {
+                return o1.getBrandName().compareTo(o2.getBrandName());
+            }
+        });
+    }
+    // public void cheapestBeer(){ 
+    //     Drink drink = drinks.get(0);
+    //     for (int i = 0; i < drinks.size(); i++) {
+    //         if (drinks.get(i).getPrice() < drink.getPrice()) {
+    //             drink = drinks.get(i);
+    //         }
+    //     }
+    //     System.out.println(drink.toString());
+    // }
 }

@@ -1,10 +1,13 @@
-package packfeed;
+package packfeed.packDrink;
+
+import packfeed.Food;
 
 public class Drink {
     private String brandName;
     private int calories;
     private boolean glutenFree;
     private Food[] pairings;
+    private double precio;
 
     public Drink(String brandName, int calories, boolean glutenFree, Food[] pairings) {
         setBrandName(brandName);
@@ -35,6 +38,13 @@ public class Drink {
     }
     public Food[] getPairings() {
         return pairings;
+    }
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+    public double getPrecio(){
+        System.out.println("precio de Drink");
+        return precio;
     }
     public boolean equals(Drink drink1) {
         return this.brandName == drink1.brandName;
