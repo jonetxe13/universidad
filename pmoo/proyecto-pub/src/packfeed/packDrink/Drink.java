@@ -43,7 +43,6 @@ public class Drink {
         this.precio = precio;
     }
     public double getPrecio(){
-        System.out.println("precio de Drink");
         return precio;
     }
     public boolean equals(Drink drink1) {

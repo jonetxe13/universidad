@@ -10,7 +10,7 @@ public class DarkLager extends Lager {
                     Food[] pairings, int IBU, int ABV, String importancia, String origen, String color, String botellaObarril) {
         super(brandName, calories, glutenFree, pairings, IBU, ABV, importancia, origen, color);
         setBotellaObarril(botellaObarril);
-        setPrecio(precio);
+        setPrecio();
     }
     public void setBotellaObarril(String botellaObarril) {
         this.botellaObarril = botellaObarril;
@@ -19,7 +19,6 @@ public class DarkLager extends Lager {
         return botellaObarril;
     }
     public double getPrecio(){
-        System.out.println("precio de DarkLager: " + precio);
         super.setPrecio(this.precio);
         return precio;
     }

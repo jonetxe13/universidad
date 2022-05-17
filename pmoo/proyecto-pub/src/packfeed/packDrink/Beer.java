@@ -27,10 +27,10 @@ public class Beer extends Drink {
         return ABV;
     }
     public void setPrecio(double precio) {
-        this.precio = super.getPrecio();
+        this.precio = precio;
+        super.setPrecio(this.precio);
     }
     public double getPrecio(){
-        System.out.println("precio de Beer: " + super.getPrecio());
         return precio;
     }
     public String toString() {

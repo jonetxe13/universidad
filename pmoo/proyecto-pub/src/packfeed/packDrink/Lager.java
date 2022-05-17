@@ -28,11 +28,10 @@ public class Lager extends Beer {
         return color;
     }
     public void setPrecio(double precio) {
-        super.setPrecio(this.precio);
         this.precio = precio;
+        super.setPrecio(this.precio);
     }
     public double getPrecio(){
-        System.out.println("precio de Lager: " + precio);
         return precio;
     }
     public String toString() {

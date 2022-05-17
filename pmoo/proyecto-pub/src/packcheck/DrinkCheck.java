@@ -12,10 +12,7 @@ public class DrinkCheck {
 		DarkLager beer1, beer2;
 		//usa los constructores (todos)
 		beer1 = new DarkLager("Budweiser", 300, false, new Food[] {new Food("Carne")}, 500, 5,  "muy demandada", "USA", "blanco", "barril");
-		beer1.setBotellaObarril("barril");
 
-		// System.out.println(beer1.getPrecio());
-		System.out.println(beer1.getBotellaObarril());
 		System.out.println(beer1.getPrecio());
 		
 		// // probando el método toString
