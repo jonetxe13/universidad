@@ -12,6 +12,7 @@ public class DarkLager extends Lager {
         setBotellaObarril(botellaObarril);
         setPrecio();
     }
+
     public void setBotellaObarril(String botellaObarril) {
         this.botellaObarril = botellaObarril;
     }
