@@ -26,6 +26,6 @@ public class Pilsener extends Lager {
         return precio;
     }
     public String toString() {
-        return super.toString() + " Temperatura: " + temperatura + "\n";
+        return super.toString() + " Temperatura: " + temperatura + " }";
     }
 }

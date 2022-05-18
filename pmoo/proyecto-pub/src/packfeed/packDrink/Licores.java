@@ -33,6 +33,6 @@ public class Licores extends Drink{
         return precio;
     }
     public String toString() {
-        return super.toString() + " graduacion: " + graduacion + " años: " + años + "\n";
+        return super.toString() + " graduacion: " + graduacion + " años: " + años + " }";
     }
 }

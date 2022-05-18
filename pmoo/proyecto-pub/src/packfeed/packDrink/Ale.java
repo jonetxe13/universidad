@@ -25,7 +25,7 @@ public class Ale extends Beer{
         return precio;
     }
     public String toString() {
-        return super.toString() + " Marca: " + marca + "\n";
+        return super.toString() + " Marca: " + marca + " }";
     }
     
 }

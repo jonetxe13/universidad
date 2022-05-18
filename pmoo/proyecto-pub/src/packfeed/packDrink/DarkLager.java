@@ -34,7 +34,7 @@ public class DarkLager extends Lager {
         super.setPrecio(precio1);
     }
     public String toString() {
-        return super.toString() + " Botella Obarril: " + botellaObarril + "\n";
+        return super.toString() + " Botella Obarril: " + botellaObarril + " }";
     }
     
 }

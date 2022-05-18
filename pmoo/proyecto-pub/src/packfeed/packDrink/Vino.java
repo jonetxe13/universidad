@@ -28,6 +28,6 @@ public class Vino extends Drink{
         return precio;
     }
     public String toString() {
-        return super.toString() + " denominacionDeOrigen: " + denominacionDeOrigen + " espumoso: " + espumoso + "\n";
+        return super.toString() + " denominacionDeOrigen: " + denominacionDeOrigen + " espumoso: " + espumoso + " }";
     }
 }

@@ -55,7 +55,7 @@ public abstract class Drink {
         for (int i = 0; i < pairings.length; i++) {
             if(pairings[i] != null) result += " " + pairings[i].getName() + " ";
         }
-        result += '}';
+        result += "precio: " + precio;
         return result;
     }
     public void addFood(Food food){

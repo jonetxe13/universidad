@@ -33,6 +33,6 @@ public abstract class Beer extends Drink {
         return precio;
     }
     public String toString() {
-        return super.toString() + " IBU: " + IBU + " ABV: " + ABV + "\n";
+        return super.toString() + " IBU: " + IBU + " ABV: " + ABV + " ";
     }
 }

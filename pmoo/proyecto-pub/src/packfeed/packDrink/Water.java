@@ -36,6 +36,6 @@ public class Water extends Drink{
         return precio;
     }
     public String toString() {
-        return super.toString() + " sabor: " + sabor + " burbujas: " + burbujas + " manantial: " + manantial + "\n";
+        return super.toString() + " sabor: " + sabor + " burbujas: " + burbujas + " manantial: " + manantial + " }";
     }
 }

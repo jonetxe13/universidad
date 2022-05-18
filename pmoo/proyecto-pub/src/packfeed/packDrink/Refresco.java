@@ -35,6 +35,6 @@ public class Refresco extends Drink{
         return precio;
     }
     public String toString() {
-        return super.toString() + " sabor: " + sabor + " burbujas: " + burbujas + " porcentajeDeZumo: " + porcentajeDeZumo + "\n";
+        return super.toString() + " sabor: " + sabor + " burbujas: " + burbujas + " porcentajeDeZumo: " + porcentajeDeZumo + " }";
     }
 }
