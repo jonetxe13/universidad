@@ -7,8 +7,8 @@ public class DarkLager extends Lager {
     private double precio;
 
     public DarkLager(String brandName, int calories, boolean glutenFree, 
-                    Food[] pairings, int IBU, int ABV, String importancia, String origen, String color, String botellaObarril) {
-        super(brandName, calories, glutenFree, pairings, IBU, ABV, importancia, origen, color);
+                    Food[] pairings, int IBU, int ABV, String importancia, String color, String botellaObarril) {
+        super(brandName, calories, glutenFree, pairings, IBU, ABV, importancia, color);
         setBotellaObarril(botellaObarril);
         setPrecio();
     }

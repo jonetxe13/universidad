@@ -5,6 +5,7 @@ import packfeed.Food;
 public class Vino extends Drink{
     private boolean denominacionDeOrigen;
     private boolean espumoso;
+    private double precio = (espumoso) ? 3 : 2;
 
     public Vino(String brandName, int calories, boolean glutenFree, Food[] pairings, boolean denominacionDeOrigen, boolean espumoso) {
         super(brandName, calories, glutenFree, pairings);
@@ -22,6 +23,9 @@ public class Vino extends Drink{
     }
     public boolean getEspumoso() {
         return espumoso;
+    }
+    public double getPrecio() {
+        return precio;
     }
     public String toString() {
         return super.toString() + " denominacionDeOrigen: " + denominacionDeOrigen + " espumoso: " + espumoso + "\n";

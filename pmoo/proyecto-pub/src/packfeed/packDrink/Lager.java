@@ -2,16 +2,16 @@ package packfeed.packDrink;
 
 import packfeed.Food;
 
-public class Lager extends Beer {
+public abstract class Lager extends Beer {
     private String importancia = "muy demandada";
     private String color;
     private double precio = 2;
 
     public Lager(String brandName, int calories, boolean glutenFree, 
-                Food[] pairings, int IBU, int ABV, String origen, 
+                Food[] pairings, int IBU, int ABV, 
                 String importancia, String color) {
 
-        super(brandName, calories, glutenFree, pairings, IBU, ABV, origen);
+        super(brandName, calories, glutenFree, pairings, IBU, ABV);
         setImportancia(importancia);
         setColor(color);
     } 

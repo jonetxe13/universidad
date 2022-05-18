@@ -2,7 +2,7 @@ package packfeed.packDrink;
 
 import packfeed.Food;
 
-public class Drink {
+public abstract class Drink {
     private String brandName;
     private int calories;
     private boolean glutenFree;

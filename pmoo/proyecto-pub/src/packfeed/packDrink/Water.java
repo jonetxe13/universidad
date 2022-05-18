@@ -6,6 +6,7 @@ public class Water extends Drink{
     private String sabor;
     private boolean burbujas;
     private boolean manantial;
+    private double precio = 3.5;
 
     public Water(String brandName, int calories, boolean glutenFree, Food[] pairings, String sabor, boolean burbujas, boolean manantial) {
         super(brandName, calories, glutenFree, pairings);
@@ -30,6 +31,9 @@ public class Water extends Drink{
     }
     public boolean getManantial() {
         return manantial;
+    }
+    public double getPrecio() {
+        return precio;
     }
     public String toString() {
         return super.toString() + " sabor: " + sabor + " burbujas: " + burbujas + " manantial: " + manantial + "\n";
