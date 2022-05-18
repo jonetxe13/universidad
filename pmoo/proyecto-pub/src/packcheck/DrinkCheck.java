@@ -1,21 +1,21 @@
 package packcheck;
 import packfeed.Food;
+import packfeed.packDrink.Ale;
 import packfeed.packDrink.Beer;
 import packfeed.packDrink.DarkLager;
 import packfeed.packDrink.Drink;
 import packfeed.packDrink.Lager;
 import packfeed.packDrink.Refresco;
+import packfeed.packDrink.Vino;
 
 public class DrinkCheck {
 
 	public static void main(String[] args) {
-		DarkLager beer1, beer2;
+		Refresco beer1, beer2;
 		//usa los constructores (todos)
-		beer1 = new DarkLager("Budweiser", 300, false, new Food[] {new Food("Carne")}, 500, 5,  "muy demandada", "USA", "blanco", "botella");
-		beer2 = new DarkLager("Budweiser", 300, false, new Food[] {new Food("Carne")}, 500, 5,  "muy demandada", "USA", "blanco", "barril");
+		beer1 = new Refresco("Budweiser", 500, false, new Food[] { new Food("Pizza", 500), new Food("Pizza", 500) }, "Dulce", true, 5);
 
 		System.out.println(beer1.getPrecio());
-		System.out.println(beer2.getPrecio());
 		
 		// // probando el método toString
 		// System.out.println(beer1.toString());

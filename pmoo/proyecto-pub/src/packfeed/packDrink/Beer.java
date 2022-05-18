@@ -2,13 +2,12 @@ package packfeed.packDrink;
 
 import packfeed.Food;
 
-public class Beer extends Drink {
+public abstract class Beer extends Drink {
     private int IBU;
     private int ABV;
-    private String origen;
     private double precio;
 
-    public Beer(String brandName, int calories, boolean glutenFree, Food[] pairings, int IBU, int ABV, String origen) {
+    public Beer(String brandName, int calories, boolean glutenFree, Food[] pairings, int IBU, int ABV) {
         super(brandName, calories, glutenFree, pairings);
         setIBU(IBU);
         setABV(ABV);
@@ -34,6 +33,6 @@ public class Beer extends Drink {
         return precio;
     }
     public String toString() {
-        return super.toString() + " IBU: " + IBU + " ABV: " + ABV + " origen: " + origen + "\n";
+        return super.toString() + " IBU: " + IBU + " ABV: " + ABV + "\n";
     }
 }
