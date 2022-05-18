@@ -2,7 +2,7 @@ package packfeed.packDrink;
 
 import packfeed.Food;
 
-public abstract class Lager extends Beer {
+public class Lager extends Beer {
     private String importancia = "muy demandada";
     private String color;
     private double precio = 2;

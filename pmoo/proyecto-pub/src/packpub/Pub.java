@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import packfeed.Food;
+import packfeed.packDrink.DarkLager;
 import packfeed.packDrink.Drink;
 
 public class Pub {
@@ -15,6 +16,14 @@ public class Pub {
     public Pub(){
         drinks = new ArrayList<Drink>();
         foods = new ArrayList<Food>();
+    }
+    public boolean equals(String nombre){
+        for(Drink drink: drinks){
+            if(drink.getBrandName() == (nombre)){
+                return true;
+            }
+        }
+        return false;
     }
     public void addDrink(Drink drink){
         drinks.add(drink);
@@ -44,12 +53,13 @@ public class Pub {
         }
     }
     public Drink obtainDrink(String name){
+        Drink result = new Drink();
         for (int i = 0; i < drinks.size(); i++) {
             if (drinks.get(i).getBrandName().equals(name)) {
-                return drinks.get(i);
+                result = drinks.get(i);
             }
         }
-        return null;
+        return result;
     }
     //sort the drink list by name
     public void softDrinks(){
@@ -60,13 +70,13 @@ public class Pub {
             }
         });
     }
-    // public void cheapestBeer(){ 
-    //     Drink drink = drinks.get(0);
-    //     for (int i = 0; i < drinks.size(); i++) {
-    //         if (drinks.get(i).getPrice() < drink.getPrice()) {
-    //             drink = drinks.get(i);
-    //         }
-    //     }
-    //     System.out.println(drink.toString());
-    // }
+    public void cheapestBeer(){ 
+        Drink drink = drinks.get(0);
+        for (int i = 0; i < drinks.size(); i++) {
+            if (drinks.get(i).getPrecio() < drink.getPrecio()) {
+                drink = drinks.get(i);
+            }
+        }
+        System.out.println(drink.toString());
+    }
 }

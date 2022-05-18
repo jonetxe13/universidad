@@ -2,7 +2,7 @@ package packfeed.packDrink;
 
 import packfeed.Food;
 
-public abstract class Beer extends Drink {
+public class Beer extends Drink {
     private int IBU;
     private int ABV;
     private double precio;

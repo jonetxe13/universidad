@@ -1,41 +1,54 @@
 package packcheck;
 
 import packfeed.Food;
+import packfeed.packDrink.Ale;
+import packfeed.packDrink.DarkLager;
 import packfeed.packDrink.Drink;
+import packfeed.packDrink.Licores;
+import packfeed.packDrink.Refresco;
+import packfeed.packDrink.Vino;
 import packpub.Pub;
 
 public class PubCheck {
     public static void main(String[] args){
         Pub pub1 = new Pub();
-        // Drink drink1 = new Drink("Heineken", 230, false, new Food[]{new Food("Carne"), new Food("Sopa")});
-        // Drink drink2 = new Drink("Corona", 250, false, new Food[]{new Food("Pasta"), new Food("Pollo")});
-        // Drink drink3 = new Drink("Estrella", 130, false, new Food[]{new Food("Pizza"), new Food("Bonito")});
-        // Drink drink4 = new Drink("San Miguel", 150, false, new Food[]{new Food("Setas"), new Food("Patatas")});
-        // Drink drink5 = new Drink("Desperados", 200, true, new Food[]{new Food("Hamburguesa"), new Food("Helado")});
-        // //addDrinks
-        // pub1.addDrink(drink1);
-        // pub1.addDrink(drink2);
-        // pub1.addDrink(drink3);
-        // pub1.addDrink(drink4);
-        // pub1.addDrink(drink5);
+		Refresco beer1;
+		Licores beer2;
+		Ale beer3;
+		Vino beer4;
+		DarkLager beer5;
+        
+		//usa los constructores (todos)
+		beer1 = new Refresco("Budweiser", 500, false, new Food[] { new Food("Pizza", 500), new Food("Pizza", 500) }, "Dulce", true, 5);
+		beer2 = new Licores("Estrella", 500, false, new Food[] { new Food("Pizza", 500), new Food("Pizza", 500) }, 40, 5);
+		beer3 = new Ale("Heineken", 500, false, new Food[] { new Food("Pizza", 500), new Food("Pizza", 500) }, 23, 200, "Pale");
+		beer4 = new Vino("Casa", 500, false, new Food[] { new Food("Pizza", 500), new Food("Pizza", 500) }, true, true);
+		beer5 = new DarkLager("San Miguel", 500, false, new Food[] { new Food("Pizza", 500), new Food("Pizza", 500) }, 20, 200, "demandada", "tinto", "botella");
 
-        // pub1.showDrinks();
+        //addDrinks
+        pub1.addDrink(beer1);
+        pub1.addDrink(beer2);
+        pub1.addDrink(beer3);
+        pub1.addDrink(beer4);
+        pub1.addDrink(beer5);
 
-        // //removeDrinks
-        // pub1.removeDrink(drink2);
+        pub1.showDrinks();
 
-        // //removeDrinksByCalories
-        // pub1.removeDrinksByCalories(250);
-        // pub1.showDrinks();
+        //removeDrinks
+        pub1.removeDrink(beer2);
 
-        // //mostCaloricDrink
-        // System.out.println(pub1.mostCaloricDrink().toString());
+        //removeDrinksByCalories
+        pub1.removeDrinksByCalories(250);
+        pub1.showDrinks();
 
-        // //obtainDrink
-        // System.out.println(pub1.obtainDrink("Estrella").toString());
+        //mostCaloricDrink
+        System.out.println(pub1.mostCaloricDrink().toString());
 
-        // //softDrinks
-        // pub1.softDrinks();
-        // pub1.showDrinks();
+        //obtainDrink
+        System.out.println(pub1.obtainDrink("San Miguel").toString());
+
+        //softDrinks
+        pub1.softDrinks();
+        pub1.showDrinks();
     }
 }

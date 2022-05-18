@@ -2,7 +2,7 @@ package packfeed.packDrink;
 
 import packfeed.Food;
 
-public abstract class Drink {
+public class Drink {
     private String brandName;
     private int calories;
     private boolean glutenFree;
@@ -14,6 +14,9 @@ public abstract class Drink {
         setCalories(calories);
         setGlutenFree(glutenFree);
         setPairings(pairings);
+    }
+    public Drink(){
+
     }
     public void setBrandName(String brandName) {
         this.brandName = brandName;
