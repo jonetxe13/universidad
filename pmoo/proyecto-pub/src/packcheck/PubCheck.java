@@ -34,18 +34,18 @@ public class PubCheck {
 
         pub1.showDrinks();
 
-        // //removeDrinks
-        // pub1.removeDrink(beer2);
+        //removeDrinks
+        pub1.removeDrink(beer2);
 
-        // //removeDrinksByCalories
-        // pub1.removeDrinksByCalories(250);
-        // pub1.showDrinks();
+        //removeDrinksByCalories
+        pub1.removeDrinksByCalories(250);
+        pub1.showDrinks();
 
-        // //mostCaloricDrink
-        // System.out.println(pub1.mostCaloricDrink().toString());
+        //mostCaloricDrink
+        System.out.println(pub1.mostCaloricDrink().toString());
 
-        // //obtainDrink
-        // System.out.println(pub1.obtainDrink("San Miguel").toString());
+        //obtainDrink
+        System.out.println(pub1.obtainDrink("San Miguel").toString());
 
         //softDrinks
         pub1.sortDrinks();
