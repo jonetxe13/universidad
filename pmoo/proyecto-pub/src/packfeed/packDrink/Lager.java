@@ -35,7 +35,7 @@ public class Lager extends Beer {
         return precio;
     }
     public String toString() {
-        return super.toString() + " Importancia: " + importancia + " Color: " + color + "\n";
+        return super.toString() + " Importancia: " + importancia + " Color: " + color;
     }
 }
 

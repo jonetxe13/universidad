@@ -52,9 +52,10 @@ public class Drink {
         return this.brandName == drink1.brandName;
     }
     public String toString() {
-        String result ="Drink{" +
+
+        String result = this.getClass().getSimpleName() + "{" +
                 "brandName='" + brandName + '\'' +
-                ", calories='" + calories + '\'';
+                ", calories='" + calories + '\'' + ", glutenFree='" + glutenFree + '\'';
         for (int i = 0; i < pairings.length; i++) {
             if(pairings[i] != null) result += " " + pairings[i].getName() + " ";
         }

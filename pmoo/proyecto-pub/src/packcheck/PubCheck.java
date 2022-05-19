@@ -26,29 +26,29 @@ public class PubCheck {
 		beer5 = new DarkLager("San Miguel", 500, false, new Food[] { new Food("Pizza", 500), new Food("Pizza", 500) }, 20, 200, "demandada", "tinto", "botella");
 
         //addDrinks
-        pub1.addDrink(beer1);
-        pub1.addDrink(beer2);
-        pub1.addDrink(beer3);
-        pub1.addDrink(beer4);
-        pub1.addDrink(beer5);
+        pub1.addDrink(beer1); 
+        pub1.addDrink(beer4); 
+        pub1.addDrink(beer5); 
+        pub1.addDrink(beer2); 
+        pub1.addDrink(beer3); 
 
         pub1.showDrinks();
 
-        //removeDrinks
-        pub1.removeDrink(beer2);
+        // //removeDrinks
+        // pub1.removeDrink(beer2);
 
-        //removeDrinksByCalories
-        pub1.removeDrinksByCalories(250);
-        pub1.showDrinks();
+        // //removeDrinksByCalories
+        // pub1.removeDrinksByCalories(250);
+        // pub1.showDrinks();
 
-        //mostCaloricDrink
-        System.out.println(pub1.mostCaloricDrink().toString());
+        // //mostCaloricDrink
+        // System.out.println(pub1.mostCaloricDrink().toString());
 
-        //obtainDrink
-        System.out.println(pub1.obtainDrink("San Miguel").toString());
+        // //obtainDrink
+        // System.out.println(pub1.obtainDrink("San Miguel").toString());
 
         //softDrinks
-        pub1.softDrinks();
+        pub1.sortDrinks();
         pub1.showDrinks();
     }
 }

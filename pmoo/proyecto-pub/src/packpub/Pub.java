@@ -1,5 +1,6 @@
 package packpub;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -51,6 +52,7 @@ public class Pub {
         for (int i = 0; i < drinks.size(); i++) {
             System.out.println(drinks.get(i).toString());
         }
+        System.out.println("\n\n");
     }
     public Drink obtainDrink(String name){
         Drink result = new Drink();
@@ -62,13 +64,14 @@ public class Pub {
         return result;
     }
     //sort the drink list by name
-    public void softDrinks(){
-        Collections.sort(drinks, new Comparator<Drink>() {
-            @Override
-            public int compare(Drink o1, Drink o2) {
-                return o1.getBrandName().compareTo(o2.getBrandName());
+    public void sortDrinks(){
+        for (int i = 0; i < drinks.size()-1; i++) {
+            if((drinks.get(i).getBrandName().compareTo(drinks.get(i+1).getBrandName())) > 0){
+                Drink temp = drinks.get(i);
+                drinks.set(i, drinks.get(i+1));
+                drinks.set(i+1, temp);
             }
-        });
+        }
     }
     public void cheapestBeer(){ 
         Drink drink = drinks.get(0);
