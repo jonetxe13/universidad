@@ -55,7 +55,10 @@ public class Drink {
 
         String result = this.getClass().getSimpleName() + "{" +
                 "brandName='" + brandName + '\'' +
-                ", calories='" + calories + '\'' + ", glutenFree='" + glutenFree + '\'' + ", pairings= " + pairings; 
+                ", calories='" + calories + '\'' + ", glutenFree='" + glutenFree + '\'' + ", pairings= "; 
+        for (int i = 0; i < pairings.length; i++) {
+            result += pairings[i].getName() + ", ";
+        }
         result += ", precio: " + precio;
         return result;
     }
