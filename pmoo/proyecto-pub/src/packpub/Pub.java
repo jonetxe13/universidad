@@ -86,4 +86,26 @@ public class Pub {
         }
         return beer;
     }
+    public void addFood(Food food){
+        foods.add(food);
+    }
+    public void removeFood(Food food){
+        foods.remove(food);
+    }
+    public void removeFoodsByCalories(int calories){
+        for (int i = 0; i < foods.size(); i++) {
+            if (foods.get(i).getCalories() >= calories) {
+                foods.remove(i);
+            }
+        }
+    }
+    public Food mostCaloricFood(){
+        Food food = foods.get(0);
+        for (int i = 0; i < foods.size(); i++) {
+            if (foods.get(i).getCalories() > food.getCalories()) {
+                food = foods.get(i);
+            }
+        }
+        return food;
+    }
 }
