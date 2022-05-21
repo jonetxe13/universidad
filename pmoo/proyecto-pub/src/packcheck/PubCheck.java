@@ -1,5 +1,7 @@
 package packcheck;
 
+import java.io.IOException;
+
 import packfeed.Food;
 import packfeed.packDrink.Ale;
 import packfeed.packDrink.DarkLager;
@@ -10,7 +12,7 @@ import packfeed.packDrink.Vino;
 import packpub.Pub;
 
 public class PubCheck {
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         Pub pub1 = new Pub();
 		Refresco beer1;
 		Licores beer2;
@@ -38,6 +40,16 @@ public class PubCheck {
         pub1.sortDrinks();
         System.out.println("las bebidas ordenadas:" +  "\n");
         pub1.showDrinks();
+
+        Food carne = new Food("carne", 500);
+
+        pub1.addFood(carne);
+        pub1.storeFoodInFile();
+        pub1.showFoods();
+
+        pub1.removeFood(carne);
+        pub1.loadFoodFromFile();
+        pub1.showFoods();
 
         //cheapestBeer
         System.out.println("la bebida mas barata es: " + pub1.cheapestBeer().toString() + "\n");

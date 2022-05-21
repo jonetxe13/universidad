@@ -16,6 +16,8 @@ public class Food {
         this.name = name;
     }
     public void setCalories(int calories) {
+        if(calories < 0){throw new IllegalArgumentException("Calories must be greater than 0");}
+
         this.calories = calories;
     }
     public String getName() {
@@ -31,9 +33,9 @@ public class Food {
         return this.getName()==food1.getName();
     }
     public String toString() {
-        return "Food{" +
-                "name='" + name + '\'' +
-                ", calories='" + calories + '\'' +
-                '}';
+        return "Food{ " +
+                "name='" + name + "' |" +
+                " calories='" + calories + 
+                "' }";
     }
 }

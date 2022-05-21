@@ -1,10 +1,19 @@
 package packpub;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+
+import javax.swing.JOptionPane;
 
 import packfeed.Food;
 import packfeed.packDrink.Beer;
@@ -87,7 +96,48 @@ public class Pub {
         return beer;
     }
     public void addFood(Food food){
+        for(int i = 0; i < foods.size(); i++) {
+            if(food.equals(foods.get(i))){
+                throw new IllegalArgumentException("Food already exists");
+            }
+        }
         foods.add(food);
+    }
+    public void storeFoodInFile() throws IOException{
+        String filePath = Path.of("src/packpub/data").toString();
+        String nombredearchivo= JOptionPane.showInputDialog("ingrese el nombre del archivo a crear"); 
+        BufferedWriter fw = null;
+        try {
+            fw = new BufferedWriter(new FileWriter( filePath + "/" + nombredearchivo + ".txt"));
+            for (int i = 0; i < foods.size(); i++) {
+                fw.write(foods.get(i).toString());
+                fw.write("\n");
+            }
+        } catch (IOException e) {
+            System.out.println("Error al escribir en el archivo");
+        }
+        catch( NullPointerException n){
+            System.out.println("No se ingreso ningun nombre");
+        }
+        finally{
+            fw.close();
+        }
+    }
+    public void loadFoodFromFile(){
+        String filePath = Path.of("src/packpub/data").toString();
+        String nombredearchivo= JOptionPane.showInputDialog("ingrese el nombre del archivo a cargar"); 
+        try {
+            BufferedReader fr = new BufferedReader(new FileReader(filePath + "/" + nombredearchivo + ".txt"));
+            String linea;
+            while((linea = fr.readLine()) != null){
+                String[] datos = linea.split("'");
+                Food food = new Food(datos[1], Integer.parseInt(datos[3]));
+                addFood(food);
+            }
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo");
+        }
+
     }
     public void removeFood(Food food){
         foods.remove(food);
@@ -107,5 +157,11 @@ public class Pub {
             }
         }
         return food;
+    }
+    public void showFoods(){
+        for (int i = 0; i < foods.size(); i++) {
+            System.out.println(foods.get(i).toString());
+        }
+        System.out.println("\n\n");
     }
 }
