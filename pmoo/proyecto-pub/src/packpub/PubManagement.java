@@ -36,16 +36,19 @@ public class PubManagement {
         String ESTADO = "MENU";
         int BebidasComidasOSalir = 0;
         int opcionSeleccionada = 0;
-        Scanner sc = new Scanner(System.in);
 
         while (true){
+            Scanner sc = new Scanner(System.in);
             if(ESTADO == "MENU"){
                 System.out.println("Selecciona una de las operaciones disponibles: ");
                 System.out.println("1.Bebidas       2.Comidas      3.Salir\n");
                 BebidasComidasOSalir = sc.nextInt();
+                System.out.println("ESTADO: " + ESTADO);
+                // sc.close();
                 ESTADO = "SELECCIONARACCION";
             }
             else if(ESTADO == "SELECCIONARACCION"){
+                System.out.println("ESTADO: " + ESTADO);
 
                 if(BebidasComidasOSalir == 1){ 
                     System.out.println("\n\n1.Agregar bebidas(con todos los parametros)           2.Eliminar bebidas                 3.Eliminar bebidas por calorias\n");
@@ -65,10 +68,13 @@ public class PubManagement {
                 else{
                     System.out.println("Opcion invalida");
                 }
-                opcionSeleccionada = sc.nextInt();
+                opcionSeleccionada = (sc.nextInt());
+                // sc.close();
                 ESTADO = "EJECUTARACCION";
+
             }
-            else if(ESTADO == "EFECTUARACCION"){
+            else if(ESTADO == "EJECUTARACCION"){
+                System.out.println("ESTADO: " + ESTADO);
 
             if(BebidasComidasOSalir == 1){
             //opciones de bebidas 
@@ -76,6 +82,7 @@ public class PubManagement {
                 switch(opcionSeleccionada){
                     //crear bebidas
                     case 1: {
+                        // Scanner sc = new Scanner(System.in);
                         System.out.println("Ingrese el estilo de la bebida: \n\n 1.Agua     2.Cerveza   3.Vino\n");
                         System.out.println("4.Refresco    5.Licores \n");
                         int estiloBebida = sc.nextInt();
@@ -214,8 +221,10 @@ public class PubManagement {
                                 pub.addDrink(licor);
                                 break;
                         }
+                        sc.close();
                     }
                     case 2: {
+                        // Scanner sc = new Scanner(System.in);
                         System.out.println("Ingrese el nombre de la bebida a eliminar: \n");
                         String nombreBebida = sc.next();
                         Drink drink = new Drink(nombreBebida, 0, false, null);
@@ -223,6 +232,7 @@ public class PubManagement {
                         break;
                     }
                     case 3:{
+                        // Scanner sc = new Scanner(System.in);
                         System.out.println("Ingrese un numero de calorias, las que tengan mas calorias que ese numero seran eliminadas: \n");
                         int calorias = sc.nextInt();
                         pub.removeDrinksByCalories(calorias);
@@ -239,6 +249,7 @@ public class PubManagement {
                         break;
                     }
                     case 6:{
+                        // Scanner sc = new Scanner(System.in);
                         System.out.println("Ingresa un nombre para ver las caracteristicas de esa bebida: \n");
                         String nombreBebidaCaracteristicas = sc.next();
                         pub.obtainDrink(nombreBebidaCaracteristicas);
@@ -251,7 +262,7 @@ public class PubManagement {
                         break;
                     }
                     case 8:{
-                        System.out.println("Mostrar todas las bebidas ordenadas por nombre: \n");
+                        System.out.println("Mostrar la cerveza mas barata: \n");
                         pub.cheapestBeer().toString();
                         break;
                     }

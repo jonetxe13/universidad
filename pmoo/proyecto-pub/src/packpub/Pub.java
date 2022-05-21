@@ -4,20 +4,13 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
 
 import javax.swing.JOptionPane;
 
 import packfeed.Food;
 import packfeed.packDrink.Beer;
-import packfeed.packDrink.DarkLager;
 import packfeed.packDrink.Drink;
 
 public class Pub {
