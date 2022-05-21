@@ -13,6 +13,9 @@ public class Beer extends Drink {
         setABV(ABV);
         setPrecio(precio);
     }
+    public Beer(){
+
+    }
     public void setIBU(int IBU) {
         this.IBU = IBU;
     }

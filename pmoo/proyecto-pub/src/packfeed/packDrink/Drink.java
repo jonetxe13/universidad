@@ -55,11 +55,8 @@ public class Drink {
 
         String result = this.getClass().getSimpleName() + "{" +
                 "brandName='" + brandName + '\'' +
-                ", calories='" + calories + '\'' + ", glutenFree='" + glutenFree + '\'';
-        for (int i = 0; i < pairings.length; i++) {
-            if(pairings[i] != null) result += " " + pairings[i].getName() + " ";
-        }
-        result += "precio: " + precio;
+                ", calories='" + calories + '\'' + ", glutenFree='" + glutenFree + '\'' + ", pairings= " + pairings; 
+        result += ", precio: " + precio;
         return result;
     }
     public void addFood(Food food){
