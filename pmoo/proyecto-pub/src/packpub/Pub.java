@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import packfeed.Food;
+import packfeed.packDrink.Beer;
 import packfeed.packDrink.DarkLager;
 import packfeed.packDrink.Drink;
 
@@ -73,13 +74,16 @@ public class Pub {
             }
         }
     }
-    public void cheapestBeer(){ 
-        Drink drink = drinks.get(0);
+    public Beer cheapestBeer(){
+        Beer beer = new Beer();
         for (int i = 0; i < drinks.size(); i++) {
-            if (drinks.get(i).getPrecio() < drink.getPrecio()) {
-                drink = drinks.get(i);
+            if (drinks.get(i) instanceof Beer) {
+                beer = (Beer) drinks.get(i);
+                if (drinks.get(i).getPrecio() < beer.getPrecio()) {
+                    beer = (Beer) drinks.get(i);
+                }
             }
         }
-        System.out.println(drink.toString());
+        return beer;
     }
 }
