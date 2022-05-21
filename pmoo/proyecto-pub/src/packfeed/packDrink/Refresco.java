@@ -6,12 +6,13 @@ public class Refresco extends Drink{
     private String sabor;
     private boolean burbujas;
     private int porcentajeDeZumo;
-    private double precio = 3.5;
+    private double precio;
 
     public Refresco(String brandName, int calories, boolean glutenFree, Food[] pairings, String sabor, boolean burbujas, int porcentajeDeZumo) {
         super(brandName, calories, glutenFree, pairings);
         setSabor(sabor);
         setBurbujas(burbujas);
+        setPrecio();
     }
     public void setSabor(String sabor2) {
         this.sabor = sabor2;
@@ -33,6 +34,10 @@ public class Refresco extends Drink{
     }
     public double getPrecio() {
         return precio;
+    }
+    public void setPrecio(){
+        this.precio = 3.5;
+        super.setPrecio(this.precio);
     }
     public String toString() {
         return super.toString() + " sabor: " + sabor + " burbujas: " + burbujas + " porcentajeDeZumo: " + porcentajeDeZumo + " }";

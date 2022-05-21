@@ -76,9 +76,9 @@ public class Pub {
     }
     public Beer cheapestBeer(){
         Beer beer = new Beer();
+        beer.setPrecio(5000);
         for (int i = 0; i < drinks.size(); i++) {
             if (drinks.get(i) instanceof Beer) {
-                beer = (Beer) drinks.get(i);
                 if (drinks.get(i).getPrecio() < beer.getPrecio()) {
                     beer = (Beer) drinks.get(i);
                 }

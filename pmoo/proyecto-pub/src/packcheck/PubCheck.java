@@ -23,7 +23,7 @@ public class PubCheck {
 		beer2 = new Licores("Estrella", 500, false, new Food[] { new Food("Pizza", 500), new Food("Pizza", 500) }, 40, 5);
 		beer3 = new Ale("Heineken", 500, false, new Food[] { new Food("Pizza", 500), new Food("Pizza", 500) }, 23, 200, "Pale");
 		beer4 = new Vino("Casa", 500, false, new Food[] { new Food("Pizza", 500), new Food("Pizza", 500) }, true, true);
-		beer5 = new DarkLager("San Miguel", 500, false, new Food[] { new Food("Pizza", 500), new Food("Pizza", 500) }, 20, 200, "demandada", "tinto", "botella");
+		beer5 = new DarkLager("San Miguel", 500, false, new Food[] { new Food("Pizza", 500), new Food("Pizza", 500) }, 20000, 20000, "demandada", "tinto", "botella");
 
         //addDrinks
         pub1.addDrink(beer1); 
