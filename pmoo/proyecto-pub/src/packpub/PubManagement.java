@@ -276,7 +276,7 @@ public class PubManagement {
                     }
 
                 }
-                System.out.println("1.Seguir en bebidas     2.Cambiar de clase      3.Salir\n");
+                System.out.println("1.Seguir en bebidas         2.Cambiar de clase      3.Salir\n");
                 int seguirMenuOSalir = sc.nextInt();
 
                 if (seguirMenuOSalir == 1) {
@@ -341,7 +341,7 @@ public class PubManagement {
                         break;
                     }
            } 
-           System.out.println("1.Seguir en bebidas     2.Cambiar de clase      3.Salir\n");
+           System.out.println("1.Seguir en comidas      2.Cambiar de clase      3.Salir\n");
            int seguirMenuOSalir = sc.nextInt();
 
            if (seguirMenuOSalir == 1) {
