@@ -14,6 +14,9 @@ import packfeed.packDrink.Vino;
 import packfeed.packDrink.Water;
 
 public class PubManagement {
+    /**
+     * @param args
+     */
     public static void main(String[] args){
         System.out.println(" -----------------------------");
         System.out.println("| Bienvenido al Pub de Jon!   |");
@@ -294,6 +297,9 @@ public class PubManagement {
 
             }
             else if(BebidasComidasOSalir == 2){
+                /**
+                 * 
+                 */
                 switch(opcionSeleccionada){
                     case 1: {
                         System.out.println("Ingrese el nombre de la comida: \n");

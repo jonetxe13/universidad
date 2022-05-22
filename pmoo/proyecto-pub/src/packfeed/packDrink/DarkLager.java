@@ -13,16 +13,28 @@ public class DarkLager extends Lager {
         setPrecio();
     }
 
+    /**setter de botellaobarril de DarkLager
+     * @param botellaObarril
+     */
     public void setBotellaObarril(String botellaObarril) {
         this.botellaObarril = botellaObarril;
     }
+    /**getter de botellaobarril de DarkLager
+     * @return bottelaOBarril
+     */
     public String getBotellaObarril() {
         return botellaObarril;
     }
+    /**
+     *getter del precio de DarkLager
+     */
     public double getPrecio(){
         super.setPrecio(this.precio);
         return precio;
     }
+    /**
+     * setter del precio de DarkLager
+     */
     public void setPrecio() {
         double precio1 = 0;
         if (this.botellaObarril == "barril") {
@@ -33,6 +45,9 @@ public class DarkLager extends Lager {
         this.precio = precio1;
         super.setPrecio(precio1);
     }
+    /**
+     *redefinicion del metodo toString para DarkLager
+     */
     public String toString() {
         return super.toString() + " Botella Obarril: " + botellaObarril + " }";
     }

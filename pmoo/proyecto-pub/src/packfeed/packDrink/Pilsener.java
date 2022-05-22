@@ -12,9 +12,15 @@ public class Pilsener extends Lager {
         setTemperatura(temperatura);
         setPrecio();
     } 
+    /**setter de la temperatura del Pilsener
+     * @param temperatura
+     */
     public void setTemperatura(int temperatura) {
         this.temperatura = temperatura;
     }
+    /**getter de la temperatura del Pilsener
+     * @return temperatura
+     */
     public int getTemperatura() {
         return temperatura;
     }
