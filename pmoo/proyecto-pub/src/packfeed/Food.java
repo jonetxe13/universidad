@@ -2,7 +2,6 @@ package packfeed;
 
 public class Food {
     private String name;
-    private String description;
     private int calories;
 
     public Food(String name, int calories) {
@@ -25,9 +24,6 @@ public class Food {
     }
     public int getCalories() {
         return calories;
-    }
-    public String getDescription() {
-        return description;
     }
     public Boolean equals(Food food1) {
         return this.getName()==food1.getName();

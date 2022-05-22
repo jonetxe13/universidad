@@ -1,5 +1,6 @@
 package packpub;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import packfeed.Food;
@@ -268,13 +269,94 @@ public class PubManagement {
                     }
 
                 }
+                System.out.println("1.Seguir en bebidas     2.Cambiar de clase      3.Salir\n");
+                int seguirMenuOSalir = sc.nextInt();
+
+                if (seguirMenuOSalir == 1) {
+                    ESTADO = "SELECCIONARACCION";
+                }
+                else if(seguirMenuOSalir == 2){
+                    ESTADO = "SELECCIONARCLASE";
+                }
+                else if(seguirMenuOSalir == 3){
+                    ESTADO = "SALIR";
+                }
+                else{
+                    System.out.println("Ingrese una opcion valida");
+                }
+
             }
-            else if(opcionSeleccionada == 2){
-            }
-            else{} 
+            else if(BebidasComidasOSalir == 2){
+                switch(opcionSeleccionada){
+                    case 1: {
+                        System.out.println("Ingrese el nombre de la comida: \n");
+                        String nombreComida = sc.next();
+                        System.out.println("Ingrese la cantidad de calorias de la comida: \n");
+                        int caloriasComida = sc.nextInt();
+                        pub.addFood(new Food(nombreComida, caloriasComida));
+                        break;
+                    }
+                    case 2: {
+                        System.out.println("La comida se guardar en un archive dentro de la carpeta data con el nombre que le proporciones: \n");
+                        try {
+                            pub.storeFoodInFile();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    }
+                    case 3: {
+                        System.out.println("Seleccione el nombre del archivo desde el que quieres coger la comida: \n");
+                        pub.loadFoodFromFile();
+                        break;
+                    }
+                    case 4:{
+                        System.out.println("Ingrese el nombre de la comida a eliminar: \n");
+                        String nombreComida = sc.next();
+                        Food food = new Food(nombreComida, 0);
+                        pub.removeFood(food);
+                        break;
+                    }
+                    case 5:{
+                        System.out.println("Ingrese un numero de calorias, las que tengan mas calorias que ese numero seran eliminadas: \n");
+                        int calorias = sc.nextInt();
+                        pub.removeFoodsByCalories(calorias);
+                        break;
+                    }
+                    case 6:{
+                        System.out.println("Mostrar la comida mas calorica: \n");
+                        pub.mostCaloricFood().toString();
+                        break;
+                    }
+                    case 7:{
+                        System.out.println("Mostrar todas las comidas: \n");
+                        pub.showFoods();
+                        break;
+                    }
+           } 
+           System.out.println("1.Seguir en bebidas     2.Cambiar de clase      3.Salir\n");
+           int seguirMenuOSalir = sc.nextInt();
+
+           if (seguirMenuOSalir == 1) {
+               ESTADO = "MENU";
+           }
+           else if(seguirMenuOSalir == 2){
+               ESTADO = "SELECCIONARACCION";
+           }
+           else if(seguirMenuOSalir == 3){
+               ESTADO = "FIN";
+           }
+           else{
+               System.out.println("Ingrese una opcion valida");
+           }
+        }
+        else{
+            ESTADO = "FIN";
+        } 
         }
         else if(ESTADO == "FIN"){
             System.out.println("Gracias por utilizar nuestra aplicacion");
+            sc.close();
             System.exit(0);
         }
 

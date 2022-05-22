@@ -16,7 +16,7 @@ import packfeed.packDrink.Drink;
 public class Pub {
     private ArrayList<Drink> drinks;
     private ArrayList<Food> foods;
-
+    
     public Pub(){
         drinks = new ArrayList<Drink>();
         foods = new ArrayList<Food>();
@@ -99,22 +99,12 @@ public class Pub {
     public void storeFoodInFile() throws IOException{
         String filePath = Path.of("src/packpub/data").toString();
         String nombredearchivo= JOptionPane.showInputDialog("ingrese el nombre del archivo a crear"); 
-        BufferedWriter fw = null;
-        try {
-            fw = new BufferedWriter(new FileWriter( filePath + "/" + nombredearchivo + ".txt"));
-            for (int i = 0; i < foods.size(); i++) {
-                fw.write(foods.get(i).toString());
-                fw.write("\n");
-            }
-        } catch (IOException e) {
-            System.out.println("Error al escribir en el archivo");
+        BufferedWriter fw = new BufferedWriter(new FileWriter( filePath + "/" + nombredearchivo + ".txt"));
+        for (int i = 0; i < foods.size()-1; i++) {
+            fw.write(foods.get(i).toString());
+            fw.write("\n");
         }
-        catch( NullPointerException n){
-            System.out.println("No se ingreso ningun nombre");
-        }
-        finally{
-            fw.close();
-        }
+        // fw.close();
     }
     public void loadFoodFromFile(){
         String filePath = Path.of("src/packpub/data").toString();
@@ -130,7 +120,7 @@ public class Pub {
         } catch (IOException e) {
             System.out.println("Error al leer el archivo");
         }
-
+        
     }
     public void removeFood(Food food){
         foods.remove(food);
