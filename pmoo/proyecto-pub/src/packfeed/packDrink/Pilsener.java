@@ -24,13 +24,22 @@ public class Pilsener extends Lager {
     public int getTemperatura() {
         return temperatura;
     }
+    /**
+     * setter del precio del Pilsener
+     */
     public void setPrecio() {
         this.precio = super.getPrecio();
         super.setPrecio(this.precio);
     }
+    /**getter del precio del Pilsener
+     *@return precio
+     */
     public double getPrecio(){
         return precio;
     }
+    /**
+     *redefinicion del metodo toString
+     */
     public String toString() {
         return super.toString() + " Temperatura: " + temperatura + " }";
     }

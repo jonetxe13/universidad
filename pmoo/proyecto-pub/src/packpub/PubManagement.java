@@ -23,6 +23,7 @@ public class PubManagement {
         System.out.println(" -----------------------------");
 
         Pub pub = new Pub();
+        
 
         Refresco beer1 = new Refresco("Budweiser", 500, false, new Food[] { new Food("Pizza", 500), new Food("Pizza", 500) }, "Dulce", true, 5);
 		Licores beer2 = new Licores("Estrella", 500, false, new Food[] { new Food("Pizza", 500), new Food("Pizza", 500) }, 40, 5);
@@ -351,10 +352,10 @@ public class PubManagement {
            int seguirMenuOSalir = sc.nextInt();
 
            if (seguirMenuOSalir == 1) {
-               ESTADO = "MENU";
+               ESTADO = "SELECCIONARACCION";
            }
            else if(seguirMenuOSalir == 2){
-               ESTADO = "SELECCIONARACCION";
+               ESTADO = "MENU";
            }
            else if(seguirMenuOSalir == 3){
                ESTADO = "FIN";

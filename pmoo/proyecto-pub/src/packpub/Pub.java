@@ -1,6 +1,5 @@
 package packpub;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -149,13 +148,14 @@ public class Pub {
 
         String filePath = Path.of("src/packpub/data").toString();
         String nombredearchivo= JOptionPane.showInputDialog("ingrese el nombre del archivo a crear"); 
-        FileWriter fw = new FileWriter( filePath + "/" + nombredearchivo + ".txt");
-        
-        for (int i = 0; i < foods.size(); i++) {
-            fw.write(foods.get(i).toString() + "\n");
+        try(FileWriter fw = new FileWriter( filePath + "/" + nombredearchivo + ".txt")){ 
+            for (int i = 0; i < foods.size(); i++) {
+                fw.write(foods.get(i).toString() + "\n");
+            }
         }
-        fw.flush();
-        fw.close();
+        catch (IOException e) {
+            System.out.println("Error al escribir en el archivo");
+        }
     }
     /**
      * carga en el ArrayList foods todas las comidas que encuentre en el archivo que tenga el nombre que meta el usuario
@@ -171,10 +171,12 @@ public class Pub {
                 String[] datos = linea.split("'");
                 Food food = new Food(datos[1], Integer.parseInt(datos[3]));
                 addFood(food);
+                fr.close();
             }
         } catch (IOException e) {
             System.out.println("Error al leer el archivo");
         }
+        
         
     }
     /**elimina la comida especificada del ArrayList foods

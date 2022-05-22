@@ -1,10 +1,7 @@
 package packcheck;
 import packfeed.Food;
 import packfeed.packDrink.Ale;
-import packfeed.packDrink.Beer;
 import packfeed.packDrink.DarkLager;
-import packfeed.packDrink.Drink;
-import packfeed.packDrink.Lager;
 import packfeed.packDrink.Licores;
 import packfeed.packDrink.Refresco;
 import packfeed.packDrink.Vino;
