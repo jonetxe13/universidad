@@ -34,6 +34,13 @@ public class PubManagement {
         pub.addDrink(beer2); 
         pub.addDrink(beer3); 
 
+        Food food = new Food("Pizza", 500);
+        Food food2 = new Food("Carne", 500);
+        Food food3 = new Food("Pasta", 500);
+        pub.addFood(food);
+        pub.addFood(food2);
+        pub.addFood(food3);
+
         String ESTADO = "MENU";
         int BebidasComidasOSalir = 0;
         int opcionSeleccionada = 0;
@@ -313,8 +320,8 @@ public class PubManagement {
                     case 4:{
                         System.out.println("Ingrese el nombre de la comida a eliminar: \n");
                         String nombreComida = sc.next();
-                        Food food = new Food(nombreComida, 0);
-                        pub.removeFood(food);
+                        Food comida = new Food(nombreComida, 0);
+                        pub.removeFood(comida);
                         break;
                     }
                     case 5:{

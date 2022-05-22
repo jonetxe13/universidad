@@ -97,16 +97,19 @@ public class Pub {
         foods.add(food);
     }
     public void storeFoodInFile() throws IOException{
+
         String filePath = Path.of("src/packpub/data").toString();
         String nombredearchivo= JOptionPane.showInputDialog("ingrese el nombre del archivo a crear"); 
-        BufferedWriter fw = new BufferedWriter(new FileWriter( filePath + "/" + nombredearchivo + ".txt"));
-        for (int i = 0; i < foods.size()-1; i++) {
-            fw.write(foods.get(i).toString());
-            fw.write("\n");
+        FileWriter fw = new FileWriter( filePath + "/" + nombredearchivo + ".txt");
+        
+        for (int i = 0; i < foods.size(); i++) {
+            fw.write(foods.get(i).toString() + "\n");
         }
-        // fw.close();
+        fw.flush();
+        fw.close();
     }
     public void loadFoodFromFile(){
+
         String filePath = Path.of("src/packpub/data").toString();
         String nombredearchivo= JOptionPane.showInputDialog("ingrese el nombre del archivo a cargar"); 
         try {
