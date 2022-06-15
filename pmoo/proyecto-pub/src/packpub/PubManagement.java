@@ -39,8 +39,8 @@ public class PubManagement {
         pub.addDrink(beer3); 
 
         Food food = new Food("Pizza", 500);
-        Food food2 = new Food("Carne", 500);
-        Food food3 = new Food("Pasta", 500);
+        Food food2 = new Food("Carne", 400);
+        Food food3 = new Food("Pasta", 200);
         pub.addFood(food);
         pub.addFood(food2);
         pub.addFood(food3);
@@ -252,7 +252,7 @@ public class PubManagement {
                     }
                     case 4:{
                         System.out.println("Mostrar la bebida mas calorica: \n");
-                        pub.mostCaloricDrink().toString();
+                        System.out.println(pub.mostCaloricDrink().toString());
                         break;
                     }
                     case 5:{
@@ -275,7 +275,7 @@ public class PubManagement {
                     }
                     case 8:{
                         System.out.println("Mostrar la cerveza mas barata: \n");
-                        pub.cheapestBeer().toString();
+                        System.out.println(pub.cheapestBeer().toString());
                         break;
                     }
 
@@ -339,7 +339,7 @@ public class PubManagement {
                     }
                     case 6:{
                         System.out.println("Mostrar la comida mas calorica: \n");
-                        pub.mostCaloricFood().toString();
+                        System.out.println(pub.mostCaloricFood().toString());
                         break;
                     }
                     case 7:{
