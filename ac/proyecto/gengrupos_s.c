@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <omp.h>
 
 #include "defineg.h"
 #include "fun.h"
@@ -64,7 +65,7 @@ int main (int argc, char *argv[]) {
 
 	fscanf (fd, "%d", &nelem);
 	if (argc == 4) nelem = atoi(argv[3]);	// 4. parametro: numero de elementos
-
+  
 	for (i=0; i<nelem; i++)
 		for (j=0; j<NCAR; j++)
 			fscanf (fd, "%f", &(elem[i][j]));
@@ -80,7 +81,7 @@ int main (int argc, char *argv[]) {
 		printf ("[!] Error al abrir el fichero %s\n", argv[2]);
 		exit (-1);
 	}
-
+  
 	for (i=0; i<nelem; i++) {
 		for (j=0; j<TENF; j++)
 			fscanf (fd, "%f", &(enf[i][j]));
@@ -91,15 +92,21 @@ int main (int argc, char *argv[]) {
 
 	convergencia_cont = 0;
 	sil_old = -1;
+  
+
 	while(ngrupos<MAX_GRUPOS && convergencia_cont<1){
 		// generacion de los primeros centroides de forma aleatoria
 		// ========================================================
+    #pragma omp parallel sections
+    {
+    #pragma omp section
 		inicializar_centroides(cent);
 
 		// A: agrupar los elementos en ngrupos clusteres
 		// ===============================================
 		num_ite = 0;
 		fin = 0;
+    #pragma omp section
 		while ((fin == 0) && (num_ite < MAXIT)) {
 			// calcular el grupo mas cercano
 			grupo_cercano (nelem, elem, cent, popul);
@@ -115,7 +122,9 @@ int main (int argc, char *argv[]) {
 		// ==========================================
 
 		// lista de clusters: numero de elementos y su clasificacion
+    #pragma omp section
 		for (i=0; i<ngrupos; i++) listag[i].nelemg = 0;
+
 		for (i=0; i<nelem; i++){
 			grupo = popul[i];
 			num=listag[grupo].nelemg;
@@ -133,7 +142,8 @@ int main (int argc, char *argv[]) {
 		sil_old = sil;
 
 		ngrupos=ngrupos+10;
-	}
+    }
+  }
 	ngrupos=ngrupos-10;
 	clock_gettime (CLOCK_REALTIME, &t17);
 	t_clust = (t17.tv_sec-t12.tv_sec) + (t17.tv_nsec-t12.tv_nsec)/(double)1e9;
@@ -157,6 +167,8 @@ int main (int argc, char *argv[]) {
 	}
 
 	fprintf (fd,">> Centroides de los clusters\n\n");
+
+  #pragma omp parallel for
 	for (i=0; i<ngrupos; i++) {
 		for (j=0; j<NCAR; j++) fprintf (fd, "%7.3f", cent[i][j]);
 		fprintf (fd,"\n");
@@ -164,6 +176,8 @@ int main (int argc, char *argv[]) {
 
 	fprintf (fd,"\n\n>> Numero de clusteres: %d. Numero de elementos en cada cluster:\n\n", ngrupos);
 	ind = 0;
+
+  #pragma omp parallel for
 	for (i=0; i<ngrupos/10; i++) {
 		for (j=0; j<10; j++){
 			fprintf(fd, "%6d", listag[ind].nelemg);
@@ -171,22 +185,30 @@ int main (int argc, char *argv[]) {
 		}
 		fprintf(fd, "\n");
 	}
+
+  #pragma omp parallel for
 	for(i=ind; i<ngrupos; i++) fprintf(fd, "%6d", listag[i].nelemg);
 	fprintf(fd, "\n");
 
 	fprintf (fd, "\n>> Densidad de los clusters: b[i]\n\n");
 	ind = 0;
+
+  #pragma omp parallel for
 	for (i=0; i<ngrupos/10; i++) {
 		for (j=0; j<10; j++){
 			fprintf (fd, "%9.2f", a[ind]);
 			ind++;
 		}
 		fprintf (fd, "\n");
-	}
+	} 
+
+  #pragma omp parallel for
 	for(i=ind; i<ngrupos; i++) fprintf(fd, "%9.2f", a[i]);
 	fprintf(fd, "\n");
 
 	fprintf (fd,"\n\n>> Analisis de enfermedades (medianas) en los grupos\n\n");
+
+  #pragma omp parallel for
 	for (i=0; i<TENF; i++)
 		fprintf (fd,"Enfermedad: %2d - mmax: %4.2f (grupo %2d) - mmin: %4.2f (grupo %2d)\n",
 				i, prob_enf[i].mmax, prob_enf[i].gmax, prob_enf[i].mmin, prob_enf[i].gmin);
@@ -198,6 +220,8 @@ int main (int argc, char *argv[]) {
 	// =======================================
 
 	printf ("\n>> Centroides 0, 20, 40...\n");
+
+  #pragma omp parallel for
 	for (i=0; i<ngrupos; i+=20) {
 		printf ("\n  cent%2d -- ", i);
 		for (j=0; j<NCAR; j++) printf ("%5.1f", cent[i][j]);
@@ -206,6 +230,8 @@ int main (int argc, char *argv[]) {
 
 	printf ("\n>> Numero de clusteres: %d. Tamanno de los grupos:\n\n", ngrupos);
 	ind = 0;
+
+  #pragma omp parallel for
 	for (i=0; i<ngrupos/10; i++) {
 		for (j=0; j<10; j++){
 			printf ("%6d", listag[ind].nelemg);
@@ -213,11 +239,15 @@ int main (int argc, char *argv[]) {
 		}
 		printf ("\n");
 	}
+
+  #pragma omp parallel for
 	for(i=ind; i<ngrupos; i++) printf("%6d", listag[i].nelemg);
 	printf("\n");
 
 	printf("\n>> Densidad de los clusters: b[i]\n\n");
 	ind = 0;
+
+  #pragma omp parallel for
 	for (i=0; i<ngrupos/10; i++) {
 		for (j=0; j<10; j++){
 			printf("%9.2f", a[ind]);
@@ -225,10 +255,14 @@ int main (int argc, char *argv[]) {
 		}
 		printf("\n");
 	}
+
+  #pragma omp parallel for
 	for(i=ind; i<ngrupos; i++) printf("%9.2f", a[i]);
 	printf("\n");
 
 	printf ("\n>> Analisis de enfermedades en los grupos\n\n");
+
+  #pragma omp parallel for
 	for (i=0; i<TENF; i++)
 		printf ("Enfermedad: %2d - max: %4.2f (grupo %2d) - min: %4.2f (grupo %2d)\n",
 				i, prob_enf[i].mmax, prob_enf[i].gmax, prob_enf[i].mmin, prob_enf[i].gmin);

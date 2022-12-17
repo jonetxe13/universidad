@@ -19,6 +19,7 @@ double gendist (float *elem1, float *elem2)
 	// PARA COMPLETAR
 	// calcular la distancia euclidea entre dos vectores
   double termino = 0;
+  #pragma omp parallel for
   for(int i = 0; i < NCAR; i++){
     termino += pow((elem1[i] - elem2[i]), 2);
   }
@@ -35,6 +36,7 @@ double gendist (float *elem1, float *elem2)
 *****************************************************************************************/
 void grupo_cercano (int nelem, float elem[][NCAR], float cent[][NCAR], int *popul)
 {
+  #pragma omp parallel for
 	for (int i = 0; i < nelem; i++) {
     double minDist = DBL_MAX; // Distancia mínima inicializada en infinito
     int minIdx = 0; // Índice del grupo más cercano
@@ -64,6 +66,7 @@ double silhouette_simple(float elem[][NCAR], struct lista_grupos *listag, float 
 	// aproximar a[i] de cada cluster: calcular la densidad de los grupos
     //		media de las distancia entre todos los elementos del grupo
     //   	si el numero de elementos del grupo es 0 o 1, densidad = 0
+  #pragma omp parallel for
   for (int i = 0; i < MAX_GRUPOS; i++) {
     if (listag[i].nelemg < 2) {
       a[i] = 0;
@@ -82,6 +85,7 @@ double silhouette_simple(float elem[][NCAR], struct lista_grupos *listag, float 
 
   // aproximar b[i] de cada cluster
   float b[ngrupos];
+  #pragma omp parallel for
   for (int i = 0; i < ngrupos; i++) {
     b[i] = FLT_MAX; // inicializar con el valor máximo de float
     
@@ -98,6 +102,7 @@ double silhouette_simple(float elem[][NCAR], struct lista_grupos *listag, float 
 	
 	// calcular el ratio s[i] de cada cluster
   float s[ngrupos];
+  #pragma omp parallel for
   for(int i = 0; i < ngrupos; i++){
     if(a[i] >= b[i]) s[i] = (b[i] - a[i]) / (a[i]);
     else{ s[i] = (b[i] - a[i]) / (b[i]); }
@@ -107,6 +112,7 @@ double silhouette_simple(float elem[][NCAR], struct lista_grupos *listag, float 
 
 	// promedio y devolver
   float S;
+  #pragma omp parallel for
   for(int i = 0; i < ngrupos; i++){
     S += s[i];
   }
@@ -131,6 +137,7 @@ void analisis_enfermedades (struct lista_grupos *listag, float enf[][TENF], stru
   int i, j;
   float max, min;
   int max_group, min_group;
+  #pragma omp parallel for
   for (i = 0; i < TENF; i++){
     max = enf[0][i];
     min = enf[0][i];
@@ -178,11 +185,13 @@ int nuevos_centroides(float elem[][NCAR], float cent[][NCAR], int popul[], int n
 	double additions[ngrupos][NCAR+1];
 	float newcent[ngrupos][NCAR];
 
+  #pragma omp parallel for
 	for (i=0; i<ngrupos; i++)
 		for (j=0; j<NCAR+1; j++)
 			additions[i][j] = 0.0;
 
 	// acumular los valores de cada caracteristica (100); numero de elementos al final
+  #pragma omp parallel for
 	for (i=0; i<nelem; i++){
 		for (j=0; j<NCAR; j++) additions[popul[i]][j] += elem[i][j];
 		additions[popul[i]][NCAR]++;
@@ -193,6 +202,7 @@ int nuevos_centroides(float elem[][NCAR], float cent[][NCAR], int popul[], int n
 	for (i=0; i<ngrupos; i++){
 		if (additions[i][NCAR] > 0) { // ese grupo (cluster) no esta vacio
 			// media de cada caracteristica
+      #pragma omp parallel for
 			for (j=0; j<NCAR; j++)
 				newcent[i][j] = (float)(additions[i][j] / additions[i][NCAR]);
 
@@ -202,6 +212,7 @@ int nuevos_centroides(float elem[][NCAR], float cent[][NCAR], int popul[], int n
 				fin = 0;  // en alguna centroide hay cambios; continuar
 
 			// copiar los nuevos centroides
+      #pragma omp parallel for
 			for (j=0; j<NCAR; j++)
 				cent[i][j] = newcent[i][j];
 		}
