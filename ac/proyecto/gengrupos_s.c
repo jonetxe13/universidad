@@ -104,8 +104,9 @@ int main (int argc, char *argv[]) {
 		num_ite = 0;
 		fin = 0;
 		while ((fin == 0) && (num_ite < MAXIT)) {
-			// calcular el grupo mas cercano
-			grupo_cercano (nelem, elem, cent, popul);
+		  // calcular el grupo mas cercano
+		  grupo_cercano (nelem, elem, cent, popul);
+      
 
 			// calcular los nuevos centroides de los grupos
 			fin = nuevos_centroides(elem, cent, popul, nelem);
