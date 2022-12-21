@@ -18,7 +18,12 @@ double gendist (float *elem1, float *elem2)
 {
 	// PARA COMPLETAR
 	// calcular la distancia euclidea entre dos vectores
-	return 0.0;
+  double termino = 0;
+  for(int i = 0; i < NCAR; i++){
+    termino += pow((elem1[i] - elem2[i]), 2);
+  }
+
+	return sqrt(termino);
 }
 
 /****************************************************************************************
@@ -32,6 +37,18 @@ void grupo_cercano (int nelem, float elem[][NCAR], float cent[][NCAR], int *popu
 {
 	// PARA COMPLETAR
 	// popul: grupo mas cercano a cada elemento
+	for (int i = 0; i < nelem; i++) {
+    double minDist = DBL_MAX; // Distancia mínima inicializada en infinito
+    int minIdx = 0; // Índice del grupo más cercano
+    for (int j = 0; j < ngrupos; j++) {
+      double dist = gendist(elem[i], cent[j]); // Calcular distancia euclidea
+      if (dist < minDist) { // Actualizar distancia mínima y índice
+        minDist = dist;
+        minIdx = j;
+      }
+    }
+    popul[i] = minIdx; // Asignar grupo más cercano al elemento i-ésimo
+  }
 }
 
 /****************************************************************************************
@@ -51,16 +68,54 @@ double silhouette_simple(float elem[][NCAR], struct lista_grupos *listag, float 
 	// aproximar a[i] de cada cluster: calcular la densidad de los grupos
     //		media de las distancia entre todos los elementos del grupo
     //   	si el numero de elementos del grupo es 0 o 1, densidad = 0
+  for (int i = 0; i < MAX_GRUPOS; i++) {
+    if (listag[i].nelemg < 2) {
+      a[i] = 0;
+      continue;
+    }
 
+    // calcular la distancia media entre todos los elementos del grupo
+    float dist = 0;
+    for (int j = 0; j < listag[i].nelemg; j++) {
+      for (int k = j+1; k < listag[i].nelemg; k++) {
+        dist += gendist(elem[listag[i].elemg[j]], elem[listag[i].elemg[k]]);
+      }
+    }
+    a[i] = dist / (listag[i].nelemg * (listag[i].nelemg));
+  }
+
+  // aproximar b[i] de cada cluster
+  float b[ngrupos];
+  for (int i = 0; i < ngrupos; i++) {
+    b[i] = FLT_MAX; // inicializar con el valor máximo de float
     
+    float dist = 0;
+    // encontrar la distancia mínima entre el cluster i y los demás clusters
+    for (int j = 0; j < ngrupos; j++){
+      dist += gendist(cent[i], cent[j]);
+    }
+
+    b[i] = dist / ((ngrupos*NCAR) - 1);
+  }
     // aproximar b[i] de cada cluster
 
 	
 	// calcular el ratio s[i] de cada cluster
-
+  float s[ngrupos];
+  for(int i = 0; i < ngrupos; i++){
+    if(a[i] >= b[i]) s[i] = (b[i] - a[i]) / (a[i]);
+    else{ s[i] = (b[i] - a[i]) / (b[i]); }
+  }
 
 	// promedio y devolver
-    return 0.0;
+  float S;
+  for(int i = 0; i < ngrupos; i++){
+    S += s[i];
+  }
+  /* printf("\nLa variable S da este valor: "); */
+  /* printf("%f", S); */
+
+  return S/(ngrupos);
 }
 
 /********************************************************************************************
@@ -75,6 +130,32 @@ void analisis_enfermedades (struct lista_grupos *listag, float enf[][TENF], stru
 	// Realizar el análisis de enfermedades en los grupos:
 	//		mediana máxima y el grupo en el que se da este máximo (para cada enfermedad)
 	//		mediana mínima y su grupo en el que se da este mínimo (para cada enfermedad)
+  int i, j;
+  float max, min;
+  int max_group, min_group;
+  for (i = 0; i < TENF; i++){
+    max = enf[0][i];
+    min = enf[0][i];
+    max_group = 0;
+    min_group = 0;
+
+    for (j = 0; j < listag->nelemg; j++){
+        if (enf[listag->elemg[j]][i] > max){
+            max = enf[listag->elemg[j]][i];
+            max_group = j;
+        }
+
+        if (enf[listag->elemg[j]][i] < min){
+            min = enf[listag->elemg[j]][i];
+            min_group = j;
+        }
+    }
+
+    prob_enf[i].mmax = max;
+    prob_enf[i].gmax = max_group;
+    prob_enf[i].mmin = min;
+    prob_enf[i].gmin = min_group;
+  }
 }
 
 
