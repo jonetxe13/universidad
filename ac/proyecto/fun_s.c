@@ -20,7 +20,7 @@ double gendist (float *elem1, float *elem2)
   // PARA COMPLETAR
   // calcular la distancia euclidea entre dos vectores
   double termino = 0;
-  /* #pragma omp for // este parece que lo jode todo */ 
+  #pragma omp for 
   for(int i = 0; i < NCAR; i++){
     termino += pow((elem1[i] - elem2[i]), 2);
   }
@@ -38,6 +38,7 @@ void grupo_cercano (int nelem, float elem[][NCAR], float cent[][NCAR], int *popu
 {
   /* #pragma omp parallel // este parece que no ayuda */
   /* { */
+    #pragma omp for
   	for (int i = 0; i < nelem; i++) {
       double minDist = DBL_MAX; // Distancia mínima inicializada en infinito
       int minIdx = 0; // Índice del grupo más cercano
@@ -81,6 +82,7 @@ double silhouette_simple(float elem[][NCAR], struct lista_grupos *listag, float 
   
       // calcular la distancia media entre todos los elementos del grupo
       float dist = 0;
+    /* #pragma omp for */
       for (int j = 0; j < listag[i].nelemg; j++) {
         for (int k = j+1; k < listag[i].nelemg; k++) {
           dist += gendist(elem[listag[i].elemg[j]], elem[listag[i].elemg[k]]);
@@ -98,6 +100,7 @@ double silhouette_simple(float elem[][NCAR], struct lista_grupos *listag, float 
       
       float dist = 0;
       // encontrar la distancia mínima entre el cluster i y los demás clusters
+    /* #pragma omp for */
       for (int j = 0; j < ngrupos; j++){
         dist += gendist(cent[i], cent[j]);
       }

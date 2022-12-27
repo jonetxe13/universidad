@@ -66,9 +66,9 @@ int main (int argc, char *argv[]) {
 	fscanf (fd, "%d", &nelem);
 	if (argc == 4) nelem = atoi(argv[3]);	// 4. parametro: numero de elementos
   
-	for (i=0; i<nelem; i++)
-		for (j=0; j<NCAR; j++)
-			fscanf (fd, "%f", &(elem[i][j]));
+ 	for (i=0; i<nelem; i++)
+ 		for (j=0; j<NCAR; j++)
+ 			fscanf (fd, "%f", &(elem[i][j]));
 
 	fclose (fd);
 
@@ -82,10 +82,11 @@ int main (int argc, char *argv[]) {
 		exit (-1);
 	}
   
-	for (i=0; i<nelem; i++) {
-		for (j=0; j<TENF; j++)
-			fscanf (fd, "%f", &(enf[i][j]));
-	}
+ 	for (i=0; i<nelem; i++) {
+ 		for (j=0; j<TENF; j++)
+ 			fscanf (fd, "%f", &(enf[i][j]));
+ 	}
+
 	fclose (fd);
 	clock_gettime (CLOCK_REALTIME, &t12);
 	t_lec = (t12.tv_sec-t11.tv_sec) + (t12.tv_nsec-t11.tv_nsec)/(double)1e9;
@@ -97,30 +98,37 @@ int main (int argc, char *argv[]) {
 	while(ngrupos<MAX_GRUPOS && convergencia_cont<1){
 		// generacion de los primeros centroides de forma aleatoria
 		// ========================================================
-		inicializar_centroides(cent);
+	  inicializar_centroides(cent);
+ 
 
 		// A: agrupar los elementos en ngrupos clusteres
 		// ===============================================
 		num_ite = 0;
 		fin = 0;
-		while ((fin == 0) && (num_ite < MAXIT)) {
-		  // calcular el grupo mas cercano
-		  grupo_cercano (nelem, elem, cent, popul);
-      
-
-			// calcular los nuevos centroides de los grupos
-			fin = nuevos_centroides(elem, cent, popul, nelem);
-
-			num_ite++;
-		}
+ 		while ((fin == 0) && (num_ite < MAXIT)) {
+ 		  // calcular el grupo mas cercano
+ 		  grupo_cercano (nelem, elem, cent, popul);
+       
+ 			// calcular los nuevos centroides de los grupos
+      #pragma omp parallel
+      {
+ 			fin = nuevos_centroides(elem, cent, popul, nelem);
+      }
+  
+ 			num_ite++;
+    }
 
 
 		// B. Calcular la "calidad" del agrupamiento
 		// ==========================================
 
 		// lista de clusters: numero de elementos y su clasificacion
+    #pragma omp parallel 
+    {
+    #pragma omp for
 		for (i=0; i<ngrupos; i++) listag[i].nelemg = 0;
 
+    #pragma omp for
 		for (i=0; i<nelem; i++){
 			grupo = popul[i];
 			num=listag[grupo].nelemg;
@@ -135,8 +143,8 @@ int main (int argc, char *argv[]) {
 		diff = sil - sil_old;
 		if(diff < DELTA2) convergencia_cont++;
 		else convergencia_cont = 0;
+    }
 		sil_old = sil;
-
 		ngrupos=ngrupos+10;
   }
 	ngrupos=ngrupos-10;
@@ -148,7 +156,10 @@ int main (int argc, char *argv[]) {
 
 	// analisis de enfermedades
 	clock_gettime (CLOCK_REALTIME, &t20);
-	analisis_enfermedades (listag, enf, prob_enf);
+  #pragma omp parallel 
+  {
+	  analisis_enfermedades (listag, enf, prob_enf);
+  }
 	clock_gettime (CLOCK_REALTIME, &t21);
 	t_enf = (t21.tv_sec-t20.tv_sec) + (t21.tv_nsec-t20.tv_nsec)/(double)1e9;
 
@@ -162,7 +173,7 @@ int main (int argc, char *argv[]) {
 	}
 
 	fprintf (fd,">> Centroides de los clusters\n\n");
-
+  
 	for (i=0; i<ngrupos; i++) {
 		for (j=0; j<NCAR; j++) fprintf (fd, "%7.3f", cent[i][j]);
 		fprintf (fd,"\n");
@@ -249,7 +260,6 @@ int main (int argc, char *argv[]) {
 	for (i=0; i<TENF; i++)
 		printf ("Enfermedad: %2d - max: %4.2f (grupo %2d) - min: %4.2f (grupo %2d)\n",
 				i, prob_enf[i].mmax, prob_enf[i].gmax, prob_enf[i].mmin, prob_enf[i].gmin);
-
 
 	clock_gettime (CLOCK_REALTIME, &t2);
 	t_escri = (t2.tv_sec-t21.tv_sec) + (t2.tv_nsec-t21.tv_nsec)/(double)1e9;
