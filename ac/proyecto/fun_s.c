@@ -20,7 +20,7 @@ double gendist (float *elem1, float *elem2)
   // PARA COMPLETAR
   // calcular la distancia euclidea entre dos vectores
   double termino = 0;
-  #pragma omp for 
+  /* #pragma omp for reduction(+:termino) */
   for(int i = 0; i < NCAR; i++){
     termino += pow((elem1[i] - elem2[i]), 2);
   }
@@ -36,9 +36,9 @@ double gendist (float *elem1, float *elem2)
 *****************************************************************************************/
 void grupo_cercano (int nelem, float elem[][NCAR], float cent[][NCAR], int *popul)
 {
-  /* #pragma omp parallel // este parece que no ayuda */
+  /* #pragma omp parallel */
   /* { */
-    #pragma omp for
+  /*   #pragma omp for */ 
   	for (int i = 0; i < nelem; i++) {
       double minDist = DBL_MAX; // Distancia mínima inicializada en infinito
       int minIdx = 0; // Índice del grupo más cercano
@@ -72,9 +72,10 @@ double silhouette_simple(float elem[][NCAR], struct lista_grupos *listag, float 
   float b[ngrupos];
   float s[ngrupos];
   float S;
-  /* #pragma omp parallel //este no ayuda a partir de 25000 */
-  /* { */
-    for (int i = 0; i < MAX_GRUPOS; i++) {
+  #pragma omp parallel
+  {
+    #pragma omp for
+    for (int i = 0; i <MAX_GRUPOS; i++) {
       if (listag[i].nelemg < 2) {
         a[i] = 0;
         continue;
@@ -82,7 +83,6 @@ double silhouette_simple(float elem[][NCAR], struct lista_grupos *listag, float 
   
       // calcular la distancia media entre todos los elementos del grupo
       float dist = 0;
-    /* #pragma omp for */
       for (int j = 0; j < listag[i].nelemg; j++) {
         for (int k = j+1; k < listag[i].nelemg; k++) {
           dist += gendist(elem[listag[i].elemg[j]], elem[listag[i].elemg[k]]);
@@ -90,41 +90,36 @@ double silhouette_simple(float elem[][NCAR], struct lista_grupos *listag, float 
       }
       a[i] = dist / (listag[i].nelemg * (listag[i].nelemg));
     }
-  /* } */
   
     // aproximar b[i] de cada cluster
-  /* #pragma omp parallel //con 25000 no ayuda */
-  /* { */
+    #pragma omp for
     for (int i = 0; i < ngrupos; i++) {
       b[i] = FLT_MAX; // inicializar con el valor máximo de float
       
       float dist = 0;
-      // encontrar la distancia mínima entre el cluster i y los demás clusters
-    /* #pragma omp for */
       for (int j = 0; j < ngrupos; j++){
         dist += gendist(cent[i], cent[j]);
       }
   
       b[i] = dist / ((ngrupos*NCAR) - 1);
     }
-  /* } */
       // aproximar b[i] de cada cluster
-  
   	
   	// calcular el ratio s[i] de cada cluster
-  #pragma omp for
-  for(int i = 0; i < ngrupos; i++){
-    if(a[i] >= b[i]) s[i] = (b[i] - a[i]) / (a[i]);
-    else{ s[i] = (b[i] - a[i]) / (b[i]); }
+    #pragma omp for
+    for(int i = 0; i < ngrupos; i++){
+      if(a[i] >= b[i]) s[i] = (b[i] - a[i]) / (a[i]);
+      else{ s[i] = (b[i] - a[i]) / (b[i]); }
+    }
+    
+    	// promedio y devolver
+    #pragma omp for
+    for(int i = 0; i < ngrupos; i++){
+      S += s[i];
+    }
+      /* printf("\nLa variable S da este valor: "); */
+      /* printf("%f", S); */
   }
-  
-  	// promedio y devolver
-  #pragma omp for
-  for(int i = 0; i < ngrupos; i++){
-    S += s[i];
-  }
-    /* printf("\nLa variable S da este valor: "); */
-    /* printf("%f", S); */
   return S/(ngrupos);
 }
 
@@ -143,8 +138,9 @@ void analisis_enfermedades (struct lista_grupos *listag, float enf[][TENF], stru
   int i, j;
   float max, min;
   int max_group, min_group;
-  /* #pragma omp parallel */ // este tambien es algo peor wtf
-  /* { */
+  #pragma omp parallel // este tambien es algo peor wtf
+  {
+  #pragma omp for
     for (i = 0; i < TENF; i++){
       max = enf[0][i];
       min = enf[0][i];
@@ -168,7 +164,7 @@ void analisis_enfermedades (struct lista_grupos *listag, float enf[][TENF], stru
       prob_enf[i].mmin = min;
       prob_enf[i].gmin = min_group;
     }
-  /* } */
+  }
 }
 
 

@@ -107,11 +107,11 @@ int main (int argc, char *argv[]) {
 		fin = 0;
  		while ((fin == 0) && (num_ite < MAXIT)) {
  		  // calcular el grupo mas cercano
+      #pragma omp parallel
+      {
  		  grupo_cercano (nelem, elem, cent, popul);
        
  			// calcular los nuevos centroides de los grupos
-      #pragma omp parallel
-      {
  			fin = nuevos_centroides(elem, cent, popul, nelem);
       }
   
