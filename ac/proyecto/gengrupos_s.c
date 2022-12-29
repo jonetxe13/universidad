@@ -98,6 +98,7 @@ int main (int argc, char *argv[]) {
 	while(ngrupos<MAX_GRUPOS && convergencia_cont<1){
 		// generacion de los primeros centroides de forma aleatoria
 		// ========================================================
+    // no paralelizar esto por rand()
 	  inicializar_centroides(cent);
  
 
@@ -107,11 +108,11 @@ int main (int argc, char *argv[]) {
 		fin = 0;
  		while ((fin == 0) && (num_ite < MAXIT)) {
  		  // calcular el grupo mas cercano
-      #pragma omp parallel
-      {
  		  grupo_cercano (nelem, elem, cent, popul);
        
  			// calcular los nuevos centroides de los grupos
+      #pragma omp parallel //no se si da los mismos resultados pero como en la funcion no esta paralelizado lo hago aqui
+      {
  			fin = nuevos_centroides(elem, cent, popul, nelem);
       }
   
@@ -135,7 +136,7 @@ int main (int argc, char *argv[]) {
 			listag[grupo].elemg[num] = i;  // elementos de cada grupo (cluster)
 			listag[grupo].nelemg++;
 		}
-		
+    }
 		// silhouette simple: calidad de la particion
 		sil = silhouette_simple(elem, listag, cent, a);
 
@@ -143,7 +144,6 @@ int main (int argc, char *argv[]) {
 		diff = sil - sil_old;
 		if(diff < DELTA2) convergencia_cont++;
 		else convergencia_cont = 0;
-    }
 		sil_old = sil;
 		ngrupos=ngrupos+10;
   }

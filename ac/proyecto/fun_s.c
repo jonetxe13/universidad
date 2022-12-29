@@ -37,9 +37,9 @@ double gendist (float *elem1, float *elem2)
 *****************************************************************************************/
 void grupo_cercano (int nelem, float elem[][NCAR], float cent[][NCAR], int *popul)
 {
-  /* #pragma omp parallel */
-  /* { */
-  /*   #pragma omp for */ 
+  #pragma omp parallel
+  {
+    #pragma omp for 
   	for (int i = 0; i < nelem; i++) {
       double minDist = DBL_MAX; // Distancia mínima inicializada en infinito
       int minIdx = 0; // Índice del grupo más cercano
@@ -52,7 +52,7 @@ void grupo_cercano (int nelem, float elem[][NCAR], float cent[][NCAR], int *popu
       }
       popul[i] = minIdx; // Asignar grupo más cercano al elemento i-ésimo
     }
-  /* } */
+  }
 }
 
 /****************************************************************************************
@@ -215,7 +215,6 @@ int nuevos_centroides(float elem[][NCAR], float cent[][NCAR], int popul[], int n
 	double discent;
 	double additions[ngrupos][NCAR+1];
 	float newcent[ngrupos][NCAR];
-
 	for (i=0; i<ngrupos; i++)
 		for (j=0; j<NCAR+1; j++)
 			additions[i][j] = 0.0;
@@ -243,7 +242,8 @@ int nuevos_centroides(float elem[][NCAR], float cent[][NCAR], int popul[], int n
 			for (j=0; j<NCAR; j++)
 				cent[i][j] = newcent[i][j];
 		}
-	}
+
+  }
 	return fin;
 }
 
