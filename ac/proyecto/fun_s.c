@@ -7,6 +7,7 @@
 #include <float.h> // DBL_MAX
 #include <stdlib.h>
 #include <omp.h>
+#include <stdio.h>
 
 #include "defineg.h"           // definiciones
 
@@ -97,7 +98,7 @@ double silhouette_simple(float elem[][NCAR], struct lista_grupos *listag, float 
       b[i] = FLT_MAX; // inicializar con el valor máximo de float
       
       float dist = 0;
-      for (int j = 0; j < ngrupos; j++){
+      for (int j = i+1; j < ngrupos; j++){
         dist += gendist(cent[i], cent[j]);
       }
   
@@ -138,9 +139,28 @@ void analisis_enfermedades (struct lista_grupos *listag, float enf[][TENF], stru
   int i, j;
   float max, min;
   int max_group, min_group;
+
+
   #pragma omp parallel // este tambien es algo peor wtf
   {
+    #pragma omp for
+    //ordenar los elementos de cada grupo
+    for(int i = 0; i < ngrupos; i++){
+      for(int j = 0; j < listag[i].nelemg; j++){
+        for(int indiceActual = 0; indiceActual < listag[i].nelemg - 1; indiceActual++){
+          int indiceSiguiente = indiceActual+1;
+          if(listag[i].elemg[indiceActual] > listag[i].elemg[indiceSiguiente]){
+            int aux = listag[i].elemg[indiceActual];
+            listag[i].elemg[indiceActual] = listag[i].elemg[indiceSiguiente];
+            listag[i].elemg[indiceSiguiente] = aux;
+          }
+        }
+      }
+    }
+
+
   #pragma omp for
+    //buscar la mediana dentro de cada grupo
     for (i = 0; i < TENF; i++){
       max = enf[0][i];
       min = enf[0][i];
@@ -165,6 +185,13 @@ void analisis_enfermedades (struct lista_grupos *listag, float enf[][TENF], stru
       prob_enf[i].gmin = min_group;
     }
   }
+  /* for(int i = 0; i < ngrupos; i++){ */
+  /*   for(int j = 0; j < listag[0].nelemg; j++){ */
+  /*     printf("%d", listag[0].elemg[j]); */
+  /*     printf(" "); */
+  /*   } */
+  /*   printf("\n\n\n\n"); */
+  /* } */
 }
 
 

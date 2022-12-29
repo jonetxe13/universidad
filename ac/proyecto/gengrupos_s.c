@@ -156,10 +156,7 @@ int main (int argc, char *argv[]) {
 
 	// analisis de enfermedades
 	clock_gettime (CLOCK_REALTIME, &t20);
-  #pragma omp parallel 
-  {
-	  analisis_enfermedades (listag, enf, prob_enf);
-  }
+	analisis_enfermedades (listag, enf, prob_enf);
 	clock_gettime (CLOCK_REALTIME, &t21);
 	t_enf = (t21.tv_sec-t20.tv_sec) + (t21.tv_nsec-t20.tv_nsec)/(double)1e9;
 
