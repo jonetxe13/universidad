@@ -21,7 +21,6 @@ double gendist (float *elem1, float *elem2)
   // PARA COMPLETAR
   // calcular la distancia euclidea entre dos vectores
   double termino = 0;
-  /* #pragma omp for reduction(+:termino) */
   for(int i = 0; i < NCAR; i++){
     termino += pow((elem1[i] - elem2[i]), 2);
   }
@@ -44,7 +43,7 @@ void grupo_cercano (int nelem, float elem[][NCAR], float cent[][NCAR], int *popu
       double minDist = DBL_MAX; // Distancia mínima inicializada en infinito
       int minIdx = 0; // Índice del grupo más cercano
       for (int j = 0; j < ngrupos; j++) {
-        double dist = gendist(elem[i], cent[j]); // Calcular distancia euclidea
+        double dist = gendist(elem[i], cent[j]); 
         if (dist < minDist) { // Actualizar distancia mínima y índice
           minDist = dist;
           minIdx = j;
@@ -104,8 +103,7 @@ double silhouette_simple(float elem[][NCAR], struct lista_grupos *listag, float 
   
       b[i] = dist / ((ngrupos*NCAR) - 1);
     }
-      // aproximar b[i] de cada cluster
-  	
+
   	// calcular el ratio s[i] de cada cluster
     #pragma omp for
     for(int i = 0; i < ngrupos; i++){
@@ -113,13 +111,11 @@ double silhouette_simple(float elem[][NCAR], struct lista_grupos *listag, float 
       else{ s[i] = (b[i] - a[i]) / (b[i]); }
     }
     
-    	// promedio y devolver
+    // promedio y devolver
     #pragma omp for
     for(int i = 0; i < ngrupos; i++){
       S += s[i];
     }
-      /* printf("\nLa variable S da este valor: "); */
-      /* printf("%f", S); */
   }
   return S/(ngrupos);
 }
@@ -141,16 +137,16 @@ void analisis_enfermedades (struct lista_grupos *listag, float enf[][TENF], stru
   int max_group, min_group;
 
 
-  #pragma omp parallel // este tambien es algo peor wtf
+  #pragma omp parallel
   {
     #pragma omp for
     //ordenar los elementos de cada grupo
-    for(int i = 0; i < ngrupos; i++){
-      for(int j = 0; j < listag[i].nelemg; j++){
+    for(int i = 0; i < ngrupos; i++){ //recorrer cada grupo
+      for(int j = 0; j < listag[i].nelemg; j++){  //ordenar con burbuja
         for(int indiceActual = 0; indiceActual < listag[i].nelemg - 1; indiceActual++){
           int indiceSiguiente = indiceActual+1;
           if(listag[i].elemg[indiceActual] > listag[i].elemg[indiceSiguiente]){
-            int aux = listag[i].elemg[indiceActual];
+            int aux = listag[i].elemg[indiceActual]; //elemento auxiliar para que no se pierda el valor
             listag[i].elemg[indiceActual] = listag[i].elemg[indiceSiguiente];
             listag[i].elemg[indiceSiguiente] = aux;
           }
@@ -185,13 +181,6 @@ void analisis_enfermedades (struct lista_grupos *listag, float enf[][TENF], stru
       prob_enf[i].gmin = min_group;
     }
   }
-  /* for(int i = 0; i < ngrupos; i++){ */
-  /*   for(int j = 0; j < listag[0].nelemg; j++){ */
-  /*     printf("%d", listag[0].elemg[j]); */
-  /*     printf(" "); */
-  /*   } */
-  /*   printf("\n\n\n\n"); */
-  /* } */
 }
 
 
