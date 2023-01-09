@@ -88,6 +88,7 @@ funcion_5<- function(lista) {
   # Generar el gráfico
   curve(y, xlab = "Varianza", ylab = "Probabilidad", from = 0, to = 2 * varianza)
 }
+
 funcion_6 <- function(lista, alpha) {
   # Calcular la varianza muestral
   varianza <- var(lista)
@@ -99,6 +100,7 @@ funcion_6 <- function(lista, alpha) {
   # Devolver los límites del intervalo de confianza
   return(c(limite_inferior, limite_superior))
 }
+
 funcion_7 <- function(lista, alpha) {
   # Calcular la varianza muestral
   varianza <- var(lista)
@@ -122,8 +124,14 @@ funcion_7 <- function(lista, alpha) {
 
 
 # Leer el archivo .txt y guardar los datos en una lista
-datos <- lectura("~/Desktop/universidad/universidad/MEI/a.txt")
+datos <- lectura("~/Desktop/universidad/universidad/MEI/proyecto/a.txt")
+datos <- read.table("~/Desktop/universidad/universidad/MEI/proyecto/a.txt")
 
+# Convertir la lista de listas a una lista plana
+datos <- unlist(datos)
+
+# Ordenar los datos
+datos <- sort(datos)
 # Representar la distribución de x̄
 representar_distribucion(datos, 5, 10)
 
@@ -138,8 +146,7 @@ aniadir_area(datos, intervalo[1], intervalo[2])
 funcion_5(datos)
 
 # Calcular el intervalo de confianza para la varianza con un nivel de confianza del 95%
-funcion_6() <- calcular_intervalo_varianza(datos, alpha = 0.05)
-print(intervalo_varianza)
+funcion_6(datos, alpha = 0.05)
 
 # Rellenar el área correspondiente al intervalo de confianza en el gráfico de la distribución de la varianza
 funcion_7(datos, intervalo_varianza[1], intervalo_varianza[2])
