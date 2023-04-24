@@ -1,3 +1,0 @@
-resumen:
-	sabemos cuantos mAh admite la bateria y cuanto voltaje pasa por ella. Nos falta saber cuanto consume el portatil y hacer una media aproximada.
-	hay que explicar lo que es la corriente, el voltaje, cuanta energia tiene la bateria, amperios, voltios 
