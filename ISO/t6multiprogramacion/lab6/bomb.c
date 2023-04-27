@@ -5,7 +5,7 @@
 
 #define error(a) {perror(a); exit(1);};
 
-main()   /* bomb */
+int main()   /* bomb */
 {
    int pid, id;
 
