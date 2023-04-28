@@ -16,7 +16,7 @@ int main()   /* bomb */
          error("fork");
          break;
       case 0:   /* child */
-         execlp("bomb", "bomb", NULL);
+         execlp("./bomb", "./bomb", NULL);
          error("execlp");
          break;
       default:   /* parent */

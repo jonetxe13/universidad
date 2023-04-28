@@ -70,7 +70,7 @@ void procesar_peticiones (double mat[NFIL][NCOL], int *columnas, int cant,
 
    for (i=0; i<NFIL; i++){
     y = mat[i][columna];
-    if (y > 0) suma += exp (y / 100); 
+    if (y > 0) suma += exp(y / 100); 
    }
 
    resultados[j] = suma;
