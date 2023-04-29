@@ -21,8 +21,8 @@ int main (){
    if (i%3) mat[i][j] = (i+j) % MAX;
    else mat[i][j] = (i+i*j) % MAX;
  }
-
  for (i=0; i<MAX; i++) histo[i] = 0;
+
  for (i=0; i<N; i++){
    suma_fil[i] = 0;
    suma_col[i] = 0;
@@ -33,29 +33,38 @@ int main (){
 // ========================
 #pragma omp parallel
 {
-    #pragma omp for
+  int local_histo[MAX];
+  for (int i = 0; i < MAX; i++)
+    local_histo[i] = 0;
+
+  #pragma omp for nowait schedule(dynamic, 50)
+  for (int i=0; i<N; i++)
+    for (int j=0; j<N; j++)
+      // #pragma omp atomic
+      local_histo[mat[i][j]]++; // histograma
+    
+  #pragma omp critical
+  for (int i = 0; i < MAX; i++)
+    histo[i] += local_histo[i];
+
+  #pragma omp for nowait schedule(dynamic, 50)
+  for (int i=0; i<N; i++) // suma de las filas de la matriz
+    for (int j=0; j<N; j++)
+      suma_fil[i] += mat[i][j];
+
+  #pragma omp for nowait schedule(dynamic, 50)
+  for (int j=0; j<N; j++) // suma de las columnas de la matriz
     for (int i=0; i<N; i++)
-        for (int j=0; j<N; j++)
-            #pragma omp atomic
-            histo[mat[i][j]]++; // histograma
-
-    #pragma omp for
-    for (int i=0; i<N; i++) // suma de las filas de la matriz
-        for (int j=0; j<N; j++)
-            suma_fil[i] += mat[i][j];
-
-    #pragma omp for
-    for (int j=0; j<N; j++) // suma de las columnas de la matriz
-        for (int i=0; i<N; i++)
-            suma_col[j] += mat[i][j];
+      suma_col[j] += mat[i][j];
 }
 
 hmin = N*N + 1;
+#pragma omp parallel for reduction(min:hmin)
 for (int i=0; i<MAX; i++){ // el valor minimo de la histograma y su posicion
-    if (hmin > histo[i]){
-        hmin = histo[i];
-        imin = i;
-    }
+  if (hmin > histo[i]){
+    hmin = histo[i];
+    imin = i;
+  }
 }
 
 // === FIN DE LA REGION PARALELA ===
