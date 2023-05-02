@@ -1,0 +1,6 @@
+Para este proyecto se nos ha asignado la tarea de cambiar algunas cosas de una aplicacion de reservas de vuelos, con el fin de hacer mas simple su uso para los usuarios al no tener que escribir muchas cosas a mano.
+Se nos ha dado en 6 tareas distintas, las dos primeras consisten en hacer que el usuario no tenga que escribir a mano las ciudades de llegada y de partida del vuelo a buscar, si no que puedan escogerlas con un menu desplegable. 
+El apartado de las ciudades de salida lo hemos implementado cambiando el tipo de la caja a un JComboBox e introducido en esta las ciudades desde las que salen vuelos.
+El de las de llegada lo hemos conseguido implementar pero parcialmente ya que al introducir las ciudades las tenemos que meter a mano en la JComboBox ya que al hacerlo con la funcion getArrivingCities de la clase FlightManager nos dejaba de funcionar las reservas y como esta parte tiene mas peso tuvimos que dejarlo a mano.
+El tercer apartado que se nos pedia era que al escoger el vuelo los botones del tipo de asiento que no quedasen en ese vuelo se desactivasen, esto lo conseguimos con un addActionListener en la lista de vuelos para que cuando se seleccione miramos el valor de tickets que quedan de cada tipo y desactivamos los que sean 0.
+
