@@ -27,7 +27,7 @@ public class ApplicationLauncher {
 		
 		System.out.println("Locale: "+Locale.getDefault());
 		
-		MainGUI a=new MainGUI();
+		RegistroGUI a=new RegistroGUI();
 		a.setVisible(true);
 
 
@@ -71,14 +71,14 @@ public class ApplicationLauncher {
 			/*if (c.getDataBaseOpenMode().equals("initialize")) 
 				appFacadeInterface.initializeBD();
 				*/
-			MainGUI.setBussinessLogic(appFacadeInterface);
+			RegistroGUI.setBussinessLogic(appFacadeInterface);
 
 		
 
 			
 		}catch (Exception e) {
-			a.jLabelSelectOption.setText("Error: "+e.toString());
-			a.jLabelSelectOption.setForeground(Color.RED);	
+//			a.jLabelSelectOption.setText("Error: "+e.toString());
+//			a.jLabelSelectOption.setForeground(Color.RED);	
 			
 			System.out.println("Error in ApplicationLauncher: "+e.toString());
 		}

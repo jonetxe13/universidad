@@ -94,7 +94,7 @@ public class FindQuestionsGUI extends JFrame {
 
 		jCalendar1.setBounds(new Rectangle(40, 50, 225, 150));
 
-		BLFacade facade = MainGUI.getBusinessLogic();
+		BLFacade facade = RegistroGUI.getBusinessLogic();
 		datesWithEventsCurrentMonth=facade.getEventsMonth(jCalendar1.getDate());
 		CreateQuestionGUI.paintDaysWithEvents(jCalendar1,datesWithEventsCurrentMonth);
 

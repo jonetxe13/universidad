@@ -67,3 +67,164 @@ New type java.util.Vector<domain.Question>
 [2023-05-03 14:12:34 #7 type.registry] 
 New type java.util.Vector<java.lang.Object>
 
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-03 19:57:28 #1 store] 
+Database 'C:\Users\jonet\OneDrive\Escritorio\universidad\IS\Bets21-master\src\main\resources\bets.temp' is opened by 3500@DESKTOP-KFRJO8S
+
+[2023-05-03 19:57:28 #2 type.registry] 
+New type domain.Question
+
+[2023-05-03 19:57:28 #3 type] 
+Type domain.Question is not enhanced.
+
+[2023-05-03 19:57:28 #4 type.registry] 
+New type domain.Event
+
+[2023-05-03 19:57:28 #5 type] 
+Type domain.Event is not enhanced.
+
+[2023-05-03 19:57:28 #6 type.registry] 
+New type java.util.Vector<domain.Question>
+
+[2023-05-03 19:57:28 #7 type.registry] 
+New type java.util.Vector<java.lang.Object>
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-03 20:23:45 #1 store] 
+Database 'C:\Users\jonet\OneDrive\Escritorio\universidad\IS\Bets21-master\src\main\resources\bets.temp' is opened by 4880@DESKTOP-KFRJO8S
+
+[2023-05-03 20:23:45 #2 type.registry] 
+New type domain.Question
+
+[2023-05-03 20:23:45 #3 type] 
+Type domain.Question is not enhanced.
+
+[2023-05-03 20:23:45 #4 type.registry] 
+New type domain.Event
+
+[2023-05-03 20:23:45 #5 type] 
+Type domain.Event is not enhanced.
+
+[2023-05-03 20:23:45 #6 type.registry] 
+New type java.util.Vector<domain.Question>
+
+[2023-05-03 20:23:45 #7 type.registry] 
+New type java.util.Vector<java.lang.Object>
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-03 22:13:26 #1 store] 
+Database 'C:\Users\jonet\OneDrive\Escritorio\universidad\IS\Bets21-master\src\main\resources\bets.temp' is opened by 16564@DESKTOP-KFRJO8S
+
+[2023-05-03 22:13:26 #2 type.registry] 
+New type domain.Question
+
+[2023-05-03 22:13:26 #3 type] 
+Type domain.Question is not enhanced.
+
+[2023-05-03 22:13:26 #4 type.registry] 
+New type domain.Event
+
+[2023-05-03 22:13:26 #5 type] 
+Type domain.Event is not enhanced.
+
+[2023-05-03 22:13:26 #6 type.registry] 
+New type java.util.Vector<domain.Question>
+
+[2023-05-03 22:13:26 #7 type.registry] 
+New type java.util.Vector<java.lang.Object>
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-03 22:25:55 #1 store] 
+Database 'C:\Users\jonet\OneDrive\Escritorio\universidad\IS\Bets21-master\src\main\resources\bets.temp' is opened by 4424@DESKTOP-KFRJO8S
+
+[2023-05-03 22:25:55 #2 type.registry] 
+New type domain.Question
+
+[2023-05-03 22:25:55 #3 type] 
+Type domain.Question is not enhanced.
+
+[2023-05-03 22:25:55 #4 type.registry] 
+New type domain.Event
+
+[2023-05-03 22:25:55 #5 type] 
+Type domain.Event is not enhanced.
+
+[2023-05-03 22:25:55 #6 type.registry] 
+New type java.util.Vector<domain.Question>
+
+[2023-05-03 22:25:56 #7 type.registry] 
+New type java.util.Vector<java.lang.Object>
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-03 22:33:37 #1 store] 
+Database 'C:\Users\jonet\OneDrive\Escritorio\universidad\IS\Bets21-master\src\main\resources\bets.temp' is opened by 15416@DESKTOP-KFRJO8S
+
+[2023-05-03 22:33:37 #2 type.registry] 
+New type domain.Question
+
+[2023-05-03 22:33:37 #3 type] 
+Type domain.Question is not enhanced.
+
+[2023-05-03 22:33:37 #4 type.registry] 
+New type domain.Event
+
+[2023-05-03 22:33:37 #5 type] 
+Type domain.Event is not enhanced.
+
+[2023-05-03 22:33:37 #6 type.registry] 
+New type java.util.Vector<domain.Question>
+
+[2023-05-03 22:33:37 #7 type.registry] 
+New type java.util.Vector<java.lang.Object>
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-03 22:47:43 #1 store] 
+Database 'C:\Users\jonet\OneDrive\Escritorio\universidad\IS\Bets21-master\src\main\resources\bets.temp' is opened by 18672@DESKTOP-KFRJO8S
+
+[2023-05-03 22:47:43 #2 type.registry] 
+New type domain.Question
+
+[2023-05-03 22:47:43 #3 type] 
+Type domain.Question is not enhanced.
+
+[2023-05-03 22:47:43 #4 type.registry] 
+New type domain.Event
+
+[2023-05-03 22:47:43 #5 type] 
+Type domain.Event is not enhanced.
+
+[2023-05-03 22:47:43 #6 type.registry] 
+New type java.util.Vector<domain.Question>
+
+[2023-05-03 22:47:43 #7 type.registry] 
+New type java.util.Vector<java.lang.Object>
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-03 22:49:38 #1 store] 
+Database 'C:\Users\jonet\OneDrive\Escritorio\universidad\IS\Bets21-master\src\main\resources\bets.temp' is opened by 15960@DESKTOP-KFRJO8S
+
+[2023-05-03 22:49:38 #2 type.registry] 
+New type domain.Question
+
+[2023-05-03 22:49:38 #3 type] 
+Type domain.Question is not enhanced.
+
+[2023-05-03 22:49:38 #4 type.registry] 
+New type domain.Event
+
+[2023-05-03 22:49:38 #5 type] 
+Type domain.Event is not enhanced.
+
+[2023-05-03 22:49:38 #6 type.registry] 
+New type java.util.Vector<domain.Question>
+
+[2023-05-03 22:49:38 #7 type.registry] 
+New type java.util.Vector<java.lang.Object>
+

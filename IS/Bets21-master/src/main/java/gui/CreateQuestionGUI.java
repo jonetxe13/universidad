@@ -107,7 +107,7 @@ public class CreateQuestionGUI extends JFrame {
 		this.getContentPane().add(jCalendar, null);
 		
 		
-		BLFacade facade = MainGUI.getBusinessLogic();
+		BLFacade facade = RegistroGUI.getBusinessLogic();
 		datesWithEventsCurrentMonth=facade.getEventsMonth(jCalendar.getDate());
 		paintDaysWithEvents(jCalendar,datesWithEventsCurrentMonth);
 		
@@ -144,7 +144,7 @@ public class CreateQuestionGUI extends JFrame {
 						
 						jCalendar.setCalendar(calendarAct);
 						
-						BLFacade facade = MainGUI.getBusinessLogic();
+						BLFacade facade = RegistroGUI.getBusinessLogic();
 
 						datesWithEventsCurrentMonth=facade.getEventsMonth(jCalendar.getDate());
 					}
@@ -257,7 +257,7 @@ public static void paintDaysWithEvents(JCalendar jCalendar,Vector<Date> datesWit
 				else {
 
 					// Obtain the business logic from a StartWindow class (local or remote)
-					BLFacade facade = MainGUI.getBusinessLogic();
+					BLFacade facade = RegistroGUI.getBusinessLogic();
 
 					facade.createQuestion(event, inputQuery, inputPrice);
 
