@@ -19,6 +19,7 @@ import configuration.ConfigXML;
 import configuration.UtilDate;
 import domain.Event;
 import domain.Question;
+import domain.Usuario;
 import exceptions.QuestionAlreadyExist;
 
 /**
@@ -91,7 +92,11 @@ public class DataAccess  {
 			Question q4;
 			Question q5;
 			Question q6;
-					
+			
+			
+			Usuario master = new Usuario("jonetxeba.je10@gmail.com", "nose");
+			System.out.println("se ha annadido el usuario");
+			
 			if (Locale.getDefault().equals(new Locale("es"))) {
 				q1=ev1.addQuestion("¿Quién ganará el partido?",1);
 				q2=ev1.addQuestion("¿Quién meterá el primer gol?",2);
@@ -147,6 +152,8 @@ public class DataAccess  {
 			db.persist(ev18);
 			db.persist(ev19);
 			db.persist(ev20);			
+			
+			db.persist(master);
 			
 			db.getTransaction().commit();
 			System.out.println("Db initialized");
@@ -251,15 +258,46 @@ public void open(boolean initializeMode){
     	   }
 		
 	}
-public boolean existQuestion(Event event, String question) {
-	System.out.println(">> DataAccess: existQuestion=> event= "+event+" question= "+question);
-	Event ev = db.find(Event.class, event.getEventNumber());
-	return ev.DoesQuestionExists(question);
-	
-}
+	public boolean existQuestion(Event event, String question) {
+		System.out.println(">> DataAccess: existQuestion=> event= "+event+" question= "+question);
+		Event ev = db.find(Event.class, event.getEventNumber());
+		return ev.DoesQuestionExists(question);
+		
+	}
 	public void close(){
 		db.close();
 		System.out.println("DataBase closed");
 	}
-	
+	public Usuario createUsuario(String correo, String contrasenna){
+		System.out.println(">> DataAccess: createUsuario=> correo= "+correo+" contrasenna= "+contrasenna);
+		Usuario user = new Usuario(correo, contrasenna);
+			boolean userExistsONo = userExists(user);
+//			Usuario user= db.find(Usuario.class, user.getCorreo());
+			if(!userExistsONo) {
+				System.out.print("el usuario no existe asi que se crea");
+				db.getTransaction().begin();
+				//db.persist(q);
+				db.persist(user); // db.persist(q) not required when CascadeType.PERSIST is added in questions property of Event class
+				// @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+				db.getTransaction().commit();
+			}
+			return user;
+		
+	}
+
+	public boolean userExists(Usuario newUser) {
+		System.out.println("Buscando el usuario en la base de datos");
+		TypedQuery<Usuario> query = db.createQuery("SELECT u FROM Usuario u WHERE u.correo=?1", Usuario.class);
+		query.setParameter(1, newUser.getCorreo());
+		List<Usuario> resultado = query.getResultList();
+		System.out.print(resultado);
+		if(resultado.isEmpty()) {
+			System.out.println("\nno contiene a ese usuario");
+			return false;
+		}
+		else {
+			System.out.println("Si que contiene el usuario");
+			return true;
+		}
+	}
 }

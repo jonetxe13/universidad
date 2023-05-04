@@ -10,6 +10,7 @@ import javax.jws.WebService;
 import configuration.ConfigXML;
 import dataAccess.DataAccess;
 import domain.Question;
+import domain.Usuario;
 import domain.Event;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
@@ -124,6 +125,31 @@ public class BLFacadeImplementation  implements BLFacade {
     	dbManager.open(false);
 		dbManager.initializeDB();
 		dbManager.close();
+	}
+
+	@WebMethod
+	public Usuario createUsuario(String correo, String contrasenna) {
+	    //The minimum bed must be greater than 0
+		dbManager.open(false);
+		Usuario qry=null;
+	    
+		if(!correo.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}")) {
+			System.out.println("El correo tiene que tener esta estructura: example@example.com");
+			return null;			
+		}
+		qry=dbManager.createUsuario(correo, contrasenna);	
+
+		dbManager.close();
+		
+		return qry;
+	}
+	@WebMethod
+	public boolean userExists(String correo, String contrasenna) {
+		dbManager.open(false);
+		Usuario newUser = new Usuario(correo, contrasenna);
+		boolean existe = dbManager.userExists(newUser);
+//		System.out.println(dbManager.userExists(newUser));
+		return existe;
 	}
 
 }

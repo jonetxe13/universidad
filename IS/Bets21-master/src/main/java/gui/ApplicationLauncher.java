@@ -47,7 +47,6 @@ public class ApplicationLauncher {
 
 				DataAccess da= new DataAccess(c.getDataBaseOpenMode().equals("initialize"));
 				appFacadeInterface=new BLFacadeImplementation(da);
-
 				
 			}
 			

@@ -3,6 +3,8 @@ package gui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ResourceBundle;
@@ -18,6 +20,8 @@ import javax.swing.SwingConstants;
 
 import businessLogic.BLFacade;
 import domain.Event;
+import domain.Usuario;
+
 import javax.swing.JTextField;
 import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
@@ -106,16 +110,37 @@ public class RegistroGUI extends JFrame{
 			passwordField.setBounds(146, 100, 166, 28);
 			jContentPane.add(passwordField);
 			
-			JLabel lblNewLabel_3 = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.lblNewLabel_3.text")); //$NON-NLS-1$ //$NON-NLS-2$
-			lblNewLabel_3.setBounds(146, 139, 69, 14);
-			jContentPane.add(lblNewLabel_3);
+			JLabel registrarseLBL = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.lblNewLabel_3.text")); //$NON-NLS-1$ //$NON-NLS-2$
+			registrarseLBL.setBounds(146, 139, 69, 14);
+			registrarseLBL.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					JFrame a = new RegistrarseGUI();
+					a.setVisible(true);
+				}
+			});
+			jContentPane.add(registrarseLBL);
 			
 			JButton btnNewButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.btnNewButton.text")); //$NON-NLS-1$ //$NON-NLS-2$
 			btnNewButton.setBounds(172, 176, 103, 34);
 			btnNewButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					JFrame a = new CreateQuestionGUI(new Vector<Event>());
-					a.setVisible(true);
+					
+					BLFacade bussinesLogic = appFacadeInterface;
+					System.out.println(bussinesLogic.userExists(textField.getText(), passwordField.getText()));
+					if(bussinesLogic.userExists(textField.getText(), passwordField.getText())) {
+						System.out.print("Se ha encontrado");
+						JFrame a = new RegistradoGUI(textField.getText(), passwordField.getText());
+						a.setVisible(true);
+					}
+					else {
+						bussinesLogic.createUsuario(textField.getText(), passwordField.getText());
+						System.out.print("se ha creado el usuario\n");
+						System.out.println(bussinesLogic.userExists(textField.getText(), passwordField.getText()));
+						
+					}
+//					JFrame a = new CreateQuestionGUI(new Vector<Event>());
+//					a.setVisible(true);
 				}
 			});
 			jContentPane.add(btnNewButton);
