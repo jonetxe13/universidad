@@ -1,6 +1,8 @@
 package businessLogic;
+import java.util.ArrayList;
 //hola
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
@@ -10,6 +12,8 @@ import javax.jws.WebService;
 import configuration.ConfigXML;
 import dataAccess.DataAccess;
 import domain.Question;
+import domain.Sala;
+import domain.Sesion;
 import domain.Usuario;
 import domain.Event;
 import exceptions.EventFinished;
@@ -148,9 +152,21 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.open(false);
 		Usuario newUser = new Usuario(correo, contrasenna);
 		boolean existe = dbManager.userExists(newUser);
-//		System.out.println(dbManager.userExists(newUser));
 		return existe;
 	}
 
+	@WebMethod
+	public Sala getSala(String string) {
+		dbManager.open(false);
+		Sala sala1 = dbManager.getSala(string);
+		return sala1;
+	}
+	@WebMethod
+	public List<Sesion> sesionesSemana(){
+		dbManager.open(false);
+		List<Sesion> lista = new ArrayList<Sesion>();
+		lista = dbManager.getSesionesSemana();
+		return lista;
+	}
 }
 

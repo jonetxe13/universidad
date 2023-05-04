@@ -2,13 +2,12 @@ package businessLogic;
 
 import java.util.Vector;
 import java.util.Date;
-
-
-
-
+import java.util.List;
 
 //import domain.Booking;
 import domain.Question;
+import domain.Sala;
+import domain.Sesion;
 import domain.Usuario;
 import domain.Event;
 import exceptions.EventFinished;
@@ -36,6 +35,7 @@ public interface BLFacade  {
 	 */
 	@WebMethod Question createQuestion(Event event, String question, float betMinimum) throws EventFinished, QuestionAlreadyExist;
 	@WebMethod Usuario createUsuario(String correo, String contrasenna);
+	@WebMethod boolean userExists(String text, String text2);
 	
 	/**
 	 * This method retrieves the events of a given date 
@@ -58,7 +58,8 @@ public interface BLFacade  {
 	 * It is invoked only when the option "initialize" is declared in the tag dataBaseOpenMode of resources/config.xml file
 	 */	
 	@WebMethod public void initializeBD();
-	boolean userExists(String text, String text2);
+	@WebMethod public Sala getSala(String string);
+	@WebMethod public List<Sesion> sesionesSemana();
 
 	
 }

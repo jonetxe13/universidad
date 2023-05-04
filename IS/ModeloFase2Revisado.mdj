@@ -277,6 +277,7 @@
 													"model": {
 														"$ref": "AAAAAAGH3ffybML2YGg="
 													},
+													"visible": false,
 													"font": "Arial;13;0",
 													"left": 173,
 													"top": 143,
@@ -290,7 +291,7 @@
 											"left": 168,
 											"top": 136,
 											"width": 146.9443359375,
-											"height": 25
+											"height": 10
 										},
 										{
 											"_type": "UMLReceptionCompartmentView",
@@ -8861,9 +8862,9 @@
 														"$ref": "AAAAAAGHlEhKjpizPr8="
 													},
 													"font": "Arial;13;0",
-													"left": 32.72998046875,
+													"left": 30.55908203125,
 													"top": 13,
-													"width": 125.2998046875,
+													"width": 109.32275390625,
 													"height": 13,
 													"text": "Consulta de sesiones"
 												},
@@ -8876,7 +8877,7 @@
 													"font": "Arial;13;1",
 													"left": 13,
 													"top": 13,
-													"width": 14.72998046875,
+													"width": 12.55908203125,
 													"height": 13,
 													"text": "sd"
 												}
@@ -10615,9 +10616,9 @@
 														"$ref": "AAAAAAGHlGdDvZ2OsQ4="
 													},
 													"font": "Arial;13;0",
-													"left": 24.72998046875,
+													"left": 22.55908203125,
 													"top": 21,
-													"width": 107.22802734375,
+													"width": 98.82373046875,
 													"height": 13,
 													"text": "Añadir actividades"
 												},
@@ -10630,7 +10631,7 @@
 													"font": "Arial;13;1",
 													"left": 5,
 													"top": 21,
-													"width": 14.72998046875,
+													"width": 12.55908203125,
 													"height": 13,
 													"text": "sd"
 												}
@@ -12421,9 +12422,9 @@
 														"$ref": "AAAAAAGHoph6OSeTjnU="
 													},
 													"font": "Arial;13;0",
-													"left": 32.72998046875,
+													"left": 30.55908203125,
 													"top": 13,
-													"width": 53.736328125,
+													"width": 47.1982421875,
 													"height": 13,
 													"text": "Reservar"
 												},
@@ -12436,7 +12437,7 @@
 													"font": "Arial;13;1",
 													"left": 13,
 													"top": 13,
-													"width": 14.72998046875,
+													"width": 12.55908203125,
 													"height": 13,
 													"text": "sd"
 												}
@@ -13276,9 +13277,9 @@
 														"$ref": "AAAAAAGHop28nCi+TFE="
 													},
 													"font": "Arial;13;0",
-													"left": 488.72998046875,
+													"left": 487.99365234375,
 													"top": 189,
-													"width": 72.55712890625,
+													"width": 65.263671875,
 													"height": 13,
 													"text": "SesionLlena"
 												},
@@ -13291,7 +13292,7 @@
 													"font": "Arial;13;1",
 													"left": 469,
 													"top": 189,
-													"width": 14.72998046875,
+													"width": 13.99365234375,
 													"height": 13,
 													"text": "alt"
 												},
@@ -14852,9 +14853,9 @@
 														"$ref": "AAAAAAGH3gUS3MMIK1o="
 													},
 													"font": "Arial;13;0",
-													"left": 32.72998046875,
+													"left": 30.55908203125,
 													"top": 13,
-													"width": 77.603515625,
+													"width": 67.06005859375,
 													"height": 13,
 													"text": "Pagar cuotas"
 												},
@@ -14867,7 +14868,7 @@
 													"font": "Arial;13;1",
 													"left": 13,
 													"top": 13,
-													"width": 14.72998046875,
+													"width": 12.55908203125,
 													"height": 13,
 													"text": "sd"
 												}
@@ -14921,9 +14922,9 @@
 														"$ref": "AAAAAAGH3gVzCMNAWoQ="
 													},
 													"font": "Arial;13;0",
-													"left": 32.72998046875,
+													"left": 30.55908203125,
 													"top": 13,
-													"width": 109.38623046875,
+													"width": 98.11279296875,
 													"height": 13,
 													"text": "Planificar sesiones"
 												},
@@ -14936,7 +14937,7 @@
 													"font": "Arial;13;1",
 													"left": 13,
 													"top": 13,
-													"width": 14.72998046875,
+													"width": 12.55908203125,
 													"height": 13,
 													"text": "sd"
 												}

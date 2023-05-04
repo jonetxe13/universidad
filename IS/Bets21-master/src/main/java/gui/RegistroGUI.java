@@ -121,29 +121,45 @@ public class RegistroGUI extends JFrame{
 			});
 			jContentPane.add(registrarseLBL);
 			
+			JLabel error = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.lblNewLabel_3.text")); //$NON-NLS-1$ //$NON-NLS-2$
+			error.setBounds(230, 138, 45, 13);
+			error.setVisible(false);
+			jContentPane.add(error);
+
 			JButton btnNewButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.btnNewButton.text")); //$NON-NLS-1$ //$NON-NLS-2$
 			btnNewButton.setBounds(172, 176, 103, 34);
 			btnNewButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					
+					// Cuando haces click mira si el usuario existe, si existe crea una ventana con el usuario registrado
 					BLFacade bussinesLogic = appFacadeInterface;
 					System.out.println(bussinesLogic.userExists(textField.getText(), passwordField.getText()));
 					if(bussinesLogic.userExists(textField.getText(), passwordField.getText())) {
 						System.out.print("Se ha encontrado");
-						JFrame a = new RegistradoGUI(textField.getText(), passwordField.getText());
+						JFrame a = new RegistradoGUI(bussinesLogic.createUsuario(textField.getText(), passwordField.getText()));
 						a.setVisible(true);
 					}
 					else {
-						bussinesLogic.createUsuario(textField.getText(), passwordField.getText());
-						System.out.print("se ha creado el usuario\n");
-						System.out.println(bussinesLogic.userExists(textField.getText(), passwordField.getText()));
-						
+						error.setEnabled(true);
+
+//						System.out.println(bussinesLogic.userExists(textField.getText(), passwordField.getText()));
+						jContentPane.add(error);
 					}
 //					JFrame a = new CreateQuestionGUI(new Vector<Event>());
 //					a.setVisible(true);
 				}
 			});
 			jContentPane.add(btnNewButton);
+			
+			JButton btnConsultarSesiones = new JButton(ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.btnNewButton_1.text")); //$NON-NLS-1$ //$NON-NLS-2$
+			btnConsultarSesiones.setBounds(28, 176, 103, 40);
+			btnConsultarSesiones.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					JFrame a = new ConsultarSesionesGUI();
+					a.setVisible(true);
+				}
+			});
+			jContentPane.add(btnConsultarSesiones);
+			
 			
 		}
 		return jContentPane;

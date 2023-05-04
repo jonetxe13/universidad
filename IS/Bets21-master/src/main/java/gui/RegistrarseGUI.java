@@ -54,22 +54,23 @@ public class RegistrarseGUI extends JFrame{
 		btnNewButton.setBounds(172, 176, 103, 34);
 		btnNewButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				
+				//tienes que introducir la contrasenna dos veces para verificarla y te crea el usuario
 				BLFacade bussinesLogic = RegistroGUI.getBusinessLogic();
 //				System.out.println(bussinesLogic.userExists(correoTextField.getText(), passwordField1.getText()));
 				if(bussinesLogic.userExists(correoTextField.getText(), passwordField1.getText())) {
 					System.out.print("Ese usuario ya existe");
-//					JFrame a = new RegistradoGUI(textField.getText(), passwordField.getText());
-//					a.setVisible(true);
 				}
 				else {
-					if(passwordField1.equals(passwordField2)) {
+					if(!(passwordField1.getText() == passwordField2.getText())) {
 						System.out.println("Las contrasennas tienen que ser iguales");
 					}
-					bussinesLogic.createUsuario(correoTextField.getText(), passwordField1.getText());
-					System.out.print("se ha creado el usuario\n");
-					System.out.println(bussinesLogic.userExists(correoTextField.getText(), passwordField1.getText()));
-					
+					else {
+						bussinesLogic.createUsuario(correoTextField.getText(), passwordField1.getText());
+						System.out.print("se ha creado el usuario\n");
+//					System.out.println(bussinesLogic.userExists(correoTextField.getText(), passwordField1.getText()));
+						JFrame a = new RegistradoGUI(bussinesLogic.createUsuario(correoTextField.getText(), passwordField1.getText()));
+						a.setVisible(true);	
+					}
 				}
 //				JFrame a = new CreateQuestionGUI(new Vector<Event>());
 //				a.setVisible(true);
