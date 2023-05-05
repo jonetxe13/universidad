@@ -61,7 +61,7 @@ public class RegistrarseGUI extends JFrame{
 					System.out.print("Ese usuario ya existe");
 				}
 				else {
-					if(!(passwordField1.getText() == passwordField2.getText())) {
+					if(!(passwordField1.getText().equals(passwordField2.getText()))) {
 						System.out.println("Las contrasennas tienen que ser iguales");
 					}
 					else {
@@ -69,11 +69,10 @@ public class RegistrarseGUI extends JFrame{
 						System.out.print("se ha creado el usuario\n");
 //					System.out.println(bussinesLogic.userExists(correoTextField.getText(), passwordField1.getText()));
 						JFrame a = new RegistradoGUI(bussinesLogic.createUsuario(correoTextField.getText(), passwordField1.getText()));
+						a.setBounds(0, 0, 500, 400);
 						a.setVisible(true);	
 					}
 				}
-//				JFrame a = new CreateQuestionGUI(new Vector<Event>());
-//				a.setVisible(true);
 			}
 		});
 		getContentPane().add(btnNewButton);

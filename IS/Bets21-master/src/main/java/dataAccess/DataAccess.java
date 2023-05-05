@@ -91,28 +91,27 @@ public class DataAccess  {
 //			db.persist(ev4);
 //			db.persist(ev5);
 //			db.persist(ev6);
-//		   Calendar cal = Calendar.getInstance();
-//		   cal.set(Calendar.HOUR_OF_DAY, 0);
-//		   cal.set(Calendar.MINUTE, 0);
-//		   cal.set(Calendar.SECOND, 0);
-//		   cal.set(Calendar.MILLISECOND, 0);
-//		   Date currentDate = cal.getTime();
-//		   System.out.println(currentDate);
-		   
+
 		   Sala sala1 = new Sala("zumba", 20);
 		   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		   Calendar cal = Calendar.getInstance();
 		   String fecha = sdf.format(cal.getTime());
 		   
-		   Usuario master = new Usuario("jonetxeba.je10@gmail.com", "nose");
+		   Usuario master = new Usuario("a@a.com", "nose");
 		   System.out.println("se ha annadido el usuario");
 		   db.persist(master);
 		   
+		   List<Sesion> lista = new ArrayList<Sesion>();
 		   Sesion sesion1 = new Sesion(fecha, 20, sala1);
-		   
-		   cal.add(Calendar.DATE, 1);
-		   String fecha2 = sdf.format(cal.getTime());
-		   Sesion sesion2 = new Sesion(fecha2, 30, sala1 );
+		   lista.add(sesion1);
+		   for(int i = 0; i < 20; i++) {			   
+			   cal.add(Calendar.DATE, 0);
+			   String fecha2 = sdf.format(cal.getTime());
+			   Sesion sesionNueva = new Sesion(fecha2, 20+i, sala1);
+			   lista.add(sesionNueva);
+			   db.persist(sesionNueva);
+			}
+
 		   
 		   Actividad act1 = new Actividad("zumba", 3, (float) 5.5);
 		   Actividad act2 = new Actividad("pilates", 2, (float) 15.5);
@@ -126,10 +125,9 @@ public class DataAccess  {
 		   listaActividades.add(act3);
 		   sesion1.setListaActividades(listaActividades);
 		   db.persist(sesion1);
-		   db.persist(sesion2);
-		   List<Sesion> lista = new ArrayList<Sesion>();
-		   lista.add(sesion1);
-		   lista.add(sesion2);		
+//		   db.persist(sesion2);
+//		   lista.add(sesion1);
+//		   lista.add(sesion2);		
 		   
 		   sala1.setListaSesiones(lista);
 			db.persist(sala1);

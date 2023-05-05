@@ -40,10 +40,10 @@ public class ConsultarSesionesGUI extends JFrame {
 		    rows.add(row);
 		}
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 20, 290, 180);
+		scrollPane.setBounds(0, 20, 290, 220);
 		// Crear el JTable y añadirlo al JScrollPane
 		JTable table = new JTable(rows, columns);
-		table.setBounds(5, 25, 260, 172);
+		table.setBounds(5, 25, 260, 210);
 		getContentPane().add(table);
 		getContentPane().add(scrollPane);
 		

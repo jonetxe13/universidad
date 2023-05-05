@@ -116,13 +116,14 @@ public class RegistroGUI extends JFrame{
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					JFrame a = new RegistrarseGUI();
+					a.setBounds(0, 0, 500, 400);
 					a.setVisible(true);
 				}
 			});
 			jContentPane.add(registrarseLBL);
 			
 			JLabel error = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.lblNewLabel_3.text")); //$NON-NLS-1$ //$NON-NLS-2$
-			error.setBounds(230, 138, 45, 13);
+			error.setBounds(245, 138, 45, 13);
 			error.setVisible(false);
 			jContentPane.add(error);
 
@@ -136,16 +137,13 @@ public class RegistroGUI extends JFrame{
 					if(bussinesLogic.userExists(textField.getText(), passwordField.getText())) {
 						System.out.print("Se ha encontrado");
 						JFrame a = new RegistradoGUI(bussinesLogic.createUsuario(textField.getText(), passwordField.getText()));
+						a.setBounds(0, 0, 500, 400);
 						a.setVisible(true);
 					}
 					else {
 						error.setEnabled(true);
-
-//						System.out.println(bussinesLogic.userExists(textField.getText(), passwordField.getText()));
 						jContentPane.add(error);
 					}
-//					JFrame a = new CreateQuestionGUI(new Vector<Event>());
-//					a.setVisible(true);
 				}
 			});
 			jContentPane.add(btnNewButton);
@@ -155,6 +153,7 @@ public class RegistroGUI extends JFrame{
 			btnConsultarSesiones.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					JFrame a = new ConsultarSesionesGUI();
+					a.setBounds(0, 0, 500, 400);
 					a.setVisible(true);
 				}
 			});

@@ -49,7 +49,6 @@ public class RegistradoGUI extends JFrame{
 		btnNewButton.setBounds(99, 40, 218, 45);
 		btnNewButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					// Cuando haces click mira si el usuario existe, si existe crea una ventana con el usuario registrado
 					BLFacade bussinesLogic = RegistroGUI.getBusinessLogic();
 					Sala salaPrueba = bussinesLogic.getSala("zumba");
 					System.out.println(salaPrueba.toString());
