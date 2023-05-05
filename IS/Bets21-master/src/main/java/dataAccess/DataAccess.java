@@ -1,5 +1,6 @@
 package dataAccess;
 
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import javax.persistence.TypedQuery;
 
 import configuration.ConfigXML;
 import configuration.UtilDate;
+import domain.Actividad;
 import domain.Event;
 import domain.Question;
 import domain.Sala;
@@ -89,26 +91,47 @@ public class DataAccess  {
 //			db.persist(ev4);
 //			db.persist(ev5);
 //			db.persist(ev6);
+//		   Calendar cal = Calendar.getInstance();
+//		   cal.set(Calendar.HOUR_OF_DAY, 0);
+//		   cal.set(Calendar.MINUTE, 0);
+//		   cal.set(Calendar.SECOND, 0);
+//		   cal.set(Calendar.MILLISECOND, 0);
+//		   Date currentDate = cal.getTime();
+//		   System.out.println(currentDate);
+		   
+		   Sala sala1 = new Sala("zumba", 20);
+		   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		   Calendar cal = Calendar.getInstance();
-		   cal.set(Calendar.HOUR_OF_DAY, 0);
-		   cal.set(Calendar.MINUTE, 0);
-		   cal.set(Calendar.SECOND, 0);
-		   cal.set(Calendar.MILLISECOND, 0);
-		   Date currentDate = cal.getTime();
+		   String fecha = sdf.format(cal.getTime());
 		   
 		   Usuario master = new Usuario("jonetxeba.je10@gmail.com", "nose");
 		   System.out.println("se ha annadido el usuario");
 		   db.persist(master);
 		   
-		   Sesion sesion1 = new Sesion(currentDate, 20 );
-		   Sesion sesion2 = new Sesion(UtilDate.newDate(year, month, 6), 30 );
+		   Sesion sesion1 = new Sesion(fecha, 20, sala1);
+		   
+		   cal.add(Calendar.DATE, 1);
+		   String fecha2 = sdf.format(cal.getTime());
+		   Sesion sesion2 = new Sesion(fecha2, 30, sala1 );
+		   
+		   Actividad act1 = new Actividad("zumba", 3, (float) 5.5);
+		   Actividad act2 = new Actividad("pilates", 2, (float) 15.5);
+		   Actividad act3 = new Actividad("crossfit", 5, (float) 25.5);
+		   db.persist(act1);
+		   db.persist(act2);
+		   db.persist(act3);
+		   List<Actividad> listaActividades = new ArrayList<Actividad>();
+		   listaActividades.add(act1);
+		   listaActividades.add(act2);		
+		   listaActividades.add(act3);
+		   sesion1.setListaActividades(listaActividades);
 		   db.persist(sesion1);
 		   db.persist(sesion2);
 		   List<Sesion> lista = new ArrayList<Sesion>();
 		   lista.add(sesion1);
-		   lista.add(sesion2);
+		   lista.add(sesion2);		
 		   
-		   Sala sala1 = new Sala("zumba", 20, lista);
+		   sala1.setListaSesiones(lista);
 			db.persist(sala1);
 			
 			db.getTransaction().commit();
@@ -268,25 +291,19 @@ public void open(boolean initializeMode){
 
 	public List<Sesion> getSesionesSemana() {
 		System.out.println("Buscando las sesiones de esta semana en la base de datos");
-	    // Calculate the start and end of this week
-		Date monday = Calendar.getInstance().getTime();
-//		Date sunday = Calendar.getInstance().getTime();
-
+	    // Calculate the start and end of this week		   
+		   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		   Calendar cal = Calendar.getInstance();
-		   cal.set(Calendar.HOUR_OF_DAY, 0);
-		   cal.set(Calendar.MINUTE, 0);
-		   cal.set(Calendar.SECOND, 0);
-		   cal.set(Calendar.MILLISECOND, 0);
-		   Date currentDate = cal.getTime();
+		   cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+		   String lunes = sdf.format(cal.getTime());
+		   //se le suma 6 dias para tener el domingo
+		   cal.add(Calendar.DATE, 6);
+		   String domingo = sdf.format(cal.getTime());
+
+		   TypedQuery<Sesion> query = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha BETWEEN :start AND :end ORDER BY s.fecha", Sesion.class);
 		   
-		int startOfWeek = Calendar.MONDAY - 1;
-	    int endOfWeek = Calendar.SUNDAY + 6;
-	    System.out.println(startOfWeek + "\n" + endOfWeek);
-	    // Create a query to get sessions between the start and end of this week
-	    TypedQuery<Sesion> query = db.createQuery(
-	        "SELECT s FROM Sesion s WHERE s.fecha >= :start", Sesion.class);
-	    query.setParameter("start", currentDate);
-	    query.setParameter("end", endOfWeek);
+	    query.setParameter("start", lunes);
+	    query.setParameter("end", domingo);
 		List<Sesion> resultado = query.getResultList();
 		System.out.println(resultado);
 		return resultado;

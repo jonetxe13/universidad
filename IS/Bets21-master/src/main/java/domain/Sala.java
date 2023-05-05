@@ -9,13 +9,11 @@ public class Sala {
 	private String nombre;
 	private int aforoMax;
 	private List<Sesion> listaSesiones;
-	
 
-
-	public Sala(String nombre, int aforo, List<Sesion> lista) {
+	public Sala(String nombre, int aforo) {
 		this.nombre = nombre;
 		this.aforoMax = aforo;
-		this.listaSesiones = lista;
+//		this.listaSesiones = lista;
 	}
 
 	public int getAforoMax() {	return aforoMax; }

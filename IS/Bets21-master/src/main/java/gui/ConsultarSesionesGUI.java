@@ -3,25 +3,50 @@ package gui;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JViewport;
 import javax.swing.ListModel;
 
+import businessLogic.BLFacade;
 import domain.Sesion;
 
 import java.awt.BorderLayout;
+import java.sql.ResultSet;
 import java.util.List;
+import java.util.Vector;
 
 public class ConsultarSesionesGUI extends JFrame {
 	public ConsultarSesionesGUI() {
 		getContentPane().setLayout(null);
-		List<Sesion> lista = RegistroGUI.getBusinessLogic().sesionesSemana();
-		for(Sesion s: lista) System.out.println(s + " \n");
-		Sesion[] sesionArray = lista.toArray(new Sesion[lista.size()]);
-		JScrollPane panelSesiones = new JScrollPane();
-		panelSesiones.setBounds(47, 36, 348, 188);
-		JList<Sesion> jlist = new JList<>(sesionArray);
-		panelSesiones.add(jlist);
-		getContentPane().add(panelSesiones);
+
+		BLFacade bussinessLogic = RegistroGUI.getBusinessLogic();
+		List<Sesion> lista = bussinessLogic.sesionesSemana();
+		
+		// Crear las columnas del JTable
+		Vector<String> columns = new Vector<String>();
+		columns.add("Fecha");
+		columns.add("Plazas");
+		columns.add("listaActividades");
+		// ...
+
+		// Crear las filas del JTable
+		Vector<Vector<Object>> rows = new Vector<Vector<Object>>();
+		for (Sesion sesion : lista) {
+		    Vector<Object> row = new Vector<Object>();
+		    row.add(sesion.getFecha());
+		    row.add(sesion.getPlazasDisponibles());
+		    row.add(sesion.getListaActividades());
+		    // ...
+		    rows.add(row);
+		}
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(0, 20, 290, 180);
+		// Crear el JTable y añadirlo al JScrollPane
+		JTable table = new JTable(rows, columns);
+		table.setBounds(5, 25, 260, 172);
+		getContentPane().add(table);
+		getContentPane().add(scrollPane);
+		
 	}
 
 }
