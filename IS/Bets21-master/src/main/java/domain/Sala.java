@@ -3,9 +3,11 @@ package domain;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class Sala {
+	@Id
 	private String nombre;
 	private int aforoMax;
 	private List<Sesion> listaSesiones;

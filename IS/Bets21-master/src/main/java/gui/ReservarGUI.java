@@ -64,13 +64,15 @@ public class ReservarGUI extends JFrame {
 		JButton reservarBtn = new JButton("reservar");
 		reservarBtn.setBounds(273, 61, 125, 38);
 		reservarBtn.addActionListener(new java.awt.event.ActionListener() {
+			
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				Sesion seleccionado = lista.get(table.getSelectedRow());
 				System.out.println(seleccionado.toString());	
 				bussinessLogic.addReserva(seleccionado, user);
+				System.out.print(user.getListaReservas());
 			}
+			
 		});
 		getContentPane().add(reservarBtn);
-		System.out.print(user.getListaReservas());
 	}
 }

@@ -169,7 +169,6 @@ public class BLFacadeImplementation  implements BLFacade {
 	public boolean addReserva(Sesion seleccionado, Usuario user) {
 		dbManager.open(false);
 		boolean bien = dbManager.addReserva(seleccionado, user);
-//		System.out.println(dbManager.userExists(user));
 		return bien;
 	}
 }

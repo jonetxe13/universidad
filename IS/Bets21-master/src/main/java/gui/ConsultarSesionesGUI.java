@@ -21,6 +21,7 @@ public class ConsultarSesionesGUI extends JFrame {
 
 		BLFacade bussinessLogic = RegistroGUI.getBusinessLogic();
 		List<Sesion> lista = bussinessLogic.sesionesSemana();
+		System.out.println(lista);
 		
 		// Crear las columnas del JTable
 		Vector<String> columns = new Vector<String>();

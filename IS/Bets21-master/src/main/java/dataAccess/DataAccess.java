@@ -68,30 +68,6 @@ public class DataAccess  {
 //		   int year=today.get(Calendar.YEAR);
 //		   if (month==12) { month=0; year+=1;}  
 //	    
-//			Event ev1=new Event(1, "Atlético-Athletic", UtilDate.newDate(year,month,17));
-//			Event ev2=new Event(2, "Eibar-Barcelona", UtilDate.newDate(year,month,17));
-//			Event ev3=new Event(3, "Getafe-Celta", UtilDate.newDate(year,month,17));
-//			Event ev4=new Event(4, "Alavés-Deportivo", UtilDate.newDate(year,month,17));
-//			Event ev5=new Event(5, "Español-Villareal", UtilDate.newDate(year,month,17));
-//			Event ev6=new Event(6, "Las Palmas-Sevilla", UtilDate.newDate(year,month,17));
-//			Question q1;
-//			Question q2;			
-			
-//			if (Locale.getDefault().equals(new Locale("es"))) {
-//				q1=ev1.addQuestion("¿Quién ganará el partido?",1);
-//				q2=ev1.addQuestion("¿Quién meterá el primer gol?",2);
-//			}
-//			
-//			db.persist(q1);
-//			db.persist(q2);	
-//	        
-//			db.persist(ev1);
-//			db.persist(ev2);
-//			db.persist(ev3);
-//			db.persist(ev4);
-//			db.persist(ev5);
-//			db.persist(ev6);
-//
 //		   Sala sala1 = new Sala("zumba", 20);
 //		   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 //		   Calendar cal = Calendar.getInstance();
@@ -135,7 +111,7 @@ public class DataAccess  {
 //		catch (Exception e){
 //			e.printStackTrace();
 //		}
-		System.out.println("Db initialized");
+//		System.out.println("Db initialized");
 	}
 	
 	/**
@@ -251,8 +227,7 @@ public void open(boolean initializeMode){
 			if(user == null) {
 				System.out.print("el usuario no existe asi que se crea");
 				user = new Usuario(correo, contrasenna);
-				db.persist(user); // db.persist(q) not required when CascadeType.PERSIST is added in questions property of Event class
-				// @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+				db.persist(user);
 				db.getTransaction().commit();
 			}
 			return user;
@@ -261,7 +236,7 @@ public void open(boolean initializeMode){
 	public boolean userExists(Usuario newUser) {
 		System.out.println("Buscando el usuario en la base de datos");
 		Usuario usuario = db.find(Usuario.class, newUser.getCorreo());
-		System.out.print(usuario.getCorreo());
+//		System.out.print(usuario.getCorreo());
 		if(usuario == null) {
 			System.out.println("\n  no contiene a ese usuario");
 			return false;
@@ -272,39 +247,40 @@ public void open(boolean initializeMode){
 
 	public Sala getSala(String string) {
 		System.out.println("Buscando la sala en la base de datos");
-		TypedQuery<Sala> query = db.createQuery("SELECT s FROM Sala s WHERE s.nombre=?1", Sala.class);
-		query.setParameter(1, string);
-		List<Sala> resultado = query.getResultList();
-		System.out.println(resultado.get(0));
-		return resultado.get(0);
+		db.getTransaction().begin();
+		Sala res = db.find(Sala.class, string);
+		if(res == null) return null;
+		return res;
 	}
 
 	public List<Sesion> getSesionesSemana() {
 		System.out.println("Buscando las sesiones de esta semana en la base de datos");
 	    // Calculate the start and end of this week		   
-		   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		   Calendar cal = Calendar.getInstance();
-		   cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-		   String lunes = sdf.format(cal.getTime());
-		   //se le suma 6 dias para tener el domingo
-		   cal.add(Calendar.DATE, 6);
-		   String domingo = sdf.format(cal.getTime());
+	   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	   Calendar cal = Calendar.getInstance();
+	   cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+	   String lunes = sdf.format(cal.getTime());
+	   
+	   System.out.println(lunes);
+	   
+	   //se le suma 6 dias para tener el domingo
+	   cal.add(Calendar.DATE, 6);
+	   String domingo = sdf.format(cal.getTime());
+	   
+	   System.out.println(domingo);
 
-		   TypedQuery<Sesion> query = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha BETWEEN :start AND :end ORDER BY s.fecha", Sesion.class);
-		   
+		TypedQuery<Sesion> query = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha BETWEEN :start AND :end ORDER BY s.fecha", Sesion.class);
+		System.out.println(query);
+
 	    query.setParameter("start", lunes);
 	    query.setParameter("end", domingo);
 		List<Sesion> resultado = query.getResultList();
-		System.out.println(resultado);
+//		System.out.println(resultado);
 		return resultado;
 	}
 
 	public boolean addReserva(Sesion sesion, Usuario user) {		  
 		db.getTransaction().begin();
-//		TypedQuery<Sesion> query = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha = :f", Sesion.class);
-//	    query.setParameter("f", seleccionado.getFecha());
-//		List<Sesion> resultado = query.getResultList();
-//		System.out.println(resultado);
 		
 		String idUsuario = user.getCorreo();
 		String idSesion = sesion.getFecha();
@@ -315,9 +291,14 @@ public void open(boolean initializeMode){
 			System.out.println("No se puede reservar porque esta llena");
 			return false;
 		}
+		System.out.println(usuario.getListaReservas());
 		if(usuario.getListaReservas() != null) {
 			for(String r: user.getListaReservas()) {
-				if(r == (ses.getFecha()+"-"+user.getCorreo())){
+				
+//				System.out.println(r);
+				System.out.println(r.equals(ses.getFecha()+"-"+user.getCorreo()));
+
+				if(r.equals(ses.getFecha()+"-"+user.getCorreo())){
 					System.out.println("ya tienes esta sesion reservada");
 					return false;
 				}
@@ -326,10 +307,9 @@ public void open(boolean initializeMode){
 		String codigo = ses.crearHash(user);
 		usuario.addReserva(codigo);
 		ses.setPlazasDisponibles(ses.getPlazasDisponibles()-1);
+		
 		db.persist(usuario);
 		db.persist(ses); 
-//		System.out.println(userExists(user));
-		// @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 		db.getTransaction().commit();
 		return true;
 	}
