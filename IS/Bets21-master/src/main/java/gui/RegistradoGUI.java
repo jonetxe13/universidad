@@ -45,15 +45,14 @@ public class RegistradoGUI extends JFrame{
 	public void initialize() {
 		getContentPane().setLayout(null);
 		
-		JButton btnNewButton = new JButton("New button");
+		JButton btnNewButton = new JButton("Reservar");
 		btnNewButton.setBounds(99, 40, 218, 45);
 		btnNewButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					BLFacade bussinesLogic = RegistroGUI.getBusinessLogic();
-					Sala salaPrueba = bussinesLogic.getSala("zumba");
-					System.out.println(salaPrueba.toString());
-					List<Sesion> lista = bussinesLogic.sesionesSemana();
-					for(Sesion s: lista) System.out.println(s.toString());
+					JFrame a = new ReservarGUI(user);
+					a.setBounds(0, 0, 500, 400);
+					a.setVisible(true);
 				}
 			});
 		getContentPane().add(btnNewButton);

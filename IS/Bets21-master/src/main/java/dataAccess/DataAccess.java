@@ -58,15 +58,15 @@ public class DataAccess  {
 	 */	
 	public void initializeDB(){
 		
-		db.getTransaction().begin();
-		try {
-
-			
-		   Calendar today = Calendar.getInstance();
-		   
-		   int month=today.get(Calendar.MONTH);
-		   int year=today.get(Calendar.YEAR);
-		   if (month==12) { month=0; year+=1;}  
+//		db.getTransaction().begin();
+//		try {
+//
+//			
+//		   Calendar today = Calendar.getInstance();
+//		   
+//		   int month=today.get(Calendar.MONTH);
+//		   int year=today.get(Calendar.YEAR);
+//		   if (month==12) { month=0; year+=1;}  
 //	    
 //			Event ev1=new Event(1, "Atlético-Athletic", UtilDate.newDate(year,month,17));
 //			Event ev2=new Event(2, "Eibar-Barcelona", UtilDate.newDate(year,month,17));
@@ -91,53 +91,51 @@ public class DataAccess  {
 //			db.persist(ev4);
 //			db.persist(ev5);
 //			db.persist(ev6);
-
-		   Sala sala1 = new Sala("zumba", 20);
-		   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		   Calendar cal = Calendar.getInstance();
-		   String fecha = sdf.format(cal.getTime());
-		   
-		   Usuario master = new Usuario("a@a.com", "nose");
-		   System.out.println("se ha annadido el usuario");
-		   db.persist(master);
-		   
-		   List<Sesion> lista = new ArrayList<Sesion>();
-		   Sesion sesion1 = new Sesion(fecha, 20, sala1);
-		   lista.add(sesion1);
-		   for(int i = 0; i < 20; i++) {			   
-			   cal.add(Calendar.DATE, 0);
-			   String fecha2 = sdf.format(cal.getTime());
-			   Sesion sesionNueva = new Sesion(fecha2, 20+i, sala1);
-			   lista.add(sesionNueva);
-			   db.persist(sesionNueva);
-			}
-
-		   
-		   Actividad act1 = new Actividad("zumba", 3, (float) 5.5);
-		   Actividad act2 = new Actividad("pilates", 2, (float) 15.5);
-		   Actividad act3 = new Actividad("crossfit", 5, (float) 25.5);
-		   db.persist(act1);
-		   db.persist(act2);
-		   db.persist(act3);
-		   List<Actividad> listaActividades = new ArrayList<Actividad>();
-		   listaActividades.add(act1);
-		   listaActividades.add(act2);		
-		   listaActividades.add(act3);
-		   sesion1.setListaActividades(listaActividades);
-		   db.persist(sesion1);
-//		   db.persist(sesion2);
+//
+//		   Sala sala1 = new Sala("zumba", 20);
+//		   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//		   Calendar cal = Calendar.getInstance();
+//		   String fecha = sdf.format(cal.getTime());
+//		   
+//		   Usuario master = new Usuario("a@a.com", "nose");
+//		   System.out.println("se ha annadido el usuario");
+//		   db.persist(master);
+//		   
+//		   List<Sesion> lista = new ArrayList<Sesion>();
+//		   Sesion sesion1 = new Sesion(fecha, 20, sala1);
 //		   lista.add(sesion1);
-//		   lista.add(sesion2);		
-		   
-		   sala1.setListaSesiones(lista);
-			db.persist(sala1);
-			
-			db.getTransaction().commit();
-			System.out.println("Db initialized");
-		}
-		catch (Exception e){
-			e.printStackTrace();
-		}
+//		   cal.add(Calendar.DATE, 1);
+//		   for(int i = 0; i < 20; i++) {			   
+//			   String fecha2 = sdf.format(cal.getTime());
+//			   Sesion sesionNueva = new Sesion(fecha2, 20+i, sala1);
+//			   lista.add(sesionNueva);
+//			   db.persist(sesionNueva);
+//			}
+//
+//		   
+//		   Actividad act1 = new Actividad("zumba", 3, (float) 5.5);
+//		   Actividad act2 = new Actividad("pilates", 2, (float) 15.5);
+//		   Actividad act3 = new Actividad("crossfit", 5, (float) 25.5);
+//		   db.persist(act1);
+//		   db.persist(act2);
+//		   db.persist(act3);
+//		   List<Actividad> listaActividades = new ArrayList<Actividad>();
+//		   listaActividades.add(act1);
+//		   listaActividades.add(act2);		
+//		   listaActividades.add(act3);
+//		   sesion1.setListaActividades(listaActividades);
+//		   db.persist(sesion1);
+//		   lista.add(sesion1);	
+//		   
+//		   sala1.setListaSesiones(lista);
+//			db.persist(sala1);
+//			
+//			db.getTransaction().commit();
+//		}
+//		catch (Exception e){
+//			e.printStackTrace();
+//		}
+		System.out.println("Db initialized");
 	}
 	
 	/**
@@ -247,35 +245,29 @@ public void open(boolean initializeMode){
 	}
 	public Usuario createUsuario(String correo, String contrasenna){
 		System.out.println(">> DataAccess: createUsuario=> correo= "+correo+" contrasenna= "+contrasenna);
-		Usuario user = new Usuario(correo, contrasenna);
-			boolean userExistsONo = userExists(user);
-//			Usuario user= db.find(Usuario.class, user.getCorreo());
-			if(!userExistsONo) {
+
+		db.getTransaction().begin();
+		Usuario user = db.find(Usuario.class, correo);
+			if(user == null) {
 				System.out.print("el usuario no existe asi que se crea");
-				db.getTransaction().begin();
-				//db.persist(q);
+				user = new Usuario(correo, contrasenna);
 				db.persist(user); // db.persist(q) not required when CascadeType.PERSIST is added in questions property of Event class
 				// @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
 				db.getTransaction().commit();
 			}
 			return user;
-		
 	}
 
 	public boolean userExists(Usuario newUser) {
 		System.out.println("Buscando el usuario en la base de datos");
-		TypedQuery<Usuario> query = db.createQuery("SELECT u FROM Usuario u WHERE u.correo=?1", Usuario.class);
-		query.setParameter(1, newUser.getCorreo());
-		List<Usuario> resultado = query.getResultList();
-		System.out.print(resultado);
-		if(resultado.isEmpty()) {
-			System.out.println("\nno contiene a ese usuario");
+		Usuario usuario = db.find(Usuario.class, newUser.getCorreo());
+		System.out.print(usuario.getCorreo());
+		if(usuario == null) {
+			System.out.println("\n  no contiene a ese usuario");
 			return false;
 		}
-		else {
-			System.out.println("Si que contiene el usuario");
-			return true;
-		}
+		System.out.println("Si que contiene el usuario");
+		return true;
 	}
 
 	public Sala getSala(String string) {
@@ -305,5 +297,40 @@ public void open(boolean initializeMode){
 		List<Sesion> resultado = query.getResultList();
 		System.out.println(resultado);
 		return resultado;
+	}
+
+	public boolean addReserva(Sesion sesion, Usuario user) {		  
+		db.getTransaction().begin();
+//		TypedQuery<Sesion> query = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha = :f", Sesion.class);
+//	    query.setParameter("f", seleccionado.getFecha());
+//		List<Sesion> resultado = query.getResultList();
+//		System.out.println(resultado);
+		
+		String idUsuario = user.getCorreo();
+		String idSesion = sesion.getFecha();
+		
+		Usuario usuario = db.find(Usuario.class, idUsuario);
+		Sesion ses = db.find(Sesion.class, idSesion);
+		if(ses.getPlazasDisponibles() == 0) {
+			System.out.println("No se puede reservar porque esta llena");
+			return false;
+		}
+		if(usuario.getListaReservas() != null) {
+			for(String r: user.getListaReservas()) {
+				if(r == (ses.getFecha()+"-"+user.getCorreo())){
+					System.out.println("ya tienes esta sesion reservada");
+					return false;
+				}
+			}	
+		}
+		String codigo = ses.crearHash(user);
+		usuario.addReserva(codigo);
+		ses.setPlazasDisponibles(ses.getPlazasDisponibles()-1);
+		db.persist(usuario);
+		db.persist(ses); 
+//		System.out.println(userExists(user));
+		// @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+		db.getTransaction().commit();
+		return true;
 	}
 }

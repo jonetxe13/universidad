@@ -60,6 +60,7 @@ public interface BLFacade  {
 	@WebMethod public void initializeBD();
 	@WebMethod public Sala getSala(String string);
 	@WebMethod public List<Sesion> sesionesSemana();
+	@WebMethod public boolean addReserva(Sesion seleccionado, Usuario user);
 
 	
 }

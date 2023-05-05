@@ -61,13 +61,15 @@ public class RegistrarseGUI extends JFrame{
 					System.out.print("Ese usuario ya existe");
 				}
 				else {
-					if(!(passwordField1.getText().equals(passwordField2.getText()))) {
+					if(!correoTextField.getText().matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}")) {
+						System.out.println("El correo tiene que tener esta estructura: example@example.com");		
+					}
+					else if(!(passwordField1.getText().equals(passwordField2.getText()))) {
 						System.out.println("Las contrasennas tienen que ser iguales");
 					}
 					else {
 						bussinesLogic.createUsuario(correoTextField.getText(), passwordField1.getText());
 						System.out.print("se ha creado el usuario\n");
-//					System.out.println(bussinesLogic.userExists(correoTextField.getText(), passwordField1.getText()));
 						JFrame a = new RegistradoGUI(bussinesLogic.createUsuario(correoTextField.getText(), passwordField1.getText()));
 						a.setBounds(0, 0, 500, 400);
 						a.setVisible(true);	

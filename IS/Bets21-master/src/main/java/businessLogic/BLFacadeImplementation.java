@@ -137,10 +137,6 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.open(false);
 		Usuario qry=null;
 	    
-		if(!correo.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}")) {
-			System.out.println("El correo tiene que tener esta estructura: example@example.com");
-			return null;			
-		}
 		qry=dbManager.createUsuario(correo, contrasenna);	
 
 		dbManager.close();
@@ -167,6 +163,14 @@ public class BLFacadeImplementation  implements BLFacade {
 		List<Sesion> lista = new ArrayList<Sesion>();
 		lista = dbManager.getSesionesSemana();
 		return lista;
+	}
+
+	@Override
+	public boolean addReserva(Sesion seleccionado, Usuario user) {
+		dbManager.open(false);
+		boolean bien = dbManager.addReserva(seleccionado, user);
+//		System.out.println(dbManager.userExists(user));
+		return bien;
 	}
 }
 
