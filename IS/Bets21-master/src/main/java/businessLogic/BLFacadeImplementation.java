@@ -165,11 +165,18 @@ public class BLFacadeImplementation  implements BLFacade {
 		return lista;
 	}
 
-	@Override
+	@WebMethod
 	public boolean addReserva(Sesion seleccionado, Usuario user) {
 		dbManager.open(false);
 		boolean bien = dbManager.addReserva(seleccionado, user);
 		return bien;
+	}
+
+	@WebMethod
+	public Sesion addAListaEspera(Sesion sesion, Usuario user) {
+		dbManager.open(false);
+		Sesion añadidoOno = dbManager.addAListaEspera(sesion, user);
+		return añadidoOno;
 	}
 }
 

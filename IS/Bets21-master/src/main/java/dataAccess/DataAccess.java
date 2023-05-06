@@ -78,7 +78,7 @@ public class DataAccess  {
 //		   db.persist(master);
 //		   
 //		   List<Sesion> lista = new ArrayList<Sesion>();
-//		   Sesion sesion1 = new Sesion(fecha, 20, sala1);
+//		   Sesion sesion1 = new Sesion(fecha, 0, sala1);
 //		   lista.add(sesion1);
 //		   cal.add(Calendar.DATE, 1);
 //		   for(int i = 0; i < 20; i++) {			   
@@ -111,7 +111,7 @@ public class DataAccess  {
 //		catch (Exception e){
 //			e.printStackTrace();
 //		}
-//		System.out.println("Db initialized");
+		System.out.println("Db initialized");
 	}
 	
 	/**
@@ -295,7 +295,6 @@ public void open(boolean initializeMode){
 		if(usuario.getListaReservas() != null) {
 			for(String r: user.getListaReservas()) {
 				
-//				System.out.println(r);
 				System.out.println(r.equals(ses.getFecha()+"-"+user.getCorreo()));
 
 				if(r.equals(ses.getFecha()+"-"+user.getCorreo())){
@@ -312,5 +311,20 @@ public void open(boolean initializeMode){
 		db.persist(ses); 
 		db.getTransaction().commit();
 		return true;
+	}
+
+	public Sesion addAListaEspera(Sesion sesion, Usuario user) {
+		db.getTransaction().begin();
+		Sesion ses = db.find(Sesion.class, sesion.getFecha());
+		Usuario usr = db.find(Usuario.class, user.getCorreo());
+		if(ses.getListaEspera().contains(usr)) {
+			System.out.println("ya estas en la lista de espera");
+			return ses;
+		}
+		ses.addAListaEspera(usr);
+		db.persist(ses);
+		db.persist(usr);
+		db.getTransaction().commit();
+		return ses;	
 	}
 }

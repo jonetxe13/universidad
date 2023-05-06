@@ -1,7 +1,10 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +16,7 @@ public class Sesion {
 	private String fecha;
 	private int plazasDisponibles;
 	private List<Actividad> listaActividades;
+	private Queue<Usuario> listaEspera;
 	private Sala sala;
 
 
@@ -20,6 +24,7 @@ public class Sesion {
 		this.fecha = dia;
 		this.plazasDisponibles = plazas;
 		this.sala = sala;
+		this.listaEspera = new LinkedList<Usuario>();
 	}
 	
 	public String getFecha() { return fecha;	}
@@ -30,16 +35,18 @@ public class Sesion {
 	public void setListaActividades(List<Actividad> listaActividades) {	this.listaActividades = listaActividades;	}
 	public Sala getSala() {	return sala; }
 	public void setSala(Sala sala) { this.sala = sala;	}
+	public Queue<Usuario> getListaEspera() { return listaEspera; }
+	public void setListaEspera(Queue<Usuario> listaEspera) { this.listaEspera = listaEspera; }
 
 	public String crearHash(Usuario user) {
-		String codigo = generateCodigo(user);
+		String codigo = this.fecha+"-"+user.getCorreo();
 		System.out.print(codigo);
 		return codigo;
 	}
-
-	private String generateCodigo(Usuario user) {
-		String codigo = this.fecha+"-"+user.getCorreo();
-		return codigo;
+	public void addAListaEspera(Usuario user) {
+		listaEspera.add(user);
+		for(Usuario usr: this.getListaEspera()) {
+			System.out.print(usr.getCorreo());			
+		}
 	}
-	
 }

@@ -66,10 +66,15 @@ public class ReservarGUI extends JFrame {
 		reservarBtn.addActionListener(new java.awt.event.ActionListener() {
 			
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				Sesion seleccionado = lista.get(table.getSelectedRow());
-				System.out.println(seleccionado.toString());	
-				bussinessLogic.addReserva(seleccionado, user);
-				System.out.print(user.getListaReservas());
+				Sesion sesion = lista.get(table.getSelectedRow());
+				if(sesion.getPlazasDisponibles() == 0) {
+					System.out.print("La sesion esta llena asi que se añade a la lista de espera");
+					Sesion res = bussinessLogic.addAListaEspera(sesion, user);
+					System.out.print(res.getListaEspera());
+				}
+				else {
+					bussinessLogic.addReserva(sesion, user);					
+				}
 			}
 			
 		});
