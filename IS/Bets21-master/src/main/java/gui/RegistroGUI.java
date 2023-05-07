@@ -133,9 +133,17 @@ public class RegistroGUI extends JFrame{
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					// Cuando haces click mira si el usuario existe, si existe crea una ventana con el usuario registrado
 					BLFacade bussinesLogic = appFacadeInterface;
-					System.out.println(bussinesLogic.userExists(textField.getText(), passwordField.getText()));
-					if(bussinesLogic.userExists(textField.getText(), passwordField.getText())) {
-						System.out.print("Se ha encontrado");
+					
+					if(bussinesLogic.encargadoExists(textField.getText(), passwordField.getText())) {
+						System.out.print("Se ha encontrado el encargado\n");
+						System.out.println(bussinesLogic.getEncargado(textField.getText(), passwordField.getText()));
+						JFrame a = new EncargadoGUI(bussinesLogic.getEncargado(textField.getText(), passwordField.getText()));
+						a.setBounds(0, 0, 500, 400);
+						a.setVisible(true);
+						
+					}
+					else if(bussinesLogic.userExists(textField.getText(), passwordField.getText())) {
+						System.out.print("Se ha encontrado el usuario");
 						JFrame a = new RegistradoGUI(bussinesLogic.createUsuario(textField.getText(), passwordField.getText()));
 						a.setBounds(0, 0, 500, 400);
 						a.setVisible(true);

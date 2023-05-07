@@ -9,6 +9,7 @@ import domain.Question;
 import domain.Sala;
 import domain.Sesion;
 import domain.Usuario;
+import domain.Encargado;
 import domain.Event;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
@@ -33,9 +34,11 @@ public interface BLFacade  {
 	 * @throws EventFinished if current data is after data of the event
  	 * @throws QuestionAlreadyExist if the same question already exists for the event
 	 */
-	@WebMethod Question createQuestion(Event event, String question, float betMinimum) throws EventFinished, QuestionAlreadyExist;
-	@WebMethod Usuario createUsuario(String correo, String contrasenna);
-	@WebMethod boolean userExists(String text, String text2);
+//	@WebMethod Question createQuestion(Event event, String question, float betMinimum) throws EventFinished, QuestionAlreadyExist;
+	@WebMethod public Usuario createUsuario(String correo, String contrasenna);
+	@WebMethod public boolean userExists(String text, String text2);
+	@WebMethod public boolean encargadoExists(String text, String text2);
+	@WebMethod public Encargado getEncargado(String text, String text2);
 	
 	/**
 	 * This method retrieves the events of a given date 
@@ -43,7 +46,7 @@ public interface BLFacade  {
 	 * @param date in which events are retrieved
 	 * @return collection of events
 	 */
-	@WebMethod public Vector<Event> getEvents(Date date);
+//	@WebMethod public Vector<Event> getEvents(Date date);
 	
 	/**
 	 * This method retrieves from the database the dates a month for which there are events
@@ -51,7 +54,7 @@ public interface BLFacade  {
 	 * @param date of the month for which days with events want to be retrieved 
 	 * @return collection of dates
 	 */
-	@WebMethod public Vector<Date> getEventsMonth(Date date);
+//	@WebMethod public Vector<Date> getEventsMonth(Date date);
 	
 	/**
 	 * This method calls the data access to initialize the database with some events and questions.

@@ -78,10 +78,14 @@ public class CancelarReservaGUI extends JFrame {
 		cancelarReservaBtn.addActionListener(new java.awt.event.ActionListener() {
 			
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				Sesion sesion = listaSesion.get(table.getSelectedRow());
-				bussinessLogic.cancelarReserva(sesion, user);			
+				if(table.getSelectedRow()!=-1) {
+					Sesion sesion = listaSesion.get(table.getSelectedRow());
+					bussinessLogic.cancelarReserva(sesion, user);			
+				}
+				else {
+					System.out.println("no tienes nada seleccionado");
+				}
 			}
-			
 		});
 		getContentPane().add(cancelarReservaBtn);
 	}

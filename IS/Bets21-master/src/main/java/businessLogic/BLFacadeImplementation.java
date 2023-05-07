@@ -15,6 +15,7 @@ import domain.Question;
 import domain.Sala;
 import domain.Sesion;
 import domain.Usuario;
+import domain.Encargado;
 import domain.Event;
 import exceptions.EventFinished;
 import exceptions.QuestionAlreadyExist;
@@ -65,24 +66,24 @@ public class BLFacadeImplementation  implements BLFacade {
 	 * @throws EventFinished if current data is after data of the event
  	 * @throws QuestionAlreadyExist if the same question already exists for the event
 	 */
-   @WebMethod
-   public Question createQuestion(Event event, String question, float betMinimum) throws EventFinished, QuestionAlreadyExist{
-	   
-	    //The minimum bed must be greater than 0
-		dbManager.open(false);
-		Question qry=null;
-		
-	    
-		if(new Date().compareTo(event.getEventDate())>0)
-			throw new EventFinished(ResourceBundle.getBundle("Etiquetas").getString("ErrorEventHasFinished"));
-				
-		
-		 qry=dbManager.createQuestion(event,question,betMinimum);		
-
-		dbManager.close();
-		
-		return qry;
-   };
+//   @WebMethod
+//   public Question createQuestion(Event event, String question, float betMinimum) throws EventFinished, QuestionAlreadyExist{
+//	   
+//	    //The minimum bed must be greater than 0
+//		dbManager.open(false);
+//		Question qry=null;
+//		
+//	    
+//		if(new Date().compareTo(event.getEventDate())>0)
+//			throw new EventFinished(ResourceBundle.getBundle("Etiquetas").getString("ErrorEventHasFinished"));
+//				
+//		
+//		 qry=dbManager.createQuestion(event,question,betMinimum);		
+//
+//		dbManager.close();
+//		
+//		return qry;
+//   };
 	
 	/**
 	 * This method invokes the data access to retrieve the events of a given date 
@@ -90,13 +91,13 @@ public class BLFacadeImplementation  implements BLFacade {
 	 * @param date in which events are retrieved
 	 * @return collection of events
 	 */
-    @WebMethod	
-	public Vector<Event> getEvents(Date date)  {
-		dbManager.open(false);
-		Vector<Event>  events=dbManager.getEvents(date);
-		dbManager.close();
-		return events;
-	}
+//    @WebMethod	
+//	public Vector<Event> getEvents(Date date)  {
+//		dbManager.open(false);
+//		Vector<Event>  events=dbManager.getEvents(date);
+//		dbManager.close();
+//		return events;
+//	}
 
     
 	/**
@@ -105,12 +106,12 @@ public class BLFacadeImplementation  implements BLFacade {
 	 * @param date of the month for which days with events want to be retrieved 
 	 * @return collection of dates
 	 */
-	@WebMethod public Vector<Date> getEventsMonth(Date date) {
-		dbManager.open(false);
-		Vector<Date>  dates=dbManager.getEventsMonth(date);
-		dbManager.close();
-		return dates;
-	}
+//	@WebMethod public Vector<Date> getEventsMonth(Date date) {
+//		dbManager.open(false);
+//		Vector<Date>  dates=dbManager.getEventsMonth(date);
+//		dbManager.close();
+//		return dates;
+//	}
 	
 	
 	public void close() {
@@ -149,6 +150,20 @@ public class BLFacadeImplementation  implements BLFacade {
 		Usuario newUser = new Usuario(correo, contrasenna);
 		boolean existe = dbManager.userExists(newUser);
 		return existe;
+	}
+	@WebMethod
+	public boolean encargadoExists(String correo, String contrasenna) {
+		dbManager.open(false);
+		Encargado encargado = new Encargado(correo, contrasenna);
+		boolean existe = dbManager.encargadoExists(encargado);
+		return existe;
+	}
+	@WebMethod
+	public Encargado getEncargado(String correo, String contrasenna) {
+		dbManager.open(false);
+		Encargado encargado = new Encargado(correo, contrasenna);
+		Encargado enc = dbManager.getEncargado(encargado);
+		return enc;
 	}
 
 	@WebMethod

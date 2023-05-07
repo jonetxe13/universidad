@@ -24,6 +24,7 @@ import javax.persistence.TypedQuery;
 import configuration.ConfigXML;
 import configuration.UtilDate;
 import domain.Actividad;
+import domain.Encargado;
 import domain.Event;
 import domain.Question;
 import domain.Sala;
@@ -75,11 +76,14 @@ public class DataAccess  {
 		   Calendar cal = Calendar.getInstance();
 		   cal.add(Calendar.DATE, 1);
 		   String fecha = sdf.format(cal.getTime());
-//		   System.out.println(fecha);
 		   
-		   Usuario master = new Usuario("a@a.com", "nose");
+		   Encargado admin = Encargado.getInstance("admin@admin.com", "admin");
+		   System.out.println("se ha annadido al encargado");
+		   db.persist(admin);
+		   
+		   Usuario usuario = new Usuario("a@a.com", "nose");
 		   System.out.println("se ha annadido el usuario");
-		   db.persist(master);
+		   db.persist(usuario);
 		   
 		   List<Sesion> lista = new ArrayList<Sesion>();
 		   Sesion sesion1 = new Sesion(fecha, 1, sala1);
@@ -147,79 +151,8 @@ public class DataAccess  {
 		}
 		System.out.println("Db initialized");
 	}
-	
-	/**
-	 * This method creates a question for an event, with a question text and the minimum bet
-	 * 
-	 * @param event to which question is added
-	 * @param question text of the question
-	 * @param betMinimum minimum quantity of the bet
-	 * @return the created question, or null, or an exception
- 	 * @throws QuestionAlreadyExist if the same question already exists for the event
-	 */
-	public Question createQuestion(Event event, String question, float betMinimum) throws  QuestionAlreadyExist {
-		System.out.println(">> DataAccess: createQuestion=> event= "+event+" question= "+question+" betMinimum="+betMinimum);
-		
-			Event ev = db.find(Event.class, event.getEventNumber());
-			
-			if (ev.DoesQuestionExists(question)) throw new QuestionAlreadyExist(ResourceBundle.getBundle("Etiquetas").getString("ErrorQueryAlreadyExist"));
-			
-			db.getTransaction().begin();
-			Question q = ev.addQuestion(question, betMinimum);
-			//db.persist(q);
-			db.persist(ev); // db.persist(q) not required when CascadeType.PERSIST is added in questions property of Event class
-							// @OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
-			db.getTransaction().commit();
-			return q;
-		
-	}
-	
-	/**
-	 * This method retrieves from the database the events of a given date 
-	 * 
-	 * @param date in which events are retrieved
-	 * @return collection of events
-	 */
-	public Vector<Event> getEvents(Date date) {
-		System.out.println(">> DataAccess: getEvents");
-		Vector<Event> res = new Vector<Event>();	
-		TypedQuery<Event> query = db.createQuery("SELECT ev FROM Event ev WHERE ev.eventDate=?1",Event.class);   
-		query.setParameter(1, date);
-		List<Event> events = query.getResultList();
-	 	 for (Event ev:events){
-	 	   System.out.println(ev.toString());		 
-		   res.add(ev);
-		  }
-	 	return res;
-	}
-	
-	/**
-	 * This method retrieves from the database the dates a month for which there are events
-	 * 
-	 * @param date of the month for which days with events want to be retrieved 
-	 * @return collection of dates
-	 */
-	public Vector<Date> getEventsMonth(Date date) {
-		System.out.println(">> DataAccess: getEventsMonth");
-		Vector<Date> res = new Vector<Date>();	
-		
-		Date firstDayMonthDate= UtilDate.firstDayMonth(date);
-		Date lastDayMonthDate= UtilDate.lastDayMonth(date);
-				
-		
-		TypedQuery<Date> query = db.createQuery("SELECT DISTINCT ev.eventDate FROM Event ev WHERE ev.eventDate BETWEEN ?1 and ?2",Date.class);   
-		query.setParameter(1, firstDayMonthDate);
-		query.setParameter(2, lastDayMonthDate);
-		List<Date> dates = query.getResultList();
-	 	for (Date d:dates){
-	 	  System.out.println(d.toString());		 
-		  res.add(d);
-		}
-	 	return res;
-	}
-	
 
-public void open(boolean initializeMode){
+	public void open(boolean initializeMode){
 		
 		System.out.println("Opening DataAccess instance => isDatabaseLocal: "+c.isDatabaseLocal()+" getDatabBaseOpenMode: "+c.getDataBaseOpenMode());
 
@@ -243,18 +176,11 @@ public void open(boolean initializeMode){
     	   }
 		
 	}
-	public boolean existQuestion(Event event, String question) {
-		System.out.println(">> DataAccess: existQuestion=> event= "+event+" question= "+question);
-		Event ev = db.find(Event.class, event.getEventNumber());
-		return ev.DoesQuestionExists(question);
-		
-	}
 	public void close(){
 		db.close();
 		System.out.println("DataBase closed");
 	}
 	public Usuario createUsuario(String correo, String contrasenna){
-		System.out.println(">> DataAccess: createUsuario=> correo= "+correo+" contrasenna= "+contrasenna);
 
 		db.getTransaction().begin();
 		Usuario user = db.find(Usuario.class, correo);
@@ -266,17 +192,40 @@ public void open(boolean initializeMode){
 			}
 			return user;
 	}
-
 	public boolean userExists(Usuario newUser) {
 		System.out.println("Buscando el usuario en la base de datos");
 		Usuario usuario = db.find(Usuario.class, newUser.getCorreo());
-//		System.out.print(usuario.getCorreo());
 		if(usuario == null) {
 			System.out.println("\n  no contiene a ese usuario");
 			return false;
 		}
 		System.out.println("Si que contiene el usuario");
 		return true;
+	}
+	public boolean encargadoExists(Encargado enc) {
+		System.out.println("Buscando el encargado en la base de datos");
+		db.getTransaction().begin();
+		Encargado encargado = db.find(Encargado.class, enc.getCorreo());
+		if(encargado == null) {
+			System.out.println("\n  no contiene a ese encargado");
+			db.getTransaction().commit();
+			return false;
+		}
+		db.getTransaction().commit();
+		System.out.println("Si que contiene el encargado");
+		return true;
+		
+	}
+	public Encargado getEncargado(Encargado encargado) {
+		db.getTransaction().begin();
+		Encargado enc = db.find(Encargado.class, encargado.getCorreo());
+		if(enc == null) {
+			System.out.println("el encargado no existe");
+			db.getTransaction().commit();
+			return null;
+		}
+		db.getTransaction().commit();
+		return enc;
 	}
 	public Sesion getSesion(String fecha){
 		db.getTransaction().begin();

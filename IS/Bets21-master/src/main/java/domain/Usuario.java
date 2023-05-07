@@ -46,4 +46,8 @@ public class Usuario {
 			System.out.println("se te ha quitado esa reserva");
 		}
 	}
+
+	public boolean isEncargado() {
+		return false;
+	}
 }
