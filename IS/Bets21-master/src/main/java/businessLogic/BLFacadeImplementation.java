@@ -178,5 +178,19 @@ public class BLFacadeImplementation  implements BLFacade {
 		Sesion añadidoOno = dbManager.addAListaEspera(sesion, user);
 		return añadidoOno;
 	}
+	
+	@WebMethod
+	public Sesion getSesion(String fecha) {
+		dbManager.open(false);
+		Sesion sesion = dbManager.getSesion(fecha);
+		return sesion;
+	}
+
+	@WebMethod
+	public boolean cancelarReserva(Sesion sesion, Usuario user) {
+		dbManager.open(false);
+		boolean res = dbManager.cancelarReserva(sesion, user);
+		return false;
+	}
 }
 

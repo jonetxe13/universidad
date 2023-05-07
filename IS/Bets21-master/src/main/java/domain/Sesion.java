@@ -39,14 +39,20 @@ public class Sesion {
 	public void setListaEspera(Queue<Usuario> listaEspera) { this.listaEspera = listaEspera; }
 
 	public String crearHash(Usuario user) {
-		String codigo = this.fecha+"-"+user.getCorreo();
+		String codigo = this.fecha+"/"+user.getCorreo();
 		System.out.print(codigo);
 		return codigo;
 	}
 	public void addAListaEspera(Usuario user) {
+		System.out.println("se te ha añadido a la lista de espera");
 		listaEspera.add(user);
 		for(Usuario usr: this.getListaEspera()) {
 			System.out.print(usr.getCorreo());			
 		}
+	}
+	public Usuario removeDeListaEspera() {
+		System.out.println("se te ha quitado de la lista de espera y se te ha annadido la reserva");
+		Usuario user = listaEspera.poll();
+		return user;
 	}
 }

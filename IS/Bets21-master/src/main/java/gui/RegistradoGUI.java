@@ -45,9 +45,9 @@ public class RegistradoGUI extends JFrame{
 	public void initialize() {
 		getContentPane().setLayout(null);
 		
-		JButton btnNewButton = new JButton("Reservar");
-		btnNewButton.setBounds(99, 40, 218, 45);
-		btnNewButton.addActionListener(new java.awt.event.ActionListener() {
+		JButton reservar = new JButton("Reservar");
+		reservar.setBounds(99, 40, 218, 45);
+		reservar.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					BLFacade bussinesLogic = RegistroGUI.getBusinessLogic();
 					JFrame a = new ReservarGUI(user);
@@ -55,7 +55,19 @@ public class RegistradoGUI extends JFrame{
 					a.setVisible(true);
 				}
 			});
-		getContentPane().add(btnNewButton);
+		getContentPane().add(reservar);
+		
+		JButton cancelarReserva = new JButton("Cancelar Reserva");
+		cancelarReserva.setBounds(99, 100, 218, 45);
+		cancelarReserva.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					BLFacade bussinesLogic = RegistroGUI.getBusinessLogic();
+					JFrame a = new CancelarReservaGUI(user);
+					a.setBounds(0, 0, 500, 400);
+					a.setVisible(true);
+				}
+			});
+		getContentPane().add(cancelarReserva);
 		
 		JLabel UsuarioIniciado = new JLabel(this.user.getCorreo() + " " + this.user.getContrasenna());
 		UsuarioIniciado.setBounds(120, 10, 168, 25);

@@ -62,6 +62,8 @@ public interface BLFacade  {
 	@WebMethod public List<Sesion> sesionesSemana();
 	@WebMethod public boolean addReserva(Sesion seleccionado, Usuario user);
 	@WebMethod public  Sesion addAListaEspera(Sesion sesion, Usuario user);
+	@WebMethod public Sesion getSesion(String ses);
+	@WebMethod public boolean cancelarReserva(Sesion sesion, Usuario user);
 
 	
 }

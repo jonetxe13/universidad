@@ -27,19 +27,23 @@ public class Usuario {
 	public void setContrasenna(String contrasenna) { this.contrasenna = contrasenna; }
 	public List<String> getListaReservas() { return listaReservas; }
 	public void setListaReservas(List<String> listaReservas) { this.listaReservas = listaReservas; }	
-	
-//	public String toString() {
-//		String res = "El usuario es: " + this.correo + " y la contrasenna es: " + this.contrasenna;
-//		System.out.println(res);
-//		return res;
-//	}
+
 	public void addReserva(String codigo) {
-		if(!listaReservas.contains(codigo)) {
-			listaReservas.add(codigo);		
-			System.out.println("se te ha anadido a la lista de espera");
+		if(!this.listaReservas.contains(codigo)) {
+			this.listaReservas.add(codigo);		
+			System.out.println("se te ha anadido a la lista de reservas");
 		}
 		else {
 			System.out.println("ya estas en la lista de espera de esta sesion");
+		}
+	}
+	public void removeReserva(String codigo) {
+		if(!this.listaReservas.contains(codigo)) {
+			System.out.println("no tenias esa reserva");
+		}
+		else {
+			listaReservas.remove(codigo);
+			System.out.println("se te ha quitado esa reserva");
 		}
 	}
 }

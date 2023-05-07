@@ -19,14 +19,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.JButton;
 
-public class ReservarGUI extends JFrame {
+public class CancelarReservaGUI extends JFrame {
 	private Usuario user;
 	
-	public ReservarGUI(Usuario user) {
+	public CancelarReservaGUI(Usuario user) {
 		this.user = user;
 		initialize();
 	}
@@ -35,7 +36,18 @@ public class ReservarGUI extends JFrame {
 		getContentPane().setLayout(null);
 
 		BLFacade bussinessLogic = RegistroGUI.getBusinessLogic();
-		List<Sesion> lista = bussinessLogic.sesionesSemana();
+		List<String> lista = bussinessLogic.createUsuario(user.getCorreo(), user.getContrasenna()).getListaReservas();
+		List<String> listaNomSesion = new ArrayList<String>();
+		List<Sesion> listaSesion = new ArrayList<Sesion>();
+		
+		for(String s: lista) {
+			String[] nomSesion = s.split("/");
+			listaNomSesion.add(nomSesion[0]);
+		}
+		
+		for(String s: listaNomSesion) {
+			listaSesion.add(bussinessLogic.getSesion(s));
+		}
 		
 		// Crear las columnas del JTable
 		Vector<String> columns = new Vector<String>();
@@ -45,7 +57,7 @@ public class ReservarGUI extends JFrame {
 
 		// Crear las filas del JTable
 		Vector<Vector<Object>> rows = new Vector<Vector<Object>>();
-		for (Sesion sesion : lista) {
+		for (Sesion sesion : listaSesion) {
 		    Vector<Object> row = new Vector<Object>();
 		    row.add(sesion.getFecha());
 		    row.add(sesion.getPlazasDisponibles());
@@ -61,24 +73,16 @@ public class ReservarGUI extends JFrame {
 		getContentPane().add(table);
 		getContentPane().add(scrollPane);
 		
-		JButton reservarBtn = new JButton("reservar");
-		reservarBtn.setBounds(273, 61, 125, 38);
-		reservarBtn.addActionListener(new java.awt.event.ActionListener() {
+		JButton cancelarReservaBtn = new JButton("Cancelar reserva");
+		cancelarReservaBtn.setBounds(273, 61, 125, 38);
+		cancelarReservaBtn.addActionListener(new java.awt.event.ActionListener() {
 			
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				Sesion sesion = lista.get(table.getSelectedRow());
-				System.out.println("El numero de plazas disponibles es: " + sesion.getPlazasDisponibles());
-				if(sesion.getPlazasDisponibles() == 0) {
-					System.out.print("La sesion esta llena asi que se añade a la lista de espera");
-					Sesion res = bussinessLogic.addAListaEspera(sesion, user);
-					System.out.print(res.getListaEspera());
-				}
-				else {
-					bussinessLogic.addReserva(sesion, user);					
-				}
+				Sesion sesion = listaSesion.get(table.getSelectedRow());
+				bussinessLogic.cancelarReserva(sesion, user);			
 			}
 			
 		});
-		getContentPane().add(reservarBtn);
+		getContentPane().add(cancelarReservaBtn);
 	}
 }

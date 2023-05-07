@@ -13,11 +13,13 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Vector;
+import java.util.Iterator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+//import javax.swing.text.html.HTMLDocument.Iterator;
 
 import configuration.ConfigXML;
 import configuration.UtilDate;
@@ -58,59 +60,91 @@ public class DataAccess  {
 	 */	
 	public void initializeDB(){
 		
-//		db.getTransaction().begin();
-//		try {
-//
-//			
-//		   Calendar today = Calendar.getInstance();
-//		   
-//		   int month=today.get(Calendar.MONTH);
-//		   int year=today.get(Calendar.YEAR);
-//		   if (month==12) { month=0; year+=1;}  
-//	    
-//		   Sala sala1 = new Sala("zumba", 20);
-//		   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//		   Calendar cal = Calendar.getInstance();
-//		   String fecha = sdf.format(cal.getTime());
-//		   
-//		   Usuario master = new Usuario("a@a.com", "nose");
-//		   System.out.println("se ha annadido el usuario");
-//		   db.persist(master);
-//		   
-//		   List<Sesion> lista = new ArrayList<Sesion>();
-//		   Sesion sesion1 = new Sesion(fecha, 0, sala1);
-//		   lista.add(sesion1);
-//		   cal.add(Calendar.DATE, 1);
-//		   for(int i = 0; i < 20; i++) {			   
-//			   String fecha2 = sdf.format(cal.getTime());
-//			   Sesion sesionNueva = new Sesion(fecha2, 20+i, sala1);
-//			   lista.add(sesionNueva);
-//			   db.persist(sesionNueva);
-//			}
-//
-//		   
-//		   Actividad act1 = new Actividad("zumba", 3, (float) 5.5);
-//		   Actividad act2 = new Actividad("pilates", 2, (float) 15.5);
-//		   Actividad act3 = new Actividad("crossfit", 5, (float) 25.5);
-//		   db.persist(act1);
-//		   db.persist(act2);
-//		   db.persist(act3);
-//		   List<Actividad> listaActividades = new ArrayList<Actividad>();
-//		   listaActividades.add(act1);
-//		   listaActividades.add(act2);		
-//		   listaActividades.add(act3);
-//		   sesion1.setListaActividades(listaActividades);
-//		   db.persist(sesion1);
-//		   lista.add(sesion1);	
-//		   
-//		   sala1.setListaSesiones(lista);
-//			db.persist(sala1);
-//			
-//			db.getTransaction().commit();
-//		}
-//		catch (Exception e){
-//			e.printStackTrace();
-//		}
+		db.getTransaction().begin();
+		try {
+
+			
+		   Calendar today = Calendar.getInstance();
+		   
+		   int month=today.get(Calendar.MONTH);
+		   int year=today.get(Calendar.YEAR);
+		   if (month==12) { month=0; year+=1;}  
+	    
+		   Sala sala1 = new Sala("zumba", 20);
+		   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		   Calendar cal = Calendar.getInstance();
+		   cal.add(Calendar.DATE, 1);
+		   String fecha = sdf.format(cal.getTime());
+//		   System.out.println(fecha);
+		   
+		   Usuario master = new Usuario("a@a.com", "nose");
+		   System.out.println("se ha annadido el usuario");
+		   db.persist(master);
+		   
+		   List<Sesion> lista = new ArrayList<Sesion>();
+		   Sesion sesion1 = new Sesion(fecha, 1, sala1);
+		   lista.add(sesion1);
+
+		   cal.add(Calendar.DATE, 1);
+		   fecha = sdf.format(cal.getTime());
+
+		   Sesion ses2 = new Sesion(fecha, 10, sala1);
+		   cal.add(Calendar.DATE, 1);
+		   fecha = sdf.format(cal.getTime());
+		   Sesion ses3 = new Sesion(fecha, 10, sala1);
+		   cal.add(Calendar.DATE, 1);
+		   fecha = sdf.format(cal.getTime());
+		   Sesion ses4 = new Sesion(fecha, 10, sala1);
+		   cal.add(Calendar.DATE, 1);
+		   fecha = sdf.format(cal.getTime());
+		   Sesion ses5 = new Sesion(fecha, 10, sala1);
+		   cal.add(Calendar.DATE, 1);
+		   fecha = sdf.format(cal.getTime());
+		   Sesion ses6 = new Sesion(fecha, 10, sala1);
+		   cal.add(Calendar.DATE, 1);
+		   fecha = sdf.format(cal.getTime());
+		   Sesion ses7 = new Sesion(fecha, 10, sala1);
+		   Sesion ses8 = new Sesion(fecha, 10, sala1);
+		   
+		   
+		   Actividad act1 = new Actividad("zumba", 3, (float) 5.5);
+		   Actividad act2 = new Actividad("pilates", 2, (float) 15.5);
+		   Actividad act3 = new Actividad("crossfit", 5, (float) 25.5);
+		   db.persist(act1);
+		   db.persist(act2);
+		   db.persist(act3);
+		   List<Actividad> listaActividades = new ArrayList<Actividad>();
+		   listaActividades.add(act1);
+		   listaActividades.add(act2);		
+		   listaActividades.add(act3);
+		   sesion1.setListaActividades(listaActividades);
+		   
+		   db.persist(sesion1);
+		   db.persist(ses2);
+		   db.persist(ses3);
+		   db.persist(ses4);
+		   db.persist(ses5);
+		   db.persist(ses6);
+		   db.persist(ses7);
+		   db.persist(ses8);
+		   
+		   lista.add(sesion1);	
+		   lista.add(ses2);	
+		   lista.add(ses3);	
+		   lista.add(ses4);	
+		   lista.add(ses5);	
+		   lista.add(ses6);	
+		   lista.add(ses7);	
+		   lista.add(ses8);	
+		   
+		   sala1.setListaSesiones(lista);
+			db.persist(sala1);
+			
+			db.getTransaction().commit();
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
 		System.out.println("Db initialized");
 	}
 	
@@ -177,10 +211,10 @@ public class DataAccess  {
 		query.setParameter(1, firstDayMonthDate);
 		query.setParameter(2, lastDayMonthDate);
 		List<Date> dates = query.getResultList();
-	 	 for (Date d:dates){
-	 	   System.out.println(d.toString());		 
-		   res.add(d);
-		  }
+	 	for (Date d:dates){
+	 	  System.out.println(d.toString());		 
+		  res.add(d);
+		}
 	 	return res;
 	}
 	
@@ -244,6 +278,17 @@ public void open(boolean initializeMode){
 		System.out.println("Si que contiene el usuario");
 		return true;
 	}
+	public Sesion getSesion(String fecha){
+		db.getTransaction().begin();
+		Sesion ses = db.find(Sesion.class, fecha);
+		if(ses == null) {
+			System.out.print("la sesion no existe");
+			return null;
+		}
+		db.persist(ses);
+		db.getTransaction().commit();
+		return ses;
+	}
 
 	public Sala getSala(String string) {
 		System.out.println("Buscando la sala en la base de datos");
@@ -275,7 +320,6 @@ public void open(boolean initializeMode){
 	    query.setParameter("start", lunes);
 	    query.setParameter("end", domingo);
 		List<Sesion> resultado = query.getResultList();
-//		System.out.println(resultado);
 		return resultado;
 	}
 
@@ -326,5 +370,36 @@ public void open(boolean initializeMode){
 		db.persist(usr);
 		db.getTransaction().commit();
 		return ses;	
+	}
+
+	public boolean cancelarReserva(Sesion sesion, Usuario user) {
+		db.getTransaction().begin();
+		Sesion ses = db.find(Sesion.class, sesion.getFecha());
+		Usuario usr = db.find(Usuario.class, user.getCorreo());
+		
+		List<String> listaNomSesion = new ArrayList<String>();
+		List<String> listaReservas = usr.getListaReservas();
+		
+		Iterator<String> iterator = listaReservas.iterator();
+		while (iterator.hasNext()) {
+		    String s = iterator.next();
+		    String[] nomSesion = s.split("/");
+		    listaNomSesion.add(nomSesion[0]);
+		    if (nomSesion[0].equals(ses.getFecha())) {
+		        System.out.println("se ha encontrado la sesion con el mismo nombre que el de la reserva");
+		        iterator.remove();
+		        ses.setPlazasDisponibles(ses.getPlazasDisponibles() + 1);
+		        if(ses.removeDeListaEspera() != null) {
+		        	Usuario user2 = ses.removeDeListaEspera();
+		        	user2.addReserva(ses.crearHash(user2));
+		        	ses.setPlazasDisponibles(ses.getPlazasDisponibles()-1);		        	
+		        }
+		    }
+		}
+
+		db.persist(usr);
+		db.persist(ses);
+		db.getTransaction().commit();
+		return false;
 	}
 }
