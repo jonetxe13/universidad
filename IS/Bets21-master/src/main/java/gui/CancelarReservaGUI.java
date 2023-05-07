@@ -57,8 +57,8 @@ public class CancelarReservaGUI extends JFrame {
 
 		// Crear las filas del JTable
 		Vector<Vector<Object>> rows = new Vector<Vector<Object>>();
+		Vector<Object> row = new Vector<Object>();
 		for (Sesion sesion : listaSesion) {
-		    Vector<Object> row = new Vector<Object>();
 		    row.add(sesion.getFecha());
 		    row.add(sesion.getPlazasDisponibles());
 		    row.add(sesion.getListaActividades());
@@ -80,7 +80,9 @@ public class CancelarReservaGUI extends JFrame {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				if(table.getSelectedRow()!=-1) {
 					Sesion sesion = listaSesion.get(table.getSelectedRow());
-					bussinessLogic.cancelarReserva(sesion, user);			
+					bussinessLogic.cancelarReserva(sesion, user);	
+					row.remove(sesion);
+					getContentPane().add(table);
 				}
 				else {
 					System.out.println("no tienes nada seleccionado");
