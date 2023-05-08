@@ -5,21 +5,25 @@ procedure Ver_Potencia is
    -- entrada: 1 natural, Num 
    -- salida: 4 naturales
    -- post: Los cuatro naturales corresponden a 4 de casos de prueba
-   --    de la función Potencia.
+   --    de la funciï¿½n Potencia.
 
    function Potencia (N:Natural) return Natural is
    -- EJERCICIO 1- ESPECIFICA E IMPLEMENTA recursivamente el subprograma
-   --   Potencia que calcula la n-ésima potencia de 2.
+   --   Potencia que calcula la n-ï¿½sima potencia de 2.
 
    begin
       -- Completar
-      NULL;
+      if N = 0 then
+        return 1;
+      else
+        return 2 * Potencia(N - 1);
+      end if;
    end Potencia;
 
   Num: Natural;
 
 begin
-      ---------- PRUEBAS EXPLÍCITAS A PROBAR
+      ---------- PRUEBAS EXPLï¿½CITAS A PROBAR
    Put_Line ("--------------------------------");
    Put("   CASO1: 2^0= "); put(2**0, 0); put(", y con tu programa es --> ");    Put (Potencia(0), 0); Put_Line(".");
    New_Line;New_Line;
