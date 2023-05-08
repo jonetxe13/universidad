@@ -357,7 +357,7 @@ public class DataAccess  {
 		db.getTransaction().begin();
 		Sesion res = null;
 		Sala salaSes = db.find(Sala.class, sala);
-		TypedQuery<Sesion> listaSesionesEnEsaFecha = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha = fecha", Sesion.class);
+		TypedQuery<Sesion> listaSesionesEnEsaFecha = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha = :fecha", Sesion.class);
 		List<Sesion> listaSes = listaSesionesEnEsaFecha.getResultList();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = null;
@@ -408,6 +408,23 @@ public class DataAccess  {
 		db.persist(salaSes);
 		db.getTransaction().commit();
 		return res;
+	}
+
+	public Sesion quitarSesion(String fecha, int salaNum) {
+		db.getTransaction().begin();
+		Sesion sesion = null;
+		TypedQuery<Sesion> listaSesionesEnEsaFecha = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha = :fecha", Sesion.class);
+	    listaSesionesEnEsaFecha.setParameter("fecha", fecha);
+		List<Sesion> listSesion = listaSesionesEnEsaFecha.getResultList();
+		for(Sesion ses: listSesion) {
+			System.out.println(ses.getFecha());
+			if(ses.getSala().getNumero() == salaNum) {
+				sesion = ses;
+				db.remove(ses);
+			}
+		}
+		db.getTransaction().commit();
+		return sesion;
 	}
 }
 	

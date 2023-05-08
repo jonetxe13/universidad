@@ -166,7 +166,23 @@ public class BLFacadeImplementation  implements BLFacade {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	    System.out.println("se ha annadido");
 		return sesionAnnadida;
+	}
+
+	@WebMethod
+	public Sesion quitarSesion(String fecha, String salaNum) {
+		dbManager.open(false);
+		int number = 0;
+		try {
+		    number = Integer.parseInt(salaNum);
+		} catch (NumberFormatException ex) {
+		    // El texto no es un número entero válido
+			System.out.println("el numero que has introducido no es un entero o no es un numero valido");
+		}
+		Sesion ses = dbManager.quitarSesion(fecha, number);
+		
+		return ses;
 	}
 }
 

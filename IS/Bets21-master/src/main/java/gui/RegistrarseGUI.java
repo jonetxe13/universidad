@@ -71,7 +71,7 @@ public class RegistrarseGUI extends JFrame{
 						bussinesLogic.createUsuario(correoTextField.getText(), passwordField1.getText());
 						System.out.print("se ha creado el usuario\n");
 						JFrame a = new RegistradoGUI(bussinesLogic.createUsuario(correoTextField.getText(), passwordField1.getText()));
-						a.setBounds(0, 0, 500, 400);
+						a.setBounds(0, 0, 700, 600);
 						a.setVisible(true);	
 					}
 				}

@@ -72,8 +72,7 @@ public class RegistroGUI extends JFrame{
 		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	private void initialize() {
-		// this.setSize(271, 295);
-		this.setSize(495, 290);
+		this.setSize(700, 600);
 		this.setContentPane(getJContentPane());
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainTitle"));
 	}
@@ -116,7 +115,7 @@ public class RegistroGUI extends JFrame{
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					JFrame a = new RegistrarseGUI();
-					a.setBounds(0, 0, 500, 400);
+					a.setBounds(0, 0, 700, 600);
 					a.setVisible(true);
 				}
 			});

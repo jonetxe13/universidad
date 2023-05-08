@@ -51,8 +51,8 @@ public class EncargadoGUI extends JFrame{
 		reservar.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 //				BLFacade bussinesLogic = RegistroGUI.getBusinessLogic();
-				JFrame a = new AnnadirSesionesGUI(encargado);
-				a.setBounds(0, 0, 500, 400);
+				JFrame a = new PlanificarSesionesGUI(encargado);
+				a.setBounds(0, 0, 700, 600);
 				a.setVisible(true);
 			}
 		});
