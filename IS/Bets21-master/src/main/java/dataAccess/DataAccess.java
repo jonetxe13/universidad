@@ -400,9 +400,8 @@ public class DataAccess  {
 				}
 				listAct.add(activ);
 			}
-//			System.out.println(fecha + ", " + salaSes + ", " + Integer.parseInt(plazas) + ", " + listAct + ", " + Integer.parseInt(precio));
 			res = new Sesion(fecha, salaSes, Integer.parseInt(plazas), listAct, Integer.parseInt(precio));
-//			System.out.println("los datos estan bien, a ver si se ha annadido la lista de actividades" + res.toString() + "\n");
+			if(res != null) System.out.println("la sesion se ha creado bien");
 			salaSes.addAListaSesiones(res);
 		}
 		db.persist(res);
