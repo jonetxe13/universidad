@@ -72,9 +72,9 @@ public class DataAccess  {
 		   int year=today.get(Calendar.YEAR);
 		   if (month==12) { month=0; year+=1;}  
 	    
-		   Actividad act1 = new Actividad("zumba", 3, (float) 5.5);
-		   Actividad act2 = new Actividad("pilates", 2, (float) 15.5);
-		   Actividad act3 = new Actividad("crossfit", 5, (float) 25.5);
+		   Actividad act1 = new Actividad("zumba", 3, 5);
+		   Actividad act2 = new Actividad("pilates", 2, 15);
+		   Actividad act3 = new Actividad("crossfit", 5, 25);
 		   db.persist(act1);
 		   db.persist(act2);
 		   db.persist(act3);
@@ -272,6 +272,15 @@ public class DataAccess  {
 		List<Sesion> resultado = query.getResultList();
 		return resultado;
 	}
+	public List<Actividad> getActividades() {
+		System.out.println("Buscando las actividades en la base de datos");
+	   
+		TypedQuery<Actividad> query = db.createQuery("SELECT a FROM Actividad a", Actividad.class);
+		System.out.println(query);
+
+		List<Actividad> resultado = query.getResultList();
+		return resultado;
+	}
 
 	public boolean addReserva(Sesion sesion, Usuario user) {		  
 		db.getTransaction().begin();
@@ -425,6 +434,20 @@ public class DataAccess  {
 		}
 		db.getTransaction().commit();
 		return sesion;
+	}
+
+	public Actividad annadirActividad(String nombre, int nvl, int prc) {
+		db.getTransaction().begin();
+		Actividad act = db.find(Actividad.class, nombre);
+		if(act != null) {
+			System.out.println("la actividad ya existe");
+		}
+		else {
+			act = new Actividad(nombre, nvl, prc);
+			db.persist(act);
+		}
+		db.getTransaction().commit();
+		return act;
 	}
 }
 	

@@ -9,6 +9,7 @@ import domain.Question;
 import domain.Sala;
 import domain.Sesion;
 import domain.Usuario;
+import domain.Actividad;
 import domain.Encargado;
 import domain.Event;
 import exceptions.EventFinished;
@@ -40,21 +41,6 @@ public interface BLFacade  {
 	@WebMethod public boolean encargadoExists(String text, String text2);
 	@WebMethod public Encargado getEncargado(String text, String text2);
 	
-	/**
-	 * This method retrieves the events of a given date 
-	 * 
-	 * @param date in which events are retrieved
-	 * @return collection of events
-	 */
-//	@WebMethod public Vector<Event> getEvents(Date date);
-	
-	/**
-	 * This method retrieves from the database the dates a month for which there are events
-	 * 
-	 * @param date of the month for which days with events want to be retrieved 
-	 * @return collection of dates
-	 */
-//	@WebMethod public Vector<Date> getEventsMonth(Date date);
 	
 	/**
 	 * This method calls the data access to initialize the database with some events and questions.
@@ -63,12 +49,13 @@ public interface BLFacade  {
 	@WebMethod public void initializeBD();
 	@WebMethod public Sala getSala(String string);
 	@WebMethod public List<Sesion> sesionesSemana();
+	@WebMethod public List<Actividad> getActividades();
 	@WebMethod public boolean addReserva(Sesion seleccionado, Usuario user);
 	@WebMethod public  Sesion addAListaEspera(Sesion sesion, Usuario user);
 	@WebMethod public Sesion getSesion(String ses);
 	@WebMethod public boolean cancelarReserva(Sesion sesion, Usuario user);
 	@WebMethod public Sesion annadirSesion(String text, String string, String text3, String text4, String text5);
 	@WebMethod public Sesion quitarSesion(String text, String text2);
-
+	@WebMethod public Actividad annadirActividad(String text, String text2, String text3);
 	
 }

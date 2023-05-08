@@ -15,6 +15,7 @@ import domain.Question;
 import domain.Sala;
 import domain.Sesion;
 import domain.Usuario;
+import domain.Actividad;
 import domain.Encargado;
 import domain.Event;
 import exceptions.EventFinished;
@@ -116,8 +117,7 @@ public class BLFacadeImplementation  implements BLFacade {
 	@WebMethod
 	public List<Sesion> sesionesSemana(){
 		dbManager.open(false);
-		List<Sesion> lista = new ArrayList<Sesion>();
-		lista = dbManager.getSesionesSemana();
+		List<Sesion> lista = dbManager.getSesionesSemana();
 		return lista;
 	}
 
@@ -183,6 +183,29 @@ public class BLFacadeImplementation  implements BLFacade {
 		Sesion ses = dbManager.quitarSesion(fecha, number);
 		
 		return ses;
+	}
+
+	@WebMethod
+	public List<Actividad> getActividades() {
+		dbManager.open(false);
+		List<Actividad> lista = dbManager.getActividades();
+		return lista;
+	}
+
+	@WebMethod
+	public Actividad annadirActividad(String nombre, String nivel, String precio) {
+		dbManager.open(false);
+		int nvl = 0;
+		int prc = 0;
+		try {
+		    nvl = Integer.parseInt(nivel);
+		    prc = Integer.parseInt(precio);
+		} catch (NumberFormatException ex) {
+		    // El texto no es un número entero válido
+			System.out.println("el numero que has introducido no es un entero o no es un numero valido");
+		}
+		Actividad act = dbManager.annadirActividad(nombre, nvl, prc);
+		return null;
 	}
 }
 

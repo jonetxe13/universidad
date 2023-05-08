@@ -58,6 +58,18 @@ public class EncargadoGUI extends JFrame{
 		});
 		getContentPane().add(reservar);
 		
+		JButton annadirActividad = new JButton("Annadir actividad");
+		annadirActividad.setBounds(99, 90, 218, 45);
+		annadirActividad.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+//				BLFacade bussinesLogic = RegistroGUI.getBusinessLogic();
+				JFrame a = new AnnadirActividadesGUI();
+				a.setBounds(0, 0, 700, 600);
+				a.setVisible(true);
+			}
+		});
+		getContentPane().add(annadirActividad);
+		
 		JLabel EncargadoIniciado = new JLabel(this.encargado.getCorreo() + " " + this.encargado.getContrasenna());
 		EncargadoIniciado.setBounds(120, 10, 168, 25);
 		getContentPane().add(EncargadoIniciado);

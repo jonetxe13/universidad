@@ -9,9 +9,9 @@ public class Actividad {
 	private String nombre;
 
 	private int gradoExigencia;
-	private float precio;
+	private int precio;
 	
-	public Actividad(String n, int g, float p) {
+	public Actividad(String n, int g, int p) {
 		this.nombre = n;
 		this.gradoExigencia = g;
 		this.precio = p;
@@ -21,7 +21,7 @@ public class Actividad {
 	public void setNombre(String nombre) {	this.nombre = nombre;	}
 	public int getGradoExigencia() {	return gradoExigencia;	}
 	public void setGradoExigencia(int gradoExigencia) {	this.gradoExigencia = gradoExigencia; }
-	public float getPrecio() {	return precio;	}
-	public void setPrecio(float precio) {	this.precio = precio;	}
+	public int getPrecio() {	return precio;	}
+	public void setPrecio(int precio) {	this.precio = precio;	}
 
 }
