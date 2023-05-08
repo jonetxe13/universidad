@@ -51,7 +51,7 @@ public class RegistradoGUI extends JFrame{
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					BLFacade bussinesLogic = RegistroGUI.getBusinessLogic();
 					JFrame a = new ReservarGUI(user);
-					a.setBounds(0, 0, 500, 400);
+					a.setBounds(0, 0, 700, 600);
 					a.setVisible(true);
 				}
 			});
@@ -63,7 +63,7 @@ public class RegistradoGUI extends JFrame{
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					BLFacade bussinesLogic = RegistroGUI.getBusinessLogic();
 					JFrame a = new CancelarReservaGUI(user);
-					a.setBounds(0, 0, 500, 400);
+					a.setBounds(0, 0, 700, 600);
 					a.setVisible(true);
 				}
 			});

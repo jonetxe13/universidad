@@ -46,11 +46,14 @@ public class EncargadoGUI extends JFrame{
 	public void initialize() {
 		getContentPane().setLayout(null);
 		
-		JButton reservar = new JButton("Añadir sesion");
+		JButton reservar = new JButton("Planificar sesiones");
 		reservar.setBounds(99, 40, 218, 45);
 		reservar.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				BLFacade bussinesLogic = RegistroGUI.getBusinessLogic();
+//				BLFacade bussinesLogic = RegistroGUI.getBusinessLogic();
+				JFrame a = new PlanificarSesionesGUI(encargado);
+				a.setBounds(0, 0, 700, 600);
+				a.setVisible(true);
 			}
 		});
 		getContentPane().add(reservar);

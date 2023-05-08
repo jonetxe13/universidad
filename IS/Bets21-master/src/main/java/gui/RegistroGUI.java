@@ -72,8 +72,7 @@ public class RegistroGUI extends JFrame{
 		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	private void initialize() {
-		// this.setSize(271, 295);
-		this.setSize(495, 290);
+		this.setSize(700, 600);
 		this.setContentPane(getJContentPane());
 		this.setTitle(ResourceBundle.getBundle("Etiquetas").getString("MainTitle"));
 	}
@@ -109,14 +108,14 @@ public class RegistroGUI extends JFrame{
 //			passwordField.setText(ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.passwordField.text")); //$NON-NLS-1$ //$NON-NLS-2$
 			passwordField.setBounds(146, 100, 166, 28);
 			jContentPane.add(passwordField);
-			
-			JLabel registrarseLBL = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.lblNewLabel_3.text")); //$NON-NLS-1$ //$NON-NLS-2$
-			registrarseLBL.setBounds(146, 139, 69, 14);
+//			ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.lblNewLabel_3.text")
+			JLabel registrarseLBL = new JLabel("**Registrarse**"); //$NON-NLS-1$ //$NON-NLS-2$
+			registrarseLBL.setBounds(146, 139, 90, 14);
 			registrarseLBL.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					JFrame a = new RegistrarseGUI();
-					a.setBounds(0, 0, 500, 400);
+					a.setBounds(0, 0, 700, 600);
 					a.setVisible(true);
 				}
 			});

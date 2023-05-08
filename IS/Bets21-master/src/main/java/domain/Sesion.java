@@ -1,35 +1,45 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Sesion {
 	@Id
 	private String fecha;
+	private int precio;
 	private int plazasDisponibles;
+	@ManyToMany
 	private List<Actividad> listaActividades;
+	@ManyToMany
 	private Queue<Usuario> listaEspera;
+	@Id
+	@ManyToOne
 	private Sala sala;
 
 
-	public Sesion(String dia, int plazas, Sala sala) {
-		this.fecha = dia;
+	public Sesion(String fecha, Sala sala, int plazas, List<Actividad> listaActividades, int precio ) {
+		this.fecha = fecha;
+		if(plazas > sala.getAforoMax())
+			System.out.println("la sesion no puede tener mas plazas que la sala");
 		this.plazasDisponibles = plazas;
 		this.sala = sala;
 		this.listaEspera = new LinkedList<Usuario>();
+		this.listaActividades = listaActividades;
 	}
 	
-	public String getFecha() { return fecha;	}
-	public void setFecha(String fecha) {	this.fecha = fecha; }	
-	public int getPlazasDisponibles() {	return plazasDisponibles;	}
+	public String getFecha() { return fecha; }
+	public void setFecha(String fecha) { this.fecha = fecha; }	
+	public int getPrecio() { return precio; }
+	public void setPrecio(int precio) { this.precio = precio; }	
+	public int getPlazasDisponibles() {	return plazasDisponibles; }
 	public void setPlazasDisponibles(int plazasDisponibles) {	this.plazasDisponibles = plazasDisponibles;	}
 	public List<Actividad> getListaActividades() {	return listaActividades;	}
 	public void setListaActividades(List<Actividad> listaActividades) {	this.listaActividades = listaActividades;	}
