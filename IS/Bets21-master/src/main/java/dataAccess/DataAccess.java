@@ -358,6 +358,7 @@ public class DataAccess  {
 		Sesion res = null;
 		Sala salaSes = db.find(Sala.class, sala);
 		TypedQuery<Sesion> listaSesionesEnEsaFecha = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha = :fecha", Sesion.class);
+	    listaSesionesEnEsaFecha.setParameter("fecha", fecha);
 		List<Sesion> listaSes = listaSesionesEnEsaFecha.getResultList();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = null;
@@ -399,7 +400,7 @@ public class DataAccess  {
 				}
 				listAct.add(activ);
 			}
-			System.out.println(fecha + ", " + salaSes + ", " + Integer.parseInt(plazas) + ", " + listAct + ", " + Integer.parseInt(precio));
+//			System.out.println(fecha + ", " + salaSes + ", " + Integer.parseInt(plazas) + ", " + listAct + ", " + Integer.parseInt(precio));
 			res = new Sesion(fecha, salaSes, Integer.parseInt(plazas), listAct, Integer.parseInt(precio));
 //			System.out.println("los datos estan bien, a ver si se ha annadido la lista de actividades" + res.toString() + "\n");
 			salaSes.addAListaSesiones(res);
