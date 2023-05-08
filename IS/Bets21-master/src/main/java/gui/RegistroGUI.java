@@ -109,9 +109,9 @@ public class RegistroGUI extends JFrame{
 //			passwordField.setText(ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.passwordField.text")); //$NON-NLS-1$ //$NON-NLS-2$
 			passwordField.setBounds(146, 100, 166, 28);
 			jContentPane.add(passwordField);
-			
-			JLabel registrarseLBL = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.lblNewLabel_3.text")); //$NON-NLS-1$ //$NON-NLS-2$
-			registrarseLBL.setBounds(146, 139, 69, 14);
+//			ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.lblNewLabel_3.text")
+			JLabel registrarseLBL = new JLabel("**Registrarse**"); //$NON-NLS-1$ //$NON-NLS-2$
+			registrarseLBL.setBounds(146, 139, 90, 14);
 			registrarseLBL.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {

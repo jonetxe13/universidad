@@ -1,9 +1,11 @@
 package domain;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class Actividad {
+	@Id
 	private String nombre;
 
 	private int gradoExigencia;

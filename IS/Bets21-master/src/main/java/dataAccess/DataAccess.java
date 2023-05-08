@@ -1,5 +1,6 @@
 package dataAccess;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -71,7 +72,19 @@ public class DataAccess  {
 		   int year=today.get(Calendar.YEAR);
 		   if (month==12) { month=0; year+=1;}  
 	    
-		   Sala sala1 = new Sala("zumba", 20);
+		   Actividad act1 = new Actividad("zumba", 3, (float) 5.5);
+		   Actividad act2 = new Actividad("pilates", 2, (float) 15.5);
+		   Actividad act3 = new Actividad("crossfit", 5, (float) 25.5);
+		   db.persist(act1);
+		   db.persist(act2);
+		   db.persist(act3);
+		   List<Actividad> listaActividades = new ArrayList<Actividad>();
+		   listaActividades.add(act1);
+		   listaActividades.add(act2);		
+		   listaActividades.add(act3);
+		   
+		   Sala sala1 = new Sala(1, 20);
+		   Sala sala2 = new Sala(2, 20);
 		   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		   Calendar cal = Calendar.getInstance();
 		   cal.add(Calendar.DATE, 1);
@@ -86,42 +99,29 @@ public class DataAccess  {
 		   db.persist(usuario);
 		   
 		   List<Sesion> lista = new ArrayList<Sesion>();
-		   Sesion sesion1 = new Sesion(fecha, 1, sala1);
+		   Sesion sesion1 = new Sesion(fecha, sala1, 1, listaActividades, 10 );
 		   lista.add(sesion1);
 
 		   cal.add(Calendar.DATE, 1);
 		   fecha = sdf.format(cal.getTime());
 
-		   Sesion ses2 = new Sesion(fecha, 10, sala1);
+		   Sesion ses2 = new Sesion(fecha, sala1, 10, listaActividades, 15 );
 		   cal.add(Calendar.DATE, 1);
 		   fecha = sdf.format(cal.getTime());
-		   Sesion ses3 = new Sesion(fecha, 10, sala1);
+		   Sesion ses3 = new Sesion(fecha, sala1, 10, listaActividades, 15  );
 		   cal.add(Calendar.DATE, 1);
 		   fecha = sdf.format(cal.getTime());
-		   Sesion ses4 = new Sesion(fecha, 10, sala1);
+		   Sesion ses4 = new Sesion(fecha, sala1, 10, listaActividades, 15  );
 		   cal.add(Calendar.DATE, 1);
 		   fecha = sdf.format(cal.getTime());
-		   Sesion ses5 = new Sesion(fecha, 10, sala1);
+		   Sesion ses5 = new Sesion(fecha, sala1, 10, listaActividades, 15  );
 		   cal.add(Calendar.DATE, 1);
 		   fecha = sdf.format(cal.getTime());
-		   Sesion ses6 = new Sesion(fecha, 10, sala1);
+		   Sesion ses6 = new Sesion(fecha, sala1, 10, listaActividades, 15  );
 		   cal.add(Calendar.DATE, 1);
 		   fecha = sdf.format(cal.getTime());
-		   Sesion ses7 = new Sesion(fecha, 10, sala1);
-		   Sesion ses8 = new Sesion(fecha, 10, sala1);
-		   
-		   
-		   Actividad act1 = new Actividad("zumba", 3, (float) 5.5);
-		   Actividad act2 = new Actividad("pilates", 2, (float) 15.5);
-		   Actividad act3 = new Actividad("crossfit", 5, (float) 25.5);
-		   db.persist(act1);
-		   db.persist(act2);
-		   db.persist(act3);
-		   List<Actividad> listaActividades = new ArrayList<Actividad>();
-		   listaActividades.add(act1);
-		   listaActividades.add(act2);		
-		   listaActividades.add(act3);
-		   sesion1.setListaActividades(listaActividades);
+		   Sesion ses7 = new Sesion(fecha, sala1, 10, listaActividades, 15  );
+		   Sesion ses8 = new Sesion(fecha, sala1, 10, listaActividades, 15  );
 		   
 		   db.persist(sesion1);
 		   db.persist(ses2);
@@ -143,6 +143,7 @@ public class DataAccess  {
 		   
 		   sala1.setListaSesiones(lista);
 			db.persist(sala1);
+			db.persist(sala2);
 			
 			db.getTransaction().commit();
 		}
@@ -351,4 +352,62 @@ public class DataAccess  {
 		db.getTransaction().commit();
 		return false;
 	}
+
+	public Sesion annadirSesion(String fecha, int sala, String listaActividades, String precio, String plazas) {
+		db.getTransaction().begin();
+		Sesion res = null;
+		Sala salaSes = db.find(Sala.class, sala);
+		TypedQuery<Sesion> listaSesionesEnEsaFecha = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha = fecha", Sesion.class);
+		List<Sesion> listaSes = listaSesionesEnEsaFecha.getResultList();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = null;
+		try {
+			date = dateFormat.parse(fecha);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		int month = date.getMonth();
+		Calendar fechaActual = Calendar.getInstance();
+		int monthActual = fechaActual.get(Calendar.MONTH);
+		
+		if(listaSes != null) {
+			for(Sesion ses: listaSes) {
+				if(ses.getFecha() != null && ses.getFecha().equals(fecha) && ses.getSala() != null && ses.getSala().equals(salaSes)) {
+					System.out.println("ya existe una sesion en esa sala en esa fecha");
+//					return null;
+				}
+			}
+//			System.out.println("algo pasa con el mes" + month + "  " + monthActual);
+		}
+		if(salaSes == null) {
+			System.out.println("no se ha encontrado esa sala");
+		}
+		else if(month != monthActual) {
+			// La fecha es de febrero
+			System.out.println("el mes no es el mes en el que te encuentras");
+			System.out.println(month + " " + monthActual);
+		}
+		else {
+			String[] listaNomActiv = listaActividades.split(",");
+			List<Actividad> listAct = new ArrayList<Actividad>();
+			for(String nom: listaNomActiv) {
+				Actividad activ = db.find(Actividad.class, nom);
+				if(activ == null) {
+					System.out.println("la actividad que has introducido no existe");
+				}
+				listAct.add(activ);
+			}
+			System.out.println(fecha + ", " + salaSes + ", " + Integer.parseInt(plazas) + ", " + listAct + ", " + Integer.parseInt(precio));
+			res = new Sesion(fecha, salaSes, Integer.parseInt(plazas), listAct, Integer.parseInt(precio));
+//			System.out.println("los datos estan bien, a ver si se ha annadido la lista de actividades" + res.toString() + "\n");
+			salaSes.addAListaSesiones(res);
+		}
+		db.persist(res);
+		db.persist(salaSes);
+		db.getTransaction().commit();
+		return res;
+	}
 }
+	
