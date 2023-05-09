@@ -315,9 +315,9 @@ public class DataAccess  {
 		if(usuario.getListaReservas() != null) {
 			for(String r: user.getListaReservas()) {
 				
-				System.out.println(r.equals(ses.getFecha()+"-"+user.getCorreo()));
+				System.out.println(r.equals(ses.getFecha()+"/"+ses.getSala().getNumero()+ "/"+user.getCorreo()));
 
-				if(r.equals(ses.getFecha()+"-"+user.getCorreo())){
+				if(r.equals(ses.getFecha()+"/"+ses.getSala().getNumero()+ "/"+user.getCorreo())){
 					System.out.println("ya tienes esta sesion reservada");
 					return false;
 				}
@@ -345,11 +345,19 @@ public class DataAccess  {
 	    	}
 	    }
 		Usuario usr = db.find(Usuario.class, user.getCorreo());
+		System.out.println(usr.getListaReservas());
+//		System.out.println(usr.getListaReservas().contains(ses.getFecha()+"/"+ses.getSala().getNumero()+ "/"+usr.getCorreo()));
 		if(ses.getListaEspera().contains(usr)) {
 			System.out.println("ya estas en la lista de espera");
 			return ses;
 		}
-		ses.addAListaEspera(usr);
+		else if(usr.getListaReservas().contains(ses.getFecha()+"/"+ses.getSala().getNumero()+ "/"+usr.getCorreo())) {
+			System.out.println("ya tienes esa reserva");
+			return ses;
+		}
+		else {
+			ses.addAListaEspera(usr);
+		}
 		db.persist(ses);
 		db.persist(usr);
 		db.getTransaction().commit();
@@ -357,6 +365,7 @@ public class DataAccess  {
 	}
 
 	public boolean cancelarReserva(Sesion sesion, Usuario user) {
+		System.out.println(sesion.getListaEspera());
 		db.getTransaction().begin();
 		TypedQuery<Sesion> query = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha=:fecha", Sesion.class);
 	    query.setParameter("fecha", sesion.getFecha());

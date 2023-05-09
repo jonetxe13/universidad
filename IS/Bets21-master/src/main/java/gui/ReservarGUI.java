@@ -69,7 +69,7 @@ public class ReservarGUI extends JFrame {
 				Sesion sesion = lista.get(table.getSelectedRow());
 				System.out.println("El numero de plazas disponibles es: " + sesion.getPlazasDisponibles());
 				if(sesion.getPlazasDisponibles() == 0) {
-					System.out.print("La sesion esta llena asi que se añade a la lista de espera");
+//					System.out.print("La sesion esta llena asi que se añade a la lista de espera");
 					Sesion res = bussinessLogic.addAListaEspera(sesion, user);
 					System.out.print(res.getListaEspera());
 				}

@@ -61,8 +61,10 @@ public class Sesion {
 		}
 	}
 	public Usuario removeDeListaEspera() {
-		System.out.println("se te ha quitado de la lista de espera y se te ha annadido la reserva");
 		Usuario user = listaEspera.poll();
+		if(user != null) {
+			System.out.println("se te ha quitado de la lista de espera y se te ha annadido la reserva");
+		}
 		return user;
 	}
 }
