@@ -1705,3 +1705,56 @@ New type java.util.LinkedList<domain.Usuario>
 [2023-05-09 14:58:31 #17 type.registry] 
 New type java.util.ArrayList<domain.Sesion>
 
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-09 22:01:31 #1 store] 
+Database 'C:\Users\jonet\OneDrive\Escritorio\universidad\IS\Bets21-master\src\main\resources\bets.temp' is opened by 10200@DESKTOP-KFRJO8S
+
+[2023-05-09 22:01:31 #2 type.registry] 
+New type domain.Actividad
+
+[2023-05-09 22:01:31 #3 type] 
+Type domain.Actividad is not enhanced.
+
+[2023-05-09 22:01:31 #4 type.registry] 
+New type domain.Encargado
+
+[2023-05-09 22:01:31 #5 type] 
+Type domain.Encargado is not enhanced.
+
+[2023-05-09 22:01:31 #6 type.registry] 
+New type domain.Usuario
+
+[2023-05-09 22:01:31 #7 type] 
+Type domain.Usuario is not enhanced.
+
+[2023-05-09 22:01:31 #8 type.registry] 
+New type domain.Sesion
+
+[2023-05-09 22:01:31 #9 type] 
+Type domain.Sesion is not enhanced.
+
+[2023-05-09 22:01:31 #10 type.registry] 
+New type domain.Sala
+
+[2023-05-09 22:01:31 #11 type] 
+Type domain.Sala is not enhanced.
+
+[2023-05-09 22:01:31 #12 type.registry] 
+New type java.util.ArrayList<java.lang.Object>
+
+[2023-05-09 22:01:31 #13 type.registry] 
+New type java.util.ArrayList<java.lang.String>
+
+[2023-05-09 22:01:31 #14 type.registry] 
+New type java.util.ArrayList<domain.Actividad>
+
+[2023-05-09 22:01:31 #15 type.registry] 
+New type java.util.LinkedList<java.lang.Object>
+
+[2023-05-09 22:01:31 #16 type.registry] 
+New type java.util.LinkedList<domain.Usuario>
+
+[2023-05-09 22:01:31 #17 type.registry] 
+New type java.util.ArrayList<domain.Sesion>
+
