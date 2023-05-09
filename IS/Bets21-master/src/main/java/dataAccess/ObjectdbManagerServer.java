@@ -39,8 +39,6 @@ public class ObjectdbManagerServer extends JDialog {
 
 	public static void main(String[] args) {
 		try {
-			
-			
 			ObjectdbManagerServer dialog = new ObjectdbManagerServer();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);

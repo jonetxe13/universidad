@@ -49,7 +49,7 @@ public class Sesion {
 	public void setListaEspera(Queue<Usuario> listaEspera) { this.listaEspera = listaEspera; }
 
 	public String crearHash(Usuario user) {
-		String codigo = this.fecha+"/"+user.getCorreo();
+		String codigo = this.fecha+"/" + this.sala.getNumero()+"/"+user.getCorreo();
 		System.out.print(codigo);
 		return codigo;
 	}

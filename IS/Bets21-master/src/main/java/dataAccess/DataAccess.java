@@ -170,7 +170,7 @@ public class DataAccess  {
 			Map<String, String> properties = new HashMap<String, String>();
 			  properties.put("javax.persistence.jdbc.user", c.getUser());
 			  properties.put("javax.persistence.jdbc.password", c.getPassword());
-
+			  System.out.println(c);
 			  emf = Persistence.createEntityManagerFactory("objectdb://"+c.getDatabaseNode()+":"+c.getDatabasePort()+"/"+fileName, properties);
 
 			  db = emf.createEntityManager();
@@ -228,9 +228,17 @@ public class DataAccess  {
 		db.getTransaction().commit();
 		return enc;
 	}
-	public Sesion getSesion(String fecha){
+	public Sesion getSesion(String fecha, int salaNum){
 		db.getTransaction().begin();
-		Sesion ses = db.find(Sesion.class, fecha);
+		TypedQuery<Sesion> query = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha=:fecha", Sesion.class);
+	    query.setParameter("fecha", fecha);
+	    List<Sesion> sesiones = query.getResultList();
+	    Sesion ses = null;
+	    for(Sesion sesion2: sesiones) {
+	    	if(sesion2.getSala().getNumero() == salaNum) {
+	    		ses = sesion2;
+	    	}
+	    }
 		if(ses == null) {
 			System.out.print("la sesion no existe");
 			return null;
@@ -289,7 +297,16 @@ public class DataAccess  {
 		String idSesion = sesion.getFecha();
 		
 		Usuario usuario = db.find(Usuario.class, idUsuario);
-		Sesion ses = db.find(Sesion.class, idSesion);
+		
+		TypedQuery<Sesion> query = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha=:fecha", Sesion.class);
+	    query.setParameter("fecha", idSesion);
+	    List<Sesion> sesiones = query.getResultList();
+	    Sesion ses = null;
+	    for(Sesion sesion2: sesiones) {
+	    	if(sesion2.getSala().getNumero() == sesion.getSala().getNumero()) {
+	    		ses = sesion2;
+	    	}
+	    }
 		if(ses.getPlazasDisponibles() == 0) {
 			System.out.println("No se puede reservar porque esta llena");
 			return false;
@@ -318,7 +335,15 @@ public class DataAccess  {
 
 	public Sesion addAListaEspera(Sesion sesion, Usuario user) {
 		db.getTransaction().begin();
-		Sesion ses = db.find(Sesion.class, sesion.getFecha());
+		TypedQuery<Sesion> query = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha=:fecha", Sesion.class);
+	    query.setParameter("fecha", sesion.getFecha());
+	    List<Sesion> sesiones = query.getResultList();
+	    Sesion ses = null;
+	    for(Sesion sesion2: sesiones) {
+	    	if(sesion2.getSala().getNumero() == sesion.getSala().getNumero()) {
+	    		ses = sesion2;
+	    	}
+	    }
 		Usuario usr = db.find(Usuario.class, user.getCorreo());
 		if(ses.getListaEspera().contains(usr)) {
 			System.out.println("ya estas en la lista de espera");
@@ -333,7 +358,15 @@ public class DataAccess  {
 
 	public boolean cancelarReserva(Sesion sesion, Usuario user) {
 		db.getTransaction().begin();
-		Sesion ses = db.find(Sesion.class, sesion.getFecha());
+		TypedQuery<Sesion> query = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha=:fecha", Sesion.class);
+	    query.setParameter("fecha", sesion.getFecha());
+	    List<Sesion> sesiones = query.getResultList();
+	    Sesion ses = null;
+	    for(Sesion sesion2: sesiones) {
+	    	if(sesion2.getSala().getNumero() == sesion.getSala().getNumero()) {
+	    		ses = sesion2;
+	    	}
+	    }
 		Usuario usr = db.find(Usuario.class, user.getCorreo());
 		
 		List<String> listaNomSesion = new ArrayList<String>();
@@ -344,12 +377,13 @@ public class DataAccess  {
 		    String s = iterator.next();
 		    String[] nomSesion = s.split("/");
 		    listaNomSesion.add(nomSesion[0]);
-		    if (nomSesion[0].equals(ses.getFecha())) {
+		    if (nomSesion[0].equals(ses.getFecha()) && Integer.parseInt(nomSesion[1]) == ses.getSala().getNumero()) {
 		        System.out.println("se ha encontrado la sesion con el mismo nombre que el de la reserva");
 		        iterator.remove();
 		        ses.setPlazasDisponibles(ses.getPlazasDisponibles() + 1);
-		        if(ses.removeDeListaEspera() != null) {
-		        	Usuario user2 = ses.removeDeListaEspera();
+	        	Usuario user2 = ses.removeDeListaEspera();
+		        if(user2 != null) {
+		        	System.out.println(user2);
 		        	user2.addReserva(ses.crearHash(user2));
 		        	ses.setPlazasDisponibles(ses.getPlazasDisponibles()-1);		        	
 		        }

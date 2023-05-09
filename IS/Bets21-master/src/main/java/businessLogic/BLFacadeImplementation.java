@@ -136,9 +136,9 @@ public class BLFacadeImplementation  implements BLFacade {
 	}
 	
 	@WebMethod
-	public Sesion getSesion(String fecha) {
+	public Sesion getSesion(String fecha, int salaNum) {
 		dbManager.open(false);
-		Sesion sesion = dbManager.getSesion(fecha);
+		Sesion sesion = dbManager.getSesion(fecha, salaNum);
 		return sesion;
 	}
 
@@ -146,7 +146,7 @@ public class BLFacadeImplementation  implements BLFacade {
 	public boolean cancelarReserva(Sesion sesion, Usuario user) {
 		dbManager.open(false);
 		boolean res = dbManager.cancelarReserva(sesion, user);
-		return false;
+		return res;
 	}
 
 	@WebMethod

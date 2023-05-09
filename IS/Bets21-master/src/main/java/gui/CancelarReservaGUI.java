@@ -38,15 +38,17 @@ public class CancelarReservaGUI extends JFrame {
 		BLFacade bussinessLogic = RegistroGUI.getBusinessLogic();
 		List<String> lista = bussinessLogic.createUsuario(user.getCorreo(), user.getContrasenna()).getListaReservas();
 		List<String> listaNomSesion = new ArrayList<String>();
+		List<Integer> listaNumSala = new ArrayList<Integer>();
 		List<Sesion> listaSesion = new ArrayList<Sesion>();
 		
 		for(String s: lista) {
 			String[] nomSesion = s.split("/");
 			listaNomSesion.add(nomSesion[0]);
+			listaNumSala.add(Integer.parseInt(nomSesion[1]));
 		}
 		
-		for(String s: listaNomSesion) {
-			listaSesion.add(bussinessLogic.getSesion(s));
+		for(int i = 0; i < listaNomSesion.size(); i++) {
+			listaSesion.add(bussinessLogic.getSesion(listaNomSesion.get(i), listaNumSala.get(i)));
 		}
 		
 		// Crear las columnas del JTable

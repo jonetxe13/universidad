@@ -71,23 +71,23 @@ public class AnnadirActividadesGUI extends JFrame {
 		scrollPane.setColumnHeaderView(table);
 		
 		nombreTextField = new JTextField();
-		nombreTextField.setBounds(510, 23, 96, 19);
+		nombreTextField.setBounds(504, 30, 96, 19);
 		getContentPane().add(nombreTextField);
 		nombreTextField.setColumns(10);
 		
 		nivelTextField = new JTextField();
-		nivelTextField.setBounds(538, 52, 47, 19);
+		nivelTextField.setBounds(525, 64, 47, 19);
 		getContentPane().add(nivelTextField);
 		nivelTextField.setColumns(10);
 		
 		precioTextField = new JTextField();
-		precioTextField.setBounds(500, 171, 58, 19);
+		precioTextField.setBounds(520, 93, 58, 19);
 		getContentPane().add(precioTextField);
 		precioTextField.setColumns(10);
 		
 		
 		JButton annadirActividadbtn= new JButton("Annadir sesion");
-		annadirActividadbtn.setBounds(500, 197, 126, 38);
+		annadirActividadbtn.setBounds(497, 122, 106, 39);
 		annadirActividadbtn.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				BLFacade bussinessLogic = RegistroGUI.getBusinessLogic();
@@ -97,15 +97,15 @@ public class AnnadirActividadesGUI extends JFrame {
 		getContentPane().add(annadirActividadbtn);
 		
 		JLabel lblNewLabel = new JLabel("Nombre");
-		lblNewLabel.setBounds(510, 10, 96, 13);
+		lblNewLabel.setBounds(525, 14, 47, 13);
 		getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nivel");
-		lblNewLabel_1.setBounds(544, 40, 57, 13);
+		lblNewLabel_1.setBounds(534, 50, 57, 13);
 		getContentPane().add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_3 = new JLabel("precio");
-		lblNewLabel_3.setBounds(500, 160, 45, 13);
+		lblNewLabel_3.setBounds(533, 81, 45, 13);
 		getContentPane().add(lblNewLabel_3);
 	}
 }
