@@ -307,17 +307,10 @@ public class DataAccess  {
 	    		ses = sesion2;
 	    	}
 	    }
-		if(ses.getPlazasDisponibles() == 0) {
-			System.out.println("No se puede reservar porque esta llena");
-			return false;
-		}
-		System.out.println(usuario.getListaReservas());
 		if(usuario.getListaReservas() != null) {
 			for(String r: user.getListaReservas()) {
-				
-				System.out.println(r.equals(ses.getFecha()+"/"+ses.getSala().getNumero()+ "/"+user.getCorreo()));
-
-				if(r.equals(ses.getFecha()+"/"+ses.getSala().getNumero()+ "/"+user.getCorreo())){
+				String[] reservas = r.split("/");
+				if(reservas[0].equals(ses.getFecha()) && reservas[1].equals(Integer.toString(ses.getSala().getNumero()))){
 					System.out.println("ya tienes esta sesion reservada");
 					return false;
 				}
@@ -345,7 +338,7 @@ public class DataAccess  {
 	    	}
 	    }
 		Usuario usr = db.find(Usuario.class, user.getCorreo());
-		System.out.println(usr.getListaReservas());
+//		System.out.println(usr.getListaReservas());
 //		System.out.println(usr.getListaReservas().contains(ses.getFecha()+"/"+ses.getSala().getNumero()+ "/"+usr.getCorreo()));
 		if(ses.getListaEspera().contains(usr)) {
 			System.out.println("ya estas en la lista de espera");
@@ -429,10 +422,8 @@ public class DataAccess  {
 			for(Sesion ses: listaSes) {
 				if(ses.getFecha() != null && ses.getFecha().equals(fecha) && ses.getSala() != null && ses.getSala().equals(salaSes)) {
 					System.out.println("ya existe una sesion en esa sala en esa fecha");
-//					return null;
 				}
 			}
-//			System.out.println("algo pasa con el mes" + month + "  " + monthActual);
 		}
 		if(salaSes == null) {
 			System.out.println("no se ha encontrado esa sala");

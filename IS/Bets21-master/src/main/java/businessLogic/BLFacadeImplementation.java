@@ -124,7 +124,15 @@ public class BLFacadeImplementation  implements BLFacade {
 	@WebMethod
 	public boolean addReserva(Sesion seleccionado, Usuario user) {
 		dbManager.open(false);
-		boolean bien = dbManager.addReserva(seleccionado, user);
+		boolean bien;
+		if(seleccionado.getPlazasDisponibles() == 0) {
+			this.addAListaEspera(seleccionado, user);
+			System.out.println("no hay espacio en la sesion");
+			bien = false;
+		}
+		else {
+			bien = dbManager.addReserva(seleccionado, user);
+		}
 		return bien;
 	}
 
@@ -205,7 +213,7 @@ public class BLFacadeImplementation  implements BLFacade {
 			System.out.println("el numero que has introducido no es un entero o no es un numero valido");
 		}
 		Actividad act = dbManager.annadirActividad(nombre, nvl, prc);
-		return null;
+		return act;
 	}
 }
 

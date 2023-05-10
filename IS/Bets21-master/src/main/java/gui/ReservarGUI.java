@@ -72,19 +72,23 @@ public class ReservarGUI extends JFrame {
 		reservarBtn.addActionListener(new java.awt.event.ActionListener() {
 			
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				Sesion sesion = lista.get(table.getSelectedRow());
-				if(sesion.getPlazasDisponibles() == 0) {
-					bussinessLogic.addAListaEspera(sesion, user);
-					error.setText("Sesion llena asi que se añade a la lista de espera");
-					error.setVisible(true);
+				Sesion sesion = null;
+				if(table.getSelectedRow() != -1) {
+					sesion = lista.get(table.getSelectedRow());
+					if(!bussinessLogic.addReserva(sesion, user)) {
+						error.setText("Sesion llena asi que se añade a la lista de espera");
+						error.setVisible(true);
+					}
+					else {
+						error.setText("Reserva completada");
+						error.setVisible(true);
+					}
 				}
 				else {
-					bussinessLogic.addReserva(sesion, user);					
-					error.setText("Reserva completada");
+					error.setText("Selecciona una sesion de la tabla");
 					error.setVisible(true);
 				}
 			}
-			
 		});
 		getContentPane().add(reservarBtn);
 		
