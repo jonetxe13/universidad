@@ -85,13 +85,19 @@ public class AnnadirActividadesGUI extends JFrame {
 		getContentPane().add(precioTextField);
 		precioTextField.setColumns(10);
 		
+		JLabel error = new JLabel(); //$NON-NLS-1$ //$NON-NLS-2$
+		error.setBounds(500, 200, 197, 13);
+		error.setVisible(false);
+		getContentPane().add(error);
 		
-		JButton annadirActividadbtn= new JButton("Annadir sesion");
+		JButton annadirActividadbtn= new JButton("Annadir actividad");
 		annadirActividadbtn.setBounds(497, 122, 106, 39);
 		annadirActividadbtn.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				BLFacade bussinessLogic = RegistroGUI.getBusinessLogic();
 				bussinessLogic.annadirActividad(nombreTextField.getText(), nivelTextField.getText(), precioTextField.getText());
+				error.setText("se ha añadido correctamente");
+				error.setVisible(true);
 			}
 		});
 		getContentPane().add(annadirActividadbtn);
@@ -104,7 +110,7 @@ public class AnnadirActividadesGUI extends JFrame {
 		lblNewLabel_1.setBounds(534, 50, 57, 13);
 		getContentPane().add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_3 = new JLabel("precio");
+		JLabel lblNewLabel_3 = new JLabel("Precio");
 		lblNewLabel_3.setBounds(533, 81, 45, 13);
 		getContentPane().add(lblNewLabel_3);
 	}

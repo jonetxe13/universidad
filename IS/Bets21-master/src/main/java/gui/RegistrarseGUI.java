@@ -38,38 +38,50 @@ public class RegistrarseGUI extends JFrame{
 		getContentPane().setLayout(null);
 		
 		correoTextField = new JTextField();
-		correoTextField.setBounds(157, 48, 96, 19);
+		correoTextField.setBounds(207, 48, 116, 19);
 		getContentPane().add(correoTextField);
 		correoTextField.setColumns(10);
 		
 		passwordField1 = new JPasswordField();
-		passwordField1.setBounds(157, 98, 96, 19);
+		passwordField1.setBounds(207, 98, 116, 19);
 		getContentPane().add(passwordField1);
 		
 		passwordField2 = new JPasswordField();
-		passwordField2.setBounds(157, 154, 96, 19);
+		passwordField2.setBounds(207, 154, 116, 19);
 		getContentPane().add(passwordField2);
 		
+		JLabel error = new JLabel("error"); //$NON-NLS-1$ //$NON-NLS-2$
+		error.setBounds(207, 180, 397, 13);
+		error.setVisible(false);
+		getContentPane().add(error);
+		
 		JButton btnNewButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.btnNewButton.text")); //$NON-NLS-1$ //$NON-NLS-2$
-		btnNewButton.setBounds(172, 176, 103, 34);
+		btnNewButton.setBounds(207, 205, 116, 34);
 		btnNewButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				//tienes que introducir la contrasenna dos veces para verificarla y te crea el usuario
 				BLFacade bussinesLogic = RegistroGUI.getBusinessLogic();
-//				System.out.println(bussinesLogic.userExists(correoTextField.getText(), passwordField1.getText()));
 				if(bussinesLogic.userExists(correoTextField.getText(), passwordField1.getText())) {
-					System.out.print("Ese usuario ya existe");
+					error.setText("Ese usuario ya existe");
+					error.setVisible(true);
 				}
 				else {
 					if(!correoTextField.getText().matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}")) {
-						System.out.println("El correo tiene que tener esta estructura: example@example.com");		
+						error.setText("Ejemplo correo: example@example.com");
+						error.setVisible(true);
 					}
 					else if(!(passwordField1.getText().equals(passwordField2.getText()))) {
-						System.out.println("Las contrasennas tienen que ser iguales");
+						error.setText("Las contrasennas tienen que ser iguales");
+						error.setVisible(true);
+					}
+					else if(passwordField1.getText().equals(passwordField2.getText()) && passwordField1.getText().equals("")) {
+						error.setText("Tienes que introducir contraseña");
+						error.setVisible(true);
 					}
 					else {
 						bussinesLogic.createUsuario(correoTextField.getText(), passwordField1.getText());
-						System.out.print("se ha creado el usuario\n");
+						error.setText("se ha creado el usuario\n");
+						error.setVisible(true);
 						JFrame a = new RegistradoGUI(bussinesLogic.createUsuario(correoTextField.getText(), passwordField1.getText()));
 						a.setBounds(0, 0, 700, 600);
 						a.setVisible(true);	
@@ -78,6 +90,18 @@ public class RegistrarseGUI extends JFrame{
 			}
 		});
 		getContentPane().add(btnNewButton);
+		
+		JLabel lblCorreo = new JLabel("Correo electronico:"); //$NON-NLS-1$ //$NON-NLS-2$
+		lblCorreo.setBounds(51, 51, 146, 13);
+		getContentPane().add(lblCorreo);
+		
+		JLabel lblContraseña = new JLabel("Introducir contraseña:"); //$NON-NLS-1$ //$NON-NLS-2$
+		lblContraseña.setBounds(51, 101, 146, 13);
+		getContentPane().add(lblContraseña);
+		
+		JLabel lblRepetirContr = new JLabel("Repetir contraseña:"); //$NON-NLS-1$ //$NON-NLS-2$
+		lblRepetirContr.setBounds(51, 157, 145, 13);
+		getContentPane().add(lblRepetirContr);
 		
 	}
 }

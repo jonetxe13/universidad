@@ -1,6 +1,7 @@
 package gui;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -61,24 +62,31 @@ public class ReservarGUI extends JFrame {
 		getContentPane().add(table);
 		getContentPane().add(scrollPane);
 		
+		JLabel error = new JLabel(); //$NON-NLS-1$ //$NON-NLS-2$
+		error.setBounds(273, 140, 197, 13);
+		error.setVisible(false);
+		getContentPane().add(error);
+		
 		JButton reservarBtn = new JButton("reservar");
 		reservarBtn.setBounds(273, 61, 125, 38);
 		reservarBtn.addActionListener(new java.awt.event.ActionListener() {
 			
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				Sesion sesion = lista.get(table.getSelectedRow());
-				System.out.println("El numero de plazas disponibles es: " + sesion.getPlazasDisponibles());
 				if(sesion.getPlazasDisponibles() == 0) {
-//					System.out.print("La sesion esta llena asi que se añade a la lista de espera");
-					Sesion res = bussinessLogic.addAListaEspera(sesion, user);
-					System.out.print(res.getListaEspera());
+					bussinessLogic.addAListaEspera(sesion, user);
+					error.setText("Sesion llena asi que se añade a la lista de espera");
+					error.setVisible(true);
 				}
 				else {
 					bussinessLogic.addReserva(sesion, user);					
+					error.setText("Reserva completada");
+					error.setVisible(true);
 				}
 			}
 			
 		});
 		getContentPane().add(reservarBtn);
+		
 	}
 }

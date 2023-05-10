@@ -49,7 +49,6 @@ public class RegistradoGUI extends JFrame{
 		reservar.setBounds(99, 40, 218, 45);
 		reservar.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					BLFacade bussinesLogic = RegistroGUI.getBusinessLogic();
 					JFrame a = new ReservarGUI(user);
 					a.setBounds(0, 0, 700, 600);
 					a.setVisible(true);
@@ -61,7 +60,6 @@ public class RegistradoGUI extends JFrame{
 		cancelarReserva.setBounds(99, 100, 218, 45);
 		cancelarReserva.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					BLFacade bussinesLogic = RegistroGUI.getBusinessLogic();
 					JFrame a = new CancelarReservaGUI(user);
 					a.setBounds(0, 0, 700, 600);
 					a.setVisible(true);
@@ -69,8 +67,8 @@ public class RegistradoGUI extends JFrame{
 			});
 		getContentPane().add(cancelarReserva);
 		
-		JLabel UsuarioIniciado = new JLabel(this.user.getCorreo() + " " + this.user.getContrasenna());
-		UsuarioIniciado.setBounds(120, 10, 168, 25);
+		JLabel UsuarioIniciado = new JLabel("Hola " + user.getCorreo() + " desde aqui puedes controlar tus reservas y pagos.");
+		UsuarioIniciado.setBounds(40, 10, 468, 25);
 		getContentPane().add(UsuarioIniciado);
 	}
 }

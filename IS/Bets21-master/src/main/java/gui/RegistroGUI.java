@@ -121,20 +121,21 @@ public class RegistroGUI extends JFrame{
 			});
 			jContentPane.add(registrarseLBL);
 			
-			JLabel error = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.lblNewLabel_3.text")); //$NON-NLS-1$ //$NON-NLS-2$
-			error.setBounds(245, 138, 45, 13);
+			JLabel error = new JLabel("El usuario no existe o es incorrecto"); //$NON-NLS-1$ //$NON-NLS-2$
+			error.setBounds(245, 140, 197, 13);
 			error.setVisible(false);
 			jContentPane.add(error);
 
 			JButton btnNewButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.btnNewButton.text")); //$NON-NLS-1$ //$NON-NLS-2$
-			btnNewButton.setBounds(172, 176, 103, 34);
+			btnNewButton.setBounds(169, 179, 115, 34);
 			btnNewButton.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					// Cuando haces click mira si el usuario existe, si existe crea una ventana con el usuario registrado
 					BLFacade bussinesLogic = appFacadeInterface;
 					
 					if(bussinesLogic.encargadoExists(textField.getText(), passwordField.getText())) {
-						System.out.print("Se ha encontrado el encargado\n");
+						error.setText("el encargado se ha encontrado");
+						error.setVisible(true);
 						System.out.println(bussinesLogic.getEncargado(textField.getText(), passwordField.getText()));
 						JFrame a = new EncargadoGUI(bussinesLogic.getEncargado(textField.getText(), passwordField.getText()));
 						a.setBounds(0, 0, 500, 400);
@@ -142,13 +143,14 @@ public class RegistroGUI extends JFrame{
 						
 					}
 					else if(bussinesLogic.userExists(textField.getText(), passwordField.getText())) {
-						System.out.print("Se ha encontrado el usuario");
+						error.setText("Se ha encontrado el usuario");
+						error.setVisible(true);
 						JFrame a = new RegistradoGUI(bussinesLogic.createUsuario(textField.getText(), passwordField.getText()));
 						a.setBounds(0, 0, 500, 400);
 						a.setVisible(true);
 					}
 					else {
-						error.setEnabled(true);
+						error.setVisible(true);
 						jContentPane.add(error);
 					}
 				}
@@ -156,7 +158,7 @@ public class RegistroGUI extends JFrame{
 			jContentPane.add(btnNewButton);
 			
 			JButton btnConsultarSesiones = new JButton(ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.btnNewButton_1.text")); //$NON-NLS-1$ //$NON-NLS-2$
-			btnConsultarSesiones.setBounds(28, 176, 103, 40);
+			btnConsultarSesiones.setBounds(23, 176, 119, 40);
 			btnConsultarSesiones.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					JFrame a = new ConsultarSesionesGUI();

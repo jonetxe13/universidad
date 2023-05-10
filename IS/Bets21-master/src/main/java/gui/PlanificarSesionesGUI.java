@@ -108,12 +108,21 @@ public class PlanificarSesionesGUI extends JFrame {
 		getContentPane().add(plazasTextField);
 		plazasTextField.setColumns(10);
 		
+		JLabel error = new JLabel(); //$NON-NLS-1$ //$NON-NLS-2$
+		error.setBounds(500, 200, 197, 13);
+		error.setVisible(false);
+		getContentPane().add(error);
+		error.setText("se ha añadido correctamente");
+		error.setVisible(true);
+		
 		JButton annadirSesionbtn= new JButton("Annadir sesion");
 		annadirSesionbtn.setBounds(500, 197, 126, 38);
 		annadirSesionbtn.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				BLFacade bussinessLogic = RegistroGUI.getBusinessLogic();
 				bussinessLogic.annadirSesion(fechaTextField.getText(), salaTextField.getText(), listaActividadesTextField.getText(), precioTextField.getText(), plazasTextField.getText());
+				error.setText("se ha añadido correctamente");
+				error.setVisible(true);
 			}
 		});
 		getContentPane().add(annadirSesionbtn);
@@ -122,8 +131,16 @@ public class PlanificarSesionesGUI extends JFrame {
 		quitarSesionbtn.setBounds(500, 81, 126, 38);
 		quitarSesionbtn.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
+				Sesion sesion = lista.get(table.getSelectedRow());
 				BLFacade bussinessLogic = RegistroGUI.getBusinessLogic();
-				bussinessLogic.quitarSesion(fechaTextField.getText(), salaTextField.getText());
+				if(sesion != null) {
+					bussinessLogic.quitarSesion(sesion.getFecha(), Integer.toString(sesion.getSala().getNumero()));
+				}
+				else {
+					bussinessLogic.quitarSesion(fechaTextField.getText(), salaTextField.getText());
+				}
+				error.setText("se ha quitado correctamente");
+				error.setVisible(true);
 			}
 		});
 		getContentPane().add(quitarSesionbtn);

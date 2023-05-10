@@ -1,6 +1,7 @@
 package gui;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -25,6 +26,7 @@ import java.util.Vector;
 import javax.swing.JButton;
 
 public class CancelarReservaGUI extends JFrame {
+	private static final long serialVersionUID = 1L;
 	private Usuario user;
 	
 	public CancelarReservaGUI(Usuario user) {
@@ -53,8 +55,8 @@ public class CancelarReservaGUI extends JFrame {
 				listaSesion.add(bussinessLogic.getSesion(listaNomSesion.get(i), listaNumSala.get(i)));
 			}
 		}
-		System.out.println(listaNomSesion);
-		System.out.println(listaNumSala);
+//		System.out.println(listaNomSesion);
+//		System.out.println(listaNumSala);
 		System.out.println(listaSesion);
 		
 		// Crear las columnas del JTable
@@ -67,21 +69,30 @@ public class CancelarReservaGUI extends JFrame {
 		Vector<Vector<Object>> rows = new Vector<Vector<Object>>();
 		Vector<Object> row = new Vector<Object>();
 		for (Sesion sesion : listaSesion) {
-			if(sesion != null) {
+//			if(sesion != null) {
+				System.out.println(sesion.getFecha());
 			    row.add(sesion.getFecha());
 			    row.add(sesion.getPlazasDisponibles());
 			    row.add(sesion.getListaActividades());
 			    // ...
 			    rows.add(row);
-			}
+//			}
 		}
 		JScrollPane scrollPane = new JScrollPane();
+		System.out.println(scrollPane.createHorizontalScrollBar());
+		scrollPane.setHorizontalScrollBar(scrollPane.createHorizontalScrollBar());
+		scrollPane.setVerticalScrollBar(scrollPane.createVerticalScrollBar());
 		scrollPane.setBounds(0, 20, 210, 200);
 		// Crear el JTable y añadirlo al JScrollPane
 		JTable table = new JTable(rows, columns);
 		table.setBounds(0, 20, 200, 190);
 		getContentPane().add(table);
 		getContentPane().add(scrollPane);
+		
+		JLabel error = new JLabel(); //$NON-NLS-1$ //$NON-NLS-2$
+		error.setBounds(273, 140, 197, 13);
+		error.setVisible(false);
+		getContentPane().add(error);
 		
 		JButton cancelarReservaBtn = new JButton("Cancelar reserva");
 		cancelarReservaBtn.setBounds(273, 61, 125, 38);
@@ -93,9 +104,12 @@ public class CancelarReservaGUI extends JFrame {
 					bussinessLogic.cancelarReserva(sesion, user);	
 					row.remove(sesion);
 					getContentPane().add(table);
+					error.setText("Reserva cancelada");
+					error.setVisible(true);
 				}
 				else {
-					System.out.println("no tienes nada seleccionado");
+					error.setText("No tienes nada seleccionado");
+					error.setVisible(true);
 				}
 			}
 		});
