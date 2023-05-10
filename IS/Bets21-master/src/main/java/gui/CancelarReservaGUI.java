@@ -47,9 +47,15 @@ public class CancelarReservaGUI extends JFrame {
 			listaNumSala.add(Integer.parseInt(nomSesion[1]));
 		}
 		
+		
 		for(int i = 0; i < listaNomSesion.size(); i++) {
-			listaSesion.add(bussinessLogic.getSesion(listaNomSesion.get(i), listaNumSala.get(i)));
+			if(bussinessLogic.getSesion(listaNomSesion.get(i), listaNumSala.get(i)) != null) {
+				listaSesion.add(bussinessLogic.getSesion(listaNomSesion.get(i), listaNumSala.get(i)));
+			}
 		}
+		System.out.println(listaNomSesion);
+		System.out.println(listaNumSala);
+		System.out.println(listaSesion);
 		
 		// Crear las columnas del JTable
 		Vector<String> columns = new Vector<String>();
@@ -61,11 +67,13 @@ public class CancelarReservaGUI extends JFrame {
 		Vector<Vector<Object>> rows = new Vector<Vector<Object>>();
 		Vector<Object> row = new Vector<Object>();
 		for (Sesion sesion : listaSesion) {
-		    row.add(sesion.getFecha());
-		    row.add(sesion.getPlazasDisponibles());
-		    row.add(sesion.getListaActividades());
-		    // ...
-		    rows.add(row);
+			if(sesion != null) {
+			    row.add(sesion.getFecha());
+			    row.add(sesion.getPlazasDisponibles());
+			    row.add(sesion.getListaActividades());
+			    // ...
+			    rows.add(row);
+			}
 		}
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 20, 210, 200);
