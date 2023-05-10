@@ -273,7 +273,7 @@ public class DataAccess  {
 	   System.out.println(domingo);
 
 		TypedQuery<Sesion> query = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha BETWEEN :start AND :end ORDER BY s.fecha", Sesion.class);
-		System.out.println(query);
+//		System.out.println(query);
 
 	    query.setParameter("start", lunes);
 	    query.setParameter("end", domingo);
