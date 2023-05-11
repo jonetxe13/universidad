@@ -24,7 +24,7 @@ public class RegistradoGUI extends JFrame{
 		this.setSize(700, 600);
 		this.setContentPane(getJContentPane());
 	}
-	
+
 	public JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jContentPane = new JPanel();

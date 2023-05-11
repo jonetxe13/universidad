@@ -10,7 +10,9 @@ public class Actividad {
 
 	private int gradoExigencia;
 	private int precio;
-
+	
+	public Actividad() {}
+	
 	public Actividad(String n, int g, int p) {
 		this.nombre = n;
 		this.gradoExigencia = g;

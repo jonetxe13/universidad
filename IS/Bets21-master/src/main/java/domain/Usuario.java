@@ -13,7 +13,10 @@ public class Usuario {
 
 	private String contrasenna;
 	private List<String> listaReservas;
-
+	
+	public Usuario() {
+		
+	}
 	public Usuario(String correo, String contrasenna) {
 		this.correo = correo;
 		this.contrasenna = contrasenna;

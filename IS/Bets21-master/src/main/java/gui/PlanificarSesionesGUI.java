@@ -25,6 +25,7 @@ public class PlanificarSesionesGUI extends JFrame {
 	private JTextField listaActividadesTextField;
 	private JTextField precioTextField;
 	private JTextField plazasTextField;
+	private List<Sesion> lista;
 
 	public PlanificarSesionesGUI(Encargado encargado) {
 		this.encargado = encargado;
@@ -34,12 +35,12 @@ public class PlanificarSesionesGUI extends JFrame {
 	public void initialize() {
 		if(encargado == null) {
 			System.out.println("el encargado no existe");
-			System.exit(PROPERTIES);;
+			System.exit(PROPERTIES);
 		}
 		getContentPane().setLayout(null);
 
 		BLFacade bussinessLogic = RegistroGUI.getBusinessLogic();
-		List<Sesion> lista = bussinessLogic.sesionesSemana();
+		lista = bussinessLogic.sesionesSemana();
 		System.out.println(lista);
 
 		// Crear las columnas del JTable
@@ -61,8 +62,11 @@ public class PlanificarSesionesGUI extends JFrame {
 		    row.add(sesion.getPlazasDisponibles());
 
 		    List<String> nomAct = new ArrayList<>();
-		    for(Actividad act: sesion.getListaActividades()) {
-		    	nomAct.add(act.getNombre());
+		    List<Actividad> listAct = sesion.getListaActividades();
+		    if(listAct != null) {
+		    	for(Actividad act: listAct) {
+		    		nomAct.add(act.getNombre());
+		    	}
 		    }
 	    	row.add(nomAct);
 		    // ...

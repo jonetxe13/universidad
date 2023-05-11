@@ -21,3 +21,99 @@ New type java.util.Vector<domain.Question>
 [2023-05-11 16:06:31 #7 type.registry] 
 New type java.util.Vector<java.lang.Object>
 
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-11 23:36:08 #1 server] 
+Server on port 6136 has started by 22608@DESKTOP-KFRJO8S
+
+[2023-05-11 23:36:11 #2 store] 
+Database 'C:\Users\jonet\OneDrive\Escritorio\universidad\IS\Bets21-master-og\src\main\resources\db\src\main\resources\bets.temp' is opened by 22608@DESKTOP-KFRJO8S
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-11 23:36:11 #1 type.registry] 
+New type domain.Question
+
+[2023-05-11 23:36:11 #2 type] 
+Type domain.Question is not enhanced.
+
+[2023-05-11 23:36:11 #3 type.registry] 
+New type domain.Event
+
+[2023-05-11 23:36:11 #4 type] 
+Type domain.Event is not enhanced.
+
+[2023-05-11 23:36:11 #5 type.registry] 
+New type java.util.Vector<domain.Question>
+
+[2023-05-11 23:36:11 #6 type.registry] 
+New type java.util.Vector<java.lang.Object>
+
+[2023-05-11 23:36:38 #3 store] 
+Database 'C:\Users\jonet\OneDrive\Escritorio\universidad\IS\Bets21-master-og\src\main\resources\db\src\main\resources\bets.temp' is closed by 22608@DESKTOP-KFRJO8S
+
+[2023-05-11 23:36:42 #4 server] 
+Server on port 6136 has stopped by 22608@DESKTOP-KFRJO8S
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-11 23:42:12 #1 server] 
+Server on port 6136 has started by 20908@DESKTOP-KFRJO8S
+
+[2023-05-11 23:42:14 #2 store] 
+Database 'C:\Users\jonet\OneDrive\Escritorio\universidad\IS\Bets21-master-og\src\main\resources\db\src\main\resources\bets.temp' is opened by 20908@DESKTOP-KFRJO8S
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-11 23:42:14 #1 type.registry] 
+New type domain.Question
+
+[2023-05-11 23:42:14 #2 type] 
+Type domain.Question is not enhanced.
+
+[2023-05-11 23:42:14 #3 type.registry] 
+New type domain.Event
+
+[2023-05-11 23:42:14 #4 type] 
+Type domain.Event is not enhanced.
+
+[2023-05-11 23:42:14 #5 type.registry] 
+New type java.util.Vector<domain.Question>
+
+[2023-05-11 23:42:14 #6 type.registry] 
+New type java.util.Vector<java.lang.Object>
+
+[2023-05-11 23:42:51 #3 store] 
+Database 'C:\Users\jonet\OneDrive\Escritorio\universidad\IS\Bets21-master-og\src\main\resources\db\src\main\resources\bets.temp' is closed by 20908@DESKTOP-KFRJO8S
+
+[2023-05-11 23:42:57 #4 server] 
+Server on port 6136 has stopped by 20908@DESKTOP-KFRJO8S
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-11 23:46:16 #1 server] 
+Server on port 6136 has started by 8296@DESKTOP-KFRJO8S
+
+[2023-05-11 23:46:19 #2 store] 
+Database 'C:\Users\jonet\OneDrive\Escritorio\universidad\IS\Bets21-master-og\src\main\resources\db\src\main\resources\bets.temp' is opened by 8296@DESKTOP-KFRJO8S
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-11 23:46:20 #1 type.registry] 
+New type domain.Question
+
+[2023-05-11 23:46:20 #2 type] 
+Type domain.Question is not enhanced.
+
+[2023-05-11 23:46:20 #3 type.registry] 
+New type domain.Event
+
+[2023-05-11 23:46:20 #4 type] 
+Type domain.Event is not enhanced.
+
+[2023-05-11 23:46:20 #5 type.registry] 
+New type java.util.Vector<domain.Question>
+
+[2023-05-11 23:46:20 #6 type.registry] 
+New type java.util.Vector<java.lang.Object>
+

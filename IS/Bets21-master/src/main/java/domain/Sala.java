@@ -14,7 +14,8 @@ public class Sala {
 	private int aforoMax;
 	@OneToMany
 	private List<Sesion> listaSesiones;
-
+	
+	public Sala() {}
 	public Sala(int numero, int aforo) {
 		this.numero = numero;
 		this.aforoMax = aforo;

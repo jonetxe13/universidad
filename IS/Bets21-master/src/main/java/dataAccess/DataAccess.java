@@ -60,9 +60,6 @@ public class DataAccess  {
 		   Actividad act1 = new Actividad("zumba", 3, 5);
 		   Actividad act2 = new Actividad("pilates", 2, 15);
 		   Actividad act3 = new Actividad("crossfit", 5, 25);
-		   db.persist(act1);
-		   db.persist(act2);
-		   db.persist(act3);
 		   List<Actividad> listaActividades = new ArrayList<>();
 		   listaActividades.add(act1);
 		   listaActividades.add(act2);
@@ -108,6 +105,10 @@ public class DataAccess  {
 		   Sesion ses7 = new Sesion(fecha, sala1, 10, listaActividades, 15  );
 		   Sesion ses8 = new Sesion(fecha, sala1, 10, listaActividades, 15  );
 
+		   db.persist(act1);
+		   db.persist(act2);
+		   db.persist(act3);
+		   
 		   db.persist(sesion1);
 		   db.persist(ses2);
 		   db.persist(ses3);
@@ -292,7 +293,8 @@ public class DataAccess  {
 	    		ses = sesion2;
 	    	}
 	    }
-		if(usuario.getListaReservas() != null) {
+	    List<String> listaRes = usuario.getListaReservas();
+		if(listaRes != null) {
 			for(String r: user.getListaReservas()) {
 				System.out.println(r.equals(ses.getFecha()+"/"+ses.getSala().getNumero()+ "/"+user.getCorreo()));
 

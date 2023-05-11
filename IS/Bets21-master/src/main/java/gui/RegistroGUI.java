@@ -14,6 +14,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import businessLogic.BLFacade;
+import domain.Usuario;
 
 public class RegistroGUI extends JFrame{
 	private static final long serialVersionUID = 1L;
@@ -29,7 +30,7 @@ public class RegistroGUI extends JFrame{
 	public static void setBussinessLogic (BLFacade afi){
 		appFacadeInterface=afi;
 	}
-	
+
 	private JTextField textField;
 	private JPasswordField passwordField;
 
@@ -131,7 +132,8 @@ public class RegistroGUI extends JFrame{
 					else if(bussinesLogic.userExists(textField.getText(), passwordField.getText())) {
 						error.setText("Se ha encontrado el usuario");
 						error.setVisible(true);
-						JFrame a = new RegistradoGUI(bussinesLogic.createUsuario(textField.getText(), passwordField.getText()));
+						Usuario user = bussinesLogic.createUsuario(textField.getText(), passwordField.getText());
+						JFrame a = new RegistradoGUI(user);
 						a.setBounds(0, 0, 500, 400);
 						a.setVisible(true);
 					}

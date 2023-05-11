@@ -23,7 +23,7 @@ public class Sesion {
 	@ManyToOne
 	private Sala sala;
 
-
+	public Sesion() {}
 	public Sesion(String fecha, Sala sala, int plazas, List<Actividad> listaActividades, int precio ) {
 		this.fecha = fecha;
 		if(plazas > sala.getAforoMax())

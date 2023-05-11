@@ -10,7 +10,8 @@ public class Encargado {
 
 	private String contrasenna;
     private static Encargado instance;
-
+    
+    public Encargado() {}
 	public Encargado(String correo, String contrasenna) {
 		this.correo = correo;
 		this.contrasenna = contrasenna;

@@ -15,7 +15,7 @@ import domain.Usuario;
 
 public class ReservarGUI extends JFrame {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private Usuario user;
@@ -69,7 +69,8 @@ public class ReservarGUI extends JFrame {
 				Sesion sesion = null;
 				if(table.getSelectedRow() != -1) {
 					sesion = lista.get(table.getSelectedRow());
-					if(!bussinessLogic.addReserva(sesion, user)) {
+					boolean annadido = bussinessLogic.addReserva(sesion, user);
+					if(!annadido) {
 						error.setText("Sesion llena asi que se añade a la lista de espera");
 						error.setVisible(true);
 					}
@@ -79,16 +80,11 @@ public class ReservarGUI extends JFrame {
 					}
 				}
 				else {
-					bussinessLogic.addReserva(sesion, user);
-					error.setText("Reserva completada");
-					error.setVisible(true);
-				}
-			
-
 					error.setText("Selecciona una sesion de la tabla");
 					error.setVisible(true);
 				}
-			
+			}
+
 		});
 		getContentPane().add(reservarBtn);
 

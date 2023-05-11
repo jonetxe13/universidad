@@ -98,12 +98,14 @@ public class BusinessLogicServer extends JDialog {
 		try {
 
 			try{
-				System.out.println(c.isDatabaseLocal());
+				System.out.println("hasta aqui llega");
 				if (!c.isDatabaseLocal()) {
 					System.out.println("\nWARNING: Please be sure ObjectdbManagerServer is launched\n           in machine: "+c.getDatabaseNode()+" port: "+c.getDatabasePort()+"\n");
 				}
 
+				System.out.println("hasta aqui llega");
 				service= "http://"+c.getBusinessLogicNode() +":"+ c.getBusinessLogicPort()+"/ws/"+c.getBusinessLogicName();
+				System.out.println(service);
 
 				Endpoint.publish(service, new BLFacadeImplementation());
 

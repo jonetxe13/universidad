@@ -58,7 +58,6 @@ public class BLFacadeImplementation  implements BLFacade {
 	 * This method invokes the data access to initialize the database with some events and questions.
 	 * It is invoked only when the option "initialize" is declared in the tag dataBaseOpenMode of resources/config.xml file
 	 */
-    @Override
 	@WebMethod
 	 public void initializeBD(){
     	dbManager.open(false);
@@ -66,7 +65,6 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.close();
 	}
 
-	@Override
 	@WebMethod
 	public Usuario createUsuario(String correo, String contrasenna) {
 	    //The minimum bed must be greater than 0
@@ -79,47 +77,46 @@ public class BLFacadeImplementation  implements BLFacade {
 
 		return qry;
 	}
-	@Override
 	@WebMethod
 	public boolean userExists(String correo, String contrasenna) {
 		dbManager.open(false);
 		Usuario newUser = new Usuario(correo, contrasenna);
 		boolean existe = dbManager.userExists(newUser);
+		dbManager.close();
 		return existe;
 	}
-	@Override
 	@WebMethod
 	public boolean encargadoExists(String correo, String contrasenna) {
 		dbManager.open(false);
 		Encargado encargado = new Encargado(correo, contrasenna);
 		boolean existe = dbManager.encargadoExists(encargado);
+		dbManager.close();
 		return existe;
 	}
-	@Override
 	@WebMethod
 	public Encargado getEncargado(String correo, String contrasenna) {
 		dbManager.open(false);
 		Encargado encargado = new Encargado(correo, contrasenna);
 		Encargado enc = dbManager.getEncargado(encargado);
+		dbManager.close();
 		return enc;
 	}
 
-	@Override
 	@WebMethod
 	public Sala getSala(String string) {
 		dbManager.open(false);
 		Sala sala1 = dbManager.getSala(string);
+		dbManager.close();
 		return sala1;
 	}
-	@Override
 	@WebMethod
 	public List<Sesion> sesionesSemana(){
 		dbManager.open(false);
 		List<Sesion> lista = dbManager.getSesionesSemana();
+		dbManager.close();
 		return lista;
 	}
 
-	@Override
 	@WebMethod
 	public boolean addReserva(Sesion seleccionado, Usuario user) {
 		dbManager.open(false);
@@ -132,34 +129,34 @@ public class BLFacadeImplementation  implements BLFacade {
 		else {
 			bien = dbManager.addReserva(seleccionado, user);
 		}
+		dbManager.close();
 		return bien;
 	}
 
-	@Override
 	@WebMethod
 	public Sesion addAListaEspera(Sesion sesion, Usuario user) {
 		dbManager.open(false);
 		Sesion añadidoOno = dbManager.addAListaEspera(sesion, user);
+		dbManager.close();
 		return añadidoOno;
 	}
 
-	@Override
 	@WebMethod
 	public Sesion getSesion(String fecha, int salaNum) {
 		dbManager.open(false);
 		Sesion sesion = dbManager.getSesion(fecha, salaNum);
+		dbManager.close();
 		return sesion;
 	}
 
-	@Override
 	@WebMethod
 	public boolean cancelarReserva(Sesion sesion, Usuario user) {
 		dbManager.open(false);
 		boolean res = dbManager.cancelarReserva(sesion, user);
+		dbManager.close();
 		return res;
 	}
 
-	@Override
 	@WebMethod
 	public Sesion annadirSesion(String text, String salaNum, String text3, String text4, String text5) {
 		dbManager.open(false);
@@ -178,10 +175,10 @@ public class BLFacadeImplementation  implements BLFacade {
 			e.printStackTrace();
 		}
 	    System.out.println("se ha annadido");
+		dbManager.close();
 		return sesionAnnadida;
 	}
 
-	@Override
 	@WebMethod
 	public Sesion quitarSesion(String fecha, String salaNum) {
 		dbManager.open(false);
@@ -193,19 +190,18 @@ public class BLFacadeImplementation  implements BLFacade {
 			System.out.println("el numero que has introducido no es un entero o no es un numero valido");
 		}
 		Sesion ses = dbManager.quitarSesion(fecha, number);
-
+		dbManager.close();
 		return ses;
 	}
 
-	@Override
 	@WebMethod
 	public List<Actividad> getActividades() {
 		dbManager.open(false);
 		List<Actividad> lista = dbManager.getActividades();
+		dbManager.close();
 		return lista;
 	}
 
-	@Override
 	@WebMethod
 	public Actividad annadirActividad(String nombre, String nivel, String precio) {
 		dbManager.open(false);
@@ -219,6 +215,7 @@ public class BLFacadeImplementation  implements BLFacade {
 			System.out.println("el numero que has introducido no es un entero o no es un numero valido");
 		}
 		Actividad act = dbManager.annadirActividad(nombre, nvl, prc);
+		dbManager.close();
 		return act;
 	}
 }

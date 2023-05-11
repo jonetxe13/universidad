@@ -12,7 +12,7 @@ import domain.Sesion;
 
 public class ConsultarSesionesGUI extends JFrame {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
