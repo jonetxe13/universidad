@@ -3,12 +3,14 @@ package gui;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import domain.Usuario;
 
 public class RegistradoGUI extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private Usuario user;
+	private JPanel jContentPane = null;
 
 	/**
 	 * This is the default constructor
@@ -16,11 +18,17 @@ public class RegistradoGUI extends JFrame{
 	public RegistradoGUI(Usuario user) {
 		this.user = user;
 		initialize();
-
 	}
 
-	public void initialize() {
-		getContentPane().setLayout(null);
+	private void initialize() {
+		this.setSize(700, 600);
+		this.setContentPane(getJContentPane());
+	}
+	
+	public JPanel getJContentPane() {
+		if (jContentPane == null) {
+			jContentPane = new JPanel();
+			jContentPane.setLayout(null);
 
 		JButton reservar = new JButton("Reservar");
 		reservar.setBounds(99, 40, 218, 45);
@@ -32,7 +40,7 @@ public class RegistradoGUI extends JFrame{
 					a.setVisible(true);
 				}
 			});
-		getContentPane().add(reservar);
+		jContentPane.add(reservar);
 
 		JButton cancelarReserva = new JButton("Cancelar Reserva");
 		cancelarReserva.setBounds(99, 100, 218, 45);
@@ -44,10 +52,12 @@ public class RegistradoGUI extends JFrame{
 					a.setVisible(true);
 				}
 			});
-		getContentPane().add(cancelarReserva);
+		jContentPane.add(cancelarReserva);
 
 		JLabel UsuarioIniciado = new JLabel("Hola " + user.getCorreo() + " desde aqui puedes controlar tus reservas y pagos.");
 		UsuarioIniciado.setBounds(40, 10, 468, 25);
-		getContentPane().add(UsuarioIniciado);
+		jContentPane.add(UsuarioIniciado);
+		}
+		return jContentPane;
 	}
 }

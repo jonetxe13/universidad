@@ -2,14 +2,14 @@
 <config>
   <businessLogic local="false"> 
 	<businessLogicNode>0.0.0.0</businessLogicNode>
-	<businessLogicPort>1099</businessLogicPort>
+	<businessLogicPort>8000</businessLogicPort>
 	<businessLogicName>Bets</businessLogicName>
   </businessLogic>
   <database local="false">
 	<databaseNode>0.0.0.0</databaseNode>
-	<dbFilename>src/main/resources/bets.temp</dbFilename>
-	<dataBaseOpenMode>open</dataBaseOpenMode>
-	<databasePort>8000</databasePort>
+	<dbFilename>resources/bets.temp</dbFilename>
+	<dataBaseOpenMode>initialize</dataBaseOpenMode>
+	<databasePort>8080</databasePort>
 	<user>admin</user>
 	<password>admin</password>
   </database>

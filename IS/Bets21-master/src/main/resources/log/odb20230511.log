@@ -628,3 +628,181 @@ New type java.util.LinkedList<domain.Usuario>
 [2023-05-11 17:08:28 #17 type.registry] 
 New type java.util.ArrayList<domain.Sesion>
 
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-11 17:23:40 #1 store] 
+Database 'C:\Users\jonetxe13\Desktop\universidad\IS\Bets21-master\src\main\resources\bets.temp' is opened by 8352@DESKTOP-490MKBR
+
+[2023-05-11 17:23:41 #2 type.registry] 
+New type domain.Actividad
+
+[2023-05-11 17:23:41 #3 type] 
+Type domain.Actividad is not enhanced.
+
+[2023-05-11 17:23:41 #4 type.registry] 
+New type domain.Encargado
+
+[2023-05-11 17:23:41 #5 type] 
+Type domain.Encargado is not enhanced.
+
+[2023-05-11 17:23:41 #6 type.registry] 
+New type domain.Usuario
+
+[2023-05-11 17:23:41 #7 type] 
+Type domain.Usuario is not enhanced.
+
+[2023-05-11 17:23:41 #8 type.registry] 
+New type domain.Sesion
+
+[2023-05-11 17:23:41 #9 type] 
+Type domain.Sesion is not enhanced.
+
+[2023-05-11 17:23:41 #10 type.registry] 
+New type domain.Sala
+
+[2023-05-11 17:23:41 #11 type] 
+Type domain.Sala is not enhanced.
+
+[2023-05-11 17:23:41 #12 type.registry] 
+New type java.util.ArrayList<java.lang.Object>
+
+[2023-05-11 17:23:41 #13 type.registry] 
+New type java.util.ArrayList<java.lang.String>
+
+[2023-05-11 17:23:41 #14 type.registry] 
+New type java.util.ArrayList<domain.Actividad>
+
+[2023-05-11 17:23:41 #15 type.registry] 
+New type java.util.LinkedList<java.lang.Object>
+
+[2023-05-11 17:23:41 #16 type.registry] 
+New type java.util.LinkedList<domain.Usuario>
+
+[2023-05-11 17:23:41 #17 type.registry] 
+New type java.util.ArrayList<domain.Sesion>
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-11 17:32:32 #1 server] 
+Server on port 8080 has started by 6928@DESKTOP-490MKBR
+
+[2023-05-11 17:32:35 #2 store] 
+Database 'C:\Users\jonetxe13\Desktop\universidad\IS\Bets21-master\src\main\resources\db\src\main\resources\bets.temp' is opened by 6928@DESKTOP-490MKBR
+
+[2023-05-11 17:33:18 #3 store] 
+Database 'C:\Users\jonetxe13\Desktop\universidad\IS\Bets21-master\src\main\resources\db\src\main\resources\bets.temp' is closed by 6928@DESKTOP-490MKBR
+
+[2023-05-11 17:33:27 #4 server] 
+Server on port 8080 has stopped by 6928@DESKTOP-490MKBR
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-11 17:39:24 #1 store] 
+Database 'C:\Users\jonetxe13\Desktop\universidad\IS\Bets21-master\src\main\resources\bets.temp' is opened by 7856@DESKTOP-490MKBR
+
+[2023-05-11 17:39:24 #2 type.registry] 
+New type domain.Actividad
+
+[2023-05-11 17:39:24 #3 type] 
+Type domain.Actividad is not enhanced.
+
+[2023-05-11 17:39:24 #4 type.registry] 
+New type domain.Encargado
+
+[2023-05-11 17:39:24 #5 type] 
+Type domain.Encargado is not enhanced.
+
+[2023-05-11 17:39:24 #6 type.registry] 
+New type domain.Usuario
+
+[2023-05-11 17:39:24 #7 type] 
+Type domain.Usuario is not enhanced.
+
+[2023-05-11 17:39:24 #8 type.registry] 
+New type domain.Sesion
+
+[2023-05-11 17:39:24 #9 type] 
+Type domain.Sesion is not enhanced.
+
+[2023-05-11 17:39:24 #10 type.registry] 
+New type domain.Sala
+
+[2023-05-11 17:39:24 #11 type] 
+Type domain.Sala is not enhanced.
+
+[2023-05-11 17:39:24 #12 type.registry] 
+New type java.util.ArrayList<java.lang.Object>
+
+[2023-05-11 17:39:24 #13 type.registry] 
+New type java.util.ArrayList<java.lang.String>
+
+[2023-05-11 17:39:24 #14 type.registry] 
+New type java.util.ArrayList<domain.Actividad>
+
+[2023-05-11 17:39:24 #15 type.registry] 
+New type java.util.LinkedList<java.lang.Object>
+
+[2023-05-11 17:39:24 #16 type.registry] 
+New type java.util.LinkedList<domain.Usuario>
+
+[2023-05-11 17:39:24 #17 type.registry] 
+New type java.util.ArrayList<domain.Sesion>
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-11 17:43:34 #1 store] 
+Database 'C:\Users\jonetxe13\Desktop\universidad\IS\Bets21-master\src\main\resources\bets.temp' is opened by 12660@DESKTOP-490MKBR
+
+[2023-05-11 17:43:34 #2 type.registry] 
+New type domain.Actividad
+
+[2023-05-11 17:43:34 #3 type] 
+Type domain.Actividad is not enhanced.
+
+[2023-05-11 17:43:34 #4 type.registry] 
+New type domain.Encargado
+
+[2023-05-11 17:43:34 #5 type] 
+Type domain.Encargado is not enhanced.
+
+[2023-05-11 17:43:34 #6 type.registry] 
+New type domain.Usuario
+
+[2023-05-11 17:43:34 #7 type] 
+Type domain.Usuario is not enhanced.
+
+[2023-05-11 17:43:34 #8 type.registry] 
+New type domain.Sesion
+
+[2023-05-11 17:43:34 #9 type] 
+Type domain.Sesion is not enhanced.
+
+[2023-05-11 17:43:34 #10 type.registry] 
+New type domain.Sala
+
+[2023-05-11 17:43:34 #11 type] 
+Type domain.Sala is not enhanced.
+
+[2023-05-11 17:43:34 #12 type.registry] 
+New type java.util.ArrayList<java.lang.Object>
+
+[2023-05-11 17:43:34 #13 type.registry] 
+New type java.util.ArrayList<java.lang.String>
+
+[2023-05-11 17:43:34 #14 type.registry] 
+New type java.util.ArrayList<domain.Actividad>
+
+[2023-05-11 17:43:34 #15 type.registry] 
+New type java.util.LinkedList<java.lang.Object>
+
+[2023-05-11 17:43:34 #16 type.registry] 
+New type java.util.LinkedList<domain.Usuario>
+
+[2023-05-11 17:43:34 #17 type.registry] 
+New type java.util.ArrayList<domain.Sesion>
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-11 17:56:53 #1 server] 
+Server on port 8080 has started by 13176@DESKTOP-490MKBR
+
