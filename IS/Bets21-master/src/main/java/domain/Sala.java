@@ -18,7 +18,7 @@ public class Sala {
 	public Sala(int numero, int aforo) {
 		this.numero = numero;
 		this.aforoMax = aforo;
-		this.listaSesiones = new ArrayList<Sesion>();
+		this.listaSesiones = new ArrayList<>();
 	}
 
 	public int getAforoMax() {	return aforoMax; }
@@ -27,7 +27,8 @@ public class Sala {
 	public void setNumero(int numero) {	this.numero = numero;	}
 	public List<Sesion> getListaSesiones() { return listaSesiones; }
 	public void setListaSesiones(List<Sesion> listaSesiones) { this.listaSesiones = listaSesiones; }
-	
+
+	@Override
 	public String toString() {
 		String res;
 		res = this.numero + "; aforomax: " + this.aforoMax + " {";

@@ -2,20 +2,17 @@ package dataAccess;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import configuration.ConfigXML;
-
-import javax.swing.JTextArea;
-
-
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 /**
  * It runs the database server as a separate process.
@@ -27,22 +24,22 @@ public class ObjectdbManagerServer extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	JTextArea textArea;
 	ConfigXML c;
-	
+
 	//For windows
     private String objectDbpath="src\\main\\resources\\objectdb.jar";
-    
-    //For mac 
+
+    //For mac
     //private String objectDbpath="src//main//resources//objectdb.jar";
 
- 	
+
 
 
 	public static void main(String[] args) {
 		try {
-			
-			
+
+
 			ObjectdbManagerServer dialog = new ObjectdbManagerServer();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -51,7 +48,7 @@ public class ObjectdbManagerServer extends JDialog {
 
 
 	public ObjectdbManagerServer() {
-	    
+
 		setTitle("objectDBManagerServer: running the database server");
 		setBounds(100, 100, 486, 180);
 		getContentPane().setLayout(new BorderLayout());
@@ -69,21 +66,22 @@ public class ObjectdbManagerServer extends JDialog {
 			{
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent e) {
 						textArea.append("\n\n\nClosing the database... ");
 					    try {
 					    	System.out.println("Server close");
 					    	 try {
-					    		    
-					    		    
+
+
 							    	Runtime.getRuntime().exec("java -cp "+objectDbpath+" com.objectdb.Server -port "+ c.getDatabasePort()+" stop");
-							    	
+
 							    } catch (Exception ioe) {
 							    	System.out.println (ioe);
 							    }
 
 								System.exit(1);
-							
+
 						} catch (Exception e1) {
 						}
 						System.exit(1);
@@ -99,9 +97,9 @@ public class ObjectdbManagerServer extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-		
+
 		ConfigXML c=ConfigXML.getInstance();
-		
+
 		if (c.isDatabaseLocal()) {
 			textArea.append("\nERROR, the database is configured as local");
 		}
@@ -109,7 +107,7 @@ public class ObjectdbManagerServer extends JDialog {
 		try{
 			System.out.println("Lauching objectdb server");
 
-			
+
 			try {
 		    	Runtime.getRuntime().exec("java -cp "+objectDbpath+" com.objectdb.Server -port "+ c.getDatabasePort()+" start");
 		    } catch (Exception ioe) {
@@ -117,16 +115,16 @@ public class ObjectdbManagerServer extends JDialog {
 		    }
 
 		    textArea.append("\nAccess granted to: "+c.getUser());
-		    
+
 			textArea.append("\nPress button to exit this database server... ");
-			
+
 		} catch (Exception e) {
 			textArea.append("Something has happened in ObjectDbManagerServer: "+e.toString());
 
 		}
-		
+
 		}
 	}
 
 }
-	
+

@@ -10,12 +10,12 @@ public class Encargado {
 
 	private String contrasenna;
     private static Encargado instance;
-    
+
 	public Encargado(String correo, String contrasenna) {
 		this.correo = correo;
 		this.contrasenna = contrasenna;
 	}
-	
+
     public static Encargado getInstance(String correo, String contrasenna) {
         if (instance == null) {
             instance = new Encargado(correo, contrasenna);

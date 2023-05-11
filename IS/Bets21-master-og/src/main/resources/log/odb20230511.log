@@ -1,0 +1,23 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-11 16:06:31 #1 store] 
+Database 'C:\Users\jonetxe13\Desktop\universidad\IS\Bets21-master-og\src\main\resources\bets.temp' is opened by 7092@DESKTOP-490MKBR
+
+[2023-05-11 16:06:31 #2 type.registry] 
+New type domain.Question
+
+[2023-05-11 16:06:31 #3 type] 
+Type domain.Question is not enhanced.
+
+[2023-05-11 16:06:31 #4 type.registry] 
+New type domain.Event
+
+[2023-05-11 16:06:31 #5 type] 
+Type domain.Event is not enhanced.
+
+[2023-05-11 16:06:31 #6 type.registry] 
+New type java.util.Vector<domain.Question>
+
+[2023-05-11 16:06:31 #7 type.registry] 
+New type java.util.Vector<java.lang.Object>
+

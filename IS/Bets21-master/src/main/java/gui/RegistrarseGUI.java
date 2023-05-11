@@ -1,63 +1,50 @@
 package gui;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ResourceBundle;
-import java.util.Vector;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.SwingConstants;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 import businessLogic.BLFacade;
-import domain.Usuario;
-
-import javax.swing.JTextField;
-import javax.swing.BoxLayout;
-import java.awt.FlowLayout;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
-import javax.swing.JPasswordField;
 
 public class RegistrarseGUI extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private JTextField correoTextField;
 	private JPasswordField passwordField1;
 	private JPasswordField passwordField2;
-	
+
 	/**
 	 * This is the default constructor
 	 */
 	public RegistrarseGUI() {
 		getContentPane().setLayout(null);
-		
+
 		correoTextField = new JTextField();
 		correoTextField.setBounds(207, 48, 116, 19);
 		getContentPane().add(correoTextField);
 		correoTextField.setColumns(10);
-		
+
 		passwordField1 = new JPasswordField();
 		passwordField1.setBounds(207, 98, 116, 19);
 		getContentPane().add(passwordField1);
-		
+
 		passwordField2 = new JPasswordField();
 		passwordField2.setBounds(207, 154, 116, 19);
 		getContentPane().add(passwordField2);
-		
-		JLabel error = new JLabel("error"); //$NON-NLS-1$ //$NON-NLS-2$
+
+		JLabel error = new JLabel("error"); //$NON-NLS-1$
 		error.setBounds(207, 180, 397, 13);
 		error.setVisible(false);
 		getContentPane().add(error);
-		
+
 		JButton btnNewButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.btnNewButton.text")); //$NON-NLS-1$ //$NON-NLS-2$
 		btnNewButton.setBounds(207, 205, 116, 34);
 		btnNewButton.addActionListener(new java.awt.event.ActionListener() {
+			@SuppressWarnings("deprecation")
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				//tienes que introducir la contrasenna dos veces para verificarla y te crea el usuario
 				BLFacade bussinesLogic = RegistroGUI.getBusinessLogic();
@@ -84,24 +71,24 @@ public class RegistrarseGUI extends JFrame{
 						error.setVisible(true);
 						JFrame a = new RegistradoGUI(bussinesLogic.createUsuario(correoTextField.getText(), passwordField1.getText()));
 						a.setBounds(0, 0, 700, 600);
-						a.setVisible(true);	
+						a.setVisible(true);
 					}
 				}
 			}
 		});
 		getContentPane().add(btnNewButton);
-		
-		JLabel lblCorreo = new JLabel("Correo electronico:"); //$NON-NLS-1$ //$NON-NLS-2$
+
+		JLabel lblCorreo = new JLabel("Correo electronico:"); //$NON-NLS-1$
 		lblCorreo.setBounds(51, 51, 146, 13);
 		getContentPane().add(lblCorreo);
-		
-		JLabel lblContraseña = new JLabel("Introducir contraseña:"); //$NON-NLS-1$ //$NON-NLS-2$
+
+		JLabel lblContraseña = new JLabel("Introducir contraseña:"); //$NON-NLS-1$
 		lblContraseña.setBounds(51, 101, 146, 13);
 		getContentPane().add(lblContraseña);
-		
-		JLabel lblRepetirContr = new JLabel("Repetir contraseña:"); //$NON-NLS-1$ //$NON-NLS-2$
+
+		JLabel lblRepetirContr = new JLabel("Repetir contraseña:"); //$NON-NLS-1$
 		lblRepetirContr.setBounds(51, 157, 145, 13);
 		getContentPane().add(lblRepetirContr);
-		
+
 	}
 }

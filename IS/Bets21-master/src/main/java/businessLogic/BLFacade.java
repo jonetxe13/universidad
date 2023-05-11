@@ -1,33 +1,28 @@
 package businessLogic;
 
-import java.util.Vector;
-import java.util.Date;
 import java.util.List;
-
-//import domain.Booking;
-import domain.Question;
-import domain.Sala;
-import domain.Sesion;
-import domain.Usuario;
-import domain.Actividad;
-import domain.Encargado;
-import domain.Event;
-import exceptions.EventFinished;
-import exceptions.QuestionAlreadyExist;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+
+import domain.Actividad;
+import domain.Encargado;
+import domain.Sala;
+import domain.Sesion;
+import domain.Usuario;
+import exceptions.EventFinished;
+import exceptions.QuestionAlreadyExist;
 
 /**
  * Interface that specifies the business logic.
  */
 @WebService
 public interface BLFacade  {
-	  
+
 
 	/**
 	 * This method creates a question for an event, with a question text and the minimum bet
-	 * 
+	 *
 	 * @param event to which question is added
 	 * @param question text of the question
 	 * @param betMinimum minimum quantity of the bet
@@ -40,12 +35,12 @@ public interface BLFacade  {
 	@WebMethod public boolean userExists(String text, String text2);
 	@WebMethod public boolean encargadoExists(String text, String text2);
 	@WebMethod public Encargado getEncargado(String text, String text2);
-	
-	
+
+
 	/**
 	 * This method calls the data access to initialize the database with some events and questions.
 	 * It is invoked only when the option "initialize" is declared in the tag dataBaseOpenMode of resources/config.xml file
-	 */	
+	 */
 	@WebMethod public void initializeBD();
 	@WebMethod public Sala getSala(String string);
 	@WebMethod public List<Sesion> sesionesSemana();
@@ -57,5 +52,5 @@ public interface BLFacade  {
 	@WebMethod public Sesion annadirSesion(String text, String string, String text3, String text4, String text5);
 	@WebMethod public Sesion quitarSesion(String text, String text2);
 	@WebMethod public Actividad annadirActividad(String text, String text2, String text3);
-	
+
 }

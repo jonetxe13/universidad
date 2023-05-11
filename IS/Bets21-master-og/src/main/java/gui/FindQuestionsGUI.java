@@ -1,26 +1,40 @@
 package gui;
 
-import businessLogic.BLFacade;
-import configuration.UtilDate;
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.Vector;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JCalendar;
-import domain.Question;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.beans.*;
-import java.text.DateFormat;
-import java.util.*;
 
-import javax.swing.table.DefaultTableModel;
+import businessLogic.BLFacade;
+import configuration.UtilDate;
+import domain.Question;
 
 
 public class FindQuestionsGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private final JLabel jLabelEventDate = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("EventDate"));
-	private final JLabel jLabelQueries = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Queries")); 
-	private final JLabel jLabelEvents = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Events")); 
+	private final JLabel jLabelQueries = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Queries"));
+	private final JLabel jLabelEvents = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("Events"));
 
 	private JButton jButtonClose = new JButton(ResourceBundle.getBundle("Etiquetas").getString("Close"));
 
@@ -30,8 +44,8 @@ public class FindQuestionsGUI extends JFrame {
 	private Calendar calendarAct = null;
 	private JScrollPane scrollPaneEvents = new JScrollPane();
 	private JScrollPane scrollPaneQueries = new JScrollPane();
-	
-	private Vector<Date> datesWithEventsCurrentMonth = new Vector<Date>();
+
+	private Vector<Date> datesWithEventsCurrentMonth = new Vector<>();
 
 	private JTable tableEvents= new JTable();
 	private JTable tableQueries = new JTable();
@@ -39,14 +53,14 @@ public class FindQuestionsGUI extends JFrame {
 	private DefaultTableModel tableModelEvents;
 	private DefaultTableModel tableModelQueries;
 
-	
+
 	private String[] columnNamesEvents = new String[] {
-			ResourceBundle.getBundle("Etiquetas").getString("EventN"), 
-			ResourceBundle.getBundle("Etiquetas").getString("Event"), 
+			ResourceBundle.getBundle("Etiquetas").getString("EventN"),
+			ResourceBundle.getBundle("Etiquetas").getString("Event"),
 
 	};
 	private String[] columnNamesQueries = new String[] {
-			ResourceBundle.getBundle("Etiquetas").getString("QueryN"), 
+			ResourceBundle.getBundle("Etiquetas").getString("QueryN"),
 			ResourceBundle.getBundle("Etiquetas").getString("Query")
 
 	};
@@ -63,7 +77,7 @@ public class FindQuestionsGUI extends JFrame {
 		}
 	}
 
-	
+
 	private void jbInit() throws Exception
 	{
 
@@ -83,6 +97,7 @@ public class FindQuestionsGUI extends JFrame {
 
 		jButtonClose.addActionListener(new ActionListener()
 		{
+			@Override
 			public void actionPerformed(ActionEvent e)
 			{
 				jButton2_actionPerformed(e);
@@ -101,6 +116,7 @@ public class FindQuestionsGUI extends JFrame {
 		// Code for JCalendar
 		this.jCalendar1.addPropertyChangeListener(new PropertyChangeListener()
 		{
+			@Override
 			public void propertyChange(PropertyChangeEvent propertychangeevent)
 			{
 
@@ -116,19 +132,19 @@ public class FindQuestionsGUI extends JFrame {
 //					jCalendar1.setCalendar(calendarAct);
 					Date firstDay=UtilDate.trim(new Date(jCalendar1.getCalendar().getTime().getTime()));
 
-					 
-					
+
+
 					int monthAnt = calendarAnt.get(Calendar.MONTH);
 					int monthAct = calendarAct.get(Calendar.MONTH);
-					
+
 					if (monthAct!=monthAnt) {
 						if (monthAct==monthAnt+2) {
 							// Si en JCalendar está 30 de enero y se avanza al mes siguiente, devolvería 2 de marzo (se toma como equivalente a 30 de febrero)
 							// Con este código se dejará como 1 de febrero en el JCalendar
 							calendarAct.set(Calendar.MONTH, monthAnt+1);
 							calendarAct.set(Calendar.DAY_OF_MONTH, 1);
-						}						
-						
+						}
+
 						jCalendar1.setCalendar(calendarAct);
 
 						BLFacade facade = MainGUI.getBusinessLogic();
@@ -139,8 +155,8 @@ public class FindQuestionsGUI extends JFrame {
 
 
 					CreateQuestionGUI.paintDaysWithEvents(jCalendar1,datesWithEventsCurrentMonth);
-													
-					
+
+
 
 					try {
 						tableModelEvents.setDataVector(null, columnNamesEvents);
@@ -153,14 +169,14 @@ public class FindQuestionsGUI extends JFrame {
 						if (events.isEmpty() ) jLabelEvents.setText(ResourceBundle.getBundle("Etiquetas").getString("NoEvents")+ ": "+dateformat1.format(calendarAct.getTime()));
 						else jLabelEvents.setText(ResourceBundle.getBundle("Etiquetas").getString("Events")+ ": "+dateformat1.format(calendarAct.getTime()));
 						for (domain.Event ev:events){
-							Vector<Object> row = new Vector<Object>();
+							Vector<Object> row = new Vector<>();
 
 							System.out.println("Events "+ev);
 
 							row.add(ev.getEventNumber());
 							row.add(ev.getDescription());
 							row.add(ev); // ev object added in order to obtain it with tableModelEvents.getValueAt(i,2)
-							tableModelEvents.addRow(row);		
+							tableModelEvents.addRow(row);
 						}
 						tableEvents.getColumnModel().getColumn(0).setPreferredWidth(25);
 						tableEvents.getColumnModel().getColumn(1).setPreferredWidth(268);
@@ -171,11 +187,11 @@ public class FindQuestionsGUI extends JFrame {
 					}
 
 				}
-			} 
+			}
 		});
 
 		this.getContentPane().add(jCalendar1, null);
-		
+
 		scrollPaneEvents.setBounds(new Rectangle(292, 50, 346, 150));
 		scrollPaneQueries.setBounds(new Rectangle(138, 274, 406, 116));
 
@@ -190,15 +206,15 @@ public class FindQuestionsGUI extends JFrame {
 
 				if (queries.isEmpty())
 					jLabelQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("NoQueries")+": "+ev.getDescription());
-				else 
+				else
 					jLabelQueries.setText(ResourceBundle.getBundle("Etiquetas").getString("SelectedEvent")+" "+ev.getDescription());
 
 				for (domain.Question q:queries){
-					Vector<Object> row = new Vector<Object>();
+					Vector<Object> row = new Vector<>();
 
 					row.add(q.getQuestionNumber());
 					row.add(q.getQuestion());
-					tableModelQueries.addRow(row);	
+					tableModelQueries.addRow(row);
 				}
 				tableQueries.getColumnModel().getColumn(0).setPreferredWidth(25);
 				tableQueries.getColumnModel().getColumn(1).setPreferredWidth(268);

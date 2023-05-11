@@ -2,19 +2,14 @@ package dataAccess;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.util.ArrayList;
 //hello
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.Vector;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -23,15 +18,11 @@ import javax.persistence.TypedQuery;
 //import javax.swing.text.html.HTMLDocument.Iterator;
 
 import configuration.ConfigXML;
-import configuration.UtilDate;
 import domain.Actividad;
 import domain.Encargado;
-import domain.Event;
-import domain.Question;
 import domain.Sala;
 import domain.Sesion;
 import domain.Usuario;
-import exceptions.QuestionAlreadyExist;
 
 /**
  * It implements the data access to the objectDb database
@@ -44,61 +35,55 @@ public class DataAccess  {
 	ConfigXML c=ConfigXML.getInstance();
 
      public DataAccess(boolean initializeMode)  {
-		
+
 		System.out.println("Creating DataAccess instance => isDatabaseLocal: "+c.isDatabaseLocal()+" getDatabBaseOpenMode: "+c.getDataBaseOpenMode());
 
 		open(initializeMode);
-		
+
 	}
 
-	public DataAccess()  {	
+	public DataAccess()  {
 		 this(false);
 	}
-	
-	
+
+
 	/**
 	 * This is the data access method that initializes the database with some events and questions.
 	 * This method is invoked by the business logic (constructor of BLFacadeImplementation) when the option "initialize" is declared in the tag dataBaseOpenMode of resources/config.xml file
-	 */	
+	 */
 	public void initializeDB(){
-		
+
 		db.getTransaction().begin();
 		try {
 
-			
-		   Calendar today = Calendar.getInstance();
-		   
-		   int month=today.get(Calendar.MONTH);
-		   int year=today.get(Calendar.YEAR);
-		   if (month==12) { month=0; year+=1;}  
-	    
+
 		   Actividad act1 = new Actividad("zumba", 3, 5);
 		   Actividad act2 = new Actividad("pilates", 2, 15);
 		   Actividad act3 = new Actividad("crossfit", 5, 25);
 		   db.persist(act1);
 		   db.persist(act2);
 		   db.persist(act3);
-		   List<Actividad> listaActividades = new ArrayList<Actividad>();
+		   List<Actividad> listaActividades = new ArrayList<>();
 		   listaActividades.add(act1);
-		   listaActividades.add(act2);		
+		   listaActividades.add(act2);
 		   listaActividades.add(act3);
-		   
+
 		   Sala sala1 = new Sala(1, 20);
 		   Sala sala2 = new Sala(2, 20);
 		   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		   Calendar cal = Calendar.getInstance();
 		   cal.add(Calendar.DATE, 1);
 		   String fecha = sdf.format(cal.getTime());
-		   
+
 		   Encargado admin = Encargado.getInstance("admin@admin.com", "admin");
 		   System.out.println("se ha annadido al encargado");
 		   db.persist(admin);
-		   
+
 		   Usuario usuario = new Usuario("a@a.com", "nose");
 		   System.out.println("se ha annadido el usuario");
 		   db.persist(usuario);
-		   
-		   List<Sesion> lista = new ArrayList<Sesion>();
+
+		   List<Sesion> lista = new ArrayList<>();
 		   Sesion sesion1 = new Sesion(fecha, sala1, 1, listaActividades, 10 );
 		   lista.add(sesion1);
 
@@ -122,7 +107,7 @@ public class DataAccess  {
 		   fecha = sdf.format(cal.getTime());
 		   Sesion ses7 = new Sesion(fecha, sala1, 10, listaActividades, 15  );
 		   Sesion ses8 = new Sesion(fecha, sala1, 10, listaActividades, 15  );
-		   
+
 		   db.persist(sesion1);
 		   db.persist(ses2);
 		   db.persist(ses3);
@@ -131,20 +116,20 @@ public class DataAccess  {
 		   db.persist(ses6);
 		   db.persist(ses7);
 		   db.persist(ses8);
-		   
-		   lista.add(sesion1);	
-		   lista.add(ses2);	
-		   lista.add(ses3);	
-		   lista.add(ses4);	
-		   lista.add(ses5);	
-		   lista.add(ses6);	
-		   lista.add(ses7);	
-		   lista.add(ses8);	
-		   
+
+		   lista.add(sesion1);
+		   lista.add(ses2);
+		   lista.add(ses3);
+		   lista.add(ses4);
+		   lista.add(ses5);
+		   lista.add(ses6);
+		   lista.add(ses7);
+		   lista.add(ses8);
+
 		   sala1.setListaSesiones(lista);
 			db.persist(sala1);
 			db.persist(sala2);
-			
+
 			db.getTransaction().commit();
 		}
 		catch (Exception e){
@@ -154,7 +139,7 @@ public class DataAccess  {
 	}
 
 	public void open(boolean initializeMode){
-		
+
 		System.out.println("Opening DataAccess instance => isDatabaseLocal: "+c.isDatabaseLocal()+" getDatabBaseOpenMode: "+c.getDataBaseOpenMode());
 
 		String fileName=c.getDbFilename();
@@ -162,12 +147,12 @@ public class DataAccess  {
 			fileName=fileName+";drop";
 			System.out.println("Deleting the DataBase");
 		}
-		
+
 		if (c.isDatabaseLocal()) {
 			  emf = Persistence.createEntityManagerFactory("objectdb:"+fileName);
 			  db = emf.createEntityManager();
 		} else {
-			Map<String, String> properties = new HashMap<String, String>();
+			Map<String, String> properties = new HashMap<>();
 			  properties.put("javax.persistence.jdbc.user", c.getUser());
 			  properties.put("javax.persistence.jdbc.password", c.getPassword());
 			  System.out.println(c);
@@ -175,7 +160,7 @@ public class DataAccess  {
 
 			  db = emf.createEntityManager();
     	   }
-		
+
 	}
 	public void close(){
 		db.close();
@@ -215,7 +200,7 @@ public class DataAccess  {
 		db.getTransaction().commit();
 		System.out.println("Si que contiene el encargado");
 		return true;
-		
+
 	}
 	public Encargado getEncargado(Encargado encargado) {
 		db.getTransaction().begin();
@@ -258,18 +243,18 @@ public class DataAccess  {
 
 	public List<Sesion> getSesionesSemana() {
 		System.out.println("Buscando las sesiones de esta semana en la base de datos");
-	    // Calculate the start and end of this week		   
+	    // Calculate the start and end of this week
 	   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	   Calendar cal = Calendar.getInstance();
 	   cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 	   String lunes = sdf.format(cal.getTime());
-	   
+
 	   System.out.println(lunes);
-	   
+
 	   //se le suma 6 dias para tener el domingo
 	   cal.add(Calendar.DATE, 6);
 	   String domingo = sdf.format(cal.getTime());
-	   
+
 	   System.out.println(domingo);
 
 		TypedQuery<Sesion> query = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha BETWEEN :start AND :end ORDER BY s.fecha", Sesion.class);
@@ -282,7 +267,7 @@ public class DataAccess  {
 	}
 	public List<Actividad> getActividades() {
 		System.out.println("Buscando las actividades en la base de datos");
-	   
+
 		TypedQuery<Actividad> query = db.createQuery("SELECT a FROM Actividad a", Actividad.class);
 		System.out.println(query);
 
@@ -290,14 +275,14 @@ public class DataAccess  {
 		return resultado;
 	}
 
-	public boolean addReserva(Sesion sesion, Usuario user) {		  
+	public boolean addReserva(Sesion sesion, Usuario user) {
 		db.getTransaction().begin();
-		
+
 		String idUsuario = user.getCorreo();
 		String idSesion = sesion.getFecha();
-		
+
 		Usuario usuario = db.find(Usuario.class, idUsuario);
-		
+
 		TypedQuery<Sesion> query = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha=:fecha", Sesion.class);
 	    query.setParameter("fecha", idSesion);
 	    List<Sesion> sesiones = query.getResultList();
@@ -314,21 +299,21 @@ public class DataAccess  {
 		System.out.println(usuario.getListaReservas());
 		if(usuario.getListaReservas() != null) {
 			for(String r: user.getListaReservas()) {
-				
+
 				System.out.println(r.equals(ses.getFecha()+"/"+ses.getSala().getNumero()+ "/"+user.getCorreo()));
 
 				if(r.equals(ses.getFecha()+"/"+ses.getSala().getNumero()+ "/"+user.getCorreo())){
 					System.out.println("ya tienes esta sesion reservada");
 					return false;
 				}
-			}	
+			}
 		}
 		String codigo = ses.crearHash(user);
 		usuario.addReserva(codigo);
 		ses.setPlazasDisponibles(ses.getPlazasDisponibles()-1);
-		
+
 		db.persist(usuario);
-		db.persist(ses); 
+		db.persist(ses);
 		db.getTransaction().commit();
 		return true;
 	}
@@ -361,7 +346,7 @@ public class DataAccess  {
 		db.persist(ses);
 		db.persist(usr);
 		db.getTransaction().commit();
-		return ses;	
+		return ses;
 	}
 
 	public boolean cancelarReserva(Sesion sesion, Usuario user) {
@@ -377,10 +362,10 @@ public class DataAccess  {
 	    	}
 	    }
 		Usuario usr = db.find(Usuario.class, user.getCorreo());
-		
-		List<String> listaNomSesion = new ArrayList<String>();
+
+		List<String> listaNomSesion = new ArrayList<>();
 		List<String> listaReservas = usr.getListaReservas();
-		
+
 		Iterator<String> iterator = listaReservas.iterator();
 		while (iterator.hasNext()) {
 		    String s = iterator.next();
@@ -394,7 +379,7 @@ public class DataAccess  {
 		        if(user2 != null) {
 		        	System.out.println(user2);
 		        	user2.addReserva(ses.crearHash(user2));
-		        	ses.setPlazasDisponibles(ses.getPlazasDisponibles()-1);		        	
+		        	ses.setPlazasDisponibles(ses.getPlazasDisponibles()-1);
 		        }
 		    }
 		}
@@ -417,14 +402,14 @@ public class DataAccess  {
 		try {
 			date = dateFormat.parse(fecha);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
+		@SuppressWarnings("deprecation")
 		int month = date.getMonth();
 		Calendar fechaActual = Calendar.getInstance();
 		int monthActual = fechaActual.get(Calendar.MONTH);
-		
+
 		if(listaSes != null) {
 			for(Sesion ses: listaSes) {
 				if(ses.getFecha() != null && ses.getFecha().equals(fecha) && ses.getSala() != null && ses.getSala().equals(salaSes)) {
@@ -444,7 +429,7 @@ public class DataAccess  {
 		}
 		else {
 			String[] listaNomActiv = listaActividades.split(",");
-			List<Actividad> listAct = new ArrayList<Actividad>();
+			List<Actividad> listAct = new ArrayList<>();
 			for(String nom: listaNomActiv) {
 				Actividad activ = db.find(Actividad.class, nom);
 				if(activ == null) {
@@ -493,4 +478,3 @@ public class DataAccess  {
 		return act;
 	}
 }
-	

@@ -1,7 +1,7 @@
 package exceptions;
 public class EventFinished extends Exception {
  private static final long serialVersionUID = 1L;
- 
+
  public EventFinished()
   {
     super();

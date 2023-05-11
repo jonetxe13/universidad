@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Sesion {
@@ -31,14 +30,14 @@ public class Sesion {
 			System.out.println("la sesion no puede tener mas plazas que la sala");
 		this.plazasDisponibles = plazas;
 		this.sala = sala;
-		this.listaEspera = new LinkedList<Usuario>();
+		this.listaEspera = new LinkedList<>();
 		this.listaActividades = listaActividades;
 	}
-	
+
 	public String getFecha() { return fecha; }
-	public void setFecha(String fecha) { this.fecha = fecha; }	
+	public void setFecha(String fecha) { this.fecha = fecha; }
 	public int getPrecio() { return precio; }
-	public void setPrecio(int precio) { this.precio = precio; }	
+	public void setPrecio(int precio) { this.precio = precio; }
 	public int getPlazasDisponibles() {	return plazasDisponibles; }
 	public void setPlazasDisponibles(int plazasDisponibles) {	this.plazasDisponibles = plazasDisponibles;	}
 	public List<Actividad> getListaActividades() {	return listaActividades;	}
@@ -57,7 +56,7 @@ public class Sesion {
 		System.out.println("se te ha añadido a la lista de espera");
 		listaEspera.add(user);
 		for(Usuario usr: this.getListaEspera()) {
-			System.out.print(usr.getCorreo());			
+			System.out.print(usr.getCorreo());
 		}
 	}
 	public Usuario removeDeListaEspera() {

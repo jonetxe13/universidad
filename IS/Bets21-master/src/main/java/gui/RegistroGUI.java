@@ -1,32 +1,19 @@
 package gui;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ResourceBundle;
-import java.util.Vector;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.SwingConstants;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 import businessLogic.BLFacade;
-import domain.Event;
-import domain.Usuario;
-
-import javax.swing.JTextField;
-import javax.swing.BoxLayout;
-import java.awt.FlowLayout;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
-import javax.swing.JPasswordField;
 
 public class RegistroGUI extends JFrame{
 	private static final long serialVersionUID = 1L;
@@ -34,27 +21,24 @@ public class RegistroGUI extends JFrame{
 	private JPanel jContentPane = null;
 
     private static BLFacade appFacadeInterface;
-	
+
 	public static BLFacade getBusinessLogic(){
 		return appFacadeInterface;
 	}
-	 
+
 	public static void setBussinessLogic (BLFacade afi){
 		appFacadeInterface=afi;
 	}
-	private JRadioButton rdbtnNewRadioButton;
-	private JRadioButton rdbtnNewRadioButton_1;
-	private JRadioButton rdbtnNewRadioButton_2;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
+	
 	private JTextField textField;
 	private JPasswordField passwordField;
-	
+
 	/**
 	 * This is the default constructor
 	 */
 	public RegistroGUI() {
 		super();
-		
+
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -78,38 +62,38 @@ public class RegistroGUI extends JFrame{
 	}
 	/**
 	 * This method initializes jContentPane
-	 * 
+	 *
 	 * @return javax.swing.JPanel
 	 */
 	private JPanel getJContentPane() {
 		if (jContentPane == null) {
 			jContentPane = new JPanel();
 			jContentPane.setLayout(null);
-			
+
 			textField = new JTextField();
 //			textField.setText(ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.textField.text")); //$NON-NLS-1$ //$NON-NLS-2$
 			textField.setBounds(146, 45, 166, 34);
 			jContentPane.add(textField);
 			textField.setColumns(10);
-			
+
 			JLabel lblNewLabel = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.lblNewLabel.text")); //$NON-NLS-1$ //$NON-NLS-2$
 			lblNewLabel.setBounds(67, 55, 46, 14);
 			jContentPane.add(lblNewLabel);
-			
+
 			JLabel lblNewLabel_1 = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.lblNewLabel_1.text")); //$NON-NLS-1$ //$NON-NLS-2$
 			lblNewLabel_1.setBounds(67, 111, 69, 14);
 			jContentPane.add(lblNewLabel_1);
-			
+
 			JLabel lblNewLabel_2 = new JLabel(ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.lblNewLabel_2.text")); //$NON-NLS-1$ //$NON-NLS-2$
 			lblNewLabel_2.setBounds(191, 20, 96, 14);
 			jContentPane.add(lblNewLabel_2);
-			
+
 			passwordField = new JPasswordField();
 //			passwordField.setText(ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.passwordField.text")); //$NON-NLS-1$ //$NON-NLS-2$
 			passwordField.setBounds(146, 100, 166, 28);
 			jContentPane.add(passwordField);
 //			ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.lblNewLabel_3.text")
-			JLabel registrarseLBL = new JLabel("**Registrarse**"); //$NON-NLS-1$ //$NON-NLS-2$
+			JLabel registrarseLBL = new JLabel("**Registrarse**"); //$NON-NLS-1$
 			registrarseLBL.setBounds(146, 139, 90, 14);
 			registrarseLBL.addMouseListener(new MouseAdapter() {
 				@Override
@@ -120,8 +104,8 @@ public class RegistroGUI extends JFrame{
 				}
 			});
 			jContentPane.add(registrarseLBL);
-			
-			JLabel error = new JLabel("El usuario no existe o es incorrecto"); //$NON-NLS-1$ //$NON-NLS-2$
+
+			JLabel error = new JLabel("El usuario no existe o es incorrecto"); //$NON-NLS-1$
 			error.setBounds(245, 140, 197, 13);
 			error.setVisible(false);
 			jContentPane.add(error);
@@ -129,10 +113,12 @@ public class RegistroGUI extends JFrame{
 			JButton btnNewButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.btnNewButton.text")); //$NON-NLS-1$ //$NON-NLS-2$
 			btnNewButton.setBounds(169, 179, 115, 34);
 			btnNewButton.addActionListener(new java.awt.event.ActionListener() {
+				@SuppressWarnings("deprecation")
+				@Override
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					// Cuando haces click mira si el usuario existe, si existe crea una ventana con el usuario registrado
 					BLFacade bussinesLogic = appFacadeInterface;
-					
+
 					if(bussinesLogic.encargadoExists(textField.getText(), passwordField.getText())) {
 						error.setText("el encargado se ha encontrado");
 						error.setVisible(true);
@@ -140,7 +126,7 @@ public class RegistroGUI extends JFrame{
 						JFrame a = new EncargadoGUI(bussinesLogic.getEncargado(textField.getText(), passwordField.getText()));
 						a.setBounds(0, 0, 500, 400);
 						a.setVisible(true);
-						
+
 					}
 					else if(bussinesLogic.userExists(textField.getText(), passwordField.getText())) {
 						error.setText("Se ha encontrado el usuario");
@@ -156,10 +142,11 @@ public class RegistroGUI extends JFrame{
 				}
 			});
 			jContentPane.add(btnNewButton);
-			
+
 			JButton btnConsultarSesiones = new JButton(ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.btnNewButton_1.text")); //$NON-NLS-1$ //$NON-NLS-2$
 			btnConsultarSesiones.setBounds(23, 176, 119, 40);
 			btnConsultarSesiones.addActionListener(new java.awt.event.ActionListener() {
+				@Override
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					JFrame a = new ConsultarSesionesGUI();
 					a.setBounds(0, 0, 500, 400);
@@ -167,8 +154,8 @@ public class RegistroGUI extends JFrame{
 				}
 			});
 			jContentPane.add(btnConsultarSesiones);
-			
-			
+
+
 		}
 		return jContentPane;
 	}
