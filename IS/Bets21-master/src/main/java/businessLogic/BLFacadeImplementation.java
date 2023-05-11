@@ -123,7 +123,15 @@ public class BLFacadeImplementation  implements BLFacade {
 	@WebMethod
 	public boolean addReserva(Sesion seleccionado, Usuario user) {
 		dbManager.open(false);
-		boolean bien = dbManager.addReserva(seleccionado, user);
+		boolean bien;
+		if(seleccionado.getPlazasDisponibles() == 0) {
+			this.addAListaEspera(seleccionado, user);
+			System.out.println("no hay espacio en la sesion");
+			bien = false;
+		}
+		else {
+			bien = dbManager.addReserva(seleccionado, user);
+		}
 		return bien;
 	}
 
