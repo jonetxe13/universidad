@@ -31,11 +31,12 @@ public class CancelarReservaGUI extends JFrame {
 		List<String> listaNomSesion = new ArrayList<>();
 		List<Integer> listaNumSala = new ArrayList<>();
 		List<Sesion> listaSesion = new ArrayList<>();
-
-		for(String s: lista) {
-			String[] nomSesion = s.split("/");
-			listaNomSesion.add(nomSesion[0]);
-			listaNumSala.add(Integer.parseInt(nomSesion[1]));
+		if(lista != null) {
+			for(String s: lista) {
+				String[] nomSesion = s.split("/");
+				listaNomSesion.add(nomSesion[0]);
+				listaNumSala.add(Integer.parseInt(nomSesion[1]));
+			}
 		}
 
 

@@ -117,10 +117,13 @@ public class BLFacadeImplementation  implements BLFacade {
 		return lista;
 	}
 
+	@Override
 	@WebMethod
 	public boolean addReserva(Sesion seleccionado, Usuario user) {
+		System.out.println("hasta aqui llega 1");
 		dbManager.open(false);
 		boolean bien;
+		System.out.println("hasta aqui llega 2");
 		if(seleccionado.getPlazasDisponibles() == 0) {
 			this.addAListaEspera(seleccionado, user);
 			System.out.println("no hay espacio en la sesion");
@@ -129,6 +132,7 @@ public class BLFacadeImplementation  implements BLFacade {
 		else {
 			bien = dbManager.addReserva(seleccionado, user);
 		}
+		System.out.println("hasta aqui llega 3");
 		dbManager.close();
 		return bien;
 	}

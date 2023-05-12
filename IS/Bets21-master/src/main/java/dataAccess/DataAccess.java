@@ -295,7 +295,7 @@ public class DataAccess  {
 	    }
 	    List<String> listaRes = usuario.getListaReservas();
 		if(listaRes != null) {
-			for(String r: user.getListaReservas()) {
+			for(String r: listaRes) {
 				System.out.println(r.equals(ses.getFecha()+"/"+ses.getSala().getNumero()+ "/"+user.getCorreo()));
 
 				if(r.equals(ses.getFecha()+"/"+ses.getSala().getNumero()+ "/"+user.getCorreo())){
