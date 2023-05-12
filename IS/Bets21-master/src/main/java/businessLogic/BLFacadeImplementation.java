@@ -26,6 +26,9 @@ public class BLFacadeImplementation  implements BLFacade {
 		if (c.getDataBaseOpenMode().equals("initialize")) {
 		    dbManager=new DataAccess(c.getDataBaseOpenMode().equals("initialize"));
 		    dbManager.initializeDB();
+//		    if(getActividades() != null) {
+//		    	System.out.println(getActividades());
+//		    }
 		    } else
 		     dbManager=new DataAccess();
 		dbManager.close();
@@ -58,6 +61,7 @@ public class BLFacadeImplementation  implements BLFacade {
 	 * This method invokes the data access to initialize the database with some events and questions.
 	 * It is invoked only when the option "initialize" is declared in the tag dataBaseOpenMode of resources/config.xml file
 	 */
+	@Override
 	@WebMethod
 	 public void initializeBD(){
     	dbManager.open(false);
@@ -65,6 +69,7 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.close();
 	}
 
+	@Override
 	@WebMethod
 	public Usuario createUsuario(String correo, String contrasenna) {
 	    //The minimum bed must be greater than 0
@@ -77,6 +82,7 @@ public class BLFacadeImplementation  implements BLFacade {
 
 		return qry;
 	}
+	@Override
 	@WebMethod
 	public boolean userExists(String correo, String contrasenna) {
 		dbManager.open(false);
@@ -85,6 +91,7 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.close();
 		return existe;
 	}
+	@Override
 	@WebMethod
 	public boolean encargadoExists(String correo, String contrasenna) {
 		dbManager.open(false);
@@ -93,6 +100,7 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.close();
 		return existe;
 	}
+	@Override
 	@WebMethod
 	public Encargado getEncargado(String correo, String contrasenna) {
 		dbManager.open(false);
@@ -102,6 +110,7 @@ public class BLFacadeImplementation  implements BLFacade {
 		return enc;
 	}
 
+	@Override
 	@WebMethod
 	public Sala getSala(String string) {
 		dbManager.open(false);
@@ -109,6 +118,7 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.close();
 		return sala1;
 	}
+	@Override
 	@WebMethod
 	public List<Sesion> sesionesSemana(){
 		dbManager.open(false);
@@ -117,11 +127,10 @@ public class BLFacadeImplementation  implements BLFacade {
 		return lista;
 	}
 
-	@Override
 	@WebMethod
 	public boolean addReserva(Sesion seleccionado, Usuario user) {
-		System.out.println("hasta aqui llega 1");
 		dbManager.open(false);
+		System.out.println("hasta aqui llega 1");
 		boolean bien;
 		System.out.println("hasta aqui llega 2");
 		if(seleccionado.getPlazasDisponibles() == 0) {
@@ -133,10 +142,11 @@ public class BLFacadeImplementation  implements BLFacade {
 			bien = dbManager.addReserva(seleccionado, user);
 		}
 		System.out.println("hasta aqui llega 3");
-		dbManager.close();
+//		dbManager.close();
 		return bien;
 	}
 
+	@Override
 	@WebMethod
 	public Sesion addAListaEspera(Sesion sesion, Usuario user) {
 		dbManager.open(false);
@@ -145,6 +155,7 @@ public class BLFacadeImplementation  implements BLFacade {
 		return añadidoOno;
 	}
 
+	@Override
 	@WebMethod
 	public Sesion getSesion(String fecha, int salaNum) {
 		dbManager.open(false);
@@ -153,6 +164,7 @@ public class BLFacadeImplementation  implements BLFacade {
 		return sesion;
 	}
 
+	@Override
 	@WebMethod
 	public boolean cancelarReserva(Sesion sesion, Usuario user) {
 		dbManager.open(false);
@@ -161,9 +173,11 @@ public class BLFacadeImplementation  implements BLFacade {
 		return res;
 	}
 
+	@Override
 	@WebMethod
 	public Sesion annadirSesion(String text, String salaNum, String text3, String text4, String text5) {
 		dbManager.open(false);
+    	System.out.println("llega hasta aqui");
 		int number = 0;
 		Sesion sesionAnnadida = null;
 		try {
@@ -183,6 +197,7 @@ public class BLFacadeImplementation  implements BLFacade {
 		return sesionAnnadida;
 	}
 
+	@Override
 	@WebMethod
 	public Sesion quitarSesion(String fecha, String salaNum) {
 		dbManager.open(false);
@@ -201,11 +216,13 @@ public class BLFacadeImplementation  implements BLFacade {
 	@WebMethod
 	public List<Actividad> getActividades() {
 		dbManager.open(false);
+		System.out.println("llega hasta aqui");
 		List<Actividad> lista = dbManager.getActividades();
 		dbManager.close();
 		return lista;
 	}
 
+	@Override
 	@WebMethod
 	public Actividad annadirActividad(String nombre, String nivel, String precio) {
 		dbManager.open(false);

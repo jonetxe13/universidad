@@ -110,13 +110,14 @@ public class PlanificarSesionesGUI extends JFrame {
 		getContentPane().add(error);
 		error.setText("se ha añadido correctamente");
 		error.setVisible(true);
-		
+
 
 		JButton annadirSesionbtn= new JButton("Annadir sesion");
 		annadirSesionbtn.setBounds(500, 197, 126, 38);
 		annadirSesionbtn.addActionListener(new java.awt.event.ActionListener() {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent e) {
+				System.out.println(fechaTextField.getText() + " " + salaTextField.getText() + " " + listaActividadesTextField.getText() + " " + precioTextField.getText() + " " + plazasTextField.getText());
 				bussinessLogic.annadirSesion(fechaTextField.getText(), salaTextField.getText(), listaActividadesTextField.getText(), precioTextField.getText(), plazasTextField.getText());
 				error.setText("se ha añadido correctamente");
 				error.setVisible(true);
@@ -129,8 +130,8 @@ public class PlanificarSesionesGUI extends JFrame {
 		quitarSesionbtn.addActionListener(new java.awt.event.ActionListener() {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				Sesion sesion = lista.get(table.getSelectedRow());
-				if(sesion != null) {
+				if(table.getSelectedRow() != -1) {
+					Sesion sesion = lista.get(table.getSelectedRow());
 					bussinessLogic.quitarSesion(sesion.getFecha(), Integer.toString(sesion.getSala().getNumero()));
 				}
 				else {

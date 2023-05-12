@@ -110,7 +110,10 @@ public class RegistroGUI extends JFrame{
 			error.setBounds(245, 140, 197, 13);
 			error.setVisible(false);
 			jContentPane.add(error);
-
+//			if(appFacadeInterface.getActividades() != null) {
+//				System.out.println("todo gucci");
+//			}
+			
 			JButton btnNewButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.btnNewButton.text")); //$NON-NLS-1$ //$NON-NLS-2$
 			btnNewButton.setBounds(169, 179, 115, 34);
 			btnNewButton.addActionListener(new java.awt.event.ActionListener() {
@@ -118,21 +121,20 @@ public class RegistroGUI extends JFrame{
 				@Override
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					// Cuando haces click mira si el usuario existe, si existe crea una ventana con el usuario registrado
-					BLFacade bussinesLogic = appFacadeInterface;
 
-					if(bussinesLogic.encargadoExists(textField.getText(), passwordField.getText())) {
+					if(appFacadeInterface.encargadoExists(textField.getText(), passwordField.getText())) {
 						error.setText("el encargado se ha encontrado");
 						error.setVisible(true);
-						System.out.println(bussinesLogic.getEncargado(textField.getText(), passwordField.getText()));
-						JFrame a = new EncargadoGUI(bussinesLogic.getEncargado(textField.getText(), passwordField.getText()));
+						System.out.println(appFacadeInterface.getEncargado(textField.getText(), passwordField.getText()));
+						JFrame a = new EncargadoGUI(appFacadeInterface.getEncargado(textField.getText(), passwordField.getText()));
 						a.setBounds(0, 0, 500, 400);
 						a.setVisible(true);
 
 					}
-					else if(bussinesLogic.userExists(textField.getText(), passwordField.getText())) {
+					else if(appFacadeInterface.userExists(textField.getText(), passwordField.getText())) {
 						error.setText("Se ha encontrado el usuario");
 						error.setVisible(true);
-						Usuario user = bussinesLogic.createUsuario(textField.getText(), passwordField.getText());
+						Usuario user = appFacadeInterface.createUsuario(textField.getText(), passwordField.getText());
 						JFrame a = new RegistradoGUI(user);
 						a.setBounds(0, 0, 500, 400);
 						a.setVisible(true);

@@ -1,5 +1,6 @@
 package gui;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -10,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import businessLogic.BLFacade;
+import domain.Actividad;
 import domain.Sesion;
 import domain.Usuario;
 
@@ -43,7 +45,14 @@ public class ReservarGUI extends JFrame {
 		    Vector<Object> row = new Vector<>();
 		    row.add(sesion.getFecha());
 		    row.add(sesion.getPlazasDisponibles());
-		    row.add(sesion.getListaActividades());
+		    List<String> listAct = new ArrayList<String>();
+		    if(sesion.getListaActividades() != null) {
+		    for(Actividad act: sesion.getListaActividades() ) {
+		    	listAct.add(act.getNombre());
+		    }
+	    	row.add(listAct);
+		    	
+		    }
 		    // ...
 		    rows.add(row);
 		}
@@ -68,12 +77,12 @@ public class ReservarGUI extends JFrame {
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				Sesion sesion = null;
 				if(table.getSelectedRow() != -1) {
-//					System.out.println("hasta aqui llega 1");
+					System.out.println("hasta aqui llega 1");
 					sesion = lista.get(table.getSelectedRow());
 					boolean annadido = bussinessLogic.addReserva(sesion, user);
-//					System.out.println("hasta aqui llega 2");
+					System.out.println("hasta aqui llega 2");
 					if(!annadido) {
-//						System.out.println("hasta aqui llega 3");
+						System.out.println("hasta aqui llega 3");
 						error.setText("Sesion llena asi que se añade a la lista de espera");
 						error.setVisible(true);
 					}

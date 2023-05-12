@@ -1,15 +1,23 @@
 package domain;
 
+//import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+//public class SesionId implements Serializable {
+//	private SesionId data = new SesionId();
+//
+//    // Constructor, getters, and setters
+//}
 @Entity
+@IdClass(SesionId.class)
 public class Sesion {
 	@Id
 	private String fecha;
@@ -40,7 +48,10 @@ public class Sesion {
 	public void setPrecio(int precio) { this.precio = precio; }
 	public int getPlazasDisponibles() {	return plazasDisponibles; }
 	public void setPlazasDisponibles(int plazasDisponibles) {	this.plazasDisponibles = plazasDisponibles;	}
-	public List<Actividad> getListaActividades() {	return listaActividades;	}
+	public List<Actividad> getListaActividades() {	
+//		System.out.println(listaActividades);
+		return listaActividades;	
+	}
 	public void setListaActividades(List<Actividad> listaActividades) {	this.listaActividades = listaActividades;	}
 	public Sala getSala() {	return sala; }
 	public void setSala(Sala sala) { this.sala = sala;	}

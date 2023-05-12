@@ -65,6 +65,10 @@ public class DataAccess  {
 		   listaActividades.add(act2);
 		   listaActividades.add(act3);
 
+		   db.persist(act1);
+		   db.persist(act2);
+		   db.persist(act3);
+		   
 		   Sala sala1 = new Sala(1, 20);
 		   Sala sala2 = new Sala(2, 20);
 		   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -81,7 +85,9 @@ public class DataAccess  {
 		   db.persist(usuario);
 
 		   List<Sesion> lista = new ArrayList<>();
-		   Sesion sesion1 = new Sesion(fecha, sala1, 1, listaActividades, 10 );
+		   
+		   System.out.println(listaActividades);
+		   Sesion sesion1 = new Sesion(fecha, sala1, 0, listaActividades, 10 );
 		   lista.add(sesion1);
 
 		   cal.add(Calendar.DATE, 1);
@@ -104,20 +110,7 @@ public class DataAccess  {
 		   fecha = sdf.format(cal.getTime());
 		   Sesion ses7 = new Sesion(fecha, sala1, 10, listaActividades, 15  );
 		   Sesion ses8 = new Sesion(fecha, sala1, 10, listaActividades, 15  );
-
-		   db.persist(act1);
-		   db.persist(act2);
-		   db.persist(act3);
 		   
-		   db.persist(sesion1);
-		   db.persist(ses2);
-		   db.persist(ses3);
-		   db.persist(ses4);
-		   db.persist(ses5);
-		   db.persist(ses6);
-		   db.persist(ses7);
-		   db.persist(ses8);
-
 		   lista.add(sesion1);
 		   lista.add(ses2);
 		   lista.add(ses3);
@@ -128,8 +121,22 @@ public class DataAccess  {
 		   lista.add(ses8);
 
 		   sala1.setListaSesiones(lista);
-			db.persist(sala1);
-			db.persist(sala2);
+		   
+//		   db.persist(lista);
+//		   db.persist(listaActividades);
+
+		   db.persist(sesion1);
+		   db.persist(ses2);
+		   db.persist(ses3);
+		   db.persist(ses4);
+		   db.persist(ses5);
+		   db.persist(ses6);
+		   db.persist(ses7);
+		   db.persist(ses8);
+		   
+		   db.persist(sala1);
+		   db.persist(sala2);
+
 
 			db.getTransaction().commit();
 		}
@@ -264,15 +271,21 @@ public class DataAccess  {
 	    query.setParameter("start", lunes);
 	    query.setParameter("end", domingo);
 		List<Sesion> resultado = query.getResultList();
+		System.out.println(resultado);
+		for(Sesion ses: resultado) {
+			System.out.println(ses.getListaActividades().toString());
+		}
 		return resultado;
 	}
 	public List<Actividad> getActividades() {
+		db.getTransaction().begin();
 		System.out.println("Buscando las actividades en la base de datos");
 
 		TypedQuery<Actividad> query = db.createQuery("SELECT a FROM Actividad a", Actividad.class);
 		System.out.println(query);
 
 		List<Actividad> resultado = query.getResultList();
+		db.getTransaction().commit();
 		return resultado;
 	}
 

@@ -1,5 +1,6 @@
 package gui;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -8,6 +9,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import businessLogic.BLFacade;
+import domain.Actividad;
 import domain.Sesion;
 
 public class ConsultarSesionesGUI extends JFrame {
@@ -36,7 +38,15 @@ public class ConsultarSesionesGUI extends JFrame {
 		    Vector<Object> row = new Vector<>();
 		    row.add(sesion.getFecha());
 		    row.add(sesion.getPlazasDisponibles());
-		    row.add(sesion.getListaActividades());
+		    List<String> listNomAct = new ArrayList<String>();
+		    List<Actividad> listAct = sesion.getListaActividades();
+		    if(listAct != null) {
+		    for(Actividad act: listAct) {
+		    	listNomAct.add(act.getNombre());
+		    }
+		    	
+		    }
+	    	row.add(listNomAct);
 		    // ...
 		    rows.add(row);
 		}

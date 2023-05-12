@@ -54,6 +54,7 @@ public class BusinessLogicServer extends JDialog {
 		});
 		setTitle("BusinessLogicServer: running the business logic");
 		setBounds(100, 100, 486, 209);
+		
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
