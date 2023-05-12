@@ -1,4 +1,5 @@
 package businessLogic;
+import java.util.Date;
 import java.util.List;
 
 import javax.jws.WebMethod;
@@ -61,7 +62,6 @@ public class BLFacadeImplementation  implements BLFacade {
 	 * This method invokes the data access to initialize the database with some events and questions.
 	 * It is invoked only when the option "initialize" is declared in the tag dataBaseOpenMode of resources/config.xml file
 	 */
-	@Override
 	@WebMethod
 	 public void initializeBD(){
     	dbManager.open(false);
@@ -69,7 +69,6 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.close();
 	}
 
-	@Override
 	@WebMethod
 	public Usuario createUsuario(String correo, String contrasenna) {
 	    //The minimum bed must be greater than 0
@@ -82,7 +81,6 @@ public class BLFacadeImplementation  implements BLFacade {
 
 		return qry;
 	}
-	@Override
 	@WebMethod
 	public boolean userExists(String correo, String contrasenna) {
 		dbManager.open(false);
@@ -91,7 +89,6 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.close();
 		return existe;
 	}
-	@Override
 	@WebMethod
 	public boolean encargadoExists(String correo, String contrasenna) {
 		dbManager.open(false);
@@ -100,7 +97,6 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.close();
 		return existe;
 	}
-	@Override
 	@WebMethod
 	public Encargado getEncargado(String correo, String contrasenna) {
 		dbManager.open(false);
@@ -110,7 +106,6 @@ public class BLFacadeImplementation  implements BLFacade {
 		return enc;
 	}
 
-	@Override
 	@WebMethod
 	public Sala getSala(String string) {
 		dbManager.open(false);
@@ -118,7 +113,6 @@ public class BLFacadeImplementation  implements BLFacade {
 		dbManager.close();
 		return sala1;
 	}
-	@Override
 	@WebMethod
 	public List<Sesion> sesionesSemana(){
 		dbManager.open(false);
@@ -146,7 +140,6 @@ public class BLFacadeImplementation  implements BLFacade {
 		return bien;
 	}
 
-	@Override
 	@WebMethod
 	public Sesion addAListaEspera(Sesion sesion, Usuario user) {
 		dbManager.open(false);
@@ -155,16 +148,17 @@ public class BLFacadeImplementation  implements BLFacade {
 		return añadidoOno;
 	}
 
-	@Override
 	@WebMethod
-	public Sesion getSesion(String fecha, int salaNum) {
+	public Sesion getSesion(Date fecha, int salaNum) {
 		dbManager.open(false);
+		fecha.setMinutes(0);
+		fecha.setSeconds(0);
 		Sesion sesion = dbManager.getSesion(fecha, salaNum);
+		System.out.println("la sesion en getSesion ->" + sesion.getFecha());
 		dbManager.close();
 		return sesion;
 	}
 
-	@Override
 	@WebMethod
 	public boolean cancelarReserva(Sesion sesion, Usuario user) {
 		dbManager.open(false);
@@ -173,9 +167,8 @@ public class BLFacadeImplementation  implements BLFacade {
 		return res;
 	}
 
-	@Override
 	@WebMethod
-	public Sesion annadirSesion(String text, String salaNum, String text3, String text4, String text5) {
+	public Sesion annadirSesion(Date fecha, String salaNum, String text3, String text4, String text5) {
 		dbManager.open(false);
     	System.out.println("llega hasta aqui");
 		int number = 0;
@@ -187,7 +180,7 @@ public class BLFacadeImplementation  implements BLFacade {
 			System.out.println("el numero que has introducido no es un entero o no es un numero valido");
 		}
 	    try {
-			sesionAnnadida = dbManager.annadirSesion(text, number, text3, text4, text5);
+			sesionAnnadida = dbManager.annadirSesion(fecha, number, text3, text4, text5);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -197,9 +190,8 @@ public class BLFacadeImplementation  implements BLFacade {
 		return sesionAnnadida;
 	}
 
-	@Override
 	@WebMethod
-	public Sesion quitarSesion(String fecha, String salaNum) {
+	public Sesion quitarSesion(Date fecha, String salaNum) {
 		dbManager.open(false);
 		int number = 0;
 		try {
@@ -222,7 +214,6 @@ public class BLFacadeImplementation  implements BLFacade {
 		return lista;
 	}
 
-	@Override
 	@WebMethod
 	public Actividad annadirActividad(String nombre, String nivel, String precio) {
 		dbManager.open(false);

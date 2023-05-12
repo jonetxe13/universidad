@@ -29,7 +29,7 @@ public class ConsultarSesionesGUI extends JFrame {
 		Vector<String> columns = new Vector<>();
 		columns.add("Fecha");
 		columns.add("Plazas");
-		columns.add("listaActividades");
+		columns.add("Actividades");
 		// ...
 
 		// Crear las filas del JTable
@@ -38,15 +38,7 @@ public class ConsultarSesionesGUI extends JFrame {
 		    Vector<Object> row = new Vector<>();
 		    row.add(sesion.getFecha());
 		    row.add(sesion.getPlazasDisponibles());
-		    List<String> listNomAct = new ArrayList<String>();
-		    List<Actividad> listAct = sesion.getListaActividades();
-		    if(listAct != null) {
-		    for(Actividad act: listAct) {
-		    	listNomAct.add(act.getNombre());
-		    }
-		    	
-		    }
-	    	row.add(listNomAct);
+	    	row.add(sesion.getActividad());
 		    // ...
 		    rows.add(row);
 		}
@@ -59,5 +51,4 @@ public class ConsultarSesionesGUI extends JFrame {
 		getContentPane().add(scrollPane);
 
 	}
-
 }

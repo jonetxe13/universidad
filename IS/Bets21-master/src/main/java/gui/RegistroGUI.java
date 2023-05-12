@@ -110,9 +110,6 @@ public class RegistroGUI extends JFrame{
 			error.setBounds(245, 140, 197, 13);
 			error.setVisible(false);
 			jContentPane.add(error);
-//			if(appFacadeInterface.getActividades() != null) {
-//				System.out.println("todo gucci");
-//			}
 			
 			JButton btnNewButton = new JButton(ResourceBundle.getBundle("Etiquetas").getString("RegistroGUI.btnNewButton.text")); //$NON-NLS-1$ //$NON-NLS-2$
 			btnNewButton.setBounds(169, 179, 115, 34);

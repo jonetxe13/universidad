@@ -1,5 +1,6 @@
 package businessLogic;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.jws.WebMethod;
@@ -47,10 +48,10 @@ public interface BLFacade  {
 	@WebMethod public List<Actividad> getActividades();
 	@WebMethod public boolean addReserva(Sesion seleccionado, Usuario user);
 	@WebMethod public  Sesion addAListaEspera(Sesion sesion, Usuario user);
-	@WebMethod public Sesion getSesion(String ses, int integer);
+	@WebMethod public Sesion getSesion(Date ses, int integer);
 	@WebMethod public boolean cancelarReserva(Sesion sesion, Usuario user);
-	@WebMethod public Sesion annadirSesion(String text, String string, String text3, String text4, String text5);
-	@WebMethod public Sesion quitarSesion(String text, String text2);
+	@WebMethod public Sesion annadirSesion(Date text, String string, String text3, String text4, String text5);
+	@WebMethod public Sesion quitarSesion(Date date, String text2);
 	@WebMethod public Actividad annadirActividad(String text, String text2, String text3);
 
 }

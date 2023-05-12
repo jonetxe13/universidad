@@ -60,10 +60,6 @@ public class DataAccess  {
 		   Actividad act1 = new Actividad("zumba", 3, 5);
 		   Actividad act2 = new Actividad("pilates", 2, 15);
 		   Actividad act3 = new Actividad("crossfit", 5, 25);
-		   List<Actividad> listaActividades = new ArrayList<>();
-		   listaActividades.add(act1);
-		   listaActividades.add(act2);
-		   listaActividades.add(act3);
 
 		   db.persist(act1);
 		   db.persist(act2);
@@ -71,10 +67,10 @@ public class DataAccess  {
 		   
 		   Sala sala1 = new Sala(1, 20);
 		   Sala sala2 = new Sala(2, 20);
-		   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		   
 		   Calendar cal = Calendar.getInstance();
-		   cal.add(Calendar.DATE, 1);
-		   String fecha = sdf.format(cal.getTime());
+		   cal.set(2023, Calendar.MAY, 12, 18, 0);
+		   Date fecha = cal.getTime();
 
 		   Encargado admin = Encargado.getInstance("admin@admin.com", "admin");
 		   System.out.println("se ha annadido al encargado");
@@ -85,46 +81,43 @@ public class DataAccess  {
 		   db.persist(usuario);
 
 		   List<Sesion> lista = new ArrayList<>();
-		   
-		   System.out.println(listaActividades);
-		   Sesion sesion1 = new Sesion(fecha, sala1, 0, listaActividades, 10 );
+		   fecha.setMinutes(0);
+		   fecha.setSeconds(0);
+		   Sesion sesion1 = new Sesion(fecha, sala1, 0, act1, 10 );
 		   lista.add(sesion1);
 
-		   cal.add(Calendar.DATE, 1);
-		   fecha = sdf.format(cal.getTime());
-
-		   Sesion ses2 = new Sesion(fecha, sala1, 10, listaActividades, 15 );
-		   cal.add(Calendar.DATE, 1);
-		   fecha = sdf.format(cal.getTime());
-		   Sesion ses3 = new Sesion(fecha, sala1, 10, listaActividades, 15  );
-		   cal.add(Calendar.DATE, 1);
-		   fecha = sdf.format(cal.getTime());
-		   Sesion ses4 = new Sesion(fecha, sala1, 10, listaActividades, 15  );
-		   cal.add(Calendar.DATE, 1);
-		   fecha = sdf.format(cal.getTime());
-		   Sesion ses5 = new Sesion(fecha, sala1, 10, listaActividades, 15  );
-		   cal.add(Calendar.DATE, 1);
-		   fecha = sdf.format(cal.getTime());
-		   Sesion ses6 = new Sesion(fecha, sala1, 10, listaActividades, 15  );
-		   cal.add(Calendar.DATE, 1);
-		   fecha = sdf.format(cal.getTime());
-		   Sesion ses7 = new Sesion(fecha, sala1, 10, listaActividades, 15  );
-		   Sesion ses8 = new Sesion(fecha, sala1, 10, listaActividades, 15  );
+		   cal.set(2023, Calendar.MAY, 12, 20, 0);
+		   fecha = cal.getTime();
+		   fecha.setMinutes(0);
+		   fecha.setSeconds(0);
+		   Sesion ses2 = new Sesion(fecha, sala1, 10, act2, 15 );
+		   
+		   cal.set(2023, Calendar.MAY, 12, 22, 0);
+		   fecha = cal.getTime();
+		   fecha.setMinutes(0);
+		   fecha.setSeconds(0);
+		   Sesion ses3 = new Sesion(fecha, sala1, 10, act2, 15  );
+		   Sesion ses4 = new Sesion(fecha, sala2, 10, act3, 15  );
+		   cal.set(2023, Calendar.MAY, 13, 10, 0);
+		   fecha = cal.getTime();
+		   Sesion ses5 = new Sesion(fecha, sala1, 10, act3, 15  );
+		   cal.set(2023, Calendar.MAY, 13, 13, 0);
+		   fecha = cal.getTime();
+		   Sesion ses6 = new Sesion(fecha, sala1, 10, act1, 15  );
+		   cal.set(2023, Calendar.MAY, 13, 15, 0);
+		   fecha = cal.getTime();
+		   Sesion ses7 = new Sesion(fecha, sala1, 10, act2, 15  );
+		   Sesion ses8 = new Sesion(fecha, sala2, 10, act1, 15  );
 		   
 		   lista.add(sesion1);
 		   lista.add(ses2);
 		   lista.add(ses3);
-		   lista.add(ses4);
 		   lista.add(ses5);
 		   lista.add(ses6);
 		   lista.add(ses7);
-		   lista.add(ses8);
 
 		   sala1.setListaSesiones(lista);
 		   
-//		   db.persist(lista);
-//		   db.persist(listaActividades);
-
 		   db.persist(sesion1);
 		   db.persist(ses2);
 		   db.persist(ses3);
@@ -221,8 +214,10 @@ public class DataAccess  {
 		db.getTransaction().commit();
 		return enc;
 	}
-	public Sesion getSesion(String fecha, int salaNum){
+	public Sesion getSesion(Date fecha, int salaNum){
 		db.getTransaction().begin();
+		fecha.setMinutes(0);
+		fecha.setSeconds(0);
 		TypedQuery<Sesion> query = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha=:fecha", Sesion.class);
 	    query.setParameter("fecha", fecha);
 	    List<Sesion> sesiones = query.getResultList();
@@ -251,31 +246,27 @@ public class DataAccess  {
 
 	public List<Sesion> getSesionesSemana() {
 		System.out.println("Buscando las sesiones de esta semana en la base de datos");
+
 	    // Calculate the start and end of this week
-	   SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	   Calendar cal = Calendar.getInstance();
-	   cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-	   String lunes = sdf.format(cal.getTime());
+	    Calendar cal = Calendar.getInstance();
+	    cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+	    Date start = cal.getTime();
 
-	   System.out.println(lunes);
+	    //se le suma 6 dias para tener el domingo
+	    cal.add(Calendar.DATE, 6);
+	    Date end = cal.getTime();
 
-	   //se le suma 6 dias para tener el domingo
-	   cal.add(Calendar.DATE, 6);
-	   String domingo = sdf.format(cal.getTime());
+	    TypedQuery<Sesion> query = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha BETWEEN :start AND :end ORDER BY s.fecha", Sesion.class);
+	    query.setParameter("start", start);
+	    query.setParameter("end", end);
+	    List<Sesion> resultado = query.getResultList();
 
-	   System.out.println(domingo);
+	    System.out.println(resultado);
+	    for(Sesion ses: resultado) {
+	        System.out.println(ses.getActividad().getNombre());
+	    }
 
-		TypedQuery<Sesion> query = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha BETWEEN :start AND :end ORDER BY s.fecha", Sesion.class);
-//		System.out.println(query);
-
-	    query.setParameter("start", lunes);
-	    query.setParameter("end", domingo);
-		List<Sesion> resultado = query.getResultList();
-		System.out.println(resultado);
-		for(Sesion ses: resultado) {
-			System.out.println(ses.getListaActividades().toString());
-		}
-		return resultado;
+	    return resultado;
 	}
 	public List<Actividad> getActividades() {
 		db.getTransaction().begin();
@@ -293,7 +284,7 @@ public class DataAccess  {
 		db.getTransaction().begin();
 
 		String idUsuario = user.getCorreo();
-		String idSesion = sesion.getFecha();
+		Date idSesion = sesion.getFecha();
 
 		Usuario usuario = db.find(Usuario.class, idUsuario);
 
@@ -309,7 +300,6 @@ public class DataAccess  {
 	    List<String> listaRes = usuario.getListaReservas();
 		if(listaRes != null) {
 			for(String r: listaRes) {
-				System.out.println(r.equals(ses.getFecha()+"/"+ses.getSala().getNumero()+ "/"+user.getCorreo()));
 
 				if(r.equals(ses.getFecha()+"/"+ses.getSala().getNumero()+ "/"+user.getCorreo())){
 				String[] reservas = r.split("/");
@@ -402,23 +392,23 @@ public class DataAccess  {
 		return false;
 	}
 
-	public Sesion annadirSesion(String fecha, int sala, String listaActividades, String precio, String plazas) {
+	public Sesion annadirSesion(Date fecha, int sala, String actividad, String precio, String plazas) {
 		db.getTransaction().begin();
 		Sesion res = null;
 		Sala salaSes = db.find(Sala.class, sala);
 		TypedQuery<Sesion> listaSesionesEnEsaFecha = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha = :fecha", Sesion.class);
 	    listaSesionesEnEsaFecha.setParameter("fecha", fecha);
 		List<Sesion> listaSes = listaSesionesEnEsaFecha.getResultList();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = null;
-		try {
-			date = dateFormat.parse(fecha);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//		Date date = null;
+//		try {
+//			date = dateFormat.parse(fecha);
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
 
 		@SuppressWarnings("deprecation")
-		int month = date.getMonth();
+		int month = fecha.getMonth();
 		Calendar fechaActual = Calendar.getInstance();
 		int monthActual = fechaActual.get(Calendar.MONTH);
 
@@ -438,16 +428,11 @@ public class DataAccess  {
 			System.out.println(month + " " + monthActual);
 		}
 		else {
-			String[] listaNomActiv = listaActividades.split(",");
-			List<Actividad> listAct = new ArrayList<>();
-			for(String nom: listaNomActiv) {
-				Actividad activ = db.find(Actividad.class, nom);
-				if(activ == null) {
-					System.out.println("la actividad que has introducido no existe");
-				}
-				listAct.add(activ);
+			Actividad activ = db.find(Actividad.class, actividad);
+			if(activ == null) {
+				System.out.println("la actividad que has introducido no existe");
 			}
-			res = new Sesion(fecha, salaSes, Integer.parseInt(plazas), listAct, Integer.parseInt(precio));
+			res = new Sesion(fecha, salaSes, Integer.parseInt(plazas), activ, Integer.parseInt(precio));
 			if(res != null) System.out.println("la sesion se ha creado bien");
 			salaSes.addAListaSesiones(res);
 		}
@@ -457,7 +442,7 @@ public class DataAccess  {
 		return res;
 	}
 
-	public Sesion quitarSesion(String fecha, int salaNum) {
+	public Sesion quitarSesion(Date fecha, int salaNum) {
 		db.getTransaction().begin();
 		Sesion sesion = null;
 		TypedQuery<Sesion> listaSesionesEnEsaFecha = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha = :fecha", Sesion.class);

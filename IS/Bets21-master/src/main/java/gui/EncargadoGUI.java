@@ -27,7 +27,6 @@ public class EncargadoGUI extends JFrame{
 		reservar.addActionListener(new java.awt.event.ActionListener() {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-//				BLFacade bussinesLogic = RegistroGUI.getBusinessLogic();
 				JFrame a = new PlanificarSesionesGUI(encargado);
 				a.setBounds(0, 0, 700, 600);
 				a.setVisible(true);
@@ -40,7 +39,6 @@ public class EncargadoGUI extends JFrame{
 		annadirActividad.addActionListener(new java.awt.event.ActionListener() {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-//				BLFacade bussinesLogic = RegistroGUI.getBusinessLogic();
 				JFrame a = new AnnadirActividadesGUI();
 				a.setBounds(0, 0, 700, 600);
 				a.setVisible(true);

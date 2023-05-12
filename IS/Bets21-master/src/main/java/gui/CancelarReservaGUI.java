@@ -1,7 +1,11 @@
 package gui;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -28,26 +32,38 @@ public class CancelarReservaGUI extends JFrame {
 
 		BLFacade bussinessLogic = RegistroGUI.getBusinessLogic();
 		List<String> lista = bussinessLogic.createUsuario(user.getCorreo(), user.getContrasenna()).getListaReservas();
-		List<String> listaNomSesion = new ArrayList<>();
+		System.out.println(lista + "la lista de las reservas");
+		List<Date> listaFechaSesion = new ArrayList<>();
 		List<Integer> listaNumSala = new ArrayList<>();
 		List<Sesion> listaSesion = new ArrayList<>();
 		if(lista != null) {
 			for(String s: lista) {
-				String[] nomSesion = s.split("/");
-				listaNomSesion.add(nomSesion[0]);
-				listaNumSala.add(Integer.parseInt(nomSesion[1]));
+				String[] fechaSesionString = s.split("/");
+				SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
+				Date fecha = null;
+				try {
+					fecha = sdf.parse(fechaSesionString[0]);
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				listaFechaSesion.add(fecha);
+//				System.out.println("fecha " + fecha);
+				listaNumSala.add(Integer.parseInt(fechaSesionString[1]));
 			}
 		}
 
-
-		for(int i = 0; i < listaNomSesion.size(); i++) {
-			if(bussinessLogic.getSesion(listaNomSesion.get(i), listaNumSala.get(i)) != null) {
-				listaSesion.add(bussinessLogic.getSesion(listaNomSesion.get(i), listaNumSala.get(i)));
+		for(int i = 0; i < listaFechaSesion.size(); i++) {
+			Sesion ses = bussinessLogic.getSesion(listaFechaSesion.get(i), listaNumSala.get(i));
+			if(ses != null) {
+				System.out.println(bussinessLogic.getSesion(listaFechaSesion.get(i), listaNumSala.get(i)).getFecha());
+				listaSesion.add(bussinessLogic.getSesion(listaFechaSesion.get(i), listaNumSala.get(i)));
+			}
+			else {
+				System.out.println("no se encuentra la sesion");
 			}
 		}
-//		System.out.println(listaNomSesion);
-//		System.out.println(listaNumSala);
-		System.out.println(listaSesion);
+//		System.out.println(listaSesion);
 
 		// Crear las columnas del JTable
 		Vector<String> columns = new Vector<>();
@@ -63,7 +79,7 @@ public class CancelarReservaGUI extends JFrame {
 				System.out.println(sesion.getFecha());
 			    row.add(sesion.getFecha());
 			    row.add(sesion.getPlazasDisponibles());
-			    row.add(sesion.getListaActividades());
+			    row.add(sesion.getActividad());
 			    // ...
 			    rows.add(row);
 //			}

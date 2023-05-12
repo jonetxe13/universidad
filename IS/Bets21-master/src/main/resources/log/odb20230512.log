@@ -3741,3 +3741,732 @@ New type java.util.LinkedList<domain.Usuario>
 [2023-05-12 11:20:50 #16 type.registry] 
 New type java.util.ArrayList<domain.Sesion>
 
+[2023-05-12 11:25:05 #41 store] 
+Database 'C:\Users\jonetxe13\Desktop\universidad\IS\Bets21-master\src\main\resources\db\src\main\resources\bets.temp' is closed by 6728@DESKTOP-490MKBR
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-12 15:40:47 #1 store] 
+Database 'C:\Users\jonetxe13\Desktop\universidad\IS\Bets21-master\src\main\resources\bets.temp' is opened by 5248@DESKTOP-490MKBR
+
+[2023-05-12 15:40:47 #2 type.registry] 
+New type domain.Actividad
+
+[2023-05-12 15:40:47 #3 type] 
+Type domain.Actividad is not enhanced.
+
+[2023-05-12 15:40:47 #4 type.registry] 
+New type domain.Encargado
+
+[2023-05-12 15:40:47 #5 type] 
+Type domain.Encargado is not enhanced.
+
+[2023-05-12 15:40:47 #6 type.registry] 
+New type domain.Usuario
+
+[2023-05-12 15:40:47 #7 type] 
+Type domain.Usuario is not enhanced.
+
+[2023-05-12 15:40:47 #8 type.registry] 
+New type domain.Sesion
+
+[2023-05-12 15:40:47 #9 type] 
+Type domain.Sesion is not enhanced.
+
+[2023-05-12 15:40:47 #10 type.registry] 
+New type domain.Sala
+
+[2023-05-12 15:40:47 #11 type] 
+Type domain.Sala is not enhanced.
+
+[2023-05-12 15:40:47 #12 type.registry] 
+New type java.util.ArrayList<java.lang.Object>
+
+[2023-05-12 15:40:47 #13 type.registry] 
+New type java.util.ArrayList<java.lang.String>
+
+[2023-05-12 15:40:47 #14 type.registry] 
+New type java.util.LinkedList<java.lang.Object>
+
+[2023-05-12 15:40:47 #15 type.registry] 
+New type java.util.LinkedList<domain.Usuario>
+
+[2023-05-12 15:40:47 #16 type.registry] 
+New type java.util.ArrayList<domain.Sesion>
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-12 15:41:12 #1 store] 
+Database 'C:\Users\jonetxe13\Desktop\universidad\IS\Bets21-master\src\main\resources\bets.temp' is opened by 8468@DESKTOP-490MKBR
+
+[2023-05-12 15:41:12 #2 type.registry] 
+New type domain.Actividad
+
+[2023-05-12 15:41:12 #3 type] 
+Type domain.Actividad is not enhanced.
+
+[2023-05-12 15:41:12 #4 type.registry] 
+New type domain.Encargado
+
+[2023-05-12 15:41:12 #5 type] 
+Type domain.Encargado is not enhanced.
+
+[2023-05-12 15:41:12 #6 type.registry] 
+New type domain.Usuario
+
+[2023-05-12 15:41:12 #7 type] 
+Type domain.Usuario is not enhanced.
+
+[2023-05-12 15:41:12 #8 type.registry] 
+New type domain.Sesion
+
+[2023-05-12 15:41:12 #9 type] 
+Type domain.Sesion is not enhanced.
+
+[2023-05-12 15:41:12 #10 type.registry] 
+New type domain.Sala
+
+[2023-05-12 15:41:12 #11 type] 
+Type domain.Sala is not enhanced.
+
+[2023-05-12 15:41:12 #12 type.registry] 
+New type java.util.ArrayList<java.lang.Object>
+
+[2023-05-12 15:41:12 #13 type.registry] 
+New type java.util.ArrayList<java.lang.String>
+
+[2023-05-12 15:41:12 #14 type.registry] 
+New type java.util.LinkedList<java.lang.Object>
+
+[2023-05-12 15:41:12 #15 type.registry] 
+New type java.util.LinkedList<domain.Usuario>
+
+[2023-05-12 15:41:12 #16 type.registry] 
+New type java.util.ArrayList<domain.Sesion>
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-12 15:44:28 #1 server] 
+Server on port 8080 has started by 9200@DESKTOP-490MKBR
+
+[2023-05-12 15:44:31 #2 store] 
+Database 'C:\Users\jonetxe13\Desktop\universidad\IS\Bets21-master\src\main\resources\db\src\main\resources\bets.temp' is opened by 9200@DESKTOP-490MKBR
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-12 15:44:31 #1 type.registry] 
+New type domain.Actividad
+
+[2023-05-12 15:44:31 #2 type] 
+Type domain.Actividad is not enhanced.
+
+[2023-05-12 15:44:31 #3 type.registry] 
+New type domain.Encargado
+
+[2023-05-12 15:44:31 #4 type] 
+Type domain.Encargado is not enhanced.
+
+[2023-05-12 15:44:31 #5 type.registry] 
+New type domain.Usuario
+
+[2023-05-12 15:44:31 #6 type] 
+Type domain.Usuario is not enhanced.
+
+[2023-05-12 15:44:31 #7 type.registry] 
+New type domain.Sesion
+
+[2023-05-12 15:44:31 #8 type] 
+Type domain.Sesion is not enhanced.
+
+[2023-05-12 15:44:31 #9 type.registry] 
+New type domain.Sala
+
+[2023-05-12 15:44:31 #10 type] 
+Type domain.Sala is not enhanced.
+
+[2023-05-12 15:44:31 #11 type.registry] 
+New type java.util.ArrayList<java.lang.Object>
+
+[2023-05-12 15:44:31 #12 type.registry] 
+New type java.util.ArrayList<java.lang.String>
+
+[2023-05-12 15:44:31 #13 type.registry] 
+New type java.util.LinkedList<java.lang.Object>
+
+[2023-05-12 15:44:31 #14 type.registry] 
+New type java.util.LinkedList<domain.Usuario>
+
+[2023-05-12 15:44:31 #15 type.registry] 
+New type java.util.ArrayList<domain.Sesion>
+
+[2023-05-12 16:01:05 #3 store] 
+Database 'C:\Users\jonetxe13\Desktop\universidad\IS\Bets21-master\src\main\resources\db\src\main\resources\bets.temp' is closed by 9200@DESKTOP-490MKBR
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-12 16:02:13 #1 server] 
+java.net.BindException: Address already in use: JVM_Bind
+	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
+	at java.net.PlainSocketImpl.bind(Unknown Source)
+	at java.net.ServerSocket.bind(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at com.objectdb.o.SMR.I(SMR.java:259)
+	at com.objectdb.o.SMR.n(SMR.java:159)
+	at com.objectdb.o.TOL.run(TOL.java:116)
+	at com.objectdb.Server.runCommand(Server.java:200)
+	at com.objectdb.Server.run(Server.java:104)
+	at com.objectdb.Server.main(Server.java:63)
+
+[2023-05-12 16:02:21 #4 store] 
+Database 'C:\Users\jonetxe13\Desktop\universidad\IS\Bets21-master\src\main\resources\db\src\main\resources\bets.temp' is opened by 9200@DESKTOP-490MKBR
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-12 16:02:21 #1 type.registry] 
+New type domain.Actividad
+
+[2023-05-12 16:02:21 #2 type] 
+Type domain.Actividad is not enhanced.
+
+[2023-05-12 16:02:21 #3 type.registry] 
+New type domain.Encargado
+
+[2023-05-12 16:02:21 #4 type] 
+Type domain.Encargado is not enhanced.
+
+[2023-05-12 16:02:21 #5 type.registry] 
+New type domain.Usuario
+
+[2023-05-12 16:02:21 #6 type] 
+Type domain.Usuario is not enhanced.
+
+[2023-05-12 16:02:21 #7 type.registry] 
+New type domain.Sesion
+
+[2023-05-12 16:02:21 #8 type] 
+Type domain.Sesion is not enhanced.
+
+[2023-05-12 16:02:21 #9 type.registry] 
+New type domain.Sala
+
+[2023-05-12 16:02:21 #10 type] 
+Type domain.Sala is not enhanced.
+
+[2023-05-12 16:02:21 #11 type.registry] 
+New type java.util.ArrayList<java.lang.Object>
+
+[2023-05-12 16:02:21 #12 type.registry] 
+New type java.util.ArrayList<java.lang.String>
+
+[2023-05-12 16:02:21 #13 type.registry] 
+New type java.util.LinkedList<java.lang.Object>
+
+[2023-05-12 16:02:21 #14 type.registry] 
+New type java.util.LinkedList<domain.Usuario>
+
+[2023-05-12 16:02:21 #15 type.registry] 
+New type java.util.ArrayList<domain.Sesion>
+
+[2023-05-12 16:03:35 #5 store] 
+Database 'C:\Users\jonetxe13\Desktop\universidad\IS\Bets21-master\src\main\resources\db\src\main\resources\bets.temp' is closed by 9200@DESKTOP-490MKBR
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-12 16:03:41 #1 server] 
+java.net.BindException: Address already in use: JVM_Bind
+	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
+	at java.net.PlainSocketImpl.bind(Unknown Source)
+	at java.net.ServerSocket.bind(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at com.objectdb.o.SMR.I(SMR.java:259)
+	at com.objectdb.o.SMR.n(SMR.java:159)
+	at com.objectdb.o.TOL.run(TOL.java:116)
+	at com.objectdb.Server.runCommand(Server.java:200)
+	at com.objectdb.Server.run(Server.java:104)
+	at com.objectdb.Server.main(Server.java:63)
+
+[2023-05-12 16:03:49 #6 store] 
+Database 'C:\Users\jonetxe13\Desktop\universidad\IS\Bets21-master\src\main\resources\db\src\main\resources\bets.temp' is opened by 9200@DESKTOP-490MKBR
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-12 16:03:49 #1 type.registry] 
+New type domain.Actividad
+
+[2023-05-12 16:03:49 #2 type] 
+Type domain.Actividad is not enhanced.
+
+[2023-05-12 16:03:49 #3 type.registry] 
+New type domain.Encargado
+
+[2023-05-12 16:03:49 #4 type] 
+Type domain.Encargado is not enhanced.
+
+[2023-05-12 16:03:49 #5 type.registry] 
+New type domain.Usuario
+
+[2023-05-12 16:03:49 #6 type] 
+Type domain.Usuario is not enhanced.
+
+[2023-05-12 16:03:49 #7 type.registry] 
+New type domain.Sesion
+
+[2023-05-12 16:03:49 #8 type] 
+Type domain.Sesion is not enhanced.
+
+[2023-05-12 16:03:49 #9 type.registry] 
+New type domain.Sala
+
+[2023-05-12 16:03:49 #10 type] 
+Type domain.Sala is not enhanced.
+
+[2023-05-12 16:03:49 #11 type.registry] 
+New type java.util.ArrayList<java.lang.Object>
+
+[2023-05-12 16:03:49 #12 type.registry] 
+New type java.util.ArrayList<java.lang.String>
+
+[2023-05-12 16:03:49 #13 type.registry] 
+New type java.util.LinkedList<java.lang.Object>
+
+[2023-05-12 16:03:49 #14 type.registry] 
+New type java.util.LinkedList<domain.Usuario>
+
+[2023-05-12 16:03:49 #15 type.registry] 
+New type java.util.ArrayList<domain.Sesion>
+
+[2023-05-12 16:04:14 #7 store] 
+Database 'C:\Users\jonetxe13\Desktop\universidad\IS\Bets21-master\src\main\resources\db\src\main\resources\bets.temp' is closed by 9200@DESKTOP-490MKBR
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-12 16:05:16 #1 server] 
+java.net.BindException: Address already in use: JVM_Bind
+	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
+	at java.net.PlainSocketImpl.bind(Unknown Source)
+	at java.net.ServerSocket.bind(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at com.objectdb.o.SMR.I(SMR.java:259)
+	at com.objectdb.o.SMR.n(SMR.java:159)
+	at com.objectdb.o.TOL.run(TOL.java:116)
+	at com.objectdb.Server.runCommand(Server.java:200)
+	at com.objectdb.Server.run(Server.java:104)
+	at com.objectdb.Server.main(Server.java:63)
+
+[2023-05-12 16:05:19 #8 store] 
+Database 'C:\Users\jonetxe13\Desktop\universidad\IS\Bets21-master\src\main\resources\db\src\main\resources\bets.temp' is opened by 9200@DESKTOP-490MKBR
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-12 16:05:19 #1 type.registry] 
+New type domain.Actividad
+
+[2023-05-12 16:05:19 #2 type] 
+Type domain.Actividad is not enhanced.
+
+[2023-05-12 16:05:19 #3 type.registry] 
+New type domain.Encargado
+
+[2023-05-12 16:05:19 #4 type] 
+Type domain.Encargado is not enhanced.
+
+[2023-05-12 16:05:19 #5 type.registry] 
+New type domain.Usuario
+
+[2023-05-12 16:05:19 #6 type] 
+Type domain.Usuario is not enhanced.
+
+[2023-05-12 16:05:19 #7 type.registry] 
+New type domain.Sesion
+
+[2023-05-12 16:05:19 #8 type] 
+Type domain.Sesion is not enhanced.
+
+[2023-05-12 16:05:19 #9 type.registry] 
+New type domain.Sala
+
+[2023-05-12 16:05:19 #10 type] 
+Type domain.Sala is not enhanced.
+
+[2023-05-12 16:05:19 #11 type.registry] 
+New type java.util.ArrayList<java.lang.Object>
+
+[2023-05-12 16:05:19 #12 type.registry] 
+New type java.util.ArrayList<java.lang.String>
+
+[2023-05-12 16:05:19 #13 type.registry] 
+New type java.util.LinkedList<java.lang.Object>
+
+[2023-05-12 16:05:19 #14 type.registry] 
+New type java.util.LinkedList<domain.Usuario>
+
+[2023-05-12 16:05:19 #15 type.registry] 
+New type java.util.ArrayList<domain.Sesion>
+
+[2023-05-12 16:06:20 #9 store] 
+Database 'C:\Users\jonetxe13\Desktop\universidad\IS\Bets21-master\src\main\resources\db\src\main\resources\bets.temp' is closed by 9200@DESKTOP-490MKBR
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-12 16:06:25 #1 server] 
+java.net.BindException: Address already in use: JVM_Bind
+	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
+	at java.net.PlainSocketImpl.bind(Unknown Source)
+	at java.net.ServerSocket.bind(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at com.objectdb.o.SMR.I(SMR.java:259)
+	at com.objectdb.o.SMR.n(SMR.java:159)
+	at com.objectdb.o.TOL.run(TOL.java:116)
+	at com.objectdb.Server.runCommand(Server.java:200)
+	at com.objectdb.Server.run(Server.java:104)
+	at com.objectdb.Server.main(Server.java:63)
+
+[2023-05-12 16:06:27 #10 store] 
+Database 'C:\Users\jonetxe13\Desktop\universidad\IS\Bets21-master\src\main\resources\db\src\main\resources\bets.temp' is opened by 9200@DESKTOP-490MKBR
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-12 16:06:28 #1 type.registry] 
+New type domain.Actividad
+
+[2023-05-12 16:06:28 #2 type] 
+Type domain.Actividad is not enhanced.
+
+[2023-05-12 16:06:28 #3 type.registry] 
+New type domain.Encargado
+
+[2023-05-12 16:06:28 #4 type] 
+Type domain.Encargado is not enhanced.
+
+[2023-05-12 16:06:28 #5 type.registry] 
+New type domain.Usuario
+
+[2023-05-12 16:06:28 #6 type] 
+Type domain.Usuario is not enhanced.
+
+[2023-05-12 16:06:28 #7 type.registry] 
+New type domain.Sesion
+
+[2023-05-12 16:06:28 #8 type] 
+Type domain.Sesion is not enhanced.
+
+[2023-05-12 16:06:28 #9 type.registry] 
+New type domain.Sala
+
+[2023-05-12 16:06:28 #10 type] 
+Type domain.Sala is not enhanced.
+
+[2023-05-12 16:06:28 #11 type.registry] 
+New type java.util.ArrayList<java.lang.Object>
+
+[2023-05-12 16:06:28 #12 type.registry] 
+New type java.util.ArrayList<java.lang.String>
+
+[2023-05-12 16:06:28 #13 type.registry] 
+New type java.util.LinkedList<java.lang.Object>
+
+[2023-05-12 16:06:28 #14 type.registry] 
+New type java.util.LinkedList<domain.Usuario>
+
+[2023-05-12 16:06:28 #15 type.registry] 
+New type java.util.ArrayList<domain.Sesion>
+
+[2023-05-12 16:07:02 #11 store] 
+Database 'C:\Users\jonetxe13\Desktop\universidad\IS\Bets21-master\src\main\resources\db\src\main\resources\bets.temp' is closed by 9200@DESKTOP-490MKBR
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-12 16:08:20 #1 server] 
+java.net.BindException: Address already in use: JVM_Bind
+	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
+	at java.net.PlainSocketImpl.bind(Unknown Source)
+	at java.net.ServerSocket.bind(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at com.objectdb.o.SMR.I(SMR.java:259)
+	at com.objectdb.o.SMR.n(SMR.java:159)
+	at com.objectdb.o.TOL.run(TOL.java:116)
+	at com.objectdb.Server.runCommand(Server.java:200)
+	at com.objectdb.Server.run(Server.java:104)
+	at com.objectdb.Server.main(Server.java:63)
+
+[2023-05-12 16:08:22 #12 store] 
+Database 'C:\Users\jonetxe13\Desktop\universidad\IS\Bets21-master\src\main\resources\db\src\main\resources\bets.temp' is opened by 9200@DESKTOP-490MKBR
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-12 16:08:22 #1 type.registry] 
+New type domain.Actividad
+
+[2023-05-12 16:08:22 #2 type] 
+Type domain.Actividad is not enhanced.
+
+[2023-05-12 16:08:22 #3 type.registry] 
+New type domain.Encargado
+
+[2023-05-12 16:08:22 #4 type] 
+Type domain.Encargado is not enhanced.
+
+[2023-05-12 16:08:22 #5 type.registry] 
+New type domain.Usuario
+
+[2023-05-12 16:08:22 #6 type] 
+Type domain.Usuario is not enhanced.
+
+[2023-05-12 16:08:22 #7 type.registry] 
+New type domain.Sesion
+
+[2023-05-12 16:08:22 #8 type] 
+Type domain.Sesion is not enhanced.
+
+[2023-05-12 16:08:22 #9 type.registry] 
+New type domain.Sala
+
+[2023-05-12 16:08:22 #10 type] 
+Type domain.Sala is not enhanced.
+
+[2023-05-12 16:08:22 #11 type.registry] 
+New type java.util.ArrayList<java.lang.Object>
+
+[2023-05-12 16:08:22 #12 type.registry] 
+New type java.util.ArrayList<java.lang.String>
+
+[2023-05-12 16:08:22 #13 type.registry] 
+New type java.util.LinkedList<java.lang.Object>
+
+[2023-05-12 16:08:22 #14 type.registry] 
+New type java.util.LinkedList<domain.Usuario>
+
+[2023-05-12 16:08:22 #15 type.registry] 
+New type java.util.ArrayList<domain.Sesion>
+
+[2023-05-12 16:11:56 #13 store] 
+Database 'C:\Users\jonetxe13\Desktop\universidad\IS\Bets21-master\src\main\resources\db\src\main\resources\bets.temp' is closed by 9200@DESKTOP-490MKBR
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-12 16:14:37 #1 server] 
+java.net.BindException: Address already in use: JVM_Bind
+	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
+	at java.net.PlainSocketImpl.bind(Unknown Source)
+	at java.net.ServerSocket.bind(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at com.objectdb.o.SMR.I(SMR.java:259)
+	at com.objectdb.o.SMR.n(SMR.java:159)
+	at com.objectdb.o.TOL.run(TOL.java:116)
+	at com.objectdb.Server.runCommand(Server.java:200)
+	at com.objectdb.Server.run(Server.java:104)
+	at com.objectdb.Server.main(Server.java:63)
+
+[2023-05-12 16:14:40 #14 store] 
+Database 'C:\Users\jonetxe13\Desktop\universidad\IS\Bets21-master\src\main\resources\db\src\main\resources\bets.temp' is opened by 9200@DESKTOP-490MKBR
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-12 16:14:40 #1 type.registry] 
+New type domain.Actividad
+
+[2023-05-12 16:14:40 #2 type] 
+Type domain.Actividad is not enhanced.
+
+[2023-05-12 16:14:40 #3 type.registry] 
+New type domain.Encargado
+
+[2023-05-12 16:14:40 #4 type] 
+Type domain.Encargado is not enhanced.
+
+[2023-05-12 16:14:40 #5 type.registry] 
+New type domain.Usuario
+
+[2023-05-12 16:14:40 #6 type] 
+Type domain.Usuario is not enhanced.
+
+[2023-05-12 16:14:40 #7 type.registry] 
+New type domain.Sesion
+
+[2023-05-12 16:14:40 #8 type] 
+Type domain.Sesion is not enhanced.
+
+[2023-05-12 16:14:40 #9 type.registry] 
+New type domain.Sala
+
+[2023-05-12 16:14:40 #10 type] 
+Type domain.Sala is not enhanced.
+
+[2023-05-12 16:14:40 #11 type.registry] 
+New type java.util.ArrayList<java.lang.Object>
+
+[2023-05-12 16:14:40 #12 type.registry] 
+New type java.util.ArrayList<java.lang.String>
+
+[2023-05-12 16:14:40 #13 type.registry] 
+New type java.util.LinkedList<java.lang.Object>
+
+[2023-05-12 16:14:40 #14 type.registry] 
+New type java.util.LinkedList<domain.Usuario>
+
+[2023-05-12 16:14:40 #15 type.registry] 
+New type java.util.ArrayList<domain.Sesion>
+
+[2023-05-12 16:17:28 #15 store] 
+Database 'C:\Users\jonetxe13\Desktop\universidad\IS\Bets21-master\src\main\resources\db\src\main\resources\bets.temp' is closed by 9200@DESKTOP-490MKBR
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-12 16:17:34 #1 server] 
+java.net.BindException: Address already in use: JVM_Bind
+	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
+	at java.net.PlainSocketImpl.bind(Unknown Source)
+	at java.net.ServerSocket.bind(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at com.objectdb.o.SMR.I(SMR.java:259)
+	at com.objectdb.o.SMR.n(SMR.java:159)
+	at com.objectdb.o.TOL.run(TOL.java:116)
+	at com.objectdb.Server.runCommand(Server.java:200)
+	at com.objectdb.Server.run(Server.java:104)
+	at com.objectdb.Server.main(Server.java:63)
+
+[2023-05-12 16:17:36 #16 store] 
+Database 'C:\Users\jonetxe13\Desktop\universidad\IS\Bets21-master\src\main\resources\db\src\main\resources\bets.temp' is opened by 9200@DESKTOP-490MKBR
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-12 16:17:36 #1 type.registry] 
+New type domain.Actividad
+
+[2023-05-12 16:17:36 #2 type] 
+Type domain.Actividad is not enhanced.
+
+[2023-05-12 16:17:36 #3 type.registry] 
+New type domain.Encargado
+
+[2023-05-12 16:17:36 #4 type] 
+Type domain.Encargado is not enhanced.
+
+[2023-05-12 16:17:36 #5 type.registry] 
+New type domain.Usuario
+
+[2023-05-12 16:17:36 #6 type] 
+Type domain.Usuario is not enhanced.
+
+[2023-05-12 16:17:36 #7 type.registry] 
+New type domain.Sesion
+
+[2023-05-12 16:17:36 #8 type] 
+Type domain.Sesion is not enhanced.
+
+[2023-05-12 16:17:36 #9 type.registry] 
+New type domain.Sala
+
+[2023-05-12 16:17:36 #10 type] 
+Type domain.Sala is not enhanced.
+
+[2023-05-12 16:17:36 #11 type.registry] 
+New type java.util.ArrayList<java.lang.Object>
+
+[2023-05-12 16:17:36 #12 type.registry] 
+New type java.util.ArrayList<java.lang.String>
+
+[2023-05-12 16:17:36 #13 type.registry] 
+New type java.util.LinkedList<java.lang.Object>
+
+[2023-05-12 16:17:36 #14 type.registry] 
+New type java.util.LinkedList<domain.Usuario>
+
+[2023-05-12 16:17:36 #15 type.registry] 
+New type java.util.ArrayList<domain.Sesion>
+
+[2023-05-12 16:19:38 #17 store] 
+Database 'C:\Users\jonetxe13\Desktop\universidad\IS\Bets21-master\src\main\resources\db\src\main\resources\bets.temp' is closed by 9200@DESKTOP-490MKBR
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-12 16:19:40 #1 server] 
+java.net.BindException: Address already in use: JVM_Bind
+	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketBind(Unknown Source)
+	at java.net.AbstractPlainSocketImpl.bind(Unknown Source)
+	at java.net.PlainSocketImpl.bind(Unknown Source)
+	at java.net.ServerSocket.bind(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at java.net.ServerSocket.<init>(Unknown Source)
+	at com.objectdb.o.SMR.I(SMR.java:259)
+	at com.objectdb.o.SMR.n(SMR.java:159)
+	at com.objectdb.o.TOL.run(TOL.java:116)
+	at com.objectdb.Server.runCommand(Server.java:200)
+	at com.objectdb.Server.run(Server.java:104)
+	at com.objectdb.Server.main(Server.java:63)
+
+[2023-05-12 16:19:42 #18 store] 
+Database 'C:\Users\jonetxe13\Desktop\universidad\IS\Bets21-master\src\main\resources\db\src\main\resources\bets.temp' is opened by 9200@DESKTOP-490MKBR
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2023-05-12 16:19:42 #1 type.registry] 
+New type domain.Actividad
+
+[2023-05-12 16:19:42 #2 type] 
+Type domain.Actividad is not enhanced.
+
+[2023-05-12 16:19:42 #3 type.registry] 
+New type domain.Encargado
+
+[2023-05-12 16:19:42 #4 type] 
+Type domain.Encargado is not enhanced.
+
+[2023-05-12 16:19:42 #5 type.registry] 
+New type domain.Usuario
+
+[2023-05-12 16:19:42 #6 type] 
+Type domain.Usuario is not enhanced.
+
+[2023-05-12 16:19:42 #7 type.registry] 
+New type domain.Sesion
+
+[2023-05-12 16:19:42 #8 type] 
+Type domain.Sesion is not enhanced.
+
+[2023-05-12 16:19:42 #9 type.registry] 
+New type domain.Sala
+
+[2023-05-12 16:19:42 #10 type] 
+Type domain.Sala is not enhanced.
+
+[2023-05-12 16:19:42 #11 type.registry] 
+New type java.util.ArrayList<java.lang.Object>
+
+[2023-05-12 16:19:42 #12 type.registry] 
+New type java.util.ArrayList<java.lang.String>
+
+[2023-05-12 16:19:42 #13 type.registry] 
+New type java.util.LinkedList<java.lang.Object>
+
+[2023-05-12 16:19:42 #14 type.registry] 
+New type java.util.LinkedList<domain.Usuario>
+
+[2023-05-12 16:19:42 #15 type.registry] 
+New type java.util.ArrayList<domain.Sesion>
+
+[2023-05-12 16:21:35 #19 store] 
+Database 'C:\Users\jonetxe13\Desktop\universidad\IS\Bets21-master\src\main\resources\db\src\main\resources\bets.temp' is closed by 9200@DESKTOP-490MKBR
+

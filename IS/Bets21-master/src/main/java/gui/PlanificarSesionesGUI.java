@@ -1,6 +1,9 @@
 package gui;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -22,7 +25,7 @@ public class PlanificarSesionesGUI extends JFrame {
 	private Encargado encargado;
 	private JTextField fechaTextField;
 	private JTextField salaTextField;
-	private JTextField listaActividadesTextField;
+	private JTextField actividadTextField;
 	private JTextField precioTextField;
 	private JTextField plazasTextField;
 	private List<Sesion> lista;
@@ -49,7 +52,7 @@ public class PlanificarSesionesGUI extends JFrame {
 		columns.add("Sala");
 		columns.add("precio");
 		columns.add("Plazas");
-		columns.add("listaActividades");
+		columns.add("Actividades");
 		// ...
 
 		// Crear las filas del JTable
@@ -60,15 +63,7 @@ public class PlanificarSesionesGUI extends JFrame {
 		    row.add(sesion.getSala().getNumero());
 		    row.add(sesion.getPrecio());
 		    row.add(sesion.getPlazasDisponibles());
-
-		    List<String> nomAct = new ArrayList<>();
-		    List<Actividad> listAct = sesion.getListaActividades();
-		    if(listAct != null) {
-		    	for(Actividad act: listAct) {
-		    		nomAct.add(act.getNombre());
-		    	}
-		    }
-	    	row.add(nomAct);
+	    	row.add(sesion.getActividad().getNombre());
 		    // ...
 		    rows.add(row);
 		}
@@ -89,10 +84,10 @@ public class PlanificarSesionesGUI extends JFrame {
 		getContentPane().add(salaTextField);
 		salaTextField.setColumns(10);
 
-		listaActividadesTextField = new JTextField();
-		listaActividadesTextField.setBounds(500, 142, 126, 19);
-		getContentPane().add(listaActividadesTextField);
-		listaActividadesTextField.setColumns(10);
+		actividadTextField = new JTextField();
+		actividadTextField.setBounds(500, 142, 126, 19);
+		getContentPane().add(actividadTextField);
+		actividadTextField.setColumns(10);
 
 		precioTextField = new JTextField();
 		precioTextField.setBounds(500, 171, 58, 19);
@@ -117,8 +112,16 @@ public class PlanificarSesionesGUI extends JFrame {
 		annadirSesionbtn.addActionListener(new java.awt.event.ActionListener() {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				System.out.println(fechaTextField.getText() + " " + salaTextField.getText() + " " + listaActividadesTextField.getText() + " " + precioTextField.getText() + " " + plazasTextField.getText());
-				bussinessLogic.annadirSesion(fechaTextField.getText(), salaTextField.getText(), listaActividadesTextField.getText(), precioTextField.getText(), plazasTextField.getText());
+				System.out.println(fechaTextField.getText() + " " + salaTextField.getText() + " " + actividadTextField.getText() + " " + precioTextField.getText() + " " + plazasTextField.getText());
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+				Date fecha = null;
+				try {
+					fecha = sdf.parse(fechaTextField.getText());
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				bussinessLogic.annadirSesion(fecha, salaTextField.getText(), actividadTextField.getText(), precioTextField.getText(), plazasTextField.getText());
 				error.setText("se ha añadido correctamente");
 				error.setVisible(true);
 			}
@@ -135,7 +138,15 @@ public class PlanificarSesionesGUI extends JFrame {
 					bussinessLogic.quitarSesion(sesion.getFecha(), Integer.toString(sesion.getSala().getNumero()));
 				}
 				else {
-					bussinessLogic.quitarSesion(fechaTextField.getText(), salaTextField.getText());
+					SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+					Date fecha = null;
+					try {
+						fecha = sdf.parse(fechaTextField.getText());
+					} catch (ParseException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					bussinessLogic.quitarSesion(fecha, salaTextField.getText());
 				}
 				error.setText("se ha quitado correctamente");
 				error.setVisible(true);

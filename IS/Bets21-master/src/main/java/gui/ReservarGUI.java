@@ -37,7 +37,7 @@ public class ReservarGUI extends JFrame {
 		Vector<String> columns = new Vector<>();
 		columns.add("Fecha");
 		columns.add("Plazas");
-		columns.add("listaActividades");
+		columns.add("Actividades");
 
 		// Crear las filas del JTable
 		Vector<Vector<Object>> rows = new Vector<>();
@@ -45,14 +45,8 @@ public class ReservarGUI extends JFrame {
 		    Vector<Object> row = new Vector<>();
 		    row.add(sesion.getFecha());
 		    row.add(sesion.getPlazasDisponibles());
-		    List<String> listAct = new ArrayList<String>();
-		    if(sesion.getListaActividades() != null) {
-		    for(Actividad act: sesion.getListaActividades() ) {
-		    	listAct.add(act.getNombre());
-		    }
-	    	row.add(listAct);
+	    	row.add(sesion.getActividad());
 		    	
-		    }
 		    // ...
 		    rows.add(row);
 		}
