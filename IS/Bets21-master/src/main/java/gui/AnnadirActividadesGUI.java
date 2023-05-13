@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 
 import businessLogic.BLFacade;
 import domain.Actividad;
@@ -49,11 +50,14 @@ public class AnnadirActividadesGUI extends JFrame {
 		    rows.add(row);
 		}
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 8, 480, 450);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBounds(0, 0, 493, 333);
 		getContentPane().add(scrollPane);
 		// Crear el JTable y añadirlo al JScrollPane
 		JTable table = new JTable(rows, columns);
-		scrollPane.setColumnHeaderView(table);
+		
+		table.getColumnModel().getColumn(0).setPreferredWidth(189);
+		scrollPane.setViewportView(table);
 
 		nombreTextField = new JTextField();
 		nombreTextField.setBounds(504, 30, 96, 19);
@@ -81,9 +85,15 @@ public class AnnadirActividadesGUI extends JFrame {
 			@Override
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				BLFacade bussinessLogic = RegistroGUI.getBusinessLogic();
-				bussinessLogic.annadirActividad(nombreTextField.getText(), nivelTextField.getText(), precioTextField.getText());
-				error.setText("se ha añadido correctamente");
-				error.setVisible(true);
+				if(nombreTextField.getText().isEmpty() && nivelTextField.getText().isEmpty() && precioTextField.getText().isEmpty()) {
+					error.setText("introduce los datos");
+					error.setVisible(true);
+				}
+				else {
+					bussinessLogic.annadirActividad(nombreTextField.getText(), nivelTextField.getText(), precioTextField.getText());
+					error.setText("se ha añadido correctamente");
+					error.setVisible(true);
+				}
 			}
 		});
 		getContentPane().add(annadirActividadbtn);

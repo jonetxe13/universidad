@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ScrollPaneConstants;
 
 import businessLogic.BLFacade;
 import domain.Sesion;
@@ -53,10 +54,9 @@ public class CancelarReservaGUI extends JFrame {
 		}
 
 		for(int i = 0; i < listaFechaSesion.size(); i++) {
-			System.out.println("la fecha es: " + listaFechaSesion.get(i));
+//			System.out.println("la fecha es: " + listaFechaSesion.get(i));
 			
 			Sesion ses = bussinessLogic.getSesion(listaFechaSesion.get(i), listaNumSala.get(i));
-			
 			if(ses != null) {
 				listaSesion.add(bussinessLogic.getSesion(listaFechaSesion.get(i), listaNumSala.get(i)));
 			}
@@ -69,6 +69,7 @@ public class CancelarReservaGUI extends JFrame {
 		Vector<String> columns = new Vector<>();
 		columns.add("Fecha");
 		columns.add("Plazas");
+		columns.add("Sala");
 		columns.add("listaActividades");
 
 		// Crear las filas del JTable
@@ -76,24 +77,23 @@ public class CancelarReservaGUI extends JFrame {
 		Vector<Object> row = new Vector<>();
 		for (Sesion sesion : listaSesion) {
 //			if(sesion != null) {
-				System.out.println(sesion.getFecha());
 			    row.add(sesion.getFecha());
 			    row.add(sesion.getPlazasDisponibles());
+			    row.add(sesion.getSala().getNumero());
 			    row.add(sesion.getActividad());
 			    // ...
 			    rows.add(row);
 //			}
 		}
 		JScrollPane scrollPane = new JScrollPane();
-		System.out.println(scrollPane.createHorizontalScrollBar());
-		scrollPane.setHorizontalScrollBar(scrollPane.createHorizontalScrollBar());
-		scrollPane.setVerticalScrollBar(scrollPane.createVerticalScrollBar());
-		scrollPane.setBounds(0, 20, 210, 200);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBounds(0, 0, 493, 333);
+		getContentPane().add(scrollPane);
 		// Crear el JTable y añadirlo al JScrollPane
 		JTable table = new JTable(rows, columns);
-		table.setBounds(0, 20, 200, 190);
-		getContentPane().add(table);
-		getContentPane().add(scrollPane);
+		
+		table.getColumnModel().getColumn(0).setPreferredWidth(189);
+		scrollPane.setViewportView(table);
 
 		JLabel error = new JLabel();
 		error.setBounds(273, 140, 197, 13);
@@ -101,7 +101,7 @@ public class CancelarReservaGUI extends JFrame {
 		getContentPane().add(error);
 
 		JButton cancelarReservaBtn = new JButton("Cancelar reserva");
-		cancelarReservaBtn.setBounds(273, 61, 125, 38);
+		cancelarReservaBtn.setBounds(519, 140, 125, 38);
 		cancelarReservaBtn.addActionListener(new java.awt.event.ActionListener() {
 
 			@Override

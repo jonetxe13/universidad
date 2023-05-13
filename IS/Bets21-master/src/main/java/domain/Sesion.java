@@ -3,7 +3,6 @@ package domain;
 import java.util.Date;
 //import java.io.Serializable;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 import javax.persistence.Entity;
@@ -11,13 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
-//public class SesionId implements Serializable {
-//	private SesionId data = new SesionId();
-//
-//    // Constructor, getters, and setters
-//}
 @Entity
 @IdClass(SesionId.class)
 public class Sesion {
@@ -34,7 +27,7 @@ public class Sesion {
 	private Sala sala;
 
 	public Sesion() {}
-	public Sesion(Date fecha, Sala sala, int plazas, Actividad actividad, int precio ) {
+	public Sesion(Date fecha, Sala sala, int plazas, Actividad actividad) {
 		this.fecha = fecha;
 		if(plazas > sala.getAforoMax())
 			System.out.println("la sesion no puede tener mas plazas que la sala");
@@ -42,6 +35,7 @@ public class Sesion {
 		this.sala = sala;
 		this.listaEspera = new LinkedList<>();
 		this.actividad = actividad;
+		this.precio = actividad.getPrecio();
 	}
 
 	public Date getFecha() { return fecha; }

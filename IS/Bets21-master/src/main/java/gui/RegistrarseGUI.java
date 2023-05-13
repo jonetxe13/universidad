@@ -23,16 +23,16 @@ public class RegistrarseGUI extends JFrame{
 		getContentPane().setLayout(null);
 
 		correoTextField = new JTextField();
-		correoTextField.setBounds(207, 48, 116, 19);
+		correoTextField.setBounds(207, 43, 116, 28);
 		getContentPane().add(correoTextField);
 		correoTextField.setColumns(10);
 
 		passwordField1 = new JPasswordField();
-		passwordField1.setBounds(207, 98, 116, 19);
+		passwordField1.setBounds(207, 93, 116, 28);
 		getContentPane().add(passwordField1);
 
 		passwordField2 = new JPasswordField();
-		passwordField2.setBounds(207, 154, 116, 19);
+		passwordField2.setBounds(207, 149, 116, 28);
 		getContentPane().add(passwordField2);
 
 		JLabel error = new JLabel("error"); //$NON-NLS-1$

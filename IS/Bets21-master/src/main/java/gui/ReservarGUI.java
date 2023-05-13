@@ -1,6 +1,5 @@
 package gui;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -9,9 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ScrollPaneConstants;
 
 import businessLogic.BLFacade;
-import domain.Actividad;
 import domain.Sesion;
 import domain.Usuario;
 
@@ -37,7 +36,9 @@ public class ReservarGUI extends JFrame {
 		Vector<String> columns = new Vector<>();
 		columns.add("Fecha");
 		columns.add("Plazas");
+		columns.add("Sala");
 		columns.add("Actividades");
+		columns.add("Precio");
 
 		// Crear las filas del JTable
 		Vector<Vector<Object>> rows = new Vector<>();
@@ -46,18 +47,22 @@ public class ReservarGUI extends JFrame {
 		    Vector<Object> row = new Vector<>();
 		    row.add(sesion.getFecha());
 		    row.add(sesion.getPlazasDisponibles());
-	    	row.add(sesion.getActividad());
+		    row.add(sesion.getSala().getNumero());
+	    	row.add(sesion.getActividad().getNombre());
+	    	row.add(sesion.getPrecio());
 		    	
 		    // ...
 		    rows.add(row);
 		}
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 20, 210, 200);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setBounds(0, 0, 493, 333);
+		getContentPane().add(scrollPane);
 		// Crear el JTable y añadirlo al JScrollPane
 		JTable table = new JTable(rows, columns);
-		table.setBounds(0, 20, 200, 190);
-		getContentPane().add(table);
-		getContentPane().add(scrollPane);
+		
+		table.getColumnModel().getColumn(0).setPreferredWidth(189);
+		scrollPane.setViewportView(table);
 
 		JLabel error = new JLabel();
 		error.setBounds(273, 140, 197, 13);
@@ -65,7 +70,7 @@ public class ReservarGUI extends JFrame {
 		getContentPane().add(error);
 
 		JButton reservarBtn = new JButton("reservar");
-		reservarBtn.setBounds(273, 61, 125, 38);
+		reservarBtn.setBounds(520, 140, 125, 38);
 		reservarBtn.addActionListener(new java.awt.event.ActionListener() {
 
 			@Override

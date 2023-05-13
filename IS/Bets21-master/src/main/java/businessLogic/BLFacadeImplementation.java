@@ -148,6 +148,7 @@ public class BLFacadeImplementation  implements BLFacade {
 		return añadidoOno;
 	}
 
+	@SuppressWarnings("deprecation")
 	@WebMethod
 	public Sesion getSesion(Date fecha, int salaNum) {
 		dbManager.open(false);
@@ -176,13 +177,11 @@ public class BLFacadeImplementation  implements BLFacade {
 		try {
 		    number = Integer.parseInt(salaNum);
 		} catch (NumberFormatException ex) {
-		    // El texto no es un número entero válido
 			System.out.println("el numero que has introducido no es un entero o no es un numero valido");
 		}
 	    try {
 			sesionAnnadida = dbManager.annadirSesion(fecha, number, text3, text4, text5);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	    System.out.println("se ha annadido");
