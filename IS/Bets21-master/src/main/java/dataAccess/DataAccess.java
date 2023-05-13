@@ -9,11 +9,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 //import javax.swing.text.html.HTMLDocument.Iterator;
 
@@ -51,11 +54,11 @@ public class DataAccess  {
 	 * This is the data access method that initializes the database with some events and questions.
 	 * This method is invoked by the business logic (constructor of BLFacadeImplementation) when the option "initialize" is declared in the tag dataBaseOpenMode of resources/config.xml file
 	 */
+	@SuppressWarnings("deprecation")
 	public void initializeDB(){
 
 		db.getTransaction().begin();
 		try {
-
 
 		   Actividad act1 = new Actividad("zumba", 3, 5);
 		   Actividad act2 = new Actividad("pilates", 2, 15);
@@ -69,8 +72,26 @@ public class DataAccess  {
 		   Sala sala2 = new Sala(2, 20);
 		   
 		   Calendar cal = Calendar.getInstance();
-		   cal.set(2023, Calendar.MAY, 12, 18, 0);
-		   Date fecha = cal.getTime();
+		   cal.setFirstDayOfWeek(Calendar.MONDAY);
+		   cal.setTimeZone(TimeZone.getTimeZone("Europe/Madrid")); // establece la zona horaria en Madrid
+//		   cal.add(Calendar.DATE, 1); // agrega 1 día a la fecha actual
+		   cal.add(Calendar.HOUR_OF_DAY, 2); // agrega 2 horas a la fecha actual
+		   Date fechaNueva = cal.getTime();
+		   fechaNueva.setMinutes(0);
+		   fechaNueva.setSeconds(0);
+
+		   System.out.println("La nueva fecha es: " + fechaNueva);
+
+		   Calendar cal2 = Calendar.getInstance();
+		   int semanaActual = cal2.get(Calendar.WEEK_OF_YEAR);
+		   cal2.setTime(fechaNueva);
+		   int semanaSesion = cal2.get(Calendar.WEEK_OF_YEAR);
+		   Sesion sesion1 = null; 
+		   if (semanaActual == semanaSesion) {
+			  sesion1 = new Sesion(fechaNueva, sala1, 0, act1, 10 );
+		   } else {
+			    System.out.println("La fecha de la sesión no está dentro de la semana actual.");
+		   }
 
 		   Encargado admin = Encargado.getInstance("admin@admin.com", "admin");
 		   System.out.println("se ha annadido al encargado");
@@ -81,40 +102,81 @@ public class DataAccess  {
 		   db.persist(usuario);
 
 		   List<Sesion> lista = new ArrayList<>();
-		   fecha.setMinutes(0);
-		   fecha.setSeconds(0);
-		   Sesion sesion1 = new Sesion(fecha, sala1, 0, act1, 10 );
 		   lista.add(sesion1);
-
-		   cal.set(2023, Calendar.MAY, 12, 20, 0);
-		   fecha = cal.getTime();
-		   fecha.setMinutes(0);
-		   fecha.setSeconds(0);
-		   Sesion ses2 = new Sesion(fecha, sala1, 10, act2, 15 );
 		   
-		   cal.set(2023, Calendar.MAY, 12, 22, 0);
-		   fecha = cal.getTime();
-		   fecha.setMinutes(0);
-		   fecha.setSeconds(0);
-		   Sesion ses3 = new Sesion(fecha, sala1, 10, act2, 15  );
-		   Sesion ses4 = new Sesion(fecha, sala2, 10, act3, 15  );
-		   cal.set(2023, Calendar.MAY, 13, 10, 0);
-		   fecha = cal.getTime();
-		   Sesion ses5 = new Sesion(fecha, sala1, 10, act3, 15  );
-		   cal.set(2023, Calendar.MAY, 13, 13, 0);
-		   fecha = cal.getTime();
-		   Sesion ses6 = new Sesion(fecha, sala1, 10, act1, 15  );
-		   cal.set(2023, Calendar.MAY, 13, 15, 0);
-		   fecha = cal.getTime();
-		   Sesion ses7 = new Sesion(fecha, sala1, 10, act2, 15  );
-		   Sesion ses8 = new Sesion(fecha, sala2, 10, act1, 15  );
+		   cal.add(Calendar.DATE, 1); // agrega 1 día a la fecha actual
+//		   cal.add(Calendar.HOUR_OF_DAY, 0); // agrega 2 horas a la fecha actual
+		   fechaNueva = cal.getTime();
+		   fechaNueva.setMinutes(0);
+		   fechaNueva.setSeconds(0);
+		   Sesion ses2 = null; 
+		   if (semanaActual == semanaSesion) {
+			   System.out.println("la fecha de la base de datos :" + fechaNueva);
+			  ses2 = new Sesion(fechaNueva, sala1, 10, act2, 15 );
+		   } else {
+			    System.out.println("La fecha de la sesión no está dentro de la semana actual.");
+		   }
+		   
+//		   cal.add(Calendar.DATE, 1); // agrega 1 día a la fecha actual
+		   cal.add(Calendar.HOUR_OF_DAY, 1); // agrega 2 horas a la fecha actual
+		   fechaNueva = cal.getTime();
+		   fechaNueva.setMinutes(0);
+		   fechaNueva.setSeconds(0);
+		   Sesion ses3 = null; 
+		   if (semanaActual == semanaSesion) {
+			   System.out.println("la fecha de la base de datos :" + fechaNueva);
+			   ses3 = new Sesion(fechaNueva, sala1, 10, act2, 15  );
+		   } else {
+			    System.out.println("La fecha de la sesión no está dentro de la semana actual.");
+		   }
+		   
+//		   cal.add(Calendar.DATE, 1); // agrega 1 día a la fecha actual
+		   cal.add(Calendar.HOUR_OF_DAY, 1); // agrega 2 horas a la fecha actual
+		   fechaNueva = cal.getTime();
+		   fechaNueva.setMinutes(0);
+		   fechaNueva.setSeconds(0);
+		   Sesion ses4 = null; 
+		   if (semanaActual == semanaSesion) {
+			   	System.out.println("la fecha de la base de datos :" + fechaNueva);
+			   ses4 = new Sesion(fechaNueva, sala2, 10, act3, 15  );
+		   } else {
+			    System.out.println("La fecha de la sesión no está dentro de la semana actual.");
+		   }
+		   
+//		   cal.add(Calendar.DATE, 1); // agrega 1 día a la fecha actual
+		   cal.add(Calendar.HOUR_OF_DAY, 2); // agrega 2 horas a la fecha actual
+		   fechaNueva = cal.getTime();
+		   fechaNueva.setMinutes(0);
+		   fechaNueva.setSeconds(0);
+		   Sesion ses5 = null; 
+		   if (semanaActual == semanaSesion) {
+			   System.out.println("la fecha de la base de datos :" + fechaNueva);
+			   ses5 = new Sesion(fechaNueva, sala1, 10, act3, 15  );
+		   } else {
+			    System.out.println("La fecha de la sesión no está dentro de la semana actual.");
+		   }
+		   
+		   cal.add(Calendar.DATE, 1); // agrega 1 día a la fecha actual
+//		   cal.add(Calendar.HOUR_OF_DAY, 2); // agrega 2 horas a la fecha actual
+		   fechaNueva = cal.getTime();
+		   fechaNueva.setMinutes(0);
+		   fechaNueva.setSeconds(0);
+		   Sesion ses6 = null; 
+		   if (semanaActual == semanaSesion) {
+			   System.out.println("la fecha de la base de datos :" + fechaNueva);
+			   ses6 = new Sesion(fechaNueva, sala1, 10, act1, 15  );
+		   } else {
+			   System.out.println("La fecha de la sesión no está dentro de la semana actual.");
+		   }
+//		   Sesion ses7 = new Sesion(fechaNueva, sala1, 10, act2, 15  );
+//		   Sesion ses8 = new Sesion(fechaNueva, sala2, 10, act1, 15  );
 		   
 		   lista.add(sesion1);
 		   lista.add(ses2);
 		   lista.add(ses3);
 		   lista.add(ses5);
 		   lista.add(ses6);
-		   lista.add(ses7);
+//		   lista.add(ses7);
 
 		   sala1.setListaSesiones(lista);
 		   
@@ -124,8 +186,8 @@ public class DataAccess  {
 		   db.persist(ses4);
 		   db.persist(ses5);
 		   db.persist(ses6);
-		   db.persist(ses7);
-		   db.persist(ses8);
+//		   db.persist(ses7);
+//		   db.persist(ses8);
 		   
 		   db.persist(sala1);
 		   db.persist(sala2);
@@ -214,13 +276,21 @@ public class DataAccess  {
 		db.getTransaction().commit();
 		return enc;
 	}
+	@SuppressWarnings("deprecation")
 	public Sesion getSesion(Date fecha, int salaNum){
 		db.getTransaction().begin();
 		fecha.setMinutes(0);
 		fecha.setSeconds(0);
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(fecha); // establece el tiempo en el objeto Date original
+		cal.setTimeZone(TimeZone.getTimeZone("Europe/Madrid")); // establece la zona horaria en Madrid
+		Date fechaNueva = cal.getTime();
 		TypedQuery<Sesion> query = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha=:fecha", Sesion.class);
-	    query.setParameter("fecha", fecha);
+//	    System.out.println("la query es: " + query);
+	    query.setParameter("fecha", fechaNueva, TemporalType.DATE);
+	    System.out.println("la fecha en getSesion es: " + fechaNueva);
 	    List<Sesion> sesiones = query.getResultList();
+    	System.out.println("la lista de sesiones: " + sesiones);
 	    Sesion ses = null;
 	    for(Sesion sesion2: sesiones) {
 	    	if(sesion2.getSala().getNumero() == salaNum) {
@@ -228,7 +298,7 @@ public class DataAccess  {
 	    	}
 	    }
 		if(ses == null) {
-			System.out.print("la sesion no existe");
+			System.out.print("la sesion no existe\n");
 			return null;
 		}
 		db.persist(ses);
@@ -244,17 +314,26 @@ public class DataAccess  {
 		return res;
 	}
 
+	@SuppressWarnings("deprecation")
 	public List<Sesion> getSesionesSemana() {
 		System.out.println("Buscando las sesiones de esta semana en la base de datos");
-
 	    // Calculate the start and end of this week
 	    Calendar cal = Calendar.getInstance();
+	    cal.setFirstDayOfWeek(Calendar.MONDAY);
 	    cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 	    Date start = cal.getTime();
+	    start.setHours(0);
+	    start.setMinutes(0);
+	    start.setSeconds(0);
+	    System.out.println("\nla fecha start en getSesionSemana es: " + start);
 
 	    //se le suma 6 dias para tener el domingo
 	    cal.add(Calendar.DATE, 6);
 	    Date end = cal.getTime();
+	    end.setHours(23);
+	    end.setMinutes(0);
+	    end.setSeconds(0);
+	    System.out.println("\nla fecha end en getSesionSemana es: " + end);
 
 	    TypedQuery<Sesion> query = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha BETWEEN :start AND :end ORDER BY s.fecha", Sesion.class);
 	    query.setParameter("start", start);

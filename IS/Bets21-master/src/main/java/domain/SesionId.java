@@ -1,21 +1,23 @@
 package domain;
 
+import java.util.Date;
+
 public class SesionId {
-	public String fecha;
+	public Date fecha;
 	public int sala;
 
     public SesionId() {}
 
-    public SesionId(String fecha, int sala) {
+    public SesionId(Date fecha, int sala) {
         this.fecha = fecha;
         this.sala = sala;
     }
 
-    public String getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 

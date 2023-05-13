@@ -154,7 +154,7 @@ public class BLFacadeImplementation  implements BLFacade {
 		fecha.setMinutes(0);
 		fecha.setSeconds(0);
 		Sesion sesion = dbManager.getSesion(fecha, salaNum);
-		System.out.println("la sesion en getSesion ->" + sesion.getFecha());
+//		System.out.println("la sesion en getSesion ->" + sesion.getFecha());
 		dbManager.close();
 		return sesion;
 	}
