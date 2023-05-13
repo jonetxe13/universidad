@@ -1,16 +1,10 @@
 WITH Ada.Text_Io; USE Ada.Text_Io;
 
 procedure Ver_Substring_aa is
-   -- salida: 11 booleanos
-   -- post: corresponden a cada uno de los casos de pruebas dise�ados.
-
    function Substring_aa(
          S : String)
      return Boolean is
-   -- EJERCICIO 3- ESPECIFICA E IMPLEMENTA recursivamente el subprograma
-   --   Substring_aa que decide si el string S contiene el substring 'aa'.
    BEGIN
-      -- Completar
       if S = "" then
          return False;
       elsif S'Length = 1 then
@@ -28,8 +22,6 @@ begin
    Put("La palabra vacia no contiene el string 'aa': ");
    Put(Boolean'Image(Substring_aa("")));
    New_Line;
-   New_Line;
-   New_Line;
    Put_Line("-------------------------------------");
    Put_Line("Palabras de 1 caracter");
    Put("-- La palabra de 1 caracter 'a' no contiene el substring 'aa': ");
@@ -37,8 +29,6 @@ begin
    New_Line;
    Put("-- La palabra de 1 caracter 'b' no contiene el substring 'aa': ");
    Put(Boolean'Image(Substring_aa("b")));
-   New_Line;
-   New_Line;
    New_Line;
    Put_Line("-------------------------------------");
    Put_Line("Palabras de varios caracteres");

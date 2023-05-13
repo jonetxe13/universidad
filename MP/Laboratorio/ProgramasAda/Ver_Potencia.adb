@@ -1,18 +1,6 @@
-with Ada.Text_IO; use Ada.Text_IO;
-with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
-
 procedure Ver_Potencia is
-   -- entrada: 1 natural, Num 
-   -- salida: 4 naturales
-   -- post: Los cuatro naturales corresponden a 4 de casos de prueba
-   --    de la funci�n Potencia.
-
    function Potencia (N:Natural) return Natural is
-   -- EJERCICIO 1- ESPECIFICA E IMPLEMENTA recursivamente el subprograma
-   --   Potencia que calcula la n-�sima potencia de 2.
-
    begin
-      -- Completar
       if N = 0 then
         return 1;
       else
