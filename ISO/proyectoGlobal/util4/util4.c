@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
+// #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
@@ -15,13 +14,13 @@ int main(int argc, char *argv[]) {
   char *args[] = {"last", NULL};
 
   if (pipe(pipefd) == -1) {
-    perror("pipe");
+    write(2, "pipe error", strlen("pipe error"));
     exit(EXIT_FAILURE);
   }
 
   cpid = fork();
   if (cpid == -1) {
-    perror("fork");
+    write(2, "fork", 4);
     exit(EXIT_FAILURE);
   }
 
@@ -30,7 +29,7 @@ int main(int argc, char *argv[]) {
     dup2(pipefd[1], STDOUT_FILENO); // Redirige la salida estándar al pipe
     close(pipefd[1]); // Cierra el extremo de escritura del pipe
     execvp(args[0], args); // Ejecuta el comando last
-    perror("execvp");
+    write(2, "execvp", 6);
     exit(EXIT_FAILURE);
   } else { // Proceso padre
     close(pipefd[1]); // Cierra el extremo de escritura del pipe
@@ -55,8 +54,8 @@ int main(int argc, char *argv[]) {
     for (int i = 1; i < argc; i++) {
       write(STDOUT_FILENO, argv[i], strlen(argv[i]));
 
-        printf("%s: %d\n", argv[i], counts[i - 1]);
-      }
+      // printf("%s: %d\n", argv[i], counts[i - 1]);
+    }
         // write(STDOUT_FILENO, ":\n", strlen(":\n"));
         // while (read(pipefd[0], &buf, 1) > 0) {
         //     // Procesa la información en buf
@@ -65,5 +64,5 @@ int main(int argc, char *argv[]) {
         // close(pipefd[0]); // Cierra el extremo de lectura del pipe
         // wait(NULL); // Espera a que el proceso hijo termine
   }
-    return 0;
+   return 0;
 }
