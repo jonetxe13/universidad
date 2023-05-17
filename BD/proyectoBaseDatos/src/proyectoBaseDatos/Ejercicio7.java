@@ -1,29 +1,32 @@
 package proyectoBaseDatos;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Ejercicio7{
     public static void main(String[] args) {
+    	// inicializar la conexion a null
         Connection conn = null;
         try {
-            // 1. Create the connection initially to null
-            conn = DriverManager.getConnection("jdbc:oracle:thin:@myhost:1521:orcl", "myuser", "mypassword");
-            // 2. Set autocommit to false
+            // crear la conexion
+            conn = DriverManager.getConnection("jdbc:oracle:thin:@vsids11.si.ehu.es:1521:gipuzkoa", "BDC49", "BDC49");
+            // autocommit a falso
             conn.setAutoCommit(false);
-
-            String sql = "INSERT INTO viajes (fecha, hotel, excursion, guia) " +
-                         "SELECT add_months(fecha, 12), hotel, excursion, guia " +
-                         "FROM viajes WHERE EXTRACT(YEAR FROM fecha) = 2022";
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-            pstmt.executeUpdate();
-
-            // 3. End with commit in case of success (after finishing the transaction)
+            // seleccionar los viajes con fecha en 2022 y annadirle 12 meses, insertar estos datos en la tabla viaje
+            String sqlSelect = "INSERT INTO viaje (Destino, fechaSalida, dias, ciudadSalida, dni, precioDia)"
+            		+ "SELECT Destino, add_months(fechaSalida, 12), dias, ciudadSalida, dni, precioDia FROM viaje WHERE EXTRACT(YEAR FROM fechasalida) = 2022";
+            try (PreparedStatement statement = conn.prepareStatement(sqlSelect)) {
+            	statement.executeUpdate();
+            }
+            // terminar con commit si sale bien
             conn.commit();
         } catch (SQLException e) {
-            // or with rollback in case of error (within the catch)
+        	System.out.println("error");
+            // con rollback si hay algun problema
             if (conn != null) {
                 try {
                     conn.rollback();
@@ -33,6 +36,7 @@ public class Ejercicio7{
             }
             e.printStackTrace();
         } finally {
+        	// cerrar si o si la conexion
             if (conn != null) {
                 try {
                     conn.close();
