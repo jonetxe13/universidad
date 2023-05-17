@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DatabaseExample {
+public class Ejercicio6{
     public static void main(String[] args) {
         // Establecer conexión con la base de datos MySQL
         try (Connection mysqlConnection = DriverManager.getConnection("jdbc:mysql://dif-mysql.ehu.es:3306/DBC49?&useSSL=false", "DBC49", "DBC49")) {
