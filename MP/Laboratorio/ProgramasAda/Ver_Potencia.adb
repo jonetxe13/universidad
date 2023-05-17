@@ -1,12 +1,13 @@
 procedure Ver_Potencia is
+  
    function Potencia (N:Natural) return Natural is
-   begin
+   begin --{ N Natural}
       if N = 0 then
         return 1;
       else
         return 2 * Potencia(N - 1);
       end if;
-   end Potencia;
+   end Potencia; --{ 2^N }
 
   Num: Natural;
 

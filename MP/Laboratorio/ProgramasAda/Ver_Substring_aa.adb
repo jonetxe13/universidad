@@ -4,7 +4,7 @@ procedure Ver_Substring_aa is
    function Substring_aa(
          S : String)
      return Boolean is
-   BEGIN
+   BEGIN --{True}
       if S = "" then
          return False;
       elsif S'Length = 1 then
@@ -14,8 +14,7 @@ procedure Ver_Substring_aa is
       else
          return Substring_aa(S(S'First+1..S'Last));
       end if;
-
-   end Substring_aa;
+   end Substring_aa; --{return -> ParaTodo i(1<=i<=S'Length ^ S(i)=S(i+1) ^ S(i)='a')}
 
 begin
    Put_Line("-------------------------------------");

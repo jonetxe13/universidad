@@ -10,7 +10,7 @@ procedure Ver_Num_Apariciones_a is
      return Integer is
    -- EJERCICIO 4- ESPECIFICA E IMPLEMENTA recursivamente el subprograma
    --   Num_Apariciones_a que devuelve el numero de apariciones del car�cter 'a' en el string S
-   BEGIN
+   BEGIN --{ True }
       -- Completar
       if S = "" then
          return 0;
@@ -21,7 +21,7 @@ procedure Ver_Num_Apariciones_a is
             return Num_Apariciones_a(S(S'First+1..S'Last));
          end if;
       end if;
-   end Num_Apariciones_a ;
+   end Num_Apariciones_a; --{Ni(1<=i<=S'Length ^ S(i)='a')}
 
 begin
    Put_Line("-------------------------------------");

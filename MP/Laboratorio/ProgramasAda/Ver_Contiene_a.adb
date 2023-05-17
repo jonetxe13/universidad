@@ -9,7 +9,7 @@ procedure Ver_Contiene_a is
      return Boolean is
    -- EJERCICIO 3- ESPECIFICA E IMPLEMENTA recursivamente el subprograma
    --   Contiene_a que decide si el string S contiene el car�cter 'a'.
-   BEGIN
+   BEGIN --{True}
       -- Completar
       if S = "" then
          return False;
@@ -20,7 +20,7 @@ procedure Ver_Contiene_a is
       else 
          return False;
       end if;
-   end Contiene_a ;
+   end Contiene_a ; --{ return <-> (1<= i <= S.Length ^ A(i)='a')}
 
 begin
    Put_Line("-------------------------------------");

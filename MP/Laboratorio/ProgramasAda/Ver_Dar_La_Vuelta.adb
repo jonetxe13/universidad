@@ -9,14 +9,14 @@ procedure Ver_Dar_La_Vuelta is
      return String is
    -- EJERCICIO 2- ESPECIFICA E IMPLEMENTA recursivamente el subprograma
    --   Dar_La_Vuelta que devuelve el string inverso de S.
-   BEGIN
+   BEGIN --{True}
       -- Completar
       if S = "" then
          return "";
       else
          return Dar_La_Vuelta(S(S'First+1..S'Last)) & S(S'First..S'First);
       end if;
-   end Dar_La_Vuelta ;
+   end Dar_La_Vuelta ; --{ return = S'Last..S'First}
 
 
 begin
