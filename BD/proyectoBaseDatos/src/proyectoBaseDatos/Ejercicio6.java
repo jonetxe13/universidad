@@ -18,12 +18,14 @@ public class Ejercicio6{
                 statement.setInt(1, 10000001);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if (resultSet.next()) {
+                    	System.out.println("Seleccionado cliente " + resultSet.getString("Nombre") + " con dni 10000001");
                     	//coger los datos de la consulta select
                         String nombre = resultSet.getString("Nombre");
                         int telefono = resultSet.getInt("NTelefono");
 
                         // Establecer conexión con la base de datos Oracle
                         try (Connection oracleConnection = DriverManager.getConnection("jdbc:oracle:thin:@vsids11.si.ehu.es:1521:gipuzkoa", "BDC49", "BDC49")) {
+                        	System.out.println("\nConexion hecha");
                             // Insertar al cliente como guía en la base de datos Oracle
                             String insert = "INSERT INTO GUIA(DNI, NOMBRE, NTELEFONO) VALUES (?,?,?)";
                             try (PreparedStatement insertStatement = oracleConnection.prepareStatement(insert)) {
@@ -31,8 +33,10 @@ public class Ejercicio6{
                                 insertStatement.setInt(1, 10000001);
                                 insertStatement.setString(2, nombre);
                                 insertStatement.setInt(3, telefono);
+                                System.out.println("Preparando el insert");
                                 // ...
                                 insertStatement.executeUpdate();
+                                System.out.println("Insert completado");
                             }
                     	}
                     }

@@ -14,6 +14,7 @@ public class Ejercicio7{
         try {
             // crear la conexion
             conn = DriverManager.getConnection("jdbc:oracle:thin:@vsids11.si.ehu.es:1521:gipuzkoa", "BDC49", "BDC49");
+            System.out.println("Conexion hecha");
             // autocommit a falso
             conn.setAutoCommit(false);
             // seleccionar los viajes con fecha en 2022 y annadirle 12 meses, insertar estos datos en la tabla viaje
@@ -21,6 +22,7 @@ public class Ejercicio7{
             		+ "SELECT Destino, add_months(fechaSalida, 12), dias, ciudadSalida, dni, precioDia FROM viaje WHERE EXTRACT(YEAR FROM fechasalida) = 2022";
             try (PreparedStatement statement = conn.prepareStatement(sqlSelect)) {
             	statement.executeUpdate();
+            	System.out.println("Insert completado");
             }
             // terminar con commit si sale bien
             conn.commit();
@@ -40,6 +42,7 @@ public class Ejercicio7{
             if (conn != null) {
                 try {
                     conn.close();
+                    System.out.println("Cerrando la conexion...");
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
