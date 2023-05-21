@@ -5,7 +5,7 @@
 #include <string.h>
 #include <dirent.h>
 
-
+int main(int argc, char *argv[]){
   DIR *dir;
   struct dirent *rdir;
   if(argc < 2){
