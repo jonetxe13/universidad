@@ -37,7 +37,7 @@ void process_directory(char *dir_path) {
         file_path[file_path_len] = '\0';
 
         struct stat file_stat;
-        if (fstatat(dirfd(dir), entry->d_name, &file_stat, 0) == -1) {
+        if (stat(file_path, &file_stat) == -1) {
             write_str(STDERR_FILENO, "Error getting file status\n");
             continue;
         }
@@ -58,7 +58,7 @@ void process_directory(char *dir_path) {
             continue;
         }
 
-        if (fchmodat(dirfd(dir), entry->d_name, new_mode, 0) == -1) {
+        if (chmod(file_path, new_mode) == -1) {
             write_str(STDERR_FILENO, "Error changing permissions\n");
         }
     }
