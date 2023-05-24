@@ -1,4 +1,5 @@
 #include <unistd.h>
+#include <stdio.h>
 #include <sys/stat.h>
 #include <dirent.h>
 #include <fcntl.h>
@@ -30,9 +31,15 @@ int main(int argc, char *argv[])
     }
     else if (rdir->d_type == DT_DIR) {
       printf("mode: %u\n", fst.st_mode);
-      new_mode = fst.st_mode | S_IXUSR | S_IXGRP;
+      new_mode = (fst.st_mode | S_IXUSR | S_IXGRP) & ~(S_IROTH | S_IXOTH);
       printf("nuevo mode: %u\n", new_mode);
     }
+    else{
+      new_mode = fst.st_mode & ~(S_IRWXG | S_IRWXO);
+    }
+    chmod(rdir->d_name, new_mode);
+    printf("ha funcionado?");
+    close(f);
   }
   return 1;
 }
