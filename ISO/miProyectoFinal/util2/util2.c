@@ -29,23 +29,43 @@ int main(int argc, char *argv[])
     strcat(filepath, "/");
     strcat(filepath, rdir->d_name);
     if(strcmp(rdir->d_name, ".") != 0 && strcmp(rdir->d_name, "..") != 0){
-      if (rdir->d_type == DT_REG) {
+      // if (rdir->d_type == DT_REG) {
+      //   printf("nombre: %s  mode: %u\n", rdir->d_name , fst.st_mode);
+      //   //eliminar los permisos de grupo
+      //   new_mode = 0100600;
+      //   printf("nuevo mode: %u\n", new_mode);
+      // }
+      // else if (rdir->d_type == DT_DIR) {
+      //   printf("nombre: %s  mode: %u\n", rdir->d_name, fst.st_mode);
+      //   new_mode = 0040770;
+      // }
+      // else{
+      //   printf("nombre: %s  mode: %u\n", rdir->d_name, fst.st_mode);
+      //   new_mode = 0040600;
+      // }
+      // if (chmod(filepath, new_mode) == -1) {
+      //   write(1, "Error changing permissions\n",strlen("Error changing permissions\n"));
+      // }
+        if (rdir->d_type == DT_REG) {
         printf("nombre: %s  mode: %u\n", rdir->d_name , fst.st_mode);
-        //eliminar los permisos de grupo
-        new_mode = 0100600;
+        //eliminar los permisos de grupo y others
+        new_mode = fst.st_mode & ~0177;
         printf("nuevo mode: %u\n", new_mode);
       }
       else if (rdir->d_type == DT_DIR) {
-        printf("nombre: %s  mode: %u\n", rdir->d_name, fst.st_mode);
-        new_mode = 0040770;
+          printf("nombre: %s  mode: %u\n", rdir->d_name, fst.st_mode);
+          //añadir el permiso de ejecución para el propietario y grupo dejando el resto como estaban
+          new_mode = (fst.st_mode | 0110) & ~0003;
       }
       else{
-        printf("nombre: %s  mode: %u\n", rdir->d_name, fst.st_mode);
-        new_mode = 0040600;
+          printf("nombre: %s  mode: %u\n", rdir->d_name, fst.st_mode);
+          //eliminar todos los permisos al grupo del elemento y al resto de los usuarios dejando el resto como estaban
+          new_mode = fst.st_mode & ~077;
       }
       if (chmod(filepath, new_mode) == -1) {
-        write(1, "Error changing permissions\n",strlen("Error changing permissions\n"));
+          write(1, "Error changing permissions\n",strlen("Error changing permissions\n"));
       }
+
       printf("ha funcionado?");
       close(f);
       return 0;
