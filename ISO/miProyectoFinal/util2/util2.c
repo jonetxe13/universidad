@@ -21,25 +21,35 @@ int main(int argc, char *argv[])
   int st;
   struct stat fst;
   mode_t new_mode;
+  char filepath[128];
   while ((rdir=readdir(dir)) != NULL) {
     f=open(rdir->d_name, O_RDONLY);
     st=stat(rdir->d_name, &fst);
-    if (rdir->d_type == DT_REG) {
-      printf("mode: %u\n", fst.st_mode);
-      new_mode = fst.st_mode & S_IRWXU;
-      printf("nuevo mode: %u\n", new_mode);
+    strcpy(filepath, argv[1]);
+    strcat(filepath, "/");
+    strcat(filepath, rdir->d_name);
+    if(strcmp(rdir->d_name, ".") != 0 && strcmp(rdir->d_name, "..") != 0){
+      if (rdir->d_type == DT_REG) {
+        printf("nombre: %s  mode: %u\n", rdir->d_name , fst.st_mode);
+        //eliminar los permisos de grupo
+        new_mode = 0100600;
+        printf("nuevo mode: %u\n", new_mode);
+      }
+      else if (rdir->d_type == DT_DIR) {
+        printf("nombre: %s  mode: %u\n", rdir->d_name, fst.st_mode);
+        new_mode = 0040770;
+      }
+      else{
+        printf("nombre: %s  mode: %u\n", rdir->d_name, fst.st_mode);
+        new_mode = 0040600;
+      }
+      if (chmod(filepath, new_mode) == -1) {
+        write(1, "Error changing permissions\n",strlen("Error changing permissions\n"));
+      }
+      printf("ha funcionado?");
+      close(f);
+      return 0;
     }
-    else if (rdir->d_type == DT_DIR) {
-      printf("mode: %u\n", fst.st_mode);
-      new_mode = (fst.st_mode | S_IXUSR | S_IXGRP) & ~(S_IROTH | S_IXOTH);
-      printf("nuevo mode: %u\n", new_mode);
-    }
-    else{
-      new_mode = fst.st_mode & ~(S_IRWXG | S_IRWXO);
-    }
-    chmod(rdir->d_name, new_mode);
-    printf("ha funcionado?");
-    close(f);
   }
   return 1;
 }
