@@ -11,7 +11,7 @@ struct user_count {
     int count;
 };
 
-int main() {
+int main(int argc, char *argv[]) {
     int pipefd[2];
     pid_t cpid;
     char buf;
@@ -20,7 +20,7 @@ int main() {
     char user[32];
     struct user_count users[MAX_USERS];
     int num_users = 0;
-    int i;
+    int i, j;
 
     memset(users, 0, sizeof(users));
 
@@ -48,10 +48,10 @@ int main() {
         while (fgets(line, sizeof(line), stream) != NULL) {
             sscanf(line, "%s", user);
             for (i = 0; i < num_users; i++) {
-                if (strcmp(users[i].name, user) == 0) {
+	  	if (strcmp(users[i].name, user) == 0) {
                     users[i].count++;
                     break;
-                }
+		}
             }
             if (i == num_users) {
                 strncpy(users[num_users].name, user, sizeof(users[num_users].name) - 1);
@@ -62,9 +62,13 @@ int main() {
         fclose(stream);
         wait(NULL); /* Wait for child to terminate */
     }
-
-    for (i = 0; i < num_users; i++) {
-        printf("%s: %d\n", users[i].name, users[i].count);
+    for (i = 1; i < argc; i++) {
+        for (j = 0; j < num_users; j++) {
+            if (strcmp(argv[i], users[j].name) == 0) {
+                printf("%s: %d\n", users[j].name, users[j].count);
+                break;
+            }
+        }
     }
     return 0;
 }
