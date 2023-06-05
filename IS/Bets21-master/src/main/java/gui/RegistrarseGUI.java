@@ -82,9 +82,9 @@ public class RegistrarseGUI extends JFrame{
 		lblCorreo.setBounds(51, 51, 146, 13);
 		getContentPane().add(lblCorreo);
 
-		JLabel lblContraseña = new JLabel("Introducir contraseña:"); //$NON-NLS-1$
-		lblContraseña.setBounds(51, 101, 146, 13);
-		getContentPane().add(lblContraseña);
+		JLabel lblContrasenna = new JLabel("Introducir contraseña:"); //$NON-NLS-1$
+		lblContrasenna.setBounds(51, 101, 146, 13);
+		getContentPane().add(lblContrasenna);
 
 		JLabel lblRepetirContr = new JLabel("Repetir contraseña:"); //$NON-NLS-1$
 		lblRepetirContr.setBounds(51, 157, 145, 13);

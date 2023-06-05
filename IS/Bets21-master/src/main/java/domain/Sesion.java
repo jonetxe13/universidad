@@ -12,7 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
-@IdClass(SesionId.class)
+//@IdClass(SesionId.class)
 public class Sesion {
 	@Id
 	private Date fecha;
