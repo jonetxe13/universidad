@@ -143,9 +143,9 @@ public class BLFacadeImplementation  implements BLFacade {
 	@WebMethod
 	public Sesion addAListaEspera(Sesion sesion, Usuario user) {
 		dbManager.open(false);
-		Sesion añadidoOno = dbManager.addAListaEspera(sesion, user);
+		Sesion annadidoOno = dbManager.addAListaEspera(sesion, user);
 		dbManager.close();
-		return añadidoOno;
+		return annadidoOno;
 	}
 
 	@SuppressWarnings("deprecation")

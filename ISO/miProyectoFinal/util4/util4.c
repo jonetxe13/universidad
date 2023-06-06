@@ -14,17 +14,25 @@ struct user_count {
 int main(int argc, char *argv[]) {
     int pipefd[2];
     pid_t cpid;
+<<<<<<< HEAD
+=======
+    char buf;
+>>>>>>> e06de3fb815f0b5959863d2783fee4e128b2e675
     FILE *stream;
     char line[256];
     char user[32];
     struct user_count users[MAX_USERS];
     int num_users = 0;
     int i, j;
+<<<<<<< HEAD
     
     if(argc < 2){
         printf("Uso: %s usuario1 usuario2 ... usuarioN", argv[0]);
 	exit(EXIT_FAILURE);
     }
+=======
+
+>>>>>>> e06de3fb815f0b5959863d2783fee4e128b2e675
     memset(users, 0, sizeof(users));
 
     if (pipe(pipefd) == -1) {
