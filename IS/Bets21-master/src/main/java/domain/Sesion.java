@@ -16,8 +16,8 @@ import javax.persistence.ManyToOne;
 public class Sesion {
 	@Id
 	private Date fecha;
-	private int precio;
 	private int plazasDisponibles;
+	private int precio;
 	@ManyToOne
 	private Actividad actividad;
 	@ManyToMany
@@ -27,7 +27,7 @@ public class Sesion {
 	private Sala sala;
 
 	public Sesion() {}
-	public Sesion(Date fecha, Sala sala, int plazas, Actividad actividad) {
+	public Sesion(Date fecha, Sala sala, int plazas, Actividad actividad, int precio) {
 		this.fecha = fecha;
 		if(plazas > sala.getAforoMax())
 			System.out.println("la sesion no puede tener mas plazas que la sala");

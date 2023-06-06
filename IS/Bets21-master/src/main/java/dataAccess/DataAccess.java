@@ -93,7 +93,7 @@ public class DataAccess  {
 		   int semanaSesion = cal2.get(Calendar.WEEK_OF_YEAR);
 		   Sesion sesion1 = null; 
 		   if (semanaActual == semanaSesion) {
-			  sesion1 = new Sesion(fechaNueva, sala1, 1, act1);
+			  sesion1 = new Sesion(fechaNueva, sala1, 1, act1, 100);
 		   } else {
 			    System.out.println("La fecha de la sesión no está dentro de la semana actual.");
 		   }
@@ -115,7 +115,7 @@ public class DataAccess  {
 		   Sesion ses2 = null; 
 		   if (semanaActual == semanaSesion) {
 			   System.out.println("la fecha de la base de datos :" + fechaNueva);
-			  ses2 = new Sesion(fechaNueva, sala1, 10, act2);
+			  ses2 = new Sesion(fechaNueva, sala1, 10, act2, 4);
 		   } else {
 			    System.out.println("La fecha de la sesión no está dentro de la semana actual.");
 		   }
@@ -124,7 +124,7 @@ public class DataAccess  {
 		   Sesion ses3 = null; 
 		   if (semanaActual == semanaSesion) {
 			   System.out.println("la fecha de la base de datos :" + fechaNueva);
-			   ses3 = new Sesion(fechaNueva, sala1, 10, act2);
+			   ses3 = new Sesion(fechaNueva, sala1, 10, act2, 3);
 		   } else {
 			    System.out.println("La fecha de la sesión no está dentro de la semana actual.");
 		   }
@@ -133,7 +133,7 @@ public class DataAccess  {
 		   Sesion ses4 = null; 
 		   if (semanaActual == semanaSesion) {
 			   	System.out.println("la fecha de la base de datos :" + fechaNueva);
-			   ses4 = new Sesion(fechaNueva, sala2, 10, act3);
+			   ses4 = new Sesion(fechaNueva, sala2, 10, act3, 9);
 		   } else {
 			    System.out.println("La fecha de la sesión no está dentro de la semana actual.");
 		   }
@@ -142,7 +142,7 @@ public class DataAccess  {
 		   Sesion ses5 = null; 
 		   if (semanaActual == semanaSesion) {
 			   System.out.println("la fecha de la base de datos :" + fechaNueva);
-			   ses5 = new Sesion(fechaNueva, sala1, 10, act3);
+			   ses5 = new Sesion(fechaNueva, sala1, 10, act3, 13);
 		   } else {
 			    System.out.println("La fecha de la sesión no está dentro de la semana actual.");
 		   }
@@ -151,7 +151,7 @@ public class DataAccess  {
 		   Sesion ses6 = null; 
 		   if (semanaActual == semanaSesion) {
 			   System.out.println("la fecha de la base de datos :" + fechaNueva);
-			   ses6 = new Sesion(fechaNueva, sala1, 10, act1);
+			   ses6 = new Sesion(fechaNueva, sala1, 10, act1, 11);
 		   } else {
 			   System.out.println("La fecha de la sesión no está dentro de la semana actual.");
 		   }
@@ -159,7 +159,7 @@ public class DataAccess  {
 		   Sesion ses7 = null; 
 		   if (semanaActual == semanaSesion) {
 			   System.out.println("la fecha de la base de datos :" + fechaNueva);
-			   ses7 = new Sesion(fechaNueva, sala1, 10, act1);
+			   ses7 = new Sesion(fechaNueva, sala1, 10, act1, 12);
 		   } else {
 			   System.out.println("La fecha de la sesión no está dentro de la semana actual.");
 		   }
@@ -167,7 +167,7 @@ public class DataAccess  {
 		   Sesion ses8 = null; 
 		   if (semanaActual == semanaSesion) {
 			   System.out.println("la fecha de la base de datos :" + fechaNueva);
-			   ses8 = new Sesion(fechaNueva, sala1, 10, act1);
+			   ses8 = new Sesion(fechaNueva, sala1, 10, act1, 10);
 		   } else {
 			   System.out.println("La fecha de la sesión no está dentro de la semana actual.");
 		   }
@@ -520,7 +520,7 @@ public class DataAccess  {
 				System.out.println("la actividad que has introducido no existe");
 			}
 			//si existe la actividad se intenta crear la sesion
-			res = new Sesion(fecha, salaSes, Integer.parseInt(plazas), activ);
+			res = new Sesion(fecha, salaSes, Integer.parseInt(plazas), activ, Integer.parseInt(precio));
 			if(res != null) System.out.println("la sesion se ha creado bien");
 			//se annade la sesion a la sala
 			salaSes.addAListaSesiones(res);

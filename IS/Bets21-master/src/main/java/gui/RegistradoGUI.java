@@ -57,6 +57,19 @@ public class RegistradoGUI extends JFrame{
 		JLabel UsuarioIniciado = new JLabel("Hola " + user.getCorreo() + " desde aqui puedes controlar tus reservas y pagos.");
 		UsuarioIniciado.setBounds(40, 10, 468, 25);
 		jContentPane.add(UsuarioIniciado);
+		
+		JButton btnPagarFactura = new JButton("Pagar factura");
+		btnPagarFactura.setBounds(99, 155, 218, 45);
+		btnPagarFactura.addActionListener(new java.awt.event.ActionListener() {
+				@Override
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println(user.getCorreo());
+					JFrame a = new PagarFacturasGUI(user);
+					a.setBounds(0, 0, 700, 600);
+					a.setVisible(true);
+				}
+			});
+		jContentPane.add(btnPagarFactura);
 		}
 		return jContentPane;
 	}
