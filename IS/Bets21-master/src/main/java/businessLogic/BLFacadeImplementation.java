@@ -144,6 +144,7 @@ public class BLFacadeImplementation  implements BLFacade {
 	public Sesion addAListaEspera(Sesion sesion, Usuario user) {
 		dbManager.open(false);
 		Sesion annadidoOno = dbManager.addAListaEspera(sesion, user);
+		if(annadidoOno!=null) System.out.println("addAListaEspera funciona");
 		dbManager.close();
 		return annadidoOno;
 	}

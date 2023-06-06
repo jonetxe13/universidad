@@ -1,5 +1,6 @@
 package dataAccess;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 //hello
 import java.util.Calendar;
@@ -7,6 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -91,7 +93,7 @@ public class DataAccess  {
 		   int semanaSesion = cal2.get(Calendar.WEEK_OF_YEAR);
 		   Sesion sesion1 = null; 
 		   if (semanaActual == semanaSesion) {
-			  sesion1 = new Sesion(fechaNueva, sala1, 0, act1);
+			  sesion1 = new Sesion(fechaNueva, sala1, 1, act1);
 		   } else {
 			    System.out.println("La fecha de la sesión no está dentro de la semana actual.");
 		   }
@@ -101,8 +103,10 @@ public class DataAccess  {
 		   db.persist(admin);
 
 		   Usuario usuario = new Usuario("a@a.com", "nose");
+		   Usuario usuario2 = new Usuario("b@b.com", "nose");
 		   System.out.println("se ha annadido el usuario");
 		   db.persist(usuario);
+		   db.persist(usuario2);
 
 		   List<Sesion> lista = new ArrayList<>();
 		   lista.add(sesion1);
@@ -454,8 +458,9 @@ public class DataAccess  {
 		    String[] nomSesion = s.split("/");
 		    //coges solo la fecha de la sesion
 		    listaNomSesion.add(nomSesion[0]);
+		    
 		    //si la fecha y la sesion coinciden es que es esa
-		    if (nomSesion[0].equals(ses.getFecha()) && Integer.parseInt(nomSesion[1]) == ses.getSala().getNumero()) {
+		    if (nomSesion[0].equals(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH).format(ses.getFecha())) && Integer.parseInt(nomSesion[1]) == ses.getSala().getNumero()) {
 		        System.out.println("se ha encontrado la sesion con el mismo nombre que el de la reserva");
 		        //la quitas de la lista de reservas del usuario
 		        iterator.remove();
