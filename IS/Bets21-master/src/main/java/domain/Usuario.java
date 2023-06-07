@@ -36,8 +36,12 @@ public class Usuario {
 			System.out.println("se te ha anadido a la lista de reservas");
 		}
 		else {
-			System.out.println("ya estas en la lista de espera de esta sesion");
+			System.out.println("\nya estas en la lista de espera de esta sesion: " + codigo);
+			System.out.println("lista de codigos: " + getListaReservas());
 		}
+	}
+	public void crearCargo() {
+		
 	}
 	public void removeReserva(String codigo) {
 		if(!this.listaReservas.contains(codigo)) {

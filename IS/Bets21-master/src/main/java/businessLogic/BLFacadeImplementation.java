@@ -135,6 +135,9 @@ public class BLFacadeImplementation  implements BLFacade {
 		else {
 			bien = dbManager.addReserva(seleccionado, user);
 		}
+		if(user.getListaReservas().size() >= 5) {
+			dbManager.crearCargo(user, seleccionado.crearHash(user));
+		}
 		System.out.println("hasta aqui llega 3");
 //		dbManager.close();
 		return bien;

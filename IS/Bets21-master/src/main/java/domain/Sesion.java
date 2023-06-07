@@ -53,7 +53,7 @@ public class Sesion {
 
 	public String crearHash(Usuario user) {
 		String codigo = this.fecha+"/" + this.sala.getNumero()+"/"+user.getCorreo();
-		System.out.print(codigo);
+//		System.out.print(codigo);
 		return codigo;
 	}
 	public void addAListaEspera(Usuario user) {

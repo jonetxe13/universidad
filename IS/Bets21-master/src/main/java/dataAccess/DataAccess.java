@@ -51,7 +51,7 @@ public class DataAccess  {
 	}
 	
 	private Date annadirTiempo(Calendar cal, Date fecha, int dias, int horas) {
-		System.out.println(fecha);
+//		System.out.println(fecha);
 		   cal.setFirstDayOfWeek(Calendar.MONDAY);
 		   cal.setTimeZone(TimeZone.getTimeZone("Europe/Madrid")); // establece la zona horaria en Madrid
 		   cal.set(Calendar.MILLISECOND, 0);
@@ -60,7 +60,7 @@ public class DataAccess  {
 		   cal.set(Calendar.MINUTE, 0);
 		   cal.set(Calendar.SECOND, 0);
 		   fecha = cal.getTime();
-		System.out.println(fecha);
+//		System.out.println(fecha);
 		   return fecha;
 	}
 
@@ -86,7 +86,7 @@ public class DataAccess  {
 		   Sala sala1 = new Sala(1, 20);
 		   Sala sala2 = new Sala(2, 20);
 		   //inicializamos la fecha
-		   Date fechaNueva = annadirTiempo(cal, null, 0, 1);
+		   Date fechaNueva = annadirTiempo(cal, null, 0, 0);
 
 		   System.out.println("La nueva fecha es: " + fechaNueva);
 
@@ -108,111 +108,54 @@ public class DataAccess  {
 		   Usuario usuario = new Usuario("a@a.com", "nose");
 		   Usuario usuario2 = new Usuario("b@b.com", "nose");
 		   System.out.println("se ha annadido el usuario");
-
+		   
+		   db.persist(new Cargo());
 		   List<Sesion> lista = new ArrayList<>();
 		   lista.add(sesion1);
-		   
-		   fechaNueva = annadirTiempo(cal, fechaNueva, 0, 1);
-		   Sesion ses2 = null; 
-		   if (semanaActual == semanaSesion) {
-			   System.out.println("la fecha de la base de datos :" + fechaNueva);
-			  ses2 = new Sesion(fechaNueva, sala1, 10, act2, 4);
-		   } else {
-			    System.out.println("La fecha de la sesión no está dentro de la semana actual.");
-		   }
-		   
-		   fechaNueva = annadirTiempo(cal, fechaNueva, 0, 1);
-		   Sesion ses3 = null; 
-		   if (semanaActual == semanaSesion) {
-			   System.out.println("la fecha de la base de datos :" + fechaNueva);
-			   ses3 = new Sesion(fechaNueva, sala1, 10, act2, 3);
-		   } else {
-			    System.out.println("La fecha de la sesión no está dentro de la semana actual.");
-		   }
-		   
-		   fechaNueva = annadirTiempo(cal, fechaNueva, 0, 1);
-		   Sesion ses4 = null; 
-		   if (semanaActual == semanaSesion) {
-			   	System.out.println("la fecha de la base de datos :" + fechaNueva);
-			   ses4 = new Sesion(fechaNueva, sala2, 10, act3, 9);
-		   } else {
-			    System.out.println("La fecha de la sesión no está dentro de la semana actual.");
-		   }
-		   
-		   fechaNueva = annadirTiempo(cal, fechaNueva, 0, 1);
-		   Sesion ses5 = null; 
-		   if (semanaActual == semanaSesion) {
-			   System.out.println("la fecha de la base de datos :" + fechaNueva);
-			   ses5 = new Sesion(fechaNueva, sala1, 10, act3, 13);
-		   } else {
-			    System.out.println("La fecha de la sesión no está dentro de la semana actual.");
-		   }
-		   
-		   fechaNueva = annadirTiempo(cal, fechaNueva, 0, 1);
-		   Sesion ses6 = null; 
-		   if (semanaActual == semanaSesion) {
-			   System.out.println("la fecha de la base de datos :" + fechaNueva);
-			   ses6 = new Sesion(fechaNueva, sala1, 10, act1, 11);
-		   } else {
-			   System.out.println("La fecha de la sesión no está dentro de la semana actual.");
-		   }
-		   fechaNueva = annadirTiempo(cal, fechaNueva, 0, 1);
-		   Sesion ses7 = null; 
-		   if (semanaActual == semanaSesion) {
-			   System.out.println("la fecha de la base de datos :" + fechaNueva);
-			   ses7 = new Sesion(fechaNueva, sala1, 10, act1, 12);
-		   } else {
-			   System.out.println("La fecha de la sesión no está dentro de la semana actual.");
-		   }
-		   fechaNueva = annadirTiempo(cal, fechaNueva, 0, 1);
-		   Sesion ses8 = null; 
-		   if (semanaActual == semanaSesion) {
-			   System.out.println("la fecha de la base de datos :" + fechaNueva);
-			   ses8 = new Sesion(fechaNueva, sala1, 10, act1, 10);
-		   } else {
-			   System.out.println("La fecha de la sesión no está dentro de la semana actual.");
-		   }
-		   lista.add(sesion1);
-		   lista.add(ses2);
-		   lista.add(ses3);
-		   lista.add(ses5);
-		   lista.add(ses6);
-		   lista.add(ses7);
-		   lista.add(ses8);
-
-		   sala1.setListaSesiones(lista);
-		   
 		   db.persist(usuario);
 		   db.persist(usuario2);
 		   
-		   db.persist(sesion1);
-		   db.persist(ses2);
-		   db.persist(ses3);
-		   db.persist(ses4);
-		   db.persist(ses5);
-		   db.persist(ses6);
-		   db.persist(ses7);
-		   db.persist(ses8);
-		   
 		   db.persist(sala1);
 		   db.persist(sala2);
-
-
+		   
 		   db.getTransaction().commit();
 		   
-		   this.addReserva(sesion1,usuario);
-		   this.addReserva(ses2,usuario);
-		   this.addReserva(ses3,usuario);
-		   this.addReserva(ses4,usuario);
-		   this.addReserva(ses5,usuario);
-		   this.addReserva(ses6,usuario);
-//		   Cargo prueba = new Cargo(usuario, sesion1);
-//		   db.persist(prueba);
+		   //annadir sesiones para esta semana y para la siguiente
+		   Date fechaNueva2 = annadirTiempo(cal, fechaNueva, -6, 0);
+		   
+		   System.out.println("\nla primera fecha es: " + fechaNueva);
+		   System.out.println("\nla segunda fecha es: " + fechaNueva2);
+		   for(int i = 0; i < 5; i++) {
+			   db.getTransaction().begin();
+			   fechaNueva = annadirTiempo(cal, fechaNueva, 1, 0);
+//			   System.out.println("la fecha de la base de datos :" + fechaNueva);
+			   Sesion sesion = new Sesion(fechaNueva, sala1, 10, act2, 4); 
+			   fechaNueva2 = annadirTiempo(cal, fechaNueva2, 1, 0);
+//			   System.out.println("la fecha de la base de datos :" + fechaNueva2);
+			   Sesion sesion2 = new Sesion(fechaNueva2, sala1, 10, act2, 4); 
+			   db.persist(sesion);
+			   db.persist(sesion2);
+			   db.getTransaction().commit();
+			   this.addReserva(sesion, usuario);
+//			   System.out.println("\n\n\n\n\nSe mete en el crearCargo\n\n\n\n\n\n");
+			   this.crearCargo(usuario, sesion.crearHash(usuario));
+			   this.addReserva(sesion2, usuario);
+			   this.crearCargo(usuario, sesion2.crearHash(usuario));
+//			   System.out.println("\n\n\n" + sesion.crearHash(usuario)+ "\n\n\n");
+			   lista.add(sesion);
+			   
+			   usuario.addReserva(sesion2.crearHash(usuario));
+//			   System.out.println("\n\n\n" + sesion2.crearHash(usuario)+ "\n\n\n");
+		   }
+		   System.out.println("\nla primera fecha es despues: " + fechaNueva);
+		   System.out.println("\nla segunda fecha es despues: " + fechaNueva2);
+
+		   sala1.setListaSesiones(lista);
+		   
 		   TypedQuery<Usuario> cargos = db.createQuery("SELECT c FROM Cargo c WHERE c.user=?1", Usuario.class);
 		   cargos.setParameter(1, usuario);
-		   System.out.println("el cargo1: \n" + cargos.getResultList());
+		   System.out.println("el cargo1: \n" + cargos.getResultList().size());
 		    
-//		   System.out.println("\n el size al final es: " + usuario.getListaReservas().size() + "\n");
 		}
 		catch (Exception e){
 			e.printStackTrace();
@@ -300,8 +243,7 @@ public class DataAccess  {
 	}
 	public Sesion getSesion(Date fecha, int salaNum){
 		//busca en la base de datos las sesiones con la misma fecha
-//		db.getTransaction().begin();
-		System.out.println("la fecha en getSesion en dataaccess es: " + fecha.toString());
+//		System.out.println("la fecha en getSesion en dataaccess es: " + fecha.toString());
 		TypedQuery<Sesion> listaSes = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha=:fecha", Sesion.class);
 		listaSes.setParameter("fecha", fecha);
 		List<Sesion> listaSesiones = listaSes.getResultList();
@@ -316,8 +258,6 @@ public class DataAccess  {
 			System.out.print("la sesion no existe\n");
 			return null;
 		}
-//		db.persist(ses);
-//		db.getTransaction().commit();
 		return ses;
 	}
 
@@ -354,11 +294,6 @@ public class DataAccess  {
 	    query.setParameter("end", end);
 	    List<Sesion> resultado = query.getResultList();
 
-	    System.out.println(resultado);
-	    for(Sesion ses: resultado) {
-	        System.out.println(ses.getActividad().getNombre());
-	    }
-
 	    return resultado;
 	}
 	public List<Actividad> getActividades() {
@@ -382,79 +317,91 @@ public class DataAccess  {
 
 		//busca la sesion y el usuario pasado como parametro
 		Usuario usuario = db.find(Usuario.class, idUsuario);
-		TypedQuery<Sesion> query = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha=:fecha", Sesion.class);
-	    query.setParameter("fecha", idSesion);
-	    List<Sesion> sesiones = query.getResultList();
-	    Sesion ses = null;
-	    //busca la sesion en concreto
-	    for(Sesion sesion2: sesiones) {
-	    	if(sesion2.getSala().getNumero() == sesion.getSala().getNumero()) {
-	    		ses = sesion2;
-	    	}
-	    }
 	    //coge la lista de reservas del usuario
 	    List<String> listaRes = usuario.getListaReservas();
 //	    System.out.println("la lista de reservas: " + listaRes);
 		if(listaRes != null) {
 			for(String r: listaRes) {
 				//si en la lista de reservas esta el codigo que se crearia con esa sesion y ese usuario entonces es que ya tienes esa reserva
-				if(r.equals(ses.getFecha()+"/"+ses.getSala().getNumero()+ "/"+user.getCorreo())){
+				if(r.equals(sesion.getFecha()+"/"+sesion.getSala().getNumero()+ "/"+user.getCorreo())){
 					System.out.println("ya tienes esta sesion reservada");
 					return false;
 				}
 			}
 		}
 		//se crea el codigo que identifica la reserva
-		String codigo = ses.crearHash(user);
+		String codigo = sesion.crearHash(user);
 		//se annade el codigo a la lista de reservas del usuario
 		usuario.addReserva(codigo);
-		ses.setPlazasDisponibles(ses.getPlazasDisponibles()-1);
+		System.out.println(codigo);
+		sesion.setPlazasDisponibles(sesion.getPlazasDisponibles()-1);
+
+		db.persist(usuario);
+		db.getTransaction().commit();
+		return true;
+	}
+
+	public void crearCargo(Usuario usuario, String codigo) {
+		db.getTransaction().begin();
+//		System.out.println("\nholaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+	    Calendar cal2 = Calendar.getInstance();
+	    cal2.setFirstDayOfWeek(Calendar.MONDAY);
+	    cal2.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+	    Date start = cal2.getTime();
+	    start = annadirTiempo(cal2, start, -7, 0);
+
+	    //se le suma 6 dias para tener el domingo
+//	    cal.setFirstDayOfWeek(Calendar.MONDAY);
+//	    cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+	    Date end = cal2.getTime();
+	    end = annadirTiempo(cal2, end, 6, 0);
+//	    Date end = annadirTiempo(cal, start, 6, 0);
 		Cargo cargoUser = null;
-		if(listaRes.size() == 5) {
-			for(String reserva: listaRes) {
+		if(usuario.getListaReservas().size() == 5) {
+//				System.out.println("\n\nla fecha start es: " + start);
+//				System.out.println("la fecha end es: " + end);
+			for(String reserva: usuario.getListaReservas()) {
 				String[] reservaSplit = reserva.split("/");
 				Date date = null;
 				try {
 					date = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH).parse(reservaSplit[0]);
+//				System.out.println("la fecha del cargo es: " + date);
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				Sesion sesi = getSesion(date, Integer.parseInt(reservaSplit[1]));
+				if(date.compareTo(end) <= 0 && date.compareTo(start) >= 0) {
+					Sesion sesi = getSesion(date, Integer.parseInt(reservaSplit[1]));
+					cargoUser = new Cargo();
+					CargoId cargoId = new CargoId();
+					cargoId.setUser(usuario);
+					cargoId.setSesion(sesi);
+					cargoUser.setId(cargoId);
+					db.persist(cargoUser);
+				}
+			}
+		} 
+		else if(usuario.getListaReservas().size() > 5) {
+//				System.out.println("\n\nla fecha start es: " + start);
+//				System.out.println("la fecha end es: " + end);
+			String[] codigoSplit = codigo.split("/");
+			Date date = null;
+			try {
+				date = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH).parse(codigoSplit[0]);
+//				System.out.println("la fecha del cargo es: " + date);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			if(date.compareTo(end) < 0 && date.compareTo(start) > 0) {
+				Sesion sesi = getSesion(date, Integer.parseInt(codigoSplit[1]));
 				cargoUser = new Cargo();
 				CargoId cargoId = new CargoId();
 				cargoId.setUser(usuario);
 				cargoId.setSesion(sesi);
 				cargoUser.setId(cargoId);
-				System.out.println("cargo es nul2?? : " + cargoUser + "\n");
 				db.persist(cargoUser);
 			}
-		} 
-		else if(listaRes.size() > 5) {
-			System.out.println("El size es >5??: \n" + listaRes.size() + "\n");
-			String[] codigoSplit = codigo.split("/");
-			Date date = null;
-			try {
-				date = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH).parse(codigoSplit[0]);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			Sesion sesi = getSesion(date, Integer.parseInt(codigoSplit[1]));
-			cargoUser = new Cargo();
-			CargoId cargoId = new CargoId();
-			cargoId.setUser(usuario);
-			cargoId.setSesion(sesi);
-			cargoUser.setId(cargoId);
-			System.out.println("cargo es nul2?? : " + cargoUser + "\n");
-			db.persist(cargoUser);
 		}
-//		System.out.println("\n el size es: " + listaRes.size() + "\n");
-
-		db.persist(usuario);
-		db.persist(ses);
 		db.getTransaction().commit();
-		return true;
 	}
 
 	public Sesion addAListaEspera(Sesion sesion, Usuario user) {
