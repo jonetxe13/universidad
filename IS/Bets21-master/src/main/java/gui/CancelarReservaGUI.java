@@ -74,16 +74,14 @@ public class CancelarReservaGUI extends JFrame {
 
 		// Crear las filas del JTable
 		Vector<Vector<Object>> rows = new Vector<>();
-		Vector<Object> row = new Vector<>();
 		for (Sesion sesion : listaSesion) {
-//			if(sesion != null) {
-			    row.add(sesion.getFecha());
-			    row.add(sesion.getPlazasDisponibles());
-			    row.add(sesion.getSala().getNumero());
-			    row.add(sesion.getActividad());
-			    // ...
-			    rows.add(row);
-//			}
+			Vector<Object> row = new Vector<>();
+		    row.add(sesion.getFecha());
+		    row.add(sesion.getPlazasDisponibles());
+		    row.add(sesion.getSala().getNumero());
+		    row.add(sesion.getActividad());
+		    // ...
+		    rows.add(row);
 		}
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -109,8 +107,7 @@ public class CancelarReservaGUI extends JFrame {
 				if(table.getSelectedRow()!=-1) {
 					Sesion sesion = listaSesion.get(table.getSelectedRow());
 					bussinessLogic.cancelarReserva(sesion, user);
-					row.remove(sesion);
-					getContentPane().add(table);
+//					getContentPane().add(table);
 					error.setText("Reserva cancelada");
 					error.setVisible(true);
 				}

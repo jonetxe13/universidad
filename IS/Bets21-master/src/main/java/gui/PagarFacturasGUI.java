@@ -79,15 +79,13 @@ public class PagarFacturasGUI extends JFrame{
 
 		// Crear las filas del JTable
 		Vector<Vector<Object>> rows = new Vector<>();
-		Vector<Object> row = new Vector<>();
 		for (Sesion sesion : listaSesion) {
-			System.out.println("la sesion es: " + sesion.getFecha());
-//			if(sesion != null) {
+//			System.out.println("la sesion es: " + sesion.getFecha());
+			Vector<Object> row = new Vector<>();
 			    row.add(sesion.getFecha());
 			    row.add(sesion.getSala().getNumero());
 			    row.add(sesion.getPrecio());
 			    rows.add(row);
-//			}
 		}
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
