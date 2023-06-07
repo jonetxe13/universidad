@@ -22,6 +22,7 @@ import javax.persistence.TypedQuery;
 import configuration.ConfigXML;
 import domain.Actividad;
 import domain.Cargo;
+import domain.CargoId;
 import domain.Encargado;
 import domain.Sala;
 import domain.Sesion;
@@ -197,7 +198,7 @@ public class DataAccess  {
 		   db.persist(sala2);
 
 
-			db.getTransaction().commit();
+		   db.getTransaction().commit();
 		   
 		   this.addReserva(sesion1,usuario);
 		   this.addReserva(ses2,usuario);
@@ -205,7 +206,13 @@ public class DataAccess  {
 		   this.addReserva(ses4,usuario);
 		   this.addReserva(ses5,usuario);
 		   this.addReserva(ses6,usuario);
-//		   System.out.println("la lista de reservas del usuario" + usuario.getListaReservas());
+//		   Cargo prueba = new Cargo(usuario, sesion1);
+//		   db.persist(prueba);
+		   TypedQuery<Usuario> cargos = db.createQuery("SELECT c FROM Cargo c WHERE c.user=?1", Usuario.class);
+		   cargos.setParameter(1, usuario);
+		   System.out.println("el cargo1: \n" + cargos.getResultList());
+		    
+//		   System.out.println("\n el size al final es: " + usuario.getListaReservas().size() + "\n");
 		}
 		catch (Exception e){
 			e.printStackTrace();
@@ -402,11 +409,9 @@ public class DataAccess  {
 		//se annade el codigo a la lista de reservas del usuario
 		usuario.addReserva(codigo);
 		ses.setPlazasDisponibles(ses.getPlazasDisponibles()-1);
-
-		db.persist(usuario);
 		Cargo cargoUser = null;
-		if(usuario.getListaReservas().size() >= 5) {
-			for(String reserva: usuario.getListaReservas()) {
+		if(listaRes.size() == 5) {
+			for(String reserva: listaRes) {
 				String[] reservaSplit = reserva.split("/");
 				Date date = null;
 				try {
@@ -416,11 +421,37 @@ public class DataAccess  {
 					e.printStackTrace();
 				}
 				Sesion sesi = getSesion(date, Integer.parseInt(reservaSplit[1]));
-				cargoUser = new Cargo(usuario, sesi);
+				cargoUser = new Cargo();
+				CargoId cargoId = new CargoId();
+				cargoId.setUser(usuario);
+				cargoId.setSesion(sesi);
+				cargoUser.setId(cargoId);
+				System.out.println("cargo es nul2?? : " + cargoUser + "\n");
+				db.persist(cargoUser);
 			}
 		} 
-		System.out.println(cargoUser);
-		if(cargoUser != null) db.persist(cargoUser);
+		else if(listaRes.size() > 5) {
+			System.out.println("El size es >5??: \n" + listaRes.size() + "\n");
+			String[] codigoSplit = codigo.split("/");
+			Date date = null;
+			try {
+				date = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH).parse(codigoSplit[0]);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Sesion sesi = getSesion(date, Integer.parseInt(codigoSplit[1]));
+			cargoUser = new Cargo();
+			CargoId cargoId = new CargoId();
+			cargoId.setUser(usuario);
+			cargoId.setSesion(sesi);
+			cargoUser.setId(cargoId);
+			System.out.println("cargo es nul2?? : " + cargoUser + "\n");
+			db.persist(cargoUser);
+		}
+//		System.out.println("\n el size es: " + listaRes.size() + "\n");
+
+		db.persist(usuario);
 		db.persist(ses);
 		db.getTransaction().commit();
 		return true;
