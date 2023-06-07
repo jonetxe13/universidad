@@ -1,5 +1,6 @@
 package dataAccess;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 //hello
@@ -20,6 +21,7 @@ import javax.persistence.TypedQuery;
 
 import configuration.ConfigXML;
 import domain.Actividad;
+import domain.Cargo;
 import domain.Encargado;
 import domain.Sala;
 import domain.Sesion;
@@ -105,8 +107,6 @@ public class DataAccess  {
 		   Usuario usuario = new Usuario("a@a.com", "nose");
 		   Usuario usuario2 = new Usuario("b@b.com", "nose");
 		   System.out.println("se ha annadido el usuario");
-		   db.persist(usuario);
-		   db.persist(usuario2);
 
 		   List<Sesion> lista = new ArrayList<>();
 		   lista.add(sesion1);
@@ -181,6 +181,9 @@ public class DataAccess  {
 
 		   sala1.setListaSesiones(lista);
 		   
+		   db.persist(usuario);
+		   db.persist(usuario2);
+		   
 		   db.persist(sesion1);
 		   db.persist(ses2);
 		   db.persist(ses3);
@@ -195,6 +198,14 @@ public class DataAccess  {
 
 
 			db.getTransaction().commit();
+		   
+		   this.addReserva(sesion1,usuario);
+		   this.addReserva(ses2,usuario);
+		   this.addReserva(ses3,usuario);
+		   this.addReserva(ses4,usuario);
+		   this.addReserva(ses5,usuario);
+		   this.addReserva(ses6,usuario);
+//		   System.out.println("la lista de reservas del usuario" + usuario.getListaReservas());
 		}
 		catch (Exception e){
 			e.printStackTrace();
@@ -282,7 +293,7 @@ public class DataAccess  {
 	}
 	public Sesion getSesion(Date fecha, int salaNum){
 		//busca en la base de datos las sesiones con la misma fecha
-		db.getTransaction().begin();
+//		db.getTransaction().begin();
 		System.out.println("la fecha en getSesion en dataaccess es: " + fecha.toString());
 		TypedQuery<Sesion> listaSes = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha=:fecha", Sesion.class);
 		listaSes.setParameter("fecha", fecha);
@@ -298,8 +309,8 @@ public class DataAccess  {
 			System.out.print("la sesion no existe\n");
 			return null;
 		}
-		db.persist(ses);
-		db.getTransaction().commit();
+//		db.persist(ses);
+//		db.getTransaction().commit();
 		return ses;
 	}
 
@@ -376,6 +387,7 @@ public class DataAccess  {
 	    }
 	    //coge la lista de reservas del usuario
 	    List<String> listaRes = usuario.getListaReservas();
+//	    System.out.println("la lista de reservas: " + listaRes);
 		if(listaRes != null) {
 			for(String r: listaRes) {
 				//si en la lista de reservas esta el codigo que se crearia con esa sesion y ese usuario entonces es que ya tienes esa reserva
@@ -392,6 +404,23 @@ public class DataAccess  {
 		ses.setPlazasDisponibles(ses.getPlazasDisponibles()-1);
 
 		db.persist(usuario);
+		Cargo cargoUser = null;
+		if(usuario.getListaReservas().size() >= 5) {
+			for(String reserva: usuario.getListaReservas()) {
+				String[] reservaSplit = reserva.split("/");
+				Date date = null;
+				try {
+					date = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH).parse(reservaSplit[0]);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				Sesion sesi = getSesion(date, Integer.parseInt(reservaSplit[1]));
+				cargoUser = new Cargo(usuario, sesi);
+			}
+		} 
+		System.out.println(cargoUser);
+		if(cargoUser != null) db.persist(cargoUser);
 		db.persist(ses);
 		db.getTransaction().commit();
 		return true;

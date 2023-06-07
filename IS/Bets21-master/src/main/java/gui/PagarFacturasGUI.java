@@ -35,6 +35,8 @@ public class PagarFacturasGUI extends JFrame{
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		getContentPane().setLayout(null);
+		
 		BLFacade bussinessLogic = RegistroGUI.getBusinessLogic();
 		System.out.println("el usuario: " +usuario.getCorreo());
 		List<String> lista = bussinessLogic.createUsuario(usuario.getCorreo(), usuario.getContrasenna()).getListaReservas();
@@ -73,20 +75,23 @@ public class PagarFacturasGUI extends JFrame{
 		Vector<String> columns = new Vector<>();
 		columns.add("Fecha");
 		columns.add("Sala");
+		columns.add("Precio");
 
 		// Crear las filas del JTable
 		Vector<Vector<Object>> rows = new Vector<>();
 		Vector<Object> row = new Vector<>();
 		for (Sesion sesion : listaSesion) {
+			System.out.println("la sesion es: " + sesion.getFecha());
 //			if(sesion != null) {
 			    row.add(sesion.getFecha());
 			    row.add(sesion.getSala().getNumero());
+			    row.add(sesion.getPrecio());
 			    rows.add(row);
 //			}
 		}
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setBounds(0, 0, 293, 233);
+		scrollPane.setBounds(0, 0, 493, 333);
 		getContentPane().add(scrollPane);
 		// Crear el JTable y añadirlo al JScrollPane
 		JTable table = new JTable(rows, columns);
