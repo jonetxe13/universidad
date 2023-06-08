@@ -7,6 +7,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 
 import domain.Actividad;
+import domain.Cargo;
 import domain.Encargado;
 import domain.Sala;
 import domain.Sesion;
@@ -33,7 +34,7 @@ public interface BLFacade  {
 	 */
 //	@WebMethod Question createQuestion(Event event, String question, float betMinimum) throws EventFinished, QuestionAlreadyExist;
 	@WebMethod public Usuario createUsuario(String correo, String contrasenna);
-	@WebMethod public boolean userExists(String text, String text2);
+	@WebMethod public boolean userExists(String text);
 	@WebMethod public boolean encargadoExists(String text, String text2);
 	@WebMethod public Encargado getEncargado(String text, String text2);
 
@@ -53,5 +54,6 @@ public interface BLFacade  {
 	@WebMethod public Sesion annadirSesion(Date text, String string, String text3, String text4, String text5);
 	@WebMethod public Sesion quitarSesion(Date date, String text2);
 	@WebMethod public Actividad annadirActividad(String text, String text2, String text3);
-
+	@WebMethod public List<Usuario> getListaUserCargos(Usuario user);
+	@WebMethod public List<Sesion> getListaSesionCargos(Usuario user);
 }

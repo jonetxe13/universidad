@@ -48,7 +48,7 @@ public class RegistrarseGUI extends JFrame{
 			public void actionPerformed(java.awt.event.ActionEvent e) {
 				//tienes que introducir la contrasenna dos veces para verificarla y te crea el usuario
 				BLFacade bussinesLogic = RegistroGUI.getBusinessLogic();
-				if(bussinesLogic.userExists(correoTextField.getText(), passwordField1.getText())) {
+				if(bussinesLogic.userExists(correoTextField.getText())) {
 					error.setText("Ese usuario ya existe");
 					error.setVisible(true);
 				}

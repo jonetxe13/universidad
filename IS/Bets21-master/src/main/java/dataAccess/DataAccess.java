@@ -85,6 +85,7 @@ public class DataAccess  {
 		   
 		   Sala sala1 = new Sala(1, 20);
 		   Sala sala2 = new Sala(2, 20);
+		   
 		   //inicializamos la fecha
 		   Date fechaNueva = annadirTiempo(cal, null, 0, 0);
 
@@ -109,7 +110,6 @@ public class DataAccess  {
 		   Usuario usuario2 = new Usuario("b@b.com", "nose");
 		   System.out.println("se ha annadido el usuario");
 		   
-		   db.persist(new Cargo());
 		   List<Sesion> lista = new ArrayList<>();
 		   lista.add(sesion1);
 		   db.persist(usuario);
@@ -118,10 +118,11 @@ public class DataAccess  {
 		   db.persist(sala1);
 		   db.persist(sala2);
 		   
+		   db.persist(new Cargo());
 		   db.getTransaction().commit();
 		   
 		   //annadir sesiones para esta semana y para la siguiente
-		   Date fechaNueva2 = annadirTiempo(cal, fechaNueva, -6, 0);
+		   Date fechaNueva2 = annadirTiempo(cal, fechaNueva, -9, 0);
 		   
 		   System.out.println("\nla primera fecha es: " + fechaNueva);
 		   System.out.println("\nla segunda fecha es: " + fechaNueva2);
@@ -130,32 +131,52 @@ public class DataAccess  {
 			   fechaNueva = annadirTiempo(cal, fechaNueva, 1, 0);
 //			   System.out.println("la fecha de la base de datos :" + fechaNueva);
 			   Sesion sesion = new Sesion(fechaNueva, sala1, 10, act2, 4); 
-			   fechaNueva2 = annadirTiempo(cal, fechaNueva2, 1, 0);
 //			   System.out.println("la fecha de la base de datos :" + fechaNueva2);
 			   Sesion sesion2 = new Sesion(fechaNueva2, sala1, 10, act2, 4); 
+			   fechaNueva2 = annadirTiempo(cal, fechaNueva2, 1, 0);
 			   db.persist(sesion);
 			   db.persist(sesion2);
+//			//se crea el codigo que identifica la reserva
+//			   String codigo = sesion.crearHash(usuario);
+//			   String codigo2 = sesion2.crearHash(usuario);
+//		//se annade el codigo a la lista de reservas del usuario
+//			   usuario.addReserva(codigo);
+//			   usuario.addReserva(codigo2);
+//			   if(usuario.getListaReservas().size()>=5) {
+//				   for(String s: usuario.getListaReservas()) {
+//					   String[] fechaStr = s.split("/");
+//					   Date fecha = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH).parse(fechaStr[0]);
+//					   Cargo cargo = new Cargo();
+//					   CargoId cId = new CargoId();
+//					   cId.setSesion(this.getSesion(fecha, Integer.parseInt(fechaStr[1])));
+//					   cId.setUser(usuario);
+//					   cargo.setId(cId);
+//					   db.persist(cargo);
+////					   db.persist(cId);
+//				   }
+//			   }
 			   db.getTransaction().commit();
 			   this.addReserva(sesion, usuario);
-//			   System.out.println("\n\n\n\n\nSe mete en el crearCargo\n\n\n\n\n\n");
 			   this.crearCargo(usuario, sesion.crearHash(usuario));
-			   this.addReserva(sesion2, usuario);
-			   this.crearCargo(usuario, sesion2.crearHash(usuario));
-//			   System.out.println("\n\n\n" + sesion.crearHash(usuario)+ "\n\n\n");
+//			   this.addReserva(sesion2, usuario);
+//			   this.crearCargo(usuario, sesion2.crearHash(usuario));
+			   System.out.println("\n\n\n" + sesion.crearHash(usuario)+ "\n\n\n");
 			   lista.add(sesion);
 			   
 			   usuario.addReserva(sesion2.crearHash(usuario));
 //			   System.out.println("\n\n\n" + sesion2.crearHash(usuario)+ "\n\n\n");
 		   }
+		   db.getTransaction().begin();
 		   System.out.println("\nla primera fecha es despues: " + fechaNueva);
 		   System.out.println("\nla segunda fecha es despues: " + fechaNueva2);
 
 		   sala1.setListaSesiones(lista);
-		   
-		   TypedQuery<Usuario> cargos = db.createQuery("SELECT c FROM Cargo c WHERE c.user=?1", Usuario.class);
-		   cargos.setParameter(1, usuario);
-		   System.out.println("el cargo1: \n" + cargos.getResultList().size());
-		    
+		   db.persist(sala1);
+		   db.getTransaction().commit();
+		  getListaUserCargos(usuario);
+//	    TypedQuery<Cargo> cargos = db.createQuery("SELECT c FROM Cargo c", Cargo.class);
+//	    System.out.println("Lista de cargos: \n" + cargos.getResultList());
+	    
 		}
 		catch (Exception e){
 			e.printStackTrace();
@@ -203,10 +224,13 @@ public class DataAccess  {
 		}
 		return user;
 	}
-	public boolean userExists(Usuario newUser) {
+	public Usuario getUsuario(String correo) {
+		return db.find(Usuario.class, correo);
+	}
+	public boolean userExists(String correo) {
 		//busca en la base de datos y devuelve true si existe y false si no
 		System.out.println("Buscando el usuario en la base de datos");
-		Usuario usuario = db.find(Usuario.class, newUser.getCorreo());
+		Usuario usuario = db.find(Usuario.class, correo);
 		if(usuario == null) {
 			System.out.println("\n  no contiene a ese usuario");
 			return false;
@@ -313,7 +337,6 @@ public class DataAccess  {
 		db.getTransaction().begin();
 
 		String idUsuario = user.getCorreo();
-		Date idSesion = sesion.getFecha();
 
 		//busca la sesion y el usuario pasado como parametro
 		Usuario usuario = db.find(Usuario.class, idUsuario);
@@ -337,6 +360,7 @@ public class DataAccess  {
 		sesion.setPlazasDisponibles(sesion.getPlazasDisponibles()-1);
 
 		db.persist(usuario);
+		db.persist(sesion);
 		db.getTransaction().commit();
 		return true;
 	}
@@ -571,5 +595,23 @@ public class DataAccess  {
 		}
 		db.getTransaction().commit();
 		return act;
+	}
+	public List<Usuario> getListaUserCargos(Usuario user) {
+		Usuario usuario = this.getUsuario(user.getCorreo());
+	    TypedQuery<Usuario> cargos = db.createQuery("SELECT c.user FROM Cargo c JOIN FETCH c.sesion WHERE c.user = :user", Usuario.class);
+	    cargos.setParameter("user", usuario);
+	    List<Usuario> listaCargos = cargos.getResultList();
+	    System.out.println(listaCargos);
+	    
+	    return listaCargos;
+	}
+	public List<Sesion> getListaSesionCargos(Usuario user) {
+	    Usuario usuario = this.getUsuario(user.getCorreo());
+	    TypedQuery<Sesion> sesiones = db.createQuery("SELECT s FROM Cargo c JOIN c.sesion s WHERE c.user = :user", Sesion.class);
+	    sesiones.setParameter("user", usuario);
+	    List<Sesion> listaSesiones = sesiones.getResultList();
+	    System.out.println(listaSesiones);
+	    
+	    return listaSesiones;
 	}
 }

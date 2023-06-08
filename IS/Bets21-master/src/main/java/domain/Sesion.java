@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 //@IdClass(SesionId.class)
@@ -18,7 +19,7 @@ public class Sesion {
 	private Date fecha;
 	private int plazasDisponibles;
 	private int precio;
-	@ManyToOne
+	@OneToOne
 	private Actividad actividad;
 	@ManyToMany
 	private Queue<Usuario> listaEspera;

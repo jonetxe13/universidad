@@ -43,7 +43,7 @@ public class ReservarGUI extends JFrame {
 		// Crear las filas del JTable
 		Vector<Vector<Object>> rows = new Vector<>();
 		for (Sesion sesion : lista) {
-			System.out.println("\nla sesion en reservar sesion es: " + sesion);
+//			System.out.println("\nla sesion en reservar sesion es: " + sesion);
 		    Vector<Object> row = new Vector<>();
 		    row.add(sesion.getFecha());
 		    row.add(sesion.getPlazasDisponibles());

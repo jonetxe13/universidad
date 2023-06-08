@@ -15,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 
 import businessLogic.BLFacade;
+import domain.Cargo;
 import domain.Sesion;
 import domain.Usuario;
 
@@ -39,52 +40,23 @@ public class PagarFacturasGUI extends JFrame{
 		
 		BLFacade bussinessLogic = RegistroGUI.getBusinessLogic();
 		System.out.println("el usuario: " +usuario.getCorreo());
-		List<String> lista = bussinessLogic.createUsuario(usuario.getCorreo(), usuario.getContrasenna()).getListaReservas();
-		List<Date> listaFechaSesion = new ArrayList<>();
-		List<Integer> listaNumSala = new ArrayList<>();
-		List<Sesion> listaSesion = new ArrayList<>();
-		if(lista != null) {
-			for(String s: lista) {
-				String[] fechaSesionString = s.split("/");
-				SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
-				Date fecha = null;
-				try {
-					fecha = sdf.parse(fechaSesionString[0]);
-				} catch (ParseException e1) {
-					e1.printStackTrace();
-				}
-				listaFechaSesion.add(fecha);
-//				System.out.println("\nfecha " + fecha);
-				listaNumSala.add(Integer.parseInt(fechaSesionString[1]));
-			}
-		}
-
-		for(int i = 0; i < listaFechaSesion.size(); i++) {
-//			System.out.println("la fecha es: " + listaFechaSesion.get(i));
-			
-			Sesion ses = bussinessLogic.getSesion(listaFechaSesion.get(i), listaNumSala.get(i));
-			if(ses != null) {
-				listaSesion.add(bussinessLogic.getSesion(listaFechaSesion.get(i), listaNumSala.get(i)));
-			}
-			else {
-				System.out.println("no se encuentra la sesion");
-			}
-		}
+//		List<Usuario> listaUsuario = bussinessLogic.getListaUserCargos(this.usuario);
+		List<Sesion> listaSesion = bussinessLogic.getListaSesionCargos(this.usuario);
+		
 
 		// Crear las columnas del JTable
 		Vector<String> columns = new Vector<>();
-		columns.add("Fecha");
-		columns.add("Sala");
+		columns.add("Usuario");
+		columns.add("Sesion");
 		columns.add("Precio");
 
 		// Crear las filas del JTable
 		Vector<Vector<Object>> rows = new Vector<>();
-		for (Sesion sesion : listaSesion) {
-//			System.out.println("la sesion es: " + sesion.getFecha());
+		for (int i = 0; i < listaSesion.size(); i++) {
 			Vector<Object> row = new Vector<>();
-			    row.add(sesion.getFecha());
-			    row.add(sesion.getSala().getNumero());
-			    row.add(sesion.getPrecio());
+			    row.add(usuario.getCorreo());
+			    row.add(listaSesion.get(i).getFecha());
+			    row.add(listaSesion.get(i).getPrecio());
 			    rows.add(row);
 		}
 		JScrollPane scrollPane = new JScrollPane();

@@ -8,6 +8,7 @@ import javax.jws.WebService;
 import configuration.ConfigXML;
 import dataAccess.DataAccess;
 import domain.Actividad;
+import domain.Cargo;
 import domain.Encargado;
 import domain.Sala;
 import domain.Sesion;
@@ -82,10 +83,9 @@ public class BLFacadeImplementation  implements BLFacade {
 		return qry;
 	}
 	@WebMethod
-	public boolean userExists(String correo, String contrasenna) {
+	public boolean userExists(String correo) {
 		dbManager.open(false);
-		Usuario newUser = new Usuario(correo, contrasenna);
-		boolean existe = dbManager.userExists(newUser);
+		boolean existe = dbManager.userExists(correo);
 		dbManager.close();
 		return existe;
 	}
@@ -232,6 +232,19 @@ public class BLFacadeImplementation  implements BLFacade {
 		Actividad act = dbManager.annadirActividad(nombre, nvl, prc);
 		dbManager.close();
 		return act;
+	}
+	@WebMethod
+	public List<Usuario> getListaUserCargos(Usuario user){
+		dbManager.open(false);
+		List<Usuario> lista = dbManager.getListaUserCargos(user);
+		dbManager.close();
+		return lista;
+	}
+	public List<Sesion> getListaSesionCargos(Usuario user) {
+		dbManager.open(false);
+		List<Sesion> lSesion = dbManager.getListaSesionCargos(user);
+		dbManager.close();
+		return lSesion;
 	}
 }
 

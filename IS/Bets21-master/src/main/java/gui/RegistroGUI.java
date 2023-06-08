@@ -128,7 +128,7 @@ public class RegistroGUI extends JFrame{
 						a.setVisible(true);
 
 					}
-					else if(appFacadeInterface.userExists(textField.getText(), passwordField.getText())) {
+					else if(appFacadeInterface.userExists(textField.getText())) {
 						error.setText("Se ha encontrado el usuario");
 						error.setVisible(true);
 						Usuario user = appFacadeInterface.createUsuario(textField.getText(), passwordField.getText());
