@@ -126,7 +126,7 @@ public class DataAccess  {
 		   
 		   System.out.println("\nla primera fecha es: " + fechaNueva);
 		   System.out.println("\nla segunda fecha es: " + fechaNueva2);
-		   for(int i = 0; i < 5; i++) {
+		   for(int i = 0; i < 8; i++) {
 			   db.getTransaction().begin();
 			   fechaNueva = annadirTiempo(cal, fechaNueva, 1, 0);
 //			   System.out.println("la fecha de la base de datos :" + fechaNueva);
@@ -337,59 +337,56 @@ public class DataAccess  {
 		db.getTransaction().begin();
 
 		String idUsuario = user.getCorreo();
-
+		
 		//busca la sesion y el usuario pasado como parametro
 		Usuario usuario = db.find(Usuario.class, idUsuario);
+		Sesion ses = getSesion(sesion.getFecha(), sesion.getSala().getNumero());
 	    //coge la lista de reservas del usuario
 	    List<String> listaRes = usuario.getListaReservas();
 //	    System.out.println("la lista de reservas: " + listaRes);
 		if(listaRes != null) {
 			for(String r: listaRes) {
 				//si en la lista de reservas esta el codigo que se crearia con esa sesion y ese usuario entonces es que ya tienes esa reserva
-				if(r.equals(sesion.getFecha()+"/"+sesion.getSala().getNumero()+ "/"+user.getCorreo())){
+				if(r.equals(ses.getFecha()+"/"+ses.getSala().getNumero()+ "/"+user.getCorreo())){
 					System.out.println("ya tienes esta sesion reservada");
 					return false;
 				}
 			}
 		}
 		//se crea el codigo que identifica la reserva
-		String codigo = sesion.crearHash(user);
+		String codigo = ses.crearHash(user);
 		//se annade el codigo a la lista de reservas del usuario
 		usuario.addReserva(codigo);
 		System.out.println(codigo);
-		sesion.setPlazasDisponibles(sesion.getPlazasDisponibles()-1);
+		ses.setPlazasDisponibles(ses.getPlazasDisponibles()-1);
 
 		db.persist(usuario);
-		db.persist(sesion);
+		db.persist(ses);
 		db.getTransaction().commit();
 		return true;
 	}
 
 	public void crearCargo(Usuario usuario, String codigo) {
 		db.getTransaction().begin();
-//		System.out.println("\nholaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 	    Calendar cal2 = Calendar.getInstance();
 	    cal2.setFirstDayOfWeek(Calendar.MONDAY);
 	    cal2.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 	    Date start = cal2.getTime();
-	    start = annadirTiempo(cal2, start, -7, 0);
+//	    start = annadirTiempo(cal2, start, -7, 0);
+	    start = annadirTiempo(cal2, start, 0, 0);
 
 	    //se le suma 6 dias para tener el domingo
-//	    cal.setFirstDayOfWeek(Calendar.MONDAY);
-//	    cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 	    Date end = cal2.getTime();
 	    end = annadirTiempo(cal2, end, 6, 0);
-//	    Date end = annadirTiempo(cal, start, 6, 0);
+	    System.out.println("\n\nprincipio: " + start);
+	    System.out.println("\n" + end);
 		Cargo cargoUser = null;
 		if(usuario.getListaReservas().size() == 5) {
-//				System.out.println("\n\nla fecha start es: " + start);
-//				System.out.println("la fecha end es: " + end);
 			for(String reserva: usuario.getListaReservas()) {
 				String[] reservaSplit = reserva.split("/");
 				Date date = null;
 				try {
 					date = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH).parse(reservaSplit[0]);
-//				System.out.println("la fecha del cargo es: " + date);
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
@@ -401,17 +398,17 @@ public class DataAccess  {
 					cargoId.setSesion(sesi);
 					cargoUser.setId(cargoId);
 					db.persist(cargoUser);
+					System.out.println("-----------------------------------------------\n");
+					System.out.println(getListaUserCargos(usuario));
+					System.out.println(cargoUser);
 				}
 			}
 		} 
 		else if(usuario.getListaReservas().size() > 5) {
-//				System.out.println("\n\nla fecha start es: " + start);
-//				System.out.println("la fecha end es: " + end);
 			String[] codigoSplit = codigo.split("/");
 			Date date = null;
 			try {
 				date = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH).parse(codigoSplit[0]);
-//				System.out.println("la fecha del cargo es: " + date);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}

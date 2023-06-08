@@ -40,9 +40,9 @@ public class PagarFacturasGUI extends JFrame{
 		
 		BLFacade bussinessLogic = RegistroGUI.getBusinessLogic();
 		System.out.println("el usuario: " +usuario.getCorreo());
-//		List<Usuario> listaUsuario = bussinessLogic.getListaUserCargos(this.usuario);
+		List<Usuario> listaUsuario = bussinessLogic.getListaUserCargos(this.usuario);
 		List<Sesion> listaSesion = bussinessLogic.getListaSesionCargos(this.usuario);
-		
+		System.out.println(listaUsuario);
 
 		// Crear las columnas del JTable
 		Vector<String> columns = new Vector<>();
