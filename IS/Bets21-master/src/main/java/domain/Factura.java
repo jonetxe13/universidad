@@ -1,5 +1,11 @@
 package domain;
 
-public class Factura {
+import java.util.List;
 
+public class Factura {
+	private List<Cargo> listaCargos;
+	
+	public Factura(Usuario user) {
+		
+	}
 }
