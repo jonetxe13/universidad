@@ -1,6 +1,7 @@
 package businessLogic;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -124,12 +125,9 @@ public class BLFacadeImplementation  implements BLFacade {
 	@WebMethod
 	public boolean addReserva(Sesion seleccionado, Usuario user) {
 		dbManager.open(false);
-		System.out.println("hasta aqui llega 1");
 		boolean bien;
-		System.out.println("hasta aqui llega 2");
 		if(seleccionado.getPlazasDisponibles() == 0) {
 			this.addAListaEspera(seleccionado, user);
-			System.out.println("no hay espacio en la sesion");
 			bien = false;
 		}
 		else {
@@ -137,8 +135,6 @@ public class BLFacadeImplementation  implements BLFacade {
 		}
 		user = dbManager.getUsuario(user.getCorreo());
 		if(user.getListaReservas().size() >= 5) {
-			System.out.println("hasta aqui llega 3-----------------------------------------------------------------------");
-			
 			dbManager.crearCargo(user, seleccionado.crearHash(user));
 		}
 		dbManager.close();
@@ -147,10 +143,8 @@ public class BLFacadeImplementation  implements BLFacade {
 
 	@WebMethod
 	public Sesion addAListaEspera(Sesion sesion, Usuario user) {
-		dbManager.open(false);
 		Sesion annadidoOno = dbManager.addAListaEspera(sesion, user);
 		if(annadidoOno!=null) System.out.println("addAListaEspera funciona");
-		dbManager.close();
 		return annadidoOno;
 	}
 
@@ -161,7 +155,6 @@ public class BLFacadeImplementation  implements BLFacade {
 		fecha.setMinutes(0);
 		fecha.setSeconds(0);
 		Sesion sesion = dbManager.getSesion(fecha, salaNum);
-//		System.out.println("la sesion en getSesion ->" + sesion.getFecha());
 		dbManager.close();
 		return sesion;
 	}
@@ -170,6 +163,7 @@ public class BLFacadeImplementation  implements BLFacade {
 	public boolean cancelarReserva(Sesion sesion, Usuario user) {
 		dbManager.open(false);
 		boolean res = dbManager.cancelarReserva(sesion, user);
+		dbManager.eliminarCargo(user, sesion);
 		dbManager.close();
 		return res;
 	}
@@ -236,12 +230,13 @@ public class BLFacadeImplementation  implements BLFacade {
 		return act;
 	}
 	@WebMethod
-	public List<Usuario> getListaUserCargos(Usuario user){
+	public List<Usuario> getListaUserCargos(){
 		dbManager.open(false);
-		List<Usuario> lista = dbManager.getListaUserCargos(user);
+		List<Usuario> lista = dbManager.getListaUserCargos();
 		dbManager.close();
 		return lista;
 	}
+	@WebMethod
 	public List<Sesion> getListaSesionCargos(Usuario user) {
 		dbManager.open(false);
 		List<Sesion> lSesion = dbManager.getListaSesionCargos(user);

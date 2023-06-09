@@ -40,9 +40,8 @@ public class PagarFacturasGUI extends JFrame{
 		
 		BLFacade bussinessLogic = RegistroGUI.getBusinessLogic();
 		System.out.println("el usuario: " +usuario.getCorreo());
-		List<Usuario> listaUsuario = bussinessLogic.getListaUserCargos(this.usuario);
 		List<Sesion> listaSesion = bussinessLogic.getListaSesionCargos(this.usuario);
-		System.out.println(listaUsuario);
+		System.out.println(listaSesion);
 
 		// Crear las columnas del JTable
 		Vector<String> columns = new Vector<>();
@@ -66,7 +65,7 @@ public class PagarFacturasGUI extends JFrame{
 		// Crear el JTable y añadirlo al JScrollPane
 		JTable table = new JTable(rows, columns);
 		
-		table.getColumnModel().getColumn(0).setPreferredWidth(189);
+		table.getColumnModel().getColumn(1).setPreferredWidth(160);
 		scrollPane.setViewportView(table);
 	}
 
