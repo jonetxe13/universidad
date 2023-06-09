@@ -23,5 +23,4 @@ public class Factura {
 	public String getCodigo() {return codigo;}
 	public void setCodigo(String codigo) {this.codigo = codigo;}
 	
-	
 }

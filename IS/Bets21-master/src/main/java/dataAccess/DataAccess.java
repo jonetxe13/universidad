@@ -24,6 +24,7 @@ import domain.Actividad;
 import domain.Cargo;
 import domain.CargoId;
 import domain.Encargado;
+import domain.Factura;
 import domain.Sala;
 import domain.Sesion;
 import domain.Usuario;
@@ -34,16 +35,33 @@ import domain.Usuario;
 public class DataAccess  {
 	protected static EntityManager  db;
 	protected static EntityManagerFactory emf;
+	private int numFactura = 1;
 
 
 	ConfigXML c=ConfigXML.getInstance();
 
      public DataAccess(boolean initializeMode)  {
-
 		System.out.println("Creating DataAccess instance => isDatabaseLocal: "+c.isDatabaseLocal()+" getDatabBaseOpenMode: "+c.getDataBaseOpenMode());
 
 		open(initializeMode);
+	}
 
+	private boolean esLunes() {
+		Calendar cal = Calendar.getInstance();
+		return cal.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY;
+	}
+
+	private void crearFacturas() {
+		db.getTransaction().begin();
+		List<Usuario> listaUsuarios = getListaUserCargos();
+		for(int i = 0; i < listaUsuarios.size(); i++ ) {
+			List<Cargo> listaSesion = getListaCargos(listaUsuarios.get(i));
+			Factura factura = new Factura(listaUsuarios.get(i), listaSesion, numFactura);
+			System.out.println(factura.getCodigo());
+			db.persist(factura);
+			numFactura++;
+		}
+		db.getTransaction().commit();
 	}
 
 	public DataAccess()  {
@@ -122,16 +140,14 @@ public class DataAccess  {
 		   db.getTransaction().commit();
 		   
 		   //annadir sesiones para esta semana y para la siguiente
-		   Date fechaNueva2 = annadirTiempo(cal, fechaNueva, -9, 0);
+		   Date fechaNueva2 = annadirTiempo(cal, fechaNueva, -12, 0);
 		   
 		   System.out.println("\nla primera fecha es: " + fechaNueva);
 		   System.out.println("\nla segunda fecha es: " + fechaNueva2);
 		   for(int i = 0; i < 8; i++) {
 			   db.getTransaction().begin();
 			   fechaNueva = annadirTiempo(cal, fechaNueva, 1, 0);
-//			   System.out.println("la fecha de la base de datos :" + fechaNueva);
 			   Sesion sesion = new Sesion(fechaNueva, sala1, 1+i, act2, 4); 
-//			   System.out.println("la fecha de la base de datos :" + fechaNueva2);
 			   Sesion sesion2 = new Sesion(fechaNueva2, sala1, 1+i, act2, 4); 
 			   fechaNueva2 = annadirTiempo(cal, fechaNueva2, 1, 0);
 			   db.persist(sesion);
@@ -153,11 +169,15 @@ public class DataAccess  {
 		   db.getTransaction().commit();
 		   getListaSesionCargos(usuario);
 	    
+		if(!esLunes()) {
+			crearFacturas();
+		}
 		}
 		catch (Exception e){
 			e.printStackTrace();
 		}
 		System.out.println("Db initialized");
+		
 	}
 
 	public void open(boolean initializeMode){
@@ -182,7 +202,6 @@ public class DataAccess  {
 
 			  db = emf.createEntityManager();
     	   }
-
 	}
 	public void close(){
 		db.close();
@@ -196,8 +215,8 @@ public class DataAccess  {
 			System.out.print("el usuario no existe asi que se crea");
 			user = new Usuario(correo, contrasenna);
 			db.persist(user);
-			db.getTransaction().commit();
 		}
+		db.getTransaction().commit();
 		return user;
 	}
 	public Usuario getUsuario(String correo) {
@@ -243,7 +262,6 @@ public class DataAccess  {
 	}
 	public Sesion getSesion(Date fecha, int salaNum){
 		//busca en la base de datos las sesiones con la misma fecha
-//		System.out.println("la fecha en getSesion en dataaccess es: " + fecha.toString());
 		TypedQuery<Sesion> listaSes = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha=:fecha", Sesion.class);
 		listaSes.setParameter("fecha", fecha);
 		List<Sesion> listaSesiones = listaSes.getResultList();
@@ -270,7 +288,6 @@ public class DataAccess  {
 		return res;
 	}
 
-	@SuppressWarnings("deprecation")
 	public List<Sesion> getSesionesSemana() {
 		System.out.println("Buscando las sesiones de esta semana en la base de datos");
 	    //coge el inicio y el fin la semana en curso en start el lunes y en end el domingo
@@ -278,10 +295,11 @@ public class DataAccess  {
 	    cal.setFirstDayOfWeek(Calendar.MONDAY);
 	    cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 	    Date start = cal.getTime();
+//	    start = annadirTiempo(cal, start, 0, 0);
 	    start = annadirTiempo(cal, start, -7, 0);
 
 	    //se le suma 6 dias para tener el domingo
-	    Date end = annadirTiempo(cal, start, 14, 0);
+	    Date end = annadirTiempo(cal, start, 13, 0);
 	    
 	    //busca las sesiones con una fecha entre esos valores
 	    TypedQuery<Sesion> query = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha BETWEEN :start AND :end ORDER BY s.fecha", Sesion.class);
@@ -316,7 +334,6 @@ public class DataAccess  {
 		Sesion ses = getSesion(sesion.getFecha(), sesion.getSala().getNumero());
 	    //coge la lista de reservas del usuario
 	    List<String> listaRes = usuario.getListaReservas();
-//	    System.out.println("la lista de reservas: " + listaRes);
 		if(listaRes != null) {
 			for(String r: listaRes) {
 				//si en la lista de reservas esta el codigo que se crearia con esa sesion y ese usuario entonces es que ya tienes esa reserva
@@ -368,9 +385,6 @@ public class DataAccess  {
 					cargoId.setSesion(sesi);
 					cargoUser.setId(cargoId);
 					db.persist(cargoUser);
-					System.out.println("-----------------------------------------------");
-					System.out.println(getListaUserCargos());
-					System.out.println(cargoUser);
 				}
 			}
 		} 
@@ -392,31 +406,21 @@ public class DataAccess  {
 				db.persist(cargoUser);
 			}
 		}
-		db.getTransaction().commit();
+        db.getTransaction().commit();
 	}
 
 	public Sesion addAListaEspera(Sesion sesion, Usuario user) {
 		db.getTransaction().begin();
-		
-		//buscar la sesion
+		//buscar la sesion y el usuario
 	    Sesion ses = getSesion(sesion.getFecha(), sesion.getSala().getNumero());
-//		TypedQuery<Sesion> query = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha=:fecha", Sesion.class);
-//	    query.setParameter("fecha", sesion.getFecha());
-//	    List<Sesion> sesiones = query.getResultList();
-//	    Sesion ses = null;
-//	    for(Sesion sesion2: sesiones) {
-//	    	if(sesion2.getSala().getNumero() == sesion.getSala().getNumero()) {
-//	    		ses = sesion2;
-//	    	}
-//	    }
-	    //buscar el usuario
 		Usuario usr = getUsuario(user.getCorreo());
+		try {
 		//si la lista de espera contiene al usuario es que ya estas en la lista de espera
 		if(ses.getListaEspera().contains(usr)) {
 			System.out.println("ya estas en la lista de espera");
 		}
 		//si en la lista de reservas tienes el codigo que se crearia al reservarla es que ya tienes la reserva
-		else if(usr.getListaReservas().contains(ses.getFecha()+"/"+ses.getSala().getNumero()+ "/"+usr.getCorreo())) {
+		else if(usr.getListaReservas().contains(ses.crearHash(user))) {
 			System.out.println("ya tienes esa reserva");
 		}
 		else {
@@ -426,6 +430,10 @@ public class DataAccess  {
 		db.persist(ses);
 		db.persist(usr);
 		db.getTransaction().commit();
+    } catch (Exception e) {
+        db.getTransaction().rollback();
+        e.printStackTrace();
+    }		
 		return ses;
 	}
 
@@ -475,26 +483,15 @@ public class DataAccess  {
 
 	public Sesion annadirSesion(Date fecha, int sala, String actividad, String precio, String plazas) {
 		db.getTransaction().begin();
-		Sesion res = null;
-		//buscar la sala
+		//buscar la sala y la sesion
 		Sala salaSes = db.find(Sala.class, sala);
-		//buscar las sesiones en esa fecha
-		TypedQuery<Sesion> listaSesionesEnEsaFecha = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha = :fecha", Sesion.class);
-	    listaSesionesEnEsaFecha.setParameter("fecha", fecha);
-		List<Sesion> listaSes = listaSesionesEnEsaFecha.getResultList();
+		Sesion sesion = getSesion(fecha, sala);
 
 		@SuppressWarnings("deprecation")
 		int month = fecha.getMonth();
 		Calendar fechaActual = Calendar.getInstance();
 		int monthActual = fechaActual.get(Calendar.MONTH);
-		//si se encuentra una con la misma fecha y sala es que ya existe una sesion
-		if(listaSes != null) {
-			for(Sesion ses: listaSes) {
-				if(ses.getFecha() != null && ses.getFecha().equals(fecha) && ses.getSala() != null && ses.getSala().equals(salaSes)) {
-					System.out.println("ya existe una sesion en esa sala en esa fecha");
-				}
-			}
-		}
+		
 		//si la sala es null es que no existe esa sala
 		if(salaSes == null) {
 			System.out.println("no se ha encontrado esa sala");
@@ -503,6 +500,9 @@ public class DataAccess  {
 			System.out.println("el mes no es el mes en el que te encuentras");
 			System.out.println(month + " " + monthActual);
 		}
+		else if(sesion != null) {
+			System.out.println("la sesion ya existe");
+		}
 		else {
 			//busca la actividad
 			Actividad activ = db.find(Actividad.class, actividad);
@@ -510,32 +510,21 @@ public class DataAccess  {
 				System.out.println("la actividad que has introducido no existe");
 			}
 			//si existe la actividad se intenta crear la sesion
-			res = new Sesion(fecha, salaSes, Integer.parseInt(plazas), activ, Integer.parseInt(precio));
-			if(res != null) System.out.println("la sesion se ha creado bien");
+			sesion = new Sesion(fecha, salaSes, Integer.parseInt(plazas), activ, Integer.parseInt(precio));
+			if(sesion != null) System.out.println("la sesion se ha creado bien");
 			//se annade la sesion a la sala
-			salaSes.addAListaSesiones(res);
+			salaSes.addAListaSesiones(sesion);
 		}
-		db.persist(res);
+		db.persist(sesion);
 		db.persist(salaSes);
 		db.getTransaction().commit();
-		return res;
+		return sesion;
 	}
 
 	public Sesion quitarSesion(Date fecha, int salaNum) {
 		db.getTransaction().begin();
-		Sesion sesion = null;
-		//bucar las sesiones en esa fecha
-		TypedQuery<Sesion> listaSesionesEnEsaFecha = db.createQuery("SELECT s FROM Sesion s WHERE s.fecha = :fecha", Sesion.class);
-	    listaSesionesEnEsaFecha.setParameter("fecha", fecha);
-		List<Sesion> listSesion = listaSesionesEnEsaFecha.getResultList();
-		for(Sesion ses: listSesion) {
-			System.out.println(ses.getFecha());
-			//si el numero de alguna de esas salas es el mismo que el del argumento es que existe la sesion y se borra
-			if(ses.getSala().getNumero() == salaNum) {
-				sesion = ses;
-				db.remove(ses);
-			}
-		}
+		Sesion sesion = getSesion(fecha, salaNum);
+		db.remove(sesion);
 		db.getTransaction().commit();
 		return sesion;
 	}
@@ -544,7 +533,6 @@ public class DataAccess  {
 		db.getTransaction().begin();
 		//buscar la actividad
 		Actividad act = db.find(Actividad.class, nombre);
-		//si no es null entonces existe, si es null se crea una nueva con esos parametros
 		if(act != null) {
 			System.out.println("la actividad ya existe");
 		}
@@ -556,8 +544,11 @@ public class DataAccess  {
 		return act;
 	}
 	public List<Usuario> getListaUserCargos() {
-	    TypedQuery<Usuario> cargos = db.createQuery("SELECT c.user FROM Cargo c", Usuario.class);
+	    TypedQuery<Usuario> cargos = db.createQuery("SELECT DISTINCT c.user FROM Cargo c WHERE c.user.correo is not null", Usuario.class);
 	    List<Usuario> listaCargos = cargos.getResultList();
+	    for(Usuario user: listaCargos) {
+	    	System.out.println("listaUsuarios: " + user.getCorreo());
+	    }
 	    return listaCargos;
 	}
 	public List<Sesion> getListaSesionCargos(Usuario user) {
@@ -570,6 +561,14 @@ public class DataAccess  {
 	    return listaSesiones;
 	}
 
+	public List<Cargo> getListaCargos(Usuario user) {
+	    Usuario usuario = this.getUsuario(user.getCorreo());
+	    TypedQuery<Cargo> cargos = db.createQuery("SELECT c FROM Cargo c WHERE c.user = :user", Cargo.class);
+	    cargos.setParameter("user", usuario);
+	    List<Cargo> listaCargos= cargos.getResultList();
+	    
+	    return listaCargos;
+	}
 	public void eliminarCargo(Usuario user, Sesion sesion) {
 	    Usuario usuario = this.getUsuario(user.getCorreo());
 	    TypedQuery<Cargo> cargos = db.createQuery("SELECT c FROM Cargo c WHERE c.user = :user", Cargo.class);
@@ -583,5 +582,13 @@ public class DataAccess  {
 	    	}
 	    }
 		db.getTransaction().commit();
+	}
+	public Factura getFactura(Usuario user) {
+	    Usuario usuario = this.getUsuario(user.getCorreo());
+	    TypedQuery<Factura> facturas = db.createQuery("SELECT f FROM Factura f WHERE f.codigo LIKE '" + user.getCorreo()+ "%'", Factura.class);
+	    facturas.setParameter("user", usuario.getCorreo());
+	    Factura fact = facturas.getSingleResult();
+	    
+	    return fact;
 	}
 }
