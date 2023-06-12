@@ -60,4 +60,14 @@ public class ArbolBinario {
     public boolean isEmpty() {
         return root == null;
     }
+	public LinkedList<Integer> listaDeNivel(int i) {
+		if(i == 0) {
+			LinkedList<Integer> lista =new LinkedList<Integer>(); 
+			lista.add(this.root.info);
+			return lista;
+		}
+		else {
+			return this.root.listaDeNivel(i);
+		}
+	}
 }

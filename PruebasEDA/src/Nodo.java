@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Nodo {
@@ -72,5 +73,18 @@ public class Nodo {
 			this.left = new Nodo(numImpares, null, null);
 		}
 		return this.left;
+	}
+	public LinkedList<Integer> listaDeNivel(int i) {
+		LinkedList<Integer> lista = new LinkedList<Integer>();
+		if(this.hasLeft()) {
+			lista.addAll(lista.size(), this.left.listaDeNivel(i-1)) ;
+		}
+		if(this.hasRight()) {
+			lista.addAll(lista.size(), this.right.listaDeNivel(i-1)) ;
+		}
+		if(i == 0) {
+			lista.add(this.info);
+		}
+		return lista;
 	}
 }
