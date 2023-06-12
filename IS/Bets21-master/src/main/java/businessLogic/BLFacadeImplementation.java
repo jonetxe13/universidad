@@ -79,6 +79,12 @@ public class BLFacadeImplementation  implements BLFacade {
 		return qry;
 	}
 	@WebMethod
+	public Usuario getUsuario(String correo) {
+		dbManager.open(false);
+		Usuario user = dbManager.getUsuario(correo);
+		return user;
+	}
+	@WebMethod
 	public boolean userExists(String correo) {
 		dbManager.open(false);
 		boolean existe = dbManager.userExists(correo);

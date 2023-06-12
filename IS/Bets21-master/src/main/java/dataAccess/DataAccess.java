@@ -357,7 +357,9 @@ public class DataAccess  {
 	}
 
 	public void crearCargo(Usuario usuario, String codigo) {
+		if(db.getTransaction().isActive()) db.getTransaction().commit();
 		db.getTransaction().begin();
+		try {
 	    Calendar cal2 = Calendar.getInstance();
 	    cal2.setFirstDayOfWeek(Calendar.MONDAY);
 	    cal2.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
@@ -407,6 +409,11 @@ public class DataAccess  {
 			}
 		}
         db.getTransaction().commit();
+		}
+		catch(Exception e) {
+			System.out.println(e);
+			if(db.getTransaction().isActive())db.getTransaction().rollback();
+		}
 	}
 
 	public Sesion addAListaEspera(Sesion sesion, Usuario user) {
