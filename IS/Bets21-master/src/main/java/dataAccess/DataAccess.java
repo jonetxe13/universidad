@@ -63,6 +63,13 @@ public class DataAccess  {
 		}
 		db.getTransaction().commit();
 	}
+	public List<Factura> getFacturas(Usuario user) {
+		Usuario usuario = db.find(Usuario.class, user.getCorreo());
+		TypedQuery<Factura> lista = db.createQuery("SELECT f FROM Factura f WHERE f.codigo LIKE '" + usuario.getCorreo() + "'", Factura.class);
+		lista.setParameter("user", user.getCorreo());
+		System.out.println(lista.getResultList());
+		return lista.getResultList();
+	}
 
 	public DataAccess()  {
 		 this(false);
@@ -169,7 +176,9 @@ public class DataAccess  {
 		   db.getTransaction().commit();
 		   getListaSesionCargos(usuario);
 	    
-		if(!esLunes()) {
+		if(esLunes()) {
+			System.out.println("--------------------------------");
+			System.out.println("se mete en el if");
 			crearFacturas();
 		}
 		}

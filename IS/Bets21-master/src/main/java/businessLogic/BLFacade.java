@@ -9,6 +9,7 @@ import javax.jws.WebService;
 import domain.Actividad;
 import domain.Cargo;
 import domain.Encargado;
+import domain.Factura;
 import domain.Sala;
 import domain.Sesion;
 import domain.Usuario;
@@ -57,4 +58,5 @@ public interface BLFacade  {
 	@WebMethod public List<Usuario> getListaUserCargos();
 	@WebMethod public List<Sesion> getListaSesionCargos(Usuario user);
 	@WebMethod public Usuario getUsuario(String text);
+	@WebMethod public List<Factura> getFacturas(Usuario usuario);
 }

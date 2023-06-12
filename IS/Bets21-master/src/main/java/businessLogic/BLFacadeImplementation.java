@@ -11,6 +11,7 @@ import dataAccess.DataAccess;
 import domain.Actividad;
 import domain.Cargo;
 import domain.Encargado;
+import domain.Factura;
 import domain.Sala;
 import domain.Sesion;
 import domain.Usuario;
@@ -241,6 +242,16 @@ public class BLFacadeImplementation  implements BLFacade {
 	public List<Sesion> getListaSesionCargos(Usuario user) {
 		dbManager.open(false);
 		List<Sesion> lSesion = dbManager.getListaSesionCargos(user);
+		dbManager.close();
+		return lSesion;
+	}
+
+	@Override
+	public List<Factura> getFacturas(Usuario usuario) {
+		dbManager.open(false);
+		Usuario user = dbManager.getUsuario(usuario.getCorreo());
+		List<Factura> lSesion = dbManager.getFacturas(user);
+		System.out.println(lSesion);
 		dbManager.close();
 		return lSesion;
 	}

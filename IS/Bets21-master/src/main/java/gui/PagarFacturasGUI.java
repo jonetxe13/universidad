@@ -16,6 +16,7 @@ import javax.swing.ScrollPaneConstants;
 
 import businessLogic.BLFacade;
 import domain.Cargo;
+import domain.Factura;
 import domain.Sesion;
 import domain.Usuario;
 
@@ -40,7 +41,7 @@ public class PagarFacturasGUI extends JFrame{
 		
 		BLFacade bussinessLogic = RegistroGUI.getBusinessLogic();
 		System.out.println("el usuario: " +usuario.getCorreo());
-		List<Sesion> listaSesion = bussinessLogic.getListaSesionCargos(this.usuario);
+		List<Factura> listaSesion = bussinessLogic.getFacturas(this.usuario);
 		System.out.println(listaSesion);
 
 		// Crear las columnas del JTable
@@ -53,9 +54,9 @@ public class PagarFacturasGUI extends JFrame{
 		Vector<Vector<Object>> rows = new Vector<>();
 		for (int i = 0; i < listaSesion.size(); i++) {
 			Vector<Object> row = new Vector<>();
-			    row.add(usuario.getCorreo());
-			    row.add(listaSesion.get(i).getFecha());
-			    row.add(listaSesion.get(i).getPrecio());
+			    row.add(listaSesion.get(i));
+//			    row.add(listaSesion.get(i).getFecha());
+//			    row.add(listaSesion.get(i).getPrecio());
 			    rows.add(row);
 		}
 		JScrollPane scrollPane = new JScrollPane();
