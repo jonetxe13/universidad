@@ -47,6 +47,7 @@ public class RegistradoGUI extends JFrame{
 		cancelarReserva.addActionListener(new java.awt.event.ActionListener() {
 				@Override
 				public void actionPerformed(java.awt.event.ActionEvent e) {
+					System.out.println(user.getListaReservas());
 					JFrame a = new CancelarReservaGUI(user);
 					a.setBounds(0, 0, 700, 600);
 					a.setVisible(true);

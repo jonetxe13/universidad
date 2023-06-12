@@ -56,4 +56,5 @@ public interface BLFacade  {
 	@WebMethod public Actividad annadirActividad(String text, String text2, String text3);
 	@WebMethod public List<Usuario> getListaUserCargos();
 	@WebMethod public List<Sesion> getListaSesionCargos(Usuario user);
+	@WebMethod public Usuario getUsuario(String text);
 }

@@ -131,7 +131,8 @@ public class RegistroGUI extends JFrame{
 					else if(appFacadeInterface.userExists(textField.getText())) {
 						error.setText("Se ha encontrado el usuario");
 						error.setVisible(true);
-						Usuario user = appFacadeInterface.createUsuario(textField.getText(), passwordField.getText());
+						Usuario user = appFacadeInterface.getUsuario(textField.getText());
+						System.out.println(user.getListaReservas());
 						JFrame a = new RegistradoGUI(user);
 						a.setBounds(0, 0, 500, 400);
 						a.setVisible(true);

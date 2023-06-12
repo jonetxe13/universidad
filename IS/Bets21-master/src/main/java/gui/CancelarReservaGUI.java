@@ -32,7 +32,8 @@ public class CancelarReservaGUI extends JFrame {
 		getContentPane().setLayout(null);
 
 		BLFacade bussinessLogic = RegistroGUI.getBusinessLogic();
-		List<String> lista = bussinessLogic.createUsuario(user.getCorreo(), user.getContrasenna()).getListaReservas();
+		List<String> lista = bussinessLogic.getUsuario(user.getCorreo()).getListaReservas();
+		System.out.println(lista);
 //		System.out.println("la lista de las reservas" + lista);
 		List<Date> listaFechaSesion = new ArrayList<>();
 		List<Integer> listaNumSala = new ArrayList<>();
