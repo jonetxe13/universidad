@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -53,15 +55,58 @@ public class Callejero {
 	//Ejemplo: la distancia entre el nodo A y el nodo J es 3
 	//Pre: ambos nodos están en el grafo
 	public int calcularDistancia(NodoCalle origen, NodoCalle destino) {
-		
-		return 0;
+		HashMap<NodoCalle, Integer> visitados = new HashMap<NodoCalle,Integer>();
+		Queue<NodoCalle> pila = new LinkedList<NodoCalle>();
+		pila.add(origen);
+		visitados.put(origen,0);
+		while(!pila.isEmpty()) {
+			NodoCalle actual = pila.poll();
+			if(actual.nomCalle.equals(destino.nomCalle)) {
+				return visitados.get(actual);
+			}
+			else {
+				for(NodoCalle nodo: actual.enlaces) {
+					if(!visitados.containsKey(nodo)) {
+						pila.add(nodo);
+						visitados.put(nodo, visitados.get(actual)+1);
+					}
+				}
+			}
+		}
+		return visitados.get(destino);
 	}
 	//Devuelve una lista con los nombres de las calles que hay en el camino más corto
 	// entre el nodo origen y el nodo destino (ambos incluidos).
 	//Ejemplo: las calles entre el nodo A y el nodo J son <A, C, G, J>
 	//Pre: ambos nodos están en el grafo
 	public LinkedList<String> obtenerCamino(NodoCalle origen, NodoCalle destino) {
-		
-		return null;
+		LinkedList<String> resultado = new LinkedList<String>();
+		HashMap<NodoCalle, NodoCalle> visitados = new HashMap<NodoCalle,NodoCalle>();
+		Queue<NodoCalle> pila = new LinkedList<NodoCalle>();
+		boolean encontrado = false;
+		pila.add(origen);
+		visitados.put(origen,null);
+		while(!pila.isEmpty() && !encontrado) {
+			NodoCalle actual = pila.poll();
+			if(actual.nomCalle.equals(destino.nomCalle)) {
+				encontrado = true;
+			}
+			else {
+				for(NodoCalle nodo: actual.enlaces) {
+					if(!visitados.containsKey(nodo)) {
+						pila.add(nodo);
+						visitados.put(nodo,actual); 
+					}
+				}
+			}
+		}
+		if(encontrado) {
+			NodoCalle actual = destino;
+			while(actual!=null) {
+				resultado.addFirst(actual.nomCalle);
+				actual = visitados.get(actual);
+			}
+		}
+		return resultado;
 	}
 }

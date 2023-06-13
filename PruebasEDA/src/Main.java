@@ -62,5 +62,7 @@ public class Main {
 		Callejero grafo = new Callejero(10,calles);
 		System.out.println(grafo.hayCamino(nodoA, nodoI));
 		System.out.println(grafo.hayCamino2(nodoA.nomCalle, nodoI.nomCalle));
+		System.out.println(grafo.calcularDistancia(nodoA, nodoJ));
+		System.out.println(grafo.obtenerCamino(nodoA, nodoJ));
 	}
 }
