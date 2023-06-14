@@ -21,14 +21,6 @@ public class ArbolBinario {
             recorrerEnProfundidad(nodo.right, valoresNodos);
         }
     }
-	public LinkedList<Integer> caminoMasPesado() {
-		if(root != null) {
-			return this.root.caminoMasPesado().lista;
-		}
-		else {
-			return new LinkedList<Integer>();
-		}
-    }
 	
 	public LinkedList<Integer> caminoMasPesadoBusqueda() {
 		if(root != null) {
@@ -69,5 +61,12 @@ public class ArbolBinario {
 		else {
 			return this.root.listaDeNivel(i);
 		}
+	}
+	public LinkedList<Integer> caminoMasPesado(){
+		LinkedList<Integer> lista = new LinkedList<Integer>();
+		if(this.root != null) {
+			lista = this.root.caminoMasPesado();
+		}
+		return lista;
 	}
 }

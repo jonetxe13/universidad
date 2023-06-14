@@ -21,26 +21,7 @@ public class Nodo {
 	public boolean isLeaf() {
 		return left == null && right == null;
 	}
-	public ResultadoCamino caminoMasPesado() {
-		if(this.isLeaf()) {
-			return new ResultadoCamino(this.info, this.info);
-		}
-		ResultadoCamino R = new ResultadoCamino(0,0);
-		ResultadoCamino L = new ResultadoCamino(0,0);
-		if(this.hasLeft()) {
-			L = this.left.caminoMasPesado();
-		}
-		if(this.hasRight()) {
-			R = this.right.caminoMasPesado();
-		}
-		if(R.peso > L.peso) {
-			L = R;
-		}
-		L.peso += this.info;
-		L.lista.addFirst(this.info) ;
-		System.out.println(L.lista);
-		return L;
-	}
+		
 	public LinkedList<Integer> caminoMasPesadoBusqueda() {
 		LinkedList<Integer> lista = new LinkedList<Integer>();
 		Nodo actual = this;
@@ -86,5 +67,34 @@ public class Nodo {
 			lista.add(this.info);
 		}
 		return lista;
+	}
+	public LinkedList<Integer> caminoMasPesado(){
+		if(this.isLeaf()) {
+			LinkedList<Integer> lista = new LinkedList<Integer>();
+			lista.add(this.info);
+			return lista;
+		}
+		LinkedList<Integer> listaIzq = new LinkedList<Integer>();
+		LinkedList<Integer> listaDer = new LinkedList<Integer>();
+		
+		if(this.hasLeft()) {
+			listaIzq = this.left.caminoMasPesado();
+			listaIzq.addFirst(this.info);
+		}
+		if(this.hasRight()) {
+			listaDer = this.right.caminoMasPesado();
+			listaDer.addFirst(this.info);
+		}
+		if(this.sumaLinkedList(listaIzq) < this.sumaLinkedList(listaDer)) {
+			listaIzq = listaDer;
+		}
+		return listaIzq;
+	}
+	public int sumaLinkedList(LinkedList<Integer> lista) {
+		int res = 0;
+		for(Integer i: lista) {
+			res+=i;
+		}
+		return res;
 	}
 }
