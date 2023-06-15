@@ -69,4 +69,13 @@ public class ArbolBinario {
 		}
 		return lista;
 	}
+	public boolean esEquiponderado() {
+		if(this.root != null) return this.root.esEquiponderado().esEquiponderado;
+		return false;
+	}
+	
+	public LinkedList<Integer> listaNivelDeMayores(int niv, int num){
+		if(this.root != null) return this.root.listaNivelDeMayores(niv, num);
+		return null;
+	}
 }

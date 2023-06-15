@@ -97,4 +97,40 @@ public class Nodo {
 		}
 		return res;
 	}
+	public ResultadoPonderado esEquiponderado() {
+		ResultadoPonderado izq = new ResultadoPonderado(true, 0);
+		ResultadoPonderado der = new ResultadoPonderado(true, 0);
+		if(this.hasLeft()) {
+			izq = this.left.esEquiponderado();
+			
+		}
+		if(this.hasRight()) {
+			der = this.right.esEquiponderado();
+			
+		}
+		if(izq.suma != der.suma) {
+			return new ResultadoPonderado(false,-1);
+		}
+		else {
+			return new ResultadoPonderado(true,izq.suma+der.suma+this.info);
+		}
+		
+	}
+	public LinkedList<Integer> listaNivelDeMayores(int niv, int num) {
+		LinkedList<Integer> listaizq = new LinkedList<Integer>();
+		LinkedList<Integer> listader = new LinkedList<Integer>();
+		
+		if(this.hasLeft()) {
+			listaizq = this.left.listaNivelDeMayores(niv-1, num);
+		}
+		if(this.hasRight()) {
+			listader = this.right.listaNivelDeMayores(niv-1, num);
+		}
+		if(niv == 0 && this.info>num) {
+			listaizq.add(this.info);
+			return listaizq;
+		}
+		listaizq.addAll(listader);	
+		return listaizq;
+	}
 }
