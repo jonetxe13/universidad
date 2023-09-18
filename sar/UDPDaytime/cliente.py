@@ -13,4 +13,3 @@ print( "Datos recibidos del servidor:", buf.decode() )
 
 s.close()
 
-
