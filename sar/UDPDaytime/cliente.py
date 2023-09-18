@@ -12,3 +12,5 @@ buf = s.recv( 1024 )
 print( "Datos recibidos del servidor:", buf.decode() )
 
 s.close()
+
+
