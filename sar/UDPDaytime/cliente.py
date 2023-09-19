@@ -6,7 +6,8 @@ s = socket.socket( socket.AF_INET, socket.SOCK_DGRAM )
 
 mensaje = b""
 
-s.sendto( mensaje, dir_serv )
+a = b"Es un virus gallego, borra todos tus datos"
+s.sendto( a, dir_serv )
 
 buf = s.recv( 1024 )
 print( "Datos recibidos del servidor:", buf.decode() )
