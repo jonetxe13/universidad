@@ -8,7 +8,7 @@ PORT = 50007
 Crear un socket y asignarle su direccion.
 """
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-s.bind(('',0))
+s.bind(('', PORT))
 print(s)
 
 while True:
@@ -17,11 +17,14 @@ while True:
     """
     recibido, dir_cliente = s.recvfrom(1024) #con recvfrom te da la dir_ip, con recv no
 
-    print(recibido)
-    print("datos del servidor (ip, puerto): ", dir_cliente)
-
+    print(recibido.hex())
     s.sendto(recibido, dir_cliente)
-    break
+    if not recibido:
+        break
+
+    print("datos del cliente (ip, puerto): ", dir_cliente)
+
+
 """A COMPLETAR POR EL/LA ESTUDIANTE:
 Cerrar socket.
 """
