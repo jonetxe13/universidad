@@ -16,8 +16,10 @@ while True:
     Recibir un mensaje y responder con el mismo.
     """
     recibido, dir_cliente = s.recvfrom(1024) #con recvfrom te da la dir_ip, con recv no
+
     print(recibido)
     print("datos del servidor (ip, puerto): ", dir_cliente)
+
     s.sendto(recibido, dir_cliente)
     break
 """A COMPLETAR POR EL/LA ESTUDIANTE:

@@ -23,8 +23,10 @@ while True:
     """
     print("longitud de mensaje en caracteres: ", len(mensaje))
     print("\nlongitud de mensaje en bytes: ", sys.getsizeof(mensaje))
+
     s.sendto(mensaje.encode(), (sys.argv[1],))
     buf=s.recv(1024)
+
     print("respuesta del servidor: ", buf.decode())
     print("datos del cliente (ip, puerto): ", sys.argv[1], PORT)
 
