@@ -42,6 +42,7 @@ while True:
     else:
         s.sendto(mensaje.encode(), (dir_serv, PORT))
         buf=s.recv(1024)
+
     print("\nlongitud de mensaje en bytes: ", sys.getsizeof(mensaje))
     print(dir_serv)
 
