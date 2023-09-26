@@ -1,0 +1,428 @@
+---
+title: "1st Laboratory"
+author: "Mikel Barrenetxea"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: yes
+---
+
+# Introduction to R and RStudio
+
+First time users often confuse the R and RStudio. At its simplest, R is like a car's engine while RStudio is like a car's dashboard.
+
+![](https://raw.githubusercontent.com/moderndive/ModernDive_book/master/images/shutterstock/R_vs_RStudio_1.png)
+
+More precisely, R is a programming language that runs computations, while RStudio is an *integrated development environment (IDE)* that provides an interface by adding many convenient features and tools. So just as the way of having access to a speedometer, rearview mirrors, and a navigation system makes driving much easier, using RStudio's interface makes using R much easier as well.
+
+## Installing R and RStudio
+
+You will first need to download and install both R and RStudio (Desktop version) on your computer. It is important that you install R first and then install RStudio.
+
+1.  **You must do this first:** Download and install R by going to <https://cloud.r-project.org/>.
+2.  **You must do this second:** Download and install RStudio at <https://www.rstudio.com/products/rstudio/download/>.
+
+## Using R via RStudio
+
+Recall our car analogy from earlier. Much as we don't drive a car by interacting directly with the engine but rather by interacting with elements on the car's dashboard, we won't be using R directly but rather we will use RStudio's interface. After you install R and RStudio on your computer, you'll have two new *programs* (also called *applications*) you can open. We'll always work in RStudio and not in the R application.
+
+![](https://raw.githubusercontent.com/moderndive/ModernDive_book/master/images/logos/R_vs_RStudio.png)
+
+After you open RStudio, you should see something similar to this:
+
+![](https://raw.githubusercontent.com/moderndive/ModernDive_book/master/images/rstudio_screenshots/rstudio.png)
+
+Note the three *panes* which are three panels dividing the screen: the *console pane*, the *files pane*, and the *environment pane*.
+
+# RMarkdown
+
+This file you are working on is written in Rmarkdown(.Rmd) format because I want to write not only R commands but add some extra explanations to them. What's more, I can write math equations too using [$\LaTeX$ syntax](https://wch.github.io/latexsheet/latexsheet-a4.pdf). For example,
+
+$$
+F(x) = \int_a^x f(t)\, dt
+$$
+
+R Markdown is a format for writing reproducible, dynamic reports with R. Use it to embed R code and results into slideshows, PDFs, html documents, Word files and more.
+
+You can find how to work with R markdown in RStudio in the following file: [R Markdown Cheat Sheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/rmarkdown-2.0.pdf).
+
+Look in that file for the answers of some questions about the .Rmd file you are working on:
+
+> **QUESTION: When you compile this file, which is the format of the output file by default?**
+>
+> **ANSWER:**
+
+> **QUESTION: What do you need to do in order to include and execute R code in this file?**
+>
+> **ANSWER:**
+
+> **QUESTION: If you only want to show the results not the code which parameter do you use in the corresponding chunk of code?**
+>
+> **ANSWER:**
+
+> **QUESTION: Which is the extension of this file?**
+>
+> **ANSWER:**
+
+# Some base R
+
+In this section we will review some basic concepts and commands with R programming language. You can find this well summarized in this [Cheat Sheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/base-r.pdf).
+
+## Get help
+
+To get help we use the interrogation symbol `?` before the name of the function. Also, you can use the `help` pane located on the right bottom in RStudio or other ways.
+
+```{r}
+?summary
+```
+
+## Working directory
+
+Get the current working directory with this command:
+
+```{r}
+getwd()
+```
+
+If you want to change the directory, use the function `setwd()` and give the path to the directory you want to set. For example, try to set the folder `lab01` as your working directory.
+
+```{r}
+# Text after the # symbol is a comment. Sometimes you will find commented commands you need to uncomment firs for running, like this one:
+# setwd()
+```
+
+You can use the `Files` pane located at the bottom right in RStudio.
+
+## Installing and loading packages
+
+R packages extend the functionality of R by providing additional functions, data, and documentation. They are written by a worldwide community of R users and can be downloaded for free from the internet.
+
+When we install R it will come with some default packages included. But there are so many other functions that have to be installed before using.
+
+For installing any R package we can use the command `install.packages()` or the `Packages` pane at the bottom right in RStudio.
+
+```{r}
+ install.packages("palmerpenguins")
+```
+
+Once the package is installed in our system, for using the functions included in the package, first we have to load the package with the function `library`:
+
+```{r}
+library(palmerpenguins)
+head(penguins)
+```
+
+## Reading files
+
+Usually, we will work with data saved in a file. There are a lot of file formats for storing in a file `csv, txt, json, xml, ...` .
+
+```{r}
+survey <- read.table("survey.txt", header = TRUE)
+head(survey)
+```
+
+## Basic commands
+
+```{r}
+result <- 5+5
+```
+
+Once you have executed the command you will see a variable called `result` in the `Environment` pane at the top right.
+
+```{r}
+result <- result + 4
+```
+
+Now the variable `result` has value 14.
+
+However, when we work with R programming language we will usually work with vectors and matrices. Suppose we are the owners of a store and we annotate the sales of a week.
+
+```{r}
+week1 <- c(550, 475, 415, 420, 620)
+week1
+week2 <- c(570, 415, 401, 422, 600)
+week2
+```
+
+If we want to compare the two weeks:
+
+```{r}
+day_by_day <- week1 - week2
+day_by_day
+```
+
+If we want to compare the total sales of each week:
+
+```{r}
+difference <- sum(week1) - sum(week2)
+difference
+```
+
+It seems that we have earn more money the first week. But what does the `sum()` function do? Use the `help`.
+
+How much money have we won in the first week on average?
+
+```{r}
+ average1 <- sum(week1)/length(week1)
+ average1
+```
+
+And in the second week? Use the `mean()` function this time:
+
+```{r}
+# r_average2 <- mean()
+# r_average2
+```
+
+We want to check if the average we computed and the average computed by mean have the same value.
+
+```{r}
+# average2 <- sum(week2)/length(week2)
+# r_average1 <- mean(week1)
+# 
+# same1 <- average1 == r_average1
+# same1
+# same2 <- average2 == r_average2
+# same2
+# same12 <- average1 == r_average2
+# same12
+```
+
+We can also work with matrices:
+
+```{r}
+a <- c(3, 6, 9, 7.8, 2.1, 4.2)
+a
+am <- matrix(a, ncol=2, byrow = FALSE)
+am
+class(a)
+class(am)
+mode(a)
+mode(am)
+```
+
+Take parts of a vector or matrix:
+
+```{r}
+a[3]
+a[c(1, 3)]
+a[1:3]
+```
+
+```{r}
+am[1, 2]
+am[1, ]
+am[, 2]
+am[-c(1, 3), ]
+```
+
+## Errors, warnings, and messages
+
+R will show red text in the console pane in three different situations:
+
+-   **Errors**: When the red text is a legitimate error, it will be prefaced with "Error in..." and will try to explain what went wrong. Generally when there's an error, the code will not run.
+
+    ```{r}
+    # am[1,3]
+    ```
+
+-   **Warnings**: When the red text is a warning, it will be prefaced with "Warning:" and R will try to explain why there's a warning. Generally your code will still work, but with some caveats.
+
+    ```{r}
+    a <- c(12, 10, 1)
+    b <- c(8, 11, 21, 5, 1)
+    c <- a+b
+    c
+    ```
+
+-   **Messages**: When the red text doesn't start with either "Error" or "Warning", it's *just a friendly message*.
+
+## Saving your work space
+
+Click on the icon of the floppy disk of the `Environment` pane located in the right top. Choose a name for the file and save.
+
+> **QUESTION: Which is the extension of the file?**\
+> **ANSWER:**
+
+## Recovering the last commands: Rhistory
+
+If you want to recover the last commands or save them you can do it in the upper right pane using the `History` option.
+
+# Plotting with R
+
+Take the afmous (Fisher's or Anderson's) iris data set gives the measurements in centimeters of the variables sepal length and width and petal length and width, respectively, for 50 flowers from each of 3 species of iris. The species are *Iris setosa*, *versicolor*, and *virginica*.
+
+```{r}
+head(iris)
+```
+
+```{r}
+names(iris)
+```
+
+```{r}
+plot(iris$Sepal.Length, col="red",xlab="Plants", ylab="Sepal Length", las=1)
+```
+
+```{r}
+dotchart(iris$Sepal.Length, pch=19, col="red",
+         xlab="Sepal Length", main="Iris Data Set")
+axis(2, las=1) 
+```
+
+```{r}
+stripchart(iris$Sepal.Length, method="stack", pch=19, col="red",
+           xlab="Sepal Length", main="Iris Data Set")
+```
+
+```{r}
+stem(iris$Sepal.Length, scale=0.5)
+```
+
+```{r}
+hist(iris$Sepal.Length, freq=FALSE, col="red", 
+     xlab="Sepal Length", main="Iris Data Set")
+```
+
+```{r}
+pie(table(iris$Species))
+```
+
+```{r}
+barplot(table(iris$Species))
+```
+
+```{r}
+hist(iris$Petal.Width)
+```
+
+```{r}
+boxplot(iris$Petal.Width)
+```
+
+# Exercises
+
+## 1st exercise
+
+We asked 15 friends about what operative system they use. The answers are these (1 = "Linux", 2 = "MacOX", 3 = "Windows"):
+
+| $w_{1}$ | $w_{2}$ | $w_{3}$ | $w_{4}$ | $w_{5}$ | $w_{6}$ | $w_{7}$ | $w_{8}$ | $w_{9}$ | $w_{10}$ | $w_{11}$ | $w_{12}$ | $w_{13}$ | $w_{14}$ | $w_{15}$ |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|    3    |    3    |    1    |    3    |    2    |    2    |    1    |    3    |    3    |    1     |    1     |    3     |    1     |    2     |    3     |
+
+1.  Enter the data. Which type of variable have we?
+
+    ```{r}
+    # Your answer goes here
+    ```
+
+2.  Which is the size of the sample?
+
+    ```{r}
+    # Your answer goes here
+    ```
+
+3.  Create the corresponding frequency table (`table()`, `tabulate()`)
+
+    ```{r}
+    # Your answer goes here
+    ```
+
+4.  Which graph will you choose for plotting these data?
+
+    ```{r}
+    # Your answer goes here
+    ```
+
+5.  Use the `pie()` function. (Remember, use help). Do you find that something is missing in the graph you plotted? Use help for understanding the `mtext()` function.
+
+    ```{r}
+    # Your answer goes here
+    ```
+
+6.  Use the function `barplot()`.
+
+    ```{r}
+    # Your answer goes here
+    ```
+
+## 2nd exercise
+
+Look this two images:
+
+|                 |                 |
+|:---------------:|:---------------:|
+| ![](image1.jpg) | ![](image2.jpg) |
+|   image1.jpg    |   image2.jpg    |
+
+In the files `"image1.csv"` and "`image2.csv"`, we have the measures of the gray scale of every pixel that make up the images.
+
+1.  Read the data with R (`"image1.csv"` and "`image2.csv"`).
+
+    ```{r}
+    # Your answer goes here
+    ```
+
+2.  Which graph will you plot for displaying the gray scale of each image?
+
+    ```{r}
+    # Your answer goes here
+    ```
+
+3.  What values do you expect for the first image? And for the other? Did the graphs you have plotted show this?
+
+    ```{r}
+    # Your answer goes here
+    ```
+
+## 3rd exercise
+
+In this exercise you will analyze the data about a survey.
+
+1.  Which is your current working directory?
+
+    ```{r}
+    # Your answer goes here
+    ```
+
+2.  Locate yourself in the most convenient directory for you.
+
+    ```{r}
+    # Your answer goes here
+    ```
+
+3.  Read the data stored in the file *"*`survey.txt"`.
+
+    ```{r}
+    # Your answer goes here
+    ```
+
+4.  Which are the names of the columns?
+
+    ```{r}
+    # Your answer goes here
+    ```
+
+5.  How would you choose the second variable? And the responses of the fourth individual?
+
+    ```{r}
+    # Your answer goes here
+    ```
+
+6.  Use the function `summary()` for variables *genre* and *height*. Comment the results.
+
+    ```{r}
+    # Your answer goes here
+    ```
+
+7.  Represent the answers of the question *"How do you come to class?"* with a graph.
+
+    ```{r}
+    # Your answer goes here
+    ```
+
+8.  Represent graphically the answers to the question *"How much time do you spend in the commute from home to the campus?". Comment what you see. (Take a look to the functions `hist()`,* `stem()` and `stripchart()`.
+
+    ```{r}
+    # Your answer goes here
+    ```
