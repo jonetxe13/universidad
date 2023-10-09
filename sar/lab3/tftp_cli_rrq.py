@@ -40,7 +40,6 @@ def get_file(s, serv_addr, filename):
         (expected_block)
         """
         data, server = s.recvfrom(4 + BLOCK_SIZE)
-
         if data[:2] != DATA:
             print('Recivido un paquete random, terminar')
             break
@@ -49,7 +48,6 @@ def get_file(s, serv_addr, filename):
         if received_block != expected_block:
             print('bloque fuera de orden, ignorar')
             continue
-
         f.write(data[4:])
 
         ack_packet = ACK + data[2:4]
