@@ -12,8 +12,8 @@ def recvline( s, removeEOL = True ):
     while True:
         c = s.recv( 1 )
         if c == b'':
-            raise EOFError( "Connection closed by the peer before receiving an EOL." )
             line += c
+            raise EOFError( "Connection closed by the peer before receiving an EOL." )
         if c == b'\r':
             CRreceived = True
         elif c == b'\n' and CRreceived:
