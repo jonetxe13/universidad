@@ -63,6 +63,7 @@ if __name__ == "__main__":
 	if len( sys.argv ) >= 2:
 		SERVER = sys.argv[1]
 	if len( sys.argv ) == 3:
+		SERVER = sys.argv[1]
 		PORT = int( sys.argv[2])
 
 	s = socket.socket( socket.AF_INET, socket.SOCK_STREAM )
