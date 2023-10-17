@@ -78,7 +78,7 @@ if __name__ == '__main__':
 		else:
 			filename, mode, _ = req[2:].split(b'\x00')
 			if mode.decode().lower() not in ('octet', 'binary'):
-				 send_error(s, cli_addr, 0, 'Mode unkown or not implemented')
-				 continue
+			    send_error(s, cli_addr, 0, 'Mode unkown or not implemented')
+				continue
 		filename = os.path.basename(filename.decode()) # For security, filter possible paths.
 		send_file(s, cli_addr, filename)
