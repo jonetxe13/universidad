@@ -62,6 +62,7 @@ if __name__ == "__main__":
 	buf += zero
 	# # ARCOUNT
 	buf += zero
+
 	# Question section
 	# # QNAME
 	for label in nombre_dns.split("."):
@@ -127,6 +128,7 @@ if __name__ == "__main__":
 	# # ARCOUNT
 	arcount = int.from_bytes(buf[pos:pos+2], 'big')
 	pos += 2
+
 	# Question section
 	if qdcount:
 		# # QNAME
@@ -136,6 +138,7 @@ if __name__ == "__main__":
 		pos += 2
 		# # QCLASS
 		pos += 2
+
 	# Answer section: 4.1.3. Resource record format
 	if not ancount:
 		print( 'No se ha recibido ningún registro en la sección de respuestas!' )
