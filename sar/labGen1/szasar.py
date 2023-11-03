@@ -1,5 +1,5 @@
 class Command:
-	User, Password, List, Download, Download2, Delete, Exit = ("USER", "PASS", "LIST", "DOWN", "DOW2", "DELE", "EXIT")
+	User, Password, List, Download, Download2, Delete, Upload, Exit = ("USER", "PASS", "LIST", "DOWN", "DOW2", "DELE", "UPLD", "EXIT")
 
 """
 Reads exactly one line of text (delimited by '\r\n') from the socket s and returns it.
