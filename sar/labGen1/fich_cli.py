@@ -156,10 +156,20 @@ if __name__ == "__main__":
                 print("error")
 
             filesize = os.path.getsize(filename).to_bytes(2, 'big')
-            print("{} ==== {} ==== {} ==== {}", filename, filesize, filedata)
-            message = "{}{}?{}\r\n{}".format( szasar.Command.Upload, filename, filesize, filedata  )
+            print("{} ==== {} ==== {} ", filename, filesize, filedata)
+            message = "{}{}?{}\r\n".format( szasar.Command.Upload, filename, int.from_bytes( filesize, 'big') )
+            print(message.encode("ascii"))
             s.sendall( message.encode( "ascii" ) )
+            print("se envia todo bien")
             message = szasar.recvline( s ).decode( "ascii" )
+            print("se recibe todo bien")
+            if iserror(message):
+                print("error")
+            message = "{}".format(filedata)
+            print("pasa el error")
+            s.sendall(filedata)
+            message = szasar.recvline(s).decode("ascii")
+            s.send('\r\n'.encode("ascii"))
             if not iserror( message ):
                 print( "El fichero {} se ha enviado correctamente.".format( filename ) )
 

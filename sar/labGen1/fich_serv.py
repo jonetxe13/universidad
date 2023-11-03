@@ -115,17 +115,26 @@ def session(s):
                 sendOK(s)
         # este es lo que estamos haceindo
         elif message.startswith(szasar.Command.Upload):
-            szasar.recvall(s, )
             if state != State.Main:
                 sendER(s)
                 continue
             if user == 0:
                 sendER(s, 7)
                 continue
+
+            print("mensaje sin descodificar ni na: {}", message)
+            index = message.index('?')
+            print("nombre del archivo: {}", message[4:index])
             try:
-                file = open(os.path.join(FILES_PATH, message[4:]))
+                print(int(message[index+1:index+3]))
+                sendOK( s )
+                print("se envia bien el OK")
+                contenido = szasar.recvall(s, int(message[index+1:index+3]))
+                print("se recibe bien el contenido")
+                file = open( message[4:index])
+                file.write(contenido)
             except:
-                sendER( s, 8 )
+                sendER(s, 1)
             else:
                 sendOK( s )
 
