@@ -147,31 +147,69 @@ if __name__ == "__main__":
             if not iserror(message):
                 print("El fichero {} se ha borrado correctamente.".format(filename))
 
+        # elif option == Menu.Upload:
+        #     filename = input("Indica el fichero que quieres enviar: ")
+        #     try:
+        #         with open(filename, "rb") as f:
+        #             filedata = f.read()
+        #     except:
+        #         print("error")
+        #
+        #     filesize = os.path.getsize(filename).to_bytes(2, 'big')
+        #     print("{} ==== {} ==== {} ", filename, filesize, filedata)
+        #     message = "{}{}?{}\r\n".format( szasar.Command.Upload, filename, int.from_bytes( filesize, 'big') )
+        #     print(message.encode("ascii"))
+        #     s.sendall( message.encode( "ascii" ) )
+        #     print("se envia todo bien")
+        #     message = szasar.recvline( s ).decode( "ascii" )
+        #     print("se recibe todo bien")
+        #     if iserror(message):
+        #         print("error")
+        #     message = "{}".format(filedata)
+        #     print("pasa el error")
+        #     s.sendall(filedata)
+        #     message = szasar.recvline(s).decode("ascii")
+        #     s.send('\r\n'.encode("ascii"))
+        #     if not iserror( message ):
+        #         print( "El fichero {} se ha enviado correctamente.".format( filename ) )
         elif option == Menu.Upload:
             filename = input("Indica el fichero que quieres enviar: ")
             try:
                 with open(filename, "rb") as f:
                     filedata = f.read()
-            except:
-                print("error")
+                    filesize = len(filedata)  # Obtener el tamaño del archivo
+            except FileNotFoundError:
+                print("El archivo no se ha encontrado.")
+                continue
+            except Exception as e:
+                print("Error al leer el archivo:", e)
+                continue
 
-            filesize = os.path.getsize(filename).to_bytes(2, 'big')
-            print("{} ==== {} ==== {} ", filename, filesize, filedata)
-            message = "{}{}?{}\r\n".format( szasar.Command.Upload, filename, int.from_bytes( filesize, 'big') )
-            print(message.encode("ascii"))
-            s.sendall( message.encode( "ascii" ) )
-            print("se envia todo bien")
-            message = szasar.recvline( s ).decode( "ascii" )
-            print("se recibe todo bien")
-            if iserror(message):
-                print("error")
-            message = "{}".format(filedata)
-            print("pasa el error")
+            # Enviar el comando de carga con el nombre del archivo y su tamaño al servidor
+            message = "{}{}?{}\r\n".format(szasar.Command.Upload, filename, filesize)
+            print("el message es: {}", message)
+            s.sendall(message.encode("ascii"))
+            response = szasar.recvline(s).decode("ascii")
+            print("el respuesta es: {}", response)
+
+
+            if iserror(response):
+                continue
+
+            # Enviar los datos del archivo al servidor
             s.sendall(filedata)
-            message = szasar.recvline(s).decode("ascii")
+            print("el filedata es: {}", filedata)
+
+            # Confirmar el final del archivo enviando un salto de línea
             s.send('\r\n'.encode("ascii"))
-            if not iserror( message ):
-                print( "El fichero {} se ha enviado correctamente.".format( filename ) )
+
+            response = szasar.recvline(s).decode("ascii") #################### error aquiii
+            print("la ultima response es: {}", response)
+            if iserror(response):
+                print("Error al enviar el archivo al servidor.")
+            else:
+                print("El archivo {} se ha enviado correctamente al servidor.".format(filename))
+
 
         elif option == Menu.Exit:
             message = "{}\r\n".format( szasar.Command.Exit )

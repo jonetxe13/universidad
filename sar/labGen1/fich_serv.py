@@ -113,7 +113,6 @@ def session(s):
                 sendER(s, 8)
             else:
                 sendOK(s)
-        # este es lo que estamos haceindo
         elif message.startswith(szasar.Command.Upload):
             if state != State.Main:
                 sendER(s)
@@ -122,21 +121,23 @@ def session(s):
                 sendER(s, 7)
                 continue
 
-            print("mensaje sin descodificar ni na: {}", message)
             index = message.index('?')
-            print("nombre del archivo: {}", message[4:index])
+            filename = message[4:index]
+            print("el filename es: {}", filename)
             try:
-                print(int(message[index+1:index+3]))
-                sendOK( s )
-                print("se envia bien el OK")
-                contenido = szasar.recvall(s, int(message[index+1:index+3]))
-                print("se recibe bien el contenido")
-                file = open( message[4:index])
-                file.write(contenido)
-            except:
+                filesize = int(message[index + 1:])
+                print("el filesize recibido es: {}", filesize)
+                sendOK(s)
+                content = szasar.recvall(s, filesize)
+                print("el content recibido es: {}", content)
+                with open(filename, 'a') as file:
+                    file.write(content.decode())
+            except Exception as e:
+                print("entra al except en el servidor \n", e)
                 sendER(s, 1)
             else:
-                sendOK( s )
+                sendOK(s)
+
 
         elif message.startswith( szasar.Command.Exit ):
             sendOK( s )
