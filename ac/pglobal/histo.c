@@ -37,8 +37,8 @@ int main (){
   // === PARA PARALELIZAR ===
   // ========================
   for (i=0; i<N; i++)
-  for (j=0; j<N; j++)
-    histo[mat[i][j]]++; // histograma
+    for (j=0; j<N; j++)
+      histo[mat[i][j]]++; // histograma
 
   hmin = N*N + 1;
   for (i=0; i<MAX; i++){ // el valor minimo de la histograma y su posicion
