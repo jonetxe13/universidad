@@ -43,9 +43,10 @@ int main ()
     A[i][j] = (i + j) % 13;
 
 
-  clock_gettime(CLOCK_REALTIME, &t0);
+clock_gettime(CLOCK_REALTIME, &t0);
 
   // este es el bucle a paralelizar
+#pragma omp parallel for reduction(+:suma) private(i,j)
   for (i=0; i<N1; i++)
    for (j=0; j<N2; j++)
    {

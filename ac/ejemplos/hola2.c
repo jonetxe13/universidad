@@ -55,7 +55,7 @@ void main ()
 /*
   //  (3) el numero de hilos se controla mendiante una clausula (completar): 4 hilos
 
-  #pragma omp parallel private (tid)
+  #pragma omp parallel private (tid) omp_set_num_threads(4)
   {
     tid = omp_get_thread_num ();
     printf ("hilo %d en ejecucion\n", tid);
