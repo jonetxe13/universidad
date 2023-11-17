@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import socket, sys
+from datetime import datetime
 import getpass
 
 # Configuración servidor POP local de la asignatura SAR
@@ -58,10 +59,7 @@ def int2bytes(n):
         return str(round(n / (1 << 30))) + " GiB"
 
 if __name__ == "__main__":
-    if len(sys.argv) != 1:
-        print("Uso: python3 {}".format(sys.argv[0]))
-        exit(1)
-
+    
     # Establecer conexión con el servidor POP3
     serv_pop = (SERV_POP, PORT_POP)
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -105,13 +103,19 @@ if __name__ == "__main__":
             response = recvmultiline(s)
             # print(f"el response es: {response}")
             if response[0].startswith("+OK"):
-                subject_line = response[14]
-                print(subject_line)
-                # Aquí deberías analizar el asunto para determinar la asignatura
-                for asignatura in lasign:
-                    if asignatura.lower() in subject_line.lower():
-                        print(f"Mensaje {number} - Asignatura: {asignatura}")
-                        break
+                date_line = response[10]
+                # print(date_line)
+                date_line = datetime.strptime(date_line.lstrip(), "%a, %d %b %Y %H:%M:%S +0000")
+                if len(sys.argv) > 1 and datetime.strptime(sys.argv[1], "%Y-%m-%d") > date_line:
+                    break
+                else:
+                    subject_line = response[14]
+                    # print(subject_line)
+                    # Aquí deberías analizar el asunto para determinar la asignatura
+                    for asignatura in lasign:
+                        if asignatura.lower() in subject_line.lower():
+                            print(f"Mensaje {number} - Asignatura: {asignatura}")
+                            break
             else:
                 print(f"No se pudo obtener el asunto para el mensaje {number}")
 
