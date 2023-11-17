@@ -30,6 +30,15 @@ def recvline(s, removeEOL=True):
         else:
             CRreceived = False
 
+def recvmultiline(s, removeEOL=True):
+    message = []
+    mensaje_nuevo = b''
+    while mensaje_nuevo != b'.':
+        mensaje_nuevo = recvline(s)
+        # print(mensaje_nuevo.decode())
+        message.append(mensaje_nuevo.decode())
+    return message
+
 def iserror(message):
     if message.startswith("ER"):
         code = int(message[2:])
@@ -76,51 +85,35 @@ if __name__ == "__main__":
     if not response.startswith(b"+OK"):
         print("Error de autenticación.")
         exit(1)
-
-    # Estado de transacción: Obtener información del buzón
-    # s.sendall(b"STAT\r\n")
-    # response = recvline(s)
-    # if not response.startswith(b"+OK"):
-    #     print("Error al obtener información del buzón.")
-    #     exit(1)
-    #
-    # # Analizar la respuesta para obtener el número de mensajes y el tamaño del buzón
-    # _, num_mensajes, tamano_buzon = response.split()
-    # print(f"Número de mensajes: {num_mensajes.decode()}, Tamaño del buzón: {int2bytes(int(tamano_buzon))}")
-    # s.sendall(f'RETR {num_mensajes}\r\n'.encode())
-    # response = recvline(s)
-    # if not response.startswith(b"+OK"):
-    #     print("Error al obtener los mensajes?")
-    #     exit(1)
-
-
-# Obtener la lista de mensajes
-    s.sendall(b"LIST\r\n")
+    
+    #Lista de asignaturas
+    lasign = ['SAR', 'AC', 'ISO']
+    # Lista de contadores
+    lcont = dict()
+    for asign in lasign:
+        lcont[ asign ] = 0
+    # Obtener la lista de mensajes
+    s.sendall(b"STAT\r\n")
     response = recvline(s)
-    print(f"respuesta 1: {response}")
+    # print(f"respuesta 1: {response}")
     if response.startswith(b"+OK"):
-        while True:
-            message_info = recvline(s)
-            if message_info == b'.':
-                break
-            print(f"respuesta 2, info de mensajes: {message_info.decode()}")
-            msg_number, msg_size = message_info.split(maxsplit=1)
-            msg_number = int(msg_number)
-            print(f"el numero de mensajes?: {msg_number}")
-            
-            # Obtener el asunto del mensaje
-            s.sendall(f"TOP {msg_number} 0\r\n".encode())
-            response = recvline(s)
-            if response.startswith(b"+OK"):
-                subject_line = recvline(s)
-                print(f"la linea del subject?: {subject_line}")
+        _, num_mensajes, _ = response.split()
+        # print(f"respuesta 2, num de mensajes: {int(num_mensajes)}")
+        # Obtener el asunto del mensaje
+        for number in range(1,int(num_mensajes)):
+            s.sendall(f"TOP {number} 0\r\n".encode())
+            response = recvmultiline(s)
+            # print(f"el response es: {response}")
+            if response[0].startswith("+OK"):
+                subject_line = response[14]
+                print(subject_line)
                 # Aquí deberías analizar el asunto para determinar la asignatura
                 for asignatura in lasign:
-                    if asignatura.lower() in subject_line.lower().decode():
-                        print(f"Mensaje {msg_number} - Asignatura: {asignatura}")
+                    if asignatura.lower() in subject_line.lower():
+                        print(f"Mensaje {number} - Asignatura: {asignatura}")
                         break
             else:
-                print(f"No se pudo obtener el asunto para el mensaje {msg_number}")
+                print(f"No se pudo obtener el asunto para el mensaje {number}")
 
     # Cerrar sesión de usuario POP3
     s.sendall(b"QUIT\r\n")
