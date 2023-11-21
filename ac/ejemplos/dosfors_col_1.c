@@ -33,7 +33,7 @@ int fun (int x)
 
 void main ()
 {
-  int     i, j, A[N1][N2], sum;
+  int     i, j, A[N1][N2], sum = 0;
   double  tex;
   struct timespec  t0, t1;
 
@@ -47,7 +47,7 @@ void main ()
 
   // este es el bucle a paralelizar
   for (i=0; i<N1; i++)
-   #pragma omp parallel for private (j) reduction (+:sum)
+   // #pragma omp parallel for private (j) reduction (+:sum)
    for (j=0; j<N2; j++)
    {
      sum += fun (A[i][j]);

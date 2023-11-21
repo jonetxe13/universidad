@@ -33,7 +33,7 @@ int fun (int x)
 
 int main ()
 {
-  int     i, j, A[N1][N2], suma;
+  int     i, j, A[N1][N2], suma = 0;
   double  tex;
   struct timespec  t0, t1;
 
