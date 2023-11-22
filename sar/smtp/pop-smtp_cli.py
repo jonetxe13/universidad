@@ -79,89 +79,89 @@ if __name__ == "__main__":
     if len( sys.argv ) != 1:
         print( "Uso: python3 {}".format( sys.argv[0] ) )
         exit( 1 )
-#
-#     ############################################
-#     # Analizar buźon usuario POP3 servidor local
-#     ############################################
-#     serv_pop = (SERV_POP, PORT_POP)
-#
-#     s = socket.socket( socket.AF_INET, socket.SOCK_STREAM )
-#
-#     s.connect( serv_pop )
-#
-#     # Saludo del servidor POP3
-#     msg = recvline( s ).decode( "ascii" )
-#     if isPOPerror( msg ):
-#         exit( 1 )
-#
-#     # Capacidades servidor POP3 (Opcional)
-#     msg = "{}\r\n".format( ComPOP3.Capa )
-#     s.sendall( msg.encode( "ascii" ) )
-#     mline = recvmultiline( s )
-#     for l in mline:
-#         print( l )
-#
-#     # The AUTHORIZATION State
-#     CUENTA = input( "Introduce tu cuenta asociada al correo del servidor local: " )
-#     msg = "{} {}\r\n".format( ComPOP3.User, CUENTA )
-#     s.sendall( msg.encode( "ascii" ) )
-#     msg = recvline( s ).decode( "ascii" )
-#     if isPOPerror( msg ):
-#         exit( 1 )
-#
-#     CLAVE = getpass.getpass()
-#     msg = "{} {}\r\n".format( ComPOP3.Pass, CLAVE )
-#     s.sendall( msg.encode( "ascii" ) )
-#     msg = recvline( s ).decode( "ascii" )
-#     print( msg )
-#     if isPOPerror( msg ):
-#         exit( 1 )
-#     else:
-#         print( "Usuario autenticado en servidor POP3." )
-#
-#     # The TRANSACTION State
-#     msg = "{}\r\n".format( ComPOP3.Stat )
-#     print( ComPOP3.Stat )
-#     s.sendall( msg.encode( "ascii" ) )
-#     msg = recvline( s ).decode( "ascii" )
-#     if isPOPerror( msg ):
-#         exit( 1 )
-#     tokens = msg.split()
-#     print( 'Número de mensajes: {}, Tamaño del buzón: {}'.format( tokens[1], int2bytes( int(tokens[2]) ) ))
-#     num_msgs = int( tokens[1] )
-#
-#     # Lista de asignaturas
-#     lasign = ['SAR', 'SZA']
-#     # Lista de contadores
-#     lcont = dict()
-#     for asign in lasign:
-#         lcont[ asign ] = 0
-#     for i in range( num_msgs ):
-#         msg = "{} {} 0\r\n".format( ComPOP3.Top, i + 1 )
-#         s.sendall( msg.encode( "ascii" ) )
-#         mline = recvmultiline( s )
-#         for l in mline:
-#             if "Subject:" in l:
-#                 for asign in lasign:
-# #                    if asign + ':' in l:
-#                     if asign in l:
-#                         lcont[ asign ] += 1
-#                         break
-#                 break
-#     for asig, cont in lcont.items():
-#         print( "{}: {}".format( asig, cont ) )
-#
-#     # The UPDATE State
-#     # Cerrar sesión de usuario POP3
-#     msg = "{}\r\n".format( ComPOP3.Quit )
-#     s.sendall( msg.encode( "ascii" ) )
-#     msg = recvline( s ).decode( "ascii" )
-#     if isPOPerror( msg ):
-#         exit( 1 )
-#     else:
-#         print( msg )
-#     # Cerrar conexión con servidor POP3
-#     s.close()
+
+    ############################################
+    # Analizar buźon usuario POP3 servidor local
+    ############################################
+    serv_pop = (SERV_POP, PORT_POP)
+
+    s = socket.socket( socket.AF_INET, socket.SOCK_STREAM )
+
+    s.connect( serv_pop )
+
+    # Saludo del servidor POP3
+    msg = recvline( s ).decode( "ascii" )
+    if isPOPerror( msg ):
+        exit( 1 )
+
+    # Capacidades servidor POP3 (Opcional)
+    msg = "{}\r\n".format( ComPOP3.Capa )
+    s.sendall( msg.encode( "ascii" ) )
+    mline = recvmultiline( s )
+    for l in mline:
+        print( l )
+
+    # The AUTHORIZATION State
+    CUENTA = input( "Introduce tu cuenta asociada al correo del servidor local: " )
+    msg = "{} {}\r\n".format( ComPOP3.User, CUENTA )
+    s.sendall( msg.encode( "ascii" ) )
+    msg = recvline( s ).decode( "ascii" )
+    if isPOPerror( msg ):
+        exit( 1 )
+
+    CLAVE = getpass.getpass()
+    msg = "{} {}\r\n".format( ComPOP3.Pass, CLAVE )
+    s.sendall( msg.encode( "ascii" ) )
+    msg = recvline( s ).decode( "ascii" )
+    print( msg )
+    if isPOPerror( msg ):
+        exit( 1 )
+    else:
+        print( "Usuario autenticado en servidor POP3." )
+
+    # The TRANSACTION State
+    msg = "{}\r\n".format( ComPOP3.Stat )
+    print( ComPOP3.Stat )
+    s.sendall( msg.encode( "ascii" ) )
+    msg = recvline( s ).decode( "ascii" )
+    if isPOPerror( msg ):
+        exit( 1 )
+    tokens = msg.split()
+    print( 'Número de mensajes: {}, Tamaño del buzón: {}'.format( tokens[1], int2bytes( int(tokens[2]) ) ))
+    num_msgs = int( tokens[1] )
+
+    # Lista de asignaturas
+    lasign = ['SAR', 'SZA']
+    # Lista de contadores
+    lcont = dict()
+    for asign in lasign:
+        lcont[ asign ] = 0
+    for i in range( num_msgs ):
+        msg = "{} {} 0\r\n".format( ComPOP3.Top, i + 1 )
+        s.sendall( msg.encode( "ascii" ) )
+        mline = recvmultiline( s )
+        for l in mline:
+            if "Subject:" in l:
+                for asign in lasign:
+#                    if asign + ':' in l:
+                    if asign in l:
+                        lcont[ asign ] += 1
+                        break
+                break
+    for asig, cont in lcont.items():
+        print( "{}: {}".format( asig, cont ) )
+
+    # The UPDATE State
+    # Cerrar sesión de usuario POP3
+    msg = "{}\r\n".format( ComPOP3.Quit )
+    s.sendall( msg.encode( "ascii" ) )
+    msg = recvline( s ).decode( "ascii" )
+    if isPOPerror( msg ):
+        exit( 1 )
+    else:
+        print( msg )
+    # Cerrar conexión con servidor POP3
+    s.close()
 
     ####################################
     # Enviar mensaje SMTP servidor local
@@ -186,17 +186,13 @@ if __name__ == "__main__":
     msg = "HELO {}\r\n".format( "diffiss.eus" )
     s.sendall( msg.encode( "ascii" ) )
     msg = recvline( s ).decode( "ascii" )
-    print(msg)
     if not msg.startswith("250"):
         print("error en la autenticacion del cliente")
         exit(1)
-    # if isPOPerror( msg ):
-    #      exit( 1 )
 
     msg = "MAIL FROM: {}\r\n".format( "sar72@diffiss.eus" )
     s.sendall( msg.encode( "ascii" ) )
     msg = recvline( s ).decode( "ascii" )
-    print(msg)
     if not msg.startswith("250"):
         print("error en el MAIL FROM:")
 
@@ -206,7 +202,6 @@ if __name__ == "__main__":
     msg = "RCPT TO: {}\r\n".format( "sar72@diffiss.eus" )
     s.sendall( msg.encode( "ascii" ) )
     msg = recvline( s ).decode( "ascii" )
-    print(msg)
     if not msg.startswith("250"):
         print("error en el RCPT TO:")
     
@@ -216,26 +211,22 @@ if __name__ == "__main__":
     """
     s.sendall("DATA\r\n".encode("ascii"))
     msg = recvline( s ).decode( "ascii" )
-    print(msg)
-    print("hasta aqui el DATA0")
     if not msg.startswith("354"):
         print("error enviando cuerpo del mensaje")
         exit(1)
 
-    message = ""
-    parteMessage = ""
-    while parteMessage != ".":
-        parteMessage = input("introduce el mensaje, terminalo con un solo .: \n")
-        print("la parte del mensaje es:{}".format(parteMessage))
-        message += parteMessage + "\r\n"
+    message = ("From: sar72@diffiss.eus"
+               "To: sar72@diffiss.eus"
+               "Subject: yo que se bro"
+               "\r\n")
+    
+    partMessage = ""
+    while partMessage != ".":
+        partMessage = input("introduce el mensaje, terminalo con un solo .: \n")
+        message += partMessage + "\r\n"
 
-    print("llega hasta aqui")
     s.sendall(message.encode("ascii"))
-    # s.sendall("\r\n".encode("ascii"))
-    s.sendall(".".encode("ascii"))
     msg = recvline( s ).decode( "ascii" )
-    print(msg)
-    print("hasta aqui el DATA1")
     if not msg.startswith("250"):
         print("error enviando cuerpo del mensaje")
         exit(1)
@@ -246,7 +237,9 @@ if __name__ == "__main__":
     """
     s.sendall("QUIT\r\n".encode("ascii"))
     msg = recvline( s ).decode( "ascii" )
-    print(msg)
     if not msg.startswith("221"):
         print("error saliendo de la sesion")
+
     print("se ha salido correctamente")
+
+
