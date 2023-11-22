@@ -27,6 +27,7 @@ void main ()
   clock_gettime (CLOCK_REALTIME, &t0);
 
   // bucle a ejecutar en paralelo
+  #pragma omp parallel for private(j) reduction(+:A[:tamv])
   for (i=0; i<tamv; i++)
   for (j=0; j<1000; j++)
     A[i] = (A[i]*A[i] + 1) * (A[i]*A[i] - 1) + (j%2);
@@ -34,6 +35,8 @@ void main ()
   clock_gettime (CLOCK_REALTIME, &t1);
 
   tex = (t1.tv_sec - t0.tv_sec) + (t1.tv_nsec - t0.tv_nsec) / (double)1e9;
+  printf ("\nA[1] = %d\n", A[1]);
+  printf ("\nA[2] = %d\n", A[2]);
   printf ("\n Tex. (ser.) = %1.3f ms\n", tex*1000);
 }
 
