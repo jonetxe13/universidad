@@ -30,3 +30,5 @@ int main (int argc, char *argv[]){
 
   // al final, imprime el numero de pares y N
 }
+
+
