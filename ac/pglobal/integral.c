@@ -38,7 +38,7 @@ double Integrar (double a, double b, int n, double w) {
 int main () {
   double  a, b, w;    
   int     n;
-  double error = 1e-20;
+  double error = 1e-11;
 
   double  tex;
   struct timespec  t0, t1;
@@ -48,20 +48,21 @@ int main () {
 
   clock_gettime (CLOCK_REALTIME, &t0);
   double resultado1 = Integrar (a, b, n, w);
-  n++;
+  n = 2*n;
   w = (b-a) / n;   
   double resultado2 = Integrar (a, b, n, w);
   double errorRes = resultado2 - resultado1;
-  int i = 0;
+  int i = 1;
   // PARA COMPLETAR
-  while ((fabs(errorRes) > error) && (i < 1e3)){
-    n++;
+  while ((fabs(errorRes) > error) && (i < 1000)){
+    n = 2*n;
     w = (b-a) / n;   
     i++;
     resultado1 = resultado2;
     resultado2 = Integrar (a, b, n, w);
     errorRes = resultado2 - resultado1;
     // printf("Res1: %lf; Res2: %lf\n", resultado1, resultado2);
+    printf("%d\n", i);
     printf("%.12lf\n",errorRes);
   }
   // PARA COMPLETAR
