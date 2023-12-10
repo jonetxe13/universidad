@@ -5,7 +5,7 @@ from tkinter import filedialog, Frame, Toplevel, Button, Label, Listbox
 from tkinter import StringVar, Entry, scrolledtext, messagebox
 from tkinter import SOLID, BOTH, SUNKEN, FLAT, W, E, N, S, DISABLED, END, \
                     NORMAL, ACTIVE, LEFT, RIGHT, CENTER, INSERT
-from PIL import Image, ImageTk
+from PIL import Image, ImageFilter, ImageTk
 
 import network
 
@@ -102,7 +102,7 @@ class Configuration():
 
         conf_values = self.get_values()
         image = Image.open(conf_values['icon'])
-        image = image.resize((50, 50), Image.ANTIALIAS)
+        image = image.resize((50, 50), Image.LANCZOS)
         image = ImageTk.PhotoImage(image)
         lbl_img = Label(fr_config, image=image)
         lbl_img.grid(row=0, column=0, rowspan=2, padx=5, pady=5, sticky=W)
@@ -176,7 +176,7 @@ class App(object):
         self.server.set(conf_values['server'])
         self.port.set(conf_values['port'])
         image = Image.open(conf_values['icon']).resize((40, 40),
-                                                       Image.ANTIALIAS)
+                                                       Image.LANCZOS)
         self.image = ImageTk.PhotoImage(image)
         self.lbl_image.configure(image=self.image)
 
@@ -424,7 +424,7 @@ class App(object):
                           highlightbackground='white', relief=FLAT)
         fr_config.grid(row=0, column=0, padx=5, pady=1, sticky=W+E)
 
-        image = Image.open(conf['icon']).resize((40, 40), Image.ANTIALIAS)
+        image = Image.open(conf['icon']).resize((40, 40), Image.LANCZOS)
         self.image = ImageTk.PhotoImage(image)
         self.lbl_image = Label(fr_config, image=self.image)
         self.lbl_image.grid(row=0, column=0, rowspan=3, padx=5, pady=5,
