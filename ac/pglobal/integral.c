@@ -61,7 +61,7 @@ int main () {
     resultado1 = resultado2;
     resultado2 = Integrar (a, b, n, w);
     errorRes = resultado2 - resultado1;
-    // printf("Res1: %lf; Res2: %lf\n", resultado1, resultado2);
+    printf("Res1: %lf; Res2: %lf\n", resultado1, resultado2);
     printf("%d\n", i);
     printf("%.12lf\n",errorRes);
   }
