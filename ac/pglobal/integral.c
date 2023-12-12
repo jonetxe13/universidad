@@ -65,7 +65,6 @@ int main () {
     printf("%d\n", i);
     printf("%.12lf\n",errorRes);
   }
-  // PARA COMPLETAR
 
   clock_gettime (CLOCK_REALTIME, &t1);
   tex = (t1.tv_sec - t0.tv_sec) + (t1.tv_nsec - t0.tv_nsec) / (double)1e9;
