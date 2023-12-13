@@ -16,19 +16,28 @@ class ChatProtocol(LineReceiver):
 
     def connectionMade(self):
         # Enviar mensaje de bienvenida y lista de usuarios actuales
-        self.sendLine(b"FTR 0 0 0 0")
+        valores = self.factory.features.values()
+        self.sendLine("FTR{}".format(" ".join(valores)).encode())
         self.sendUserList()
 
     def connectionLost(self, reason):
         # Usuario desconectado, notificar a otros usuarios
         if self.name in self.factory.users:
             del self.factory.users[self.name]
-            self.broadcast(b"OUT " + self.name)
+            self.broadcast(b"OUT" + self.name.encode())
 
     def lineReceived(self, line):
         # Procesar comando recibido
-        parts = line.strip().split(b" ", 1)
-        command = parts[0]
+        command = line[0:3]
+        print(command)
+        rest = line[3::]
+        print(rest)
+        parts = []
+        parts.append(command)
+        parts.append(rest)
+        print(parts)
+        # parts = parts.insert(0, 1)
+        # print(parts)
 
         if command == b"NME":
             self.handleNME(parts)
@@ -41,7 +50,7 @@ class ChatProtocol(LineReceiver):
             # Ya tiene un nombre asignado, enviar error
             self.sendError(b"4")
             return
-
+        print(parts)
         new_name = parts[1].decode("utf-8")
 
         if not self.isNameValid(new_name):
@@ -62,7 +71,7 @@ class ChatProtocol(LineReceiver):
         # Nombre válido, asignar y notificar a otros usuarios
         self.name = new_name
         self.factory.users[self.name] = self
-        self.broadcast(b"INN " + self.name)
+        self.broadcast(b"INN" + self.name.encode())
 
     def handleMSG(self, parts):
         # Procesar comando MSG (enviar mensaje)
@@ -79,11 +88,12 @@ class ChatProtocol(LineReceiver):
             return
 
         # Enviar mensaje a otros usuarios
-        self.broadcast(b"MSG " + self.name + b" " + message)
+        # self.broadcast(b"MSG " + self.name.encode("utf-8") + b" " + message.encode("utf-8"))
+        self.broadcast(b"MSG" + self.name.encode() + b" " + message.encode())
 
     def sendUserList(self):
         # Enviar lista de usuarios a este cliente
-        user_list = b"USR " + b" ".join(self.factory.users.keys())
+        user_list = b"USR" + b" ".join(self.factory.users.keys().encode())
         self.sendLine(user_list)
 
     def sendError(self, error_code):
@@ -105,6 +115,7 @@ class ChatProtocol(LineReceiver):
 class ChatFactory(Factory):
     def __init__(self):
         self.users = {}
+        self.features = { 'FILES':'0' , 'CEN':'0', 'NOP':'0', 'SSL':'0' }
 
     def buildProtocol(self, addr):
         return ChatProtocol(self)
@@ -123,30 +134,30 @@ if __name__ == "__main__":
 # PORT = 8000
 #
 # class ChatProtocol(LineReceiver):
-# 	def __init__(self, factory):
-# 		self.factory = factory
-# 		self.name = None
+#     def __init__(self, factory):
+#         self.factory = factory
+#         self.name = None
 #
-# 	def connectionMade(self):
-# 	"""A COMPLETAR POR EL/LA ESTUDIANTE:
-# 	"""
+#     def connectionMade(self):
+#     """A COMPLETAR POR EL/LA ESTUDIANTE:
+#     """
 #
-# 	def connectionLost(self, reason):
-# 	"""A COMPLETAR POR EL/LA ESTUDIANTE:
-# 	"""
+#     def connectionLost(self, reason):
+#     """A COMPLETAR POR EL/LA ESTUDIANTE:
+#     """
 #
-# 	def lineReceived(self, line):
-# 	"""A COMPLETAR POR EL/LA ESTUDIANTE:
-# 	"""
+#     def lineReceived(self, line):
+#     """A COMPLETAR POR EL/LA ESTUDIANTE:
+#     """
 #
 # class ChatFactory(Factory):
-# 	def __init__(self):
-# 		self.users = {}
-# 		self.features = { 'FILES':'0' , 'CEN':'0', 'NOP':'0', 'SSL':'0' }
+#     def __init__(self):
+#         self.users = {}
+#         self.features = { 'FILES':'0' , 'CEN':'0', 'NOP':'0', 'SSL':'0' }
 #
-# 	def buildProtocol(self, addr):
-# 		return ChatProtocol(self)
+#     def buildProtocol(self, addr):
+#         return ChatProtocol(self)
 #
 # if __name__ == "__main__":
-# 	reactor.listenTCP(PORT, ChatFactory())
-# 	reactor.run()
+#     reactor.listenTCP(PORT, ChatFactory())
+#     reactor.run()
