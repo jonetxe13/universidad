@@ -36,8 +36,6 @@ class ChatProtocol(LineReceiver):
         parts.append(command)
         parts.append(rest)
         print(parts)
-        # parts = parts.insert(0, 1)
-        # print(parts)
 
         if command == b"NME":
             self.handleNME(parts)
@@ -93,14 +91,14 @@ class ChatProtocol(LineReceiver):
             palabras_prohibidas = file.read().splitlines()
 
         palabras_mensaje = message.split(' ')
-        for palabra in palabras_mensaje:
+        for i in range(len(palabras_mensaje)):
+            palabra = palabras_mensaje[i]
             if palabra in palabras_prohibidas:
                 palabra_censurada = '#' * len(palabra)
-                palabras_mensaje[i] = palabras_mensaje.replace(palabra, palabra_censurada)
+                palabras_mensaje[i] = palabra_censurada
+
         message = ' '.join(palabras_mensaje)
         print("message is: {}".format(parts))
-
-
 
         # Enviar mensaje a otros usuarios
         self.broadcast(b"MSG" + self.name.encode() + b" " + message.encode())
@@ -117,7 +115,6 @@ class ChatProtocol(LineReceiver):
             # Enviar mensaje a otros usuarios
             self.broadcast(b"WRT" + self.name.encode())
             return
-
 
 
     def sendUserList(self):
