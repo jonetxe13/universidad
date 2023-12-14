@@ -43,6 +43,8 @@ class ChatProtocol(LineReceiver):
             self.handleNME(parts)
         elif command == b"MSG":
             self.handleMSG(parts)
+        elif command == b"WRT":
+            self.handleMSG(parts)
 
     def handleNME(self, parts):
         # Procesar comando NME (nombre de usuario)
@@ -87,13 +89,40 @@ class ChatProtocol(LineReceiver):
             self.sendError(b"5")
             return
 
+        with open("palabras_censuradas.txt", 'r') as file:
+            palabras_prohibidas = file.read().splitlines()
+
+        palabras_mensaje = message.split(' ')
+        for palabra in palabras_mensaje:
+            if palabra in palabras_prohibidas:
+                palabra_censurada = '#' * len(palabra)
+                palabras_mensaje[i] = palabras_mensaje.replace(palabra, palabra_censurada)
+        message = ' '.join(palabras_mensaje)
+        print("message is: {}".format(parts))
+
+
+
         # Enviar mensaje a otros usuarios
-        # self.broadcast(b"MSG " + self.name.encode("utf-8") + b" " + message.encode("utf-8"))
         self.broadcast(b"MSG" + self.name.encode() + b" " + message.encode())
+    
+    def handleWRT(self, parts):
+        # Procesar comando MSG (enviar mensaje)
+        if self.name is None:
+            # Usuario no tiene nombre, enviar error
+            self.sendError(b"0")
+            return
+
+        if parts[1] is None:
+            # Usuario no tiene nombre, enviar error
+            # Enviar mensaje a otros usuarios
+            self.broadcast(b"WRT" + self.name.encode())
+            return
+
+
 
     def sendUserList(self):
         # Enviar lista de usuarios a este cliente
-        user_list = b"USR" + b" ".join(self.factory.users.keys().encode())
+        user_list = b"USR " + " ".join(self.factory.users.keys()).encode()
         self.sendLine(user_list)
 
     def sendError(self, error_code):
@@ -101,11 +130,12 @@ class ChatProtocol(LineReceiver):
         self.sendLine(b"-" + error_code)
 
     def broadcast(self, message):
+
         # Enviar mensaje a todos los usuarios
-        for protocol in self.factory.users.values():
-            if protocol != self:
-                print("se envia el mensaje {} a el usuario {}".format(message, protocol))
-                protocol.sendLine(message)
+        for user in self.factory.users.values():
+            if user != self:
+                print("se envia el mensaje {}".format(message))
+                user.sendLine(message)
 
     def isNameValid(self, name):
         # Validar que el nombre solo contiene caracteres permitidos
@@ -115,7 +145,7 @@ class ChatProtocol(LineReceiver):
 class ChatFactory(Factory):
     def __init__(self):
         self.users = {}
-        self.features = { 'FILES':'0' , 'CEN':'0', 'NOP':'0', 'SSL':'0' }
+        self.features = { 'FILES':'0' , 'CEN':'1', 'NOP':'0', 'SSL':'0' }
 
     def buildProtocol(self, addr):
         return ChatProtocol(self)
@@ -123,41 +153,3 @@ class ChatFactory(Factory):
 if __name__ == "__main__":
     reactor.listenTCP(PORT, ChatFactory())
     reactor.run()
-
-# from twisted.protocols.basic import LineReceiver
-# from twisted.internet.protocol import Factory
-# from twisted.internet import reactor
-#
-# MAX_USERS = 100
-# MAX_MSG_LENGTH = 255
-# MAX_USER_LENGTH = 16
-# PORT = 8000
-#
-# class ChatProtocol(LineReceiver):
-#     def __init__(self, factory):
-#         self.factory = factory
-#         self.name = None
-#
-#     def connectionMade(self):
-#     """A COMPLETAR POR EL/LA ESTUDIANTE:
-#     """
-#
-#     def connectionLost(self, reason):
-#     """A COMPLETAR POR EL/LA ESTUDIANTE:
-#     """
-#
-#     def lineReceived(self, line):
-#     """A COMPLETAR POR EL/LA ESTUDIANTE:
-#     """
-#
-# class ChatFactory(Factory):
-#     def __init__(self):
-#         self.users = {}
-#         self.features = { 'FILES':'0' , 'CEN':'0', 'NOP':'0', 'SSL':'0' }
-#
-#     def buildProtocol(self, addr):
-#         return ChatProtocol(self)
-#
-# if __name__ == "__main__":
-#     reactor.listenTCP(PORT, ChatFactory())
-#     reactor.run()
