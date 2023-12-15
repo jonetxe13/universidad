@@ -14,6 +14,8 @@ class ChatProtocol(LineReceiver):
     def __init__(self, factory):
         self.factory = factory
         self.name = None
+        self.inactivity_timeout = 10  # Tiempo en segundos para la inactividad
+        self.inactivity_call = None
 
     def connectionMade(self):
         # Enviar mensaje de bienvenida y lista de usuarios actuales
@@ -26,7 +28,7 @@ class ChatProtocol(LineReceiver):
         # Usuario desconectado, notificar a otros usuarios
         if self.name in self.factory.users:
             del self.factory.users[self.name]
-            self.broadcast(b"OUT" + self.name.encode()
+            self.broadcast(b"OUT" + self.name.encode())
 
     def resetInactivityTimer(self):
         # Cancelar el temporizador existente, si hay uno
