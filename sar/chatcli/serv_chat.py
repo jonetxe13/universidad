@@ -62,8 +62,6 @@ class ChatProtocol(LineReceiver):
             self.handleMSG(parts)
         elif command == b"WRT":
             self.handleWRT(parts)
-        elif command == b"TLS":
-            self.handleTLS(parts)
         self.resetInactivityTimer()
 
 
@@ -138,14 +136,6 @@ class ChatProtocol(LineReceiver):
         print("el nombre de usuario de WRT es: {}".format(self.name))
         self.broadcast(b"WRT" + self.name.encode())
 
-    def handleTLS(self, parts):
-        # Procesar comando TLS (solicitud de conexión segura)
-        if self.factory.features['SSL'] == '1':
-            # El servidor está configurado para usar SSL
-            self.sendLine(b"OK+")
-        else:
-            # El servidor no está configurado para usar SSL
-            self.sendLine(b"NO-")
 
     def sendUserList(self):
         # Enviar lista de usuarios a este cliente
@@ -172,21 +162,10 @@ class ChatProtocol(LineReceiver):
 class ChatFactory(Factory):
     def __init__(self):
         self.users = {}
-        self.features = { 'FILES':'0' , 'CEN':'1', 'NOP':'1', 'SSL':'1' }
+        self.features = { 'FILES':'0' , 'CEN':'1', 'NOP':'1', 'SSL':'0' }
 
     def buildProtocol(self, addr):
-        protocol = ChatProtocol(self)
-        if self.features['SSL'] == '1':
-            privateKey = 'cert.key'
-            certificate = 'cert.crt'
-            contextFactory = ssl.DefaultOpenSSLContextFactory(privateKey, certificate)
-                
-            factory = Factory()  # Replace this with your actual protocol factory
-            reactor.listenSSL(PORT, factory, contextFactory)
-
-        else:
-            return protocol
-        # return ChatProtocol(self)
+        return ChatProtocol(self)
 
 if __name__ == "__main__":
     reactor.listenTCP(PORT, ChatFactory())
