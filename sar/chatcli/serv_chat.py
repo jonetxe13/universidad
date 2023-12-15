@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from twisted.internet import protocol
 from twisted.protocols.basic import LineReceiver
 from twisted.internet.protocol import Factory
 from twisted.internet import reactor
@@ -19,12 +20,28 @@ class ChatProtocol(LineReceiver):
         valores = self.factory.features.values()
         self.sendLine("FTR{}".format(" ".join(valores)).encode())
         self.sendUserList()
+        self.resetInactivityTimer()
 
     def connectionLost(self, reason):
         # Usuario desconectado, notificar a otros usuarios
         if self.name in self.factory.users:
             del self.factory.users[self.name]
-            self.broadcast(b"OUT" + self.name.encode())
+            self.broadcast(b"OUT" + self.name.encode()
+
+    def resetInactivityTimer(self):
+        # Cancelar el temporizador existente, si hay uno
+        if self.inactivity_call is not None and self.inactivity_call.active():
+            self.inactivity_call.cancel()
+
+        # Configurar un nuevo temporizador
+        self.inactivity_call = reactor.callLater(self.inactivity_timeout, self.handleInactivity)
+
+    def handleInactivity(self):
+        # Manejar la inactividad enviando el comando "NOP" al cliente
+        if self.name is not None:
+            message = b"NOP"
+            self.sendLine(message)
+        self.resetInactivityTimer()
 
     def lineReceived(self, line):
         # Procesar comando recibido
@@ -43,6 +60,8 @@ class ChatProtocol(LineReceiver):
             self.handleMSG(parts)
         elif command == b"WRT":
             self.handleWRT(parts)
+        self.resetInactivityTimer()
+
 
     def handleNME(self, parts):
         # Procesar comando NME (nombre de usuario)
@@ -140,7 +159,7 @@ class ChatProtocol(LineReceiver):
 class ChatFactory(Factory):
     def __init__(self):
         self.users = {}
-        self.features = { 'FILES':'0' , 'CEN':'1', 'NOP':'0', 'SSL':'0' }
+        self.features = { 'FILES':'0' , 'CEN':'1', 'NOP':'1', 'SSL':'0' }
 
     def buildProtocol(self, addr):
         return ChatProtocol(self)
