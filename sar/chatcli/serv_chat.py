@@ -42,7 +42,7 @@ class ChatProtocol(LineReceiver):
         elif command == b"MSG":
             self.handleMSG(parts)
         elif command == b"WRT":
-            self.handleMSG(parts)
+            self.handleWRT(parts)
 
     def handleNME(self, parts):
         # Procesar comando NME (nombre de usuario)
@@ -110,12 +110,10 @@ class ChatProtocol(LineReceiver):
             self.sendError(b"0")
             return
 
-        if parts[1] is None:
-            # Usuario no tiene nombre, enviar error
-            # Enviar mensaje a otros usuarios
-            self.broadcast(b"WRT" + self.name.encode())
-            return
-
+        # Usuario no tiene nombre, enviar error
+        # Enviar mensaje a otros usuarios
+        print("el nombre de usuario de WRT es: {}".format(self.name))
+        self.broadcast(b"WRT" + self.name.encode())
 
     def sendUserList(self):
         # Enviar lista de usuarios a este cliente
