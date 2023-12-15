@@ -64,7 +64,6 @@ class ChatProtocol(LineReceiver):
             self.handleWRT(parts)
         self.resetInactivityTimer()
 
-
     def handleNME(self, parts):
         # Procesar comando NME (nombre de usuario)
         if self.name is not None:
@@ -107,19 +106,19 @@ class ChatProtocol(LineReceiver):
             # Mensaje demasiado largo, enviar error
             self.sendError(b"5")
             return
+        if self.factory.features['CEN'] == 1:
+            with open("palabras_censuradas.txt", 'r') as file:
+                palabras_prohibidas = file.read().splitlines()
 
-        with open("palabras_censuradas.txt", 'r') as file:
-            palabras_prohibidas = file.read().splitlines()
+            palabras_mensaje = message.split(' ')
+            for i in range(len(palabras_mensaje)):
+                palabra = palabras_mensaje[i]
+                if palabra in palabras_prohibidas:
+                    palabra_censurada = '#' * len(palabra)
+                    palabras_mensaje[i] = palabra_censurada
 
-        palabras_mensaje = message.split(' ')
-        for i in range(len(palabras_mensaje)):
-            palabra = palabras_mensaje[i]
-            if palabra in palabras_prohibidas:
-                palabra_censurada = '#' * len(palabra)
-                palabras_mensaje[i] = palabra_censurada
-
-        message = ' '.join(palabras_mensaje)
-        print("message is: {}".format(parts))
+            message = ' '.join(palabras_mensaje)
+            print("message is: {}".format(parts))
 
         # Enviar mensaje a otros usuarios
         self.broadcast(b"MSG" + self.name.encode() + b" " + message.encode())
