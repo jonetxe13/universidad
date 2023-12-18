@@ -2,35 +2,35 @@ Hilos: 1
 
 real	0m0.148s
 user	0m0.000s
-sys	0m0.003s
+sys	0m0.002s
 ---------------------
 Hilos: 2
 
-real	0m0.077s
-user	0m0.004s
-sys	0m0.002s
+real	0m0.079s
+user	0m0.006s
+sys	0m0.004s
 ---------------------
 Hilos: 4
 
 real	0m0.045s
-user	0m0.028s
-sys	0m0.002s
+user	0m0.026s
+sys	0m0.003s
 ---------------------
 Hilos: 8
 
 real	0m0.025s
-user	0m0.042s
-sys	0m0.002s
+user	0m0.038s
+sys	0m0.003s
 ---------------------
 Hilos: 16
 
 real	0m0.017s
-user	0m0.093s
-sys	0m0.002s
+user	0m0.087s
+sys	0m0.018s
 ---------------------
 Hilos: 32
 
-real	0m0.014s
-user	0m0.217s
-sys	0m0.018s
+real	0m0.012s
+user	0m0.138s
+sys	0m0.038s
 ---------------------
