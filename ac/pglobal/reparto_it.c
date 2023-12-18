@@ -30,13 +30,27 @@ int main () {
 
   // Bucle 2 para paralelizar: reparto dinamico, chunk scheduling
   // lote (chuck) de 6 iteraciones (LOTE)
- #pragma omp parallel for private(i, tid) schedule(dynamic, LOTE)
-  for (i=0; i<N; i++) 
-  {  
+ // #pragma omp parallel for private(i, tid) schedule(dynamic, LOTE)
+ //  for (i=0; i<N; i++) 
+ //  {  
+ //    tid = omp_get_thread_num();
+ //    fun (i);
+ //    B[i] = tid;
+ //  }
+  #pragma omp parallel private(i, tid)
+{
     tid = omp_get_thread_num();
-    fun (i);
-    B[i] = tid;
-  }
+    int chunk_size = N / omp_get_num_threads();
+    int start = tid * chunk_size;
+    int end = (tid == omp_get_num_threads() - 1) ? N : start + chunk_size;
+
+    for (i = start; i < end; i++) 
+    {  
+        fun(i);
+        B[i] = tid;
+    }
+}
+
 
   // imprimir vectores como matrices de 10 x 10
   printf ("\n\n Vector A\n");
