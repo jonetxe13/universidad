@@ -130,7 +130,6 @@ class ChatProtocol(LineReceiver):
             self.sendError(b"0")
             return
 
-        # Usuario no tiene nombre, enviar error
         # Enviar mensaje a otros usuarios
         print("el nombre de usuario de WRT es: {}".format(self.name))
         self.broadcast(b"WRT" + self.name.encode())
