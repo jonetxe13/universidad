@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 
-from twisted.internet._sslverify import OpenSSLCertificateOptions
 from twisted.protocols.basic import LineReceiver
 from twisted.internet.protocol import Factory
-from twisted.internet import reactor, ssl
+from twisted.internet import reactor
 
 MAX_USERS = 100
 MAX_MSG_LENGTH = 255
@@ -130,6 +129,7 @@ class ChatProtocol(LineReceiver):
             self.sendError(b"0")
             return
 
+        # Usuario no tiene nombre, enviar error
         # Enviar mensaje a otros usuarios
         print("el nombre de usuario de WRT es: {}".format(self.name))
         self.broadcast(b"WRT" + self.name.encode())
