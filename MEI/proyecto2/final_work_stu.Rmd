@@ -1,0 +1,315 @@
+---
+title: | 
+  | SME. Final work 
+  |
+  | Inferential Statistics.
+  |
+  | Sampling distributions and confidence intervals
+  |
+  |
+author: '**Name:** ... '
+date: |
+  |
+  | `r Sys.setlocale("LC_TIME", "C");format(Sys.Date(), "%B %d, %Y")`
+  |
+  | Table of contents
+  |
+output:
+  pdf_document:
+    toc: yes
+    toc_depth: '4'
+    keep_tex: true
+  html_document:
+    highlight: espresso
+    number_sections: yes
+    theme: united
+    toc: yes
+    toc_depth: 4
+---
+
+
+
+
+```{r setup, include=FALSE, echo=FALSE}
+# setting the options
+
+knitr::opts_chunk$set(echo = TRUE)
+options() # printing all current options
+options(digits = 2) # number of digits to display
+
+library(moments)   # needed for finding the third and fourth  moments
+# Intall if not already installed
+
+```
+
+>     
+
+  
+\newpage
+
+# Introduction
+
+> In this laboratory you will have a statement and you have to solve it using R, Rmarkdown and LaTeX. 
+
+> All the necessary formulas will we written in LaTeX. And the answers will written using the R and Rmarkdown commands required. *$(FORMULA = OUTPUT\  FROM\  CODE)$*
+
+> You have to follow the index given and add the explanations required.
+
+\vspace{2cm}
+
+# The statement
+
+> An industrial engineer has designed a machine to pack three-pound potato bags.
+However, due to various reasons, such as different weights of potatoes,
+filling problems, etc. is aware that the final weight of the potato bag won`t 
+be exactly three kilos, but there will be random variations in this quantity.
+
+
+
+\vspace{2cm}
+
+## Read the  data and describe them
+
+> 1. The data of the sample comes in the following file: *potato_bags.csv*
+
+
+```{r, eval=FALSE,echo=FALSE}
+# WRITE YOUR CODE HERE, DON´T FORGET TO CHANGE eval = TRUE when you want to compile the document.
+
+# Read the data
+
+# Number of observations
+
+# Number of variables
+
+DataX <- read.table(fileName,header = TRUE,col.names = c("X.sample"))
+
+```
+
+**QUESTIONS**
+
+> How many data are in the fille?
+
+> How many variables? 
+
+>  
+
+
+
+
+
+
+> 2. Find the mean, variance, standard deviation of the data in the sample
+
+>   
+
+
+```{r echo=FALSE,eval=FALSE}
+# WRITE YOUR CODE HERE, DON´T FORGET TO CHANGE eval = TRUE when you want to compile the document.
+
+```
+
+
+> The mean of the sample is *$\bar{x} = FORMULA = OUTPUT\  FROM\  CODE$*,
+
+> the variance is *$\sigma^{2} = FORMULA = OUTPUT\  FROM\  CODE$*,
+
+> and the standard deviation is *$\sigma = FORMULA = OUTPUT\  FROM\  CODE$*.
+
+>    
+
+> 3. Draw the histogram of the data showing the density not the frequencies.
+
+```{r echo=FALSE,eval=FALSE}
+# WRITE YOUR CODE HERE, DON´T FORGET TO CHANGE eval = TRUE when you want to compile the document.
+
+```
+
+
+\newpage
+
+# Sampling distribution of the Sample Mean $X_{n}$
+
+
+> Find the expected value of the Sample Mean and its standard error.
+
+>> *$E[X_{n}] = FORMULA = OUTPUT\  FROM\  CODE$*
+
+
+>> and standard error *$SD(X_{n}) = FORMULA = OUTPUT\  FROM\  CODE$* 
+
+\vspace{2cm}
+
+> Which distribution follows the Sample Mean and why? 
+
+**ANSWER:**  
+\vspace{2cm}
+>
+
+\vspace{2cm}
+
+> Draw the curve supposing the original population has mean $\mu = 3$ and $\sigma = 0.2$.  
+
+
+
+
+
+```{r echo=FALSE,eval=FALSE}
+# WRITE YOUR CODE HERE, DON´T FORGET TO CHANGE eval = TRUE when you want to compile the document.
+```
+
+\newpage
+# Confidence interval for the mean
+>1. Which distribution do you use for finding the probability of the confidence interval? Write the  formula for the scores.
+
+**ANSWER:**  
+\vspace{2cm}
+$score = FORMULA$
+
+
+
+
+
+
+>2. Find the corresponding quantiles using that distribution.
+
+
+**ANSWER:** 
+\vspace{2cm}
+
+```{r, eval=FALSE,echo=FALSE}
+# WRITE YOUR CODE HERE, DON´T FORGET TO CHANGE eval = TRUE when you want to compile the document.
+
+```
+
+
+>The value of the quantile corresponding to the significance level is $q =OUTPUT\  FROM\  CODE$
+
+
+
+> 3. And draw it in the graphic of the distribution.
+
+
+```{r, echo=FALSE,eval=FALSE}
+# WRITE YOUR CODE HERE, DON´T FORGET TO CHANGE eval = TRUE when you want to compile the document.
+
+
+```
+
+
+
+
+
+\vspace{2cm}
+>3. Find the margin of error and the bounds of the interval.
+
+**ANSWER:** 
+\vspace{2cm}
+
+```{r echo=FALSE,eval=FALSE}
+# WRITE YOUR CODE HERE, DON´T FORGET TO CHANGE eval = TRUE when you want to compile the document.
+
+```
+
+
+> The margin of error is $OUTPUT\  FROM\  CODE$
+
+> The bounds of the interval for the mean: $(OUTPUT\  FROM\  CODE)$
+
+\newpage
+# Test the following hypothesis
+
+> To check if the machine is well calibrated, take a sample of 45 bags filled with potatoes and count their weight. With this information, 
+
+>> Does the engineer have reason to think the machine is poorly calibrated? (Please use 5% signication level).
+
+
+## Design the test 
+
+
+```{r echo=FALSE,eval=FALSE}
+# WRITE YOUR CODE HERE, DON´T FORGET TO CHANGE eval = TRUE when you want to compile the document.
+
+
+```
+
+
+> Define the null hypothesis and the alternative hypothesis
+
+> The null hypothesis is ...
+
+> The alternative hypothesis is ...
+
+> The significance level is ...
+
+>   
+
+## Find the corresponding statistic to the sample 
+
+
+
+```{r echo=FALSE,eval=FALSE}
+# WRITE YOUR CODE HERE, DON´T FORGET TO CHANGE eval = TRUE when you want to compile the document.
+
+
+```
+
+
+> The statistic follows the ....
+
+> The value of the corresponding statistic is ..*$FORMULA = OUTPUT\  FROM\  CODE$*
+
+
+## Find the critical value corresponding to the significance level
+
+
+```{r echo=FALSE,eval=FALSE}
+# WRITE YOUR CODE HERE, DON´T FORGET TO CHANGE eval = TRUE when you want to compile the document.
+
+
+```
+
+> The critical value is ..*OUTPUT\  FROM\  CODE*
+
+
+## Find the p-value
+
+
+```{r echo=FALSE,eval=FALSE}
+# WRITE YOUR CODE HERE, DON´T FORGET TO CHANGE eval = TRUE when you want to compile the document.
+
+
+```
+
+> The p-value is ... *$FORMULA = OUTPUT\  FROM\  CODE$*
+
+
+## Make the decision
+
+> I reject/accept the null hypothesis because the ..
+
+
+## Type of errors 
+
+
+```{r echo=FALSE,eval=FALSE}
+# WRITE YOUR CODE HERE, DON´T FORGET TO CHANGE eval = TRUE when you want to compile the document.
+
+
+```
+
+
+
+> The value of Type I error is ...*$FORMULA = OUTPUT\  FROM\  CODE$*
+
+
+> The value of Type II error is ...*$FORMULA = OUTPUT\  FROM\  CODE$*
+
+\newpage
+# List of R commands
+
+> Write here a list of the R commands you have used
+
+# Bibliography
+
+> In case you have used any write it here.
