@@ -73,7 +73,7 @@ be exactly three kilos, but there will be random variations in this quantity.
 > 1. The data of the sample comes in the following file: *potato_bags.csv*
 
 
-```{r, eval=FALSE,echo=FALSE}
+```{r, eval=TRUE,echo=FALSE}
 # WRITE YOUR CODE HERE, DON´T FORGET TO CHANGE eval = TRUE when you want to compile the document.
 
 # Read the data
@@ -86,11 +86,6 @@ num_observations <- nrow(DataX)
 # Number of variables
 num_variables <- ncol(DataX)
 
-# Display answers
-cat("How many data are in the file? ", num_observations, "\n")
-cat("How many variables? ", num_variables, "\n")
-
-
 ```
 
 **QUESTIONS**
@@ -102,46 +97,36 @@ cat("How many variables? ", num_variables, "\n")
 >  
 
 
-
-
-
-
 > 2. Find the mean, variance, standard deviation of the data in the sample
 
 >   
 
 
-```{r echo=FALSE,eval=FALSE}
+```{r echo=FALSE,eval=TRUE}
 # WRITE YOUR CODE HERE, DON´T FORGET TO CHANGE eval = TRUE when you want to compile the document.
 # Find the mean, variance, standard deviation of the data in the sample
 mean_X <- mean(DataX$X.sample)
 variance_X <- var(DataX$X.sample)
 std_dev_X <- sd(DataX$X.sample)
 
-# Display answers
-cat("The mean of the sample is $\\bar{x} = ", mean_X, "$\n")
-cat("The variance is $\\sigma^{2} = ", variance_X, "$\n")
-cat("The standard deviation is $\\sigma = ", std_dev_X, "$\n")
-
 ```
 
 
-> The mean of the sample is *$\bar{x} = FORMULA = 3.08$*,
+The mean of the sample is $\bar{x} = \frac{\sum_{i=1}^{n}{X_i}}{n} = 3.08$,
 
-> the variance is *$\sigma^{2} = FORMULA = 0.03$*,
+the variance is $\sigma^{2} = \frac{1}{n}\sum_{i=1}^{n}{(x_i - \mu)^2} = 0.037$,
 
-> and the standard deviation is *$\sigma = FORMULA = 0.18$*.
+and the standard deviation is $\sigma = \sqrt{Var(x)} = 0.18$.
 
 >    
 
 > 3. Draw the histogram of the data showing the density not the frequencies.
 
-```{r echo=FALSE,eval=FALSE}
+```{r echo=FALSE,eval=TRUE}
 # WRITE YOUR CODE HERE, DON´T FORGET TO CHANGE eval = TRUE when you want to compile the document.
 # Draw the histogram of the data showing the density not the frequencies.
 hist(DataX$X.sample, prob = TRUE, col = "lightblue", main = "Histogram of Potato Bag Weights", xlab = "Weight")
-lines(density(DataX$X.sample), col = "red", lwd = 2)
-*****************************error
+# lines(density(DataX$X.sample), col = "red", lwd = 2)
 
 ```
 
@@ -153,21 +138,17 @@ lines(density(DataX$X.sample), col = "red", lwd = 2)
 
 > Find the expected value of the Sample Mean and its standard error.
 
-```{r echo=FALSE,eval=FALSE}
+```{r echo=FALSE,eval=TRUE}
 
 mean_sample_mean <- mean_X
 se_sample_mean <- std_dev_X / sqrt(num_observations)
 
-# Display answers
-cat("Expected value of the Sample Mean: $E[X_{n}] = ", mean_sample_mean, "$\n")
-cat("Standard error of the Sample Mean: $SD(X_{n}) = ", se_sample_mean, "$\n")
-
 ```
 
->> *$E[X_{n}] = FORMULA = 3.08$*
+$E[X_{n}] = \sum_{i=1}^{n}{x_i * P(x_i)} = 3.08$
 
 
->> and standard error *$SD(X_{n}) = FORMULA = 0.03$* 
+and standard error $SD(X_{n}) = \sqrt{Var(x)} = 0.03$ 
 
 \vspace{2cm}
 
@@ -185,7 +166,7 @@ cat("Standard error of the Sample Mean: $SD(X_{n}) = ", se_sample_mean, "$\n")
 
 
 
-```{r echo=FALSE,eval=FALSE}
+```{r echo=FALSE,eval=TRUE}
 # WRITE YOUR CODE HERE, DON´T FORGET TO CHANGE eval = TRUE when you want to compile the document.
 # Draw the curve supposing the original population has mean μ = 3 and σ = 0.2.
 mu <- 3
@@ -210,16 +191,13 @@ $t = \frac{\bar{x}-\mu}{\frac{s}{\sqrt{n}}}$
 
 
 
-
-
-
 >2. Find the corresponding quantiles using that distribution.
 
 
 **ANSWER:** 
 \vspace{2cm}
 
-```{r, eval=FALSE,echo=FALSE}
+```{r, eval=TRUE,echo=FALSE}
 # WRITE YOUR CODE HERE, DON´T FORGET TO CHANGE eval = TRUE when you want to compile the document.
 # Calculate quantiles
 confidence_level <- 0.95
@@ -234,7 +212,7 @@ q <- qt(1 - alpha/2, df = num_observations - 1)
 > 3. And draw it in the graphic of the distribution.
 
 
-```{r, echo=FALSE,eval=FALSE}
+```{r, echo=FALSE,eval=TRUE}
 # WRITE YOUR CODE HERE, DON´T FORGET TO CHANGE eval = TRUE when you want to compile the document.
 # Draw the distribution with the confidence interval
 x <- seq(mu - 3*sigma, mu + 3*sigma, length.out = 100)
@@ -242,12 +220,6 @@ y <- dt(x, df = num_observations - 1)
 
 # Draw the histogram of the data showing the density not the frequencies.
 hist(DataX$X.sample, prob = TRUE, col = "lightblue", main = "Histogram of Potato Bag Weights", xlab = "Weight")
-
-# Add density line
-lines(density(DataX$X.sample), col = "red", lwd = 2)
-
-# Add confidence interval lines
-abline(v = c(mean_X - q * se_sample_mean, mean_X + q * se_sample_mean), col = "blue", lty = 2, lwd = 2)
 
 ```
 
@@ -261,24 +233,19 @@ abline(v = c(mean_X - q * se_sample_mean, mean_X + q * se_sample_mean), col = "b
 **ANSWER:** 
 \vspace{2cm}
 
-```{r echo=FALSE,eval=FALSE}
+```{r echo=FALSE,eval=TRUE}
 # WRITE YOUR CODE HERE, DON´T FORGET TO CHANGE eval = TRUE when you want to compile the document.
 # Calculate margin of error and interval bounds
 margin_of_error <- q * se_sample_mean
 lower_bound <- mean_sample_mean - margin_of_error
 upper_bound <- mean_sample_mean + margin_of_error
 
-# Display answers
-cat("The margin of error is $", margin_of_error, "$\n")
-cat("The bounds of the interval for the mean: ($", lower_bound, ", $", upper_bound, ")\n")
-
-
 ```
 
 
-> The margin of error is $0.067$
+> The margin of error is $0.058$
 
-> The bounds of the interval for the mean: $(3.013,3.147)$
+> The bounds of the interval for the mean: $(3 , 3.2)$
 
 \newpage
 # Test the following hypothesis
@@ -291,7 +258,7 @@ cat("The bounds of the interval for the mean: ($", lower_bound, ", $", upper_bou
 ## Design the test 
 
 
-```{r echo=FALSE,eval=FALSE}
+```{r echo=FALSE,eval=TRUE}
 # WRITE YOUR CODE HERE, DON´T FORGET TO CHANGE eval = TRUE when you want to compile the document.
 # Design the hypothesis test
 sample_size <- 45
@@ -302,12 +269,6 @@ sample_sd <- sd(DataX$X.sample)
 null_hypothesis <- "The machine is well calibrated."
 alternative_hypothesis <- "The machine is poorly calibrated."
 significance_level <- 0.05
-
-# Display answers
-cat("Define the null hypothesis: ", null_hypothesis, "\n")
-cat("Define the alternative hypothesis: ", alternative_hypothesis, "\n")
-cat("The significance level is: ", significance_level, "\n")
-
 
 ```
 
@@ -326,35 +287,26 @@ cat("The significance level is: ", significance_level, "\n")
 
 
 
-```{r echo=FALSE,eval=FALSE}
+```{r echo=FALSE,eval=TRUE}
 # WRITE YOUR CODE HERE, DON´T FORGET TO CHANGE eval = TRUE when you want to compile the document.
 # Calculate t-statistic
 t_statistic <- (sample_mean - mu) / (sample_sd / sqrt(sample_size))
-
-# Display answers
-cat("The statistic follows the t-distribution.\n")
-cat("The value of the corresponding statistic is $t = ", t_statistic, "$\n")
-
 
 ```
 
 
 > The statistic follows the .... t-distribution
 
-> The value of the corresponding statistic is ..*$FORMULA = -3.25$*
+> The value of the corresponding statistic is ..*$FORMULA = 3.4$*
 
 
 ## Find the critical value corresponding to the significance level
 
 
-```{r echo=FALSE,eval=FALSE}
+```{r echo=FALSE,eval=TRUE}
 # WRITE YOUR CODE HERE, DON´T FORGET TO CHANGE eval = TRUE when you want to compile the document.
 # Calculate critical value
 critical_value <- qt(1 - significance_level/2, df = sample_size - 1)
-
-# Display answers
-cat("The critical value is $t = ", critical_value, "$\n")
-
 
 ```
 
@@ -364,37 +316,29 @@ cat("The critical value is $t = ", critical_value, "$\n")
 ## Find the p-value
 
 
-```{r echo=FALSE,eval=FALSE}
+```{r echo=FALSE,eval=TRUE}
 # WRITE YOUR CODE HERE, DON´T FORGET TO CHANGE eval = TRUE when you want to compile the document.
 # Calculate p-value
 p_value <- 2 * pt(-abs(t_statistic), df = sample_size - 1)
 
-# Display answers
-cat("The p-value is $p = ", p_value, "$\n")
-
-
 ```
 
-> The p-value is ... *$FORMULA = 0.00157508$*
+> The p-value is ... *$P(T >= t | H_0) = 0.00157508$*
 
 
 ## Make the decision
 
-> I reject the null hypothesis because the... p-value is greater than the significance level.
+> I reject the null hypothesis because the... p-value is less than the significance level.
 
 
 ## Type of errors 
 
 
-```{r echo=FALSE,eval=FALSE}
+```{r echo=FALSE,eval=TRUE}
 # WRITE YOUR CODE HERE, DON´T FORGET TO CHANGE eval = TRUE when you want to compile the document.
 # Type of errors
 type_i_error <- alpha
 type_ii_error <- pt(critical_value, df = sample_size - 1) - pt(-critical_value, df = sample_size - 1)
-
-cat("Type I error: $\\alpha = ", type_i_error, "$\n")
-cat("Type II error: $\\beta = ", type_ii_error, "$\n")
-
 
 ```
 
@@ -404,12 +348,3 @@ cat("Type II error: $\\beta = ", type_ii_error, "$\n")
 
 
 > The value of Type II error is ...*$FORMULA = 0.95$*
-
-\newpage
-# List of R commands
-
-> Write here a list of the R commands you have used
-
-# Bibliography
-
-> In case you have used any write it here.
