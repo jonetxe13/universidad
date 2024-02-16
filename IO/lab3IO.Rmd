@@ -1,0 +1,102 @@
+---
+title: "lab3IO"
+output: html_document
+date: "2024-02-16"
+---
+
+---
+title: "Laboratorio de Cálculo de Soluciones Básicas"
+output: html_document
+---
+
+```{r}
+# Definir una matriz A
+matriz <- matrix(c(1, 3, 0, 1), nrow = 2, ncol = 2)
+b <- c(2,5)
+# Definir una matriz B
+B <- matrix(c(5, 3, 1, 4), nrow = 2, ncol = 2)
+```
+# Tarea 1: Calcular soluciones básicas de forma automatizada
+
+```{r}
+# Función para calcular soluciones básicas
+# Función para calcular soluciones básicas
+calcula_sb <- function(columnas) {
+  # Supongamos que tienes una matriz llamada 'matriz' con las columnas adecuadas
+  # Asegúrate de definir 'matriz' previamente en tu código
+  
+  # Verifica si las columnas forman una base linealmente independiente
+  if (det(matriz) == 0) {
+    cat("Error: Las columnas no forman una base linealmente independiente.\n")
+    return(0)
+  }
+  
+  # Calcula la solución básica utilizando la matriz inversa
+  # Si 'matriz' es una matriz de coeficientes de un sistema de ecuaciones lineales Ax = b,
+  # donde 'columnas' representa las columnas seleccionadas, puedes hacer lo siguiente:
+  
+  # 1. Extraer las columnas seleccionadas de 'matriz'
+  matriz_seleccionada <- matriz[, columnas]
+  
+  # 2. Calcular la matriz inversa de 'matriz_seleccionada'
+  matriz_inversa <- solve(matriz_seleccionada)
+  
+  # 3. Multiplicar la matriz inversa por el vector de términos independientes 'b'
+  # (supongamos que 'b' también está definido previamente)
+  solucion_basica <- matriz_inversa %*% b
+  
+  # Devuelve la solución básica
+  return(solucion_basica)
+}
+
+```
+
+# Tarea 2: Instalar y activar la libreria "gtools"
+```{r}
+# Instala la librería gtools si aún no está instalada
+if (!requireNamespace("gtools", quietly = TRUE)) {
+  install.packages("gtools")
+}
+
+# Activa la librería gtools
+library(gtools)
+```
+# Tarea 3: Calcular todas las posibles combinaciones de columnas
+
+```{r}
+# Calcula el número de posibles bases utilizando la función choose
+n <- 2  # Número de columnas
+m <- 2  # Número de columnas en la base
+num_posibles_bases <- choose(n + m, m)
+cat("Número de posibles bases:", num_posibles_bases, "\n")
+```
+# Tarea 4: Calcular todas las soluciones básicas
+
+```{r}
+# Asegúrate de que 'm' no sea mayor que el número de columnas de tu matriz
+m <- min(2, ncol(matriz))
+
+combinaciones <- combinations(2 + m, m)
+# Filtra las combinaciones para que solo contengan columnas que existen en tu matriz
+combinaciones <- combinaciones[apply(combinaciones, 1, function(x) all(x <= ncol(matriz))),]
+
+# Comprueba si 'combinaciones' está vacío
+if (length(combinaciones) == 0) {
+  cat("No hay combinaciones válidas.\n")
+} else {
+  cat(1:nrow(combinaciones))
+  # Calcula todas las soluciones básicas
+  for (i in 1:nrow(combinaciones)) {
+    columnas_seleccionadas <- combinaciones[i, ]
+    cat(columnas_seleccionadas)
+    solucion <- calcula_sb(columnas_seleccionadas)
+    cat("Solución básica para columnas:", columnas_seleccionadas, "\n")
+    cat("Resultado:", solucion, "\n\n")
+  }
+}
+
+
+```
+
+
+
